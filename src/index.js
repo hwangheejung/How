@@ -3,11 +3,38 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
+import RoutineList from './pages/RoutineList';
+import MyRoutine from './pages/MyRoutine';
+import LiveList from './pages/LiveList';
+import Calendar from './pages/Calendar';
+
+const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <LoginPage />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <Calendar /> },
+      { path: `/calendar`, element: <Calendar /> },
+      { path: `/routine/list`, element: <RoutineList /> },
+      { path: `/my/routine/list`, element: <MyRoutine /> },
+      { path: `/live/list`, element: <LiveList /> },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />{' '}
   </React.StrictMode>
 );
 
