@@ -1,0 +1,55 @@
+.RoutineListItem {
+  display: block;
+  /* border: 1px black solid;*/
+  height: 80px;
+  width: 100%;
+}
+.subject {
+  /*background-color: aqua;*/
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
+  margin-right: 50px;
+  width: 30em;
+  height: 30px;
+}
+.hits {
+  /*background-color: blanchedalmond;*/
+  display: inline-block;
+  height: 30px;
+  width: 18em;
+}
+.Routine {
+  font-size: 50px;
+}
+
+.SearchandSort {
+  float: right;
+}
+
+.routineClick {
+  display: block;
+  width: 50%;
+  border: none;
+  background-color: transparent;
+  margin: 30px;
+}
+
+.routineClick:hover {
+  border: 2px #7650e0 solid;
+}
+.hashtag {
+  text-align: left;
+}
+.SearchButton {
+  border: none;
+  background-color: transparent;
+}
+.routineSearch {
+  display: flex;
+  width: 4em;
+}
+.SearchandSort {
+  margin-top: 5px;
+  margin-right: 10px;
+}
