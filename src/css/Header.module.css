@@ -40,6 +40,7 @@ li {
 .logout {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .logoutIcon {
@@ -53,4 +54,16 @@ li {
   width: 30%;
   justify-content: space-between;
   margin: 0 auto;
+  font-weight: bold;
+}
+
+.menuBar li {
+  /* margin: 0 1rem; */
+}
+
+.selected {
+  background-color: var(--main-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: var(--white);
 }

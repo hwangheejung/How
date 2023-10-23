@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #fde5d4;
+  background-color: var(--point-color);
   font-size: 1.3rem;
   font-weight: bold;
   padding: 10px 20px;

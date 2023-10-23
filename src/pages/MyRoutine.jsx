@@ -1,12 +1,12 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styles from "../css/MyRoutine.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
-import onPopup from "./onPopup";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../css/MyRoutine.module.css';
+import { AiOutlineSearch } from 'react-icons/ai';
+import onPopup from './onPopup';
 export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [searchArray, setSearchArray] = useState([]);
-  const [myroutineSearch, setMyroutineSearch] = useState("");
+  const [myroutineSearch, setMyroutineSearch] = useState('');
 
   const SearchValue = (event) => {
     setMyroutineSearch(event.target.value);
@@ -26,21 +26,21 @@ export default function MyRoutine() {
     const routines = [
       {
         id: 1,
-        name: " 운동 할 수 있어요!",
+        name: ' 운동 할 수 있어요!',
         hits: 50,
-        date: "2022-03-04",
+        date: '2022-03-04',
       },
       {
         id: 2,
-        name: "간단하게 두가지 하체운동",
+        name: '간단하게 두가지 하체운동',
         hits: 24,
-        date: "2023-01-20",
+        date: '2023-01-20',
       },
       {
         id: 3,
-        name: "어깨운동 한세트씩",
+        name: '어깨운동 한세트씩',
         hits: 90,
-        date: "2023-10-14",
+        date: '2023-10-14',
       },
     ];
     setMyRoutindata(routines);
@@ -52,9 +52,9 @@ export default function MyRoutine() {
       <hr />
       <div className={styles.SearchandSort}>
         <input
-          type="text"
+          type='text'
           className={styles.routinesearch}
-          placeholder="Search"
+          placeholder='Search'
           value={myroutineSearch}
           onChange={SearchValue}
         />
@@ -69,7 +69,7 @@ export default function MyRoutine() {
               copy.sort((a, b) => b.hits - a.hits);
               setMyRoutindata(copy);
             }}
-            type="button"
+            type='button'
             className={styles.sort}
           >
             조회수
@@ -82,7 +82,7 @@ export default function MyRoutine() {
               console.log(copy);
               setMyRoutindata(copy);
             }}
-            type="button"
+            type='button'
             className={styles.sort}
           >
             최신순
@@ -93,7 +93,7 @@ export default function MyRoutine() {
       <div className={styles.MyRoutineListarr}>
         {myroutinedata.map((routine) => (
           <button
-            type="button"
+            type='button'
             className={styles.MyroutineClick}
             onClick={onPopup}
           >
