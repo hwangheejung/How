@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 import styles from '../css/LoginPage.module.css';
+import axios from 'axios';
 
 export default function LoginPage() {
+  // const apiURL = `http://127.0.0.1:8080`;
+
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,6 +20,7 @@ export default function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     if (id.trim().length === 0) {
       alert('아이디를 입력해주세요.');
       setId('');
@@ -26,6 +30,18 @@ export default function LoginPage() {
       setPassword('');
       return;
     }
+    // else {
+    //   axios
+    //     .post(`/api/users/login`, {
+    //       userId: id,
+    //       password: password,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       setId('');
+    //       setPassword('');
+    //     });
+    // }
   };
 
   return (
@@ -34,7 +50,7 @@ export default function LoginPage() {
         <FontAwesomeIcon className={styles.icon} icon={faSeedling} />
         <h1 className={styles.title}>how</h1>
       </div>
-      <forma className={styles.inputForm}>
+      <form className={styles.inputForm}>
         <input
           className={styles.inputId}
           type='text'
@@ -52,7 +68,7 @@ export default function LoginPage() {
         <button className={styles.loginButton} onClick={handleLogin}>
           Login
         </button>
-      </forma>
+      </form>
     </div>
   );
 }
