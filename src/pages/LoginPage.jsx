@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 import styles from '../css/LoginPage.module.css';
 
 export default function LoginPage() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
 
   const handleId = (e) => {
     setId(e.target.value);
@@ -20,9 +17,15 @@ export default function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setId('');
-    setPassword('');
-    navigate('/');
+    if (id.trim().length === 0) {
+      alert('아이디를 입력해주세요.');
+      setId('');
+      return;
+    } else if (password.trim().length === 0) {
+      alert('비밀번호를 입력해주세요.');
+      setPassword('');
+      return;
+    }
   };
 
   return (

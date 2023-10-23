@@ -2,10 +2,16 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 import { FiLogOut } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../css/Header.module.css';
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
   return (
     <>
       <header>
@@ -19,10 +25,13 @@ export default function Header() {
           <ul className={styles.userInfo}>
             <li className={styles.userName}>홍길동</li>
             <li>
-              <Link to='/login' className={`${styles.logout} ${styles.link}`}>
+              <button
+                className={`${styles.logout} ${styles.link}`}
+                onClick={handleLogout}
+              >
                 로그아웃
                 <FiLogOut className={styles.logoutIcon} />
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
