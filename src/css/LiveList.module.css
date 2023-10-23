@@ -1,0 +1,72 @@
+.insertLive {
+  border: none;
+  background-color: transparent;
+  float: right;
+  margin-top: 30px;
+}
+.SearchButton {
+  border: none;
+  background-color: transparent;
+}
+.LiveListItem {
+  display: block;
+  height: 80px;
+  width: auto;
+}
+.subject {
+  /* background-color: aqua;*/
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
+  margin-right: 50px;
+  width: 30em;
+  height: 30px;
+}
+.hits {
+  /*background-color: blanchedalmond;*/
+  display: inline-block;
+  height: 30px;
+  margin-right: 20px;
+  width: 18em;
+}
+.create_date {
+  display: inline;
+}
+.Live {
+  font-size: 50px;
+}
+
+.SearchandSort {
+  float: right;
+}
+
+.LiveClick {
+  display: block;
+  width: auto;
+  border: none;
+  background-color: transparent;
+  margin: 30px;
+  min-width: 850px;
+}
+
+.LiveClick:hover {
+  border: 2px #7650e0 solid;
+}
+.Sorted {
+  margin-top: 10px;
+  padding: 0px;
+}
+.sort {
+  margin: 8px;
+  border: none;
+  background-color: transparent;
+}
+.sort:hover {
+  border: 2px #7650e0 solid;
+}
+
+.Livearr {
+  /*background-color: antiquewhite;*/
+  width: auto;
+  height: 500px;
+}
