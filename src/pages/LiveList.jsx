@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "../css/LiveList.module.css";
 import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
+import { PiYoutubeLogoLight } from "react-icons/pi";
 import onPopup from "./onPopup";
 export default function LiveList() {
   const [livedata, setLivedata] = useState([]);
@@ -66,6 +67,9 @@ export default function LiveList() {
         </button>
       </div>
 
+      <div className={styles.liveicon}>
+        <PiYoutubeLogoLight size="50" />
+      </div>
       <div className={styles.Livearr}>
         {livedata.map((routine) => (
           <button type="button" className={styles.LiveClick} onClick={onPopup}>

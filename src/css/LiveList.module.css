@@ -4,6 +4,10 @@
   float: right;
   margin-top: 30px;
 }
+.liveicon {
+  display: block;
+  margin-left: 80px;
+}
 .SearchButton {
   border: none;
   background-color: transparent;
