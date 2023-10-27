@@ -4,17 +4,29 @@ import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 import { FiLogOut } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../css/Header.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeCookieToken } from '../store/Cookie';
+import { DELETE_USERINFO } from '../store/loginRedux';
 
 export default function Header() {
   const [menu, setMenu] = useState('');
+
+  const userInfo = useSelector((state) => state.userInfo);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleMenu = (value) => {
     setMenu(value);
   };
 
-  const navigate = useNavigate();
+  const handleHomeIcon = () => {
+    setMenu('');
+  };
 
   const handleLogout = () => {
+    dispatch(DELETE_USERINFO());
+    removeCookieToken();
     navigate('/login');
   };
 
@@ -24,12 +36,12 @@ export default function Header() {
         <div className={styles.navbar}>
           <div className={styles.titleBox}>
             <FontAwesomeIcon className={styles.icon} icon={faSeedling} />
-            <Link to='/' className={styles.link}>
+            <Link to='/' className={styles.link} onClick={handleHomeIcon}>
               <h1 className={styles.title}>how</h1>
             </Link>
           </div>
           <ul className={styles.userInfo}>
-            <li className={styles.userName}>홍길동</li>
+            <li className={styles.userName}>{userInfo.nickname}</li>
             <li>
               <button
                 className={`${styles.logout} ${styles.link}`}

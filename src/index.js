@@ -10,7 +10,10 @@ import RoutineList from './pages/RoutineList';
 import MyRoutine from './pages/MyRoutine';
 import LiveList from './pages/LiveList';
 import Calendar from './pages/Calendar';
-
+import RealtimeLive from './pages/RealtimeLive';
+import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import { store } from './store/configureStore';
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -27,6 +30,7 @@ const router = createBrowserRouter([
       { path: `/routine/list`, element: <RoutineList /> },
       { path: `/my/routine/list`, element: <MyRoutine /> },
       { path: `/live/list`, element: <LiveList /> },
+      { path: `/live/realtime`, element: <RealtimeLive /> },
     ],
   },
 ]);
@@ -34,7 +38,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </CookiesProvider>
   </React.StrictMode>
 );
 

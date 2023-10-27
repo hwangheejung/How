@@ -4,8 +4,12 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://127.0.0.1:8080',
+      target: 'http://localhost:8080',
       changeOrigin: true,
     })
   );
+  // app.use(
+  //   '/live',
+  //   createProxyMiddleware({ target: 'http://localhost:8080', ws: true })
+  // );
 };

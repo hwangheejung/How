@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tokenReducer from './loginRedux';
+// import tokenReducer from './loginRedux';
+import userInfoReducer from './loginRedux';
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
-    authToken: tokenReducer,
+    // authToken: tokenReducer,
+    userInfo: userInfoReducer,
   },
 });
