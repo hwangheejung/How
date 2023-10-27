@@ -53,3 +53,26 @@
   margin-top: 5px;
   margin-right: 10px;
 }
+
+.backbutton {
+  position: relative;
+  border: none;
+  display: inline-block;
+  float: right;
+  margin-right: 50px;
+  text-align: center;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  background-color: #7650e0;
+  color: #d7fff1;
+}
+.RoutineListarr {
+  /*background-color: antiquewhite;*/
+  width: auto;
+  height: 500px;
+}

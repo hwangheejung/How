@@ -6,16 +6,24 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import NotFound from './pages/NotFound';
-import RoutineList from './pages/RoutineList';
-import MyRoutine from './pages/MyRoutine';
-import LiveList from './pages/LiveList';
-import Calendar from './pages/Calendar';
+import RoutineList from './pages/Routine/RoutineList';
+import MyRoutine from './pages/MyRoutine/MyRoutine';
+import LiveList from './pages/Live/LiveList';
+import Calendar from './pages/Calendar/Calendar';
 import RealtimeLive from './pages/RealtimeLive';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 import persistStore from 'redux-persist/es/persistStore';
 import { PersistGate } from 'redux-persist/integration/react';
+import RoutineSearch from './pages/Routine/RoutineSearch';
+import MyRoutineSearch from './pages/MyRoutine/MyRoutineSearch';
+import RoutineDetail from './pages/Routine/RoutineDetail';
+import MyRoutineDetail from './pages/MyRoutine/MyRoutineDetail';
+import RoutineStart from './pages/MyRoutine/RoutineStart';
+import MakeLive from './pages/Live/MakeLive';
+import StartScreen from './pages/MyRoutine/StartScreen';
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -32,8 +40,30 @@ const router = createBrowserRouter([
       { path: `/routine/list`, element: <RoutineList /> },
       { path: `/my/routine/list`, element: <MyRoutine /> },
       { path: `/live/list`, element: <LiveList /> },
+      { path: `/routineSearch`, element: <RoutineSearch /> },
+      { path: `/myroutineSearch`, element: <MyRoutineSearch /> },
+      {
+        path: `/start/:id`,
+        element: <StartScreen />,
+      },
       { path: `/live/realtime`, element: <RealtimeLive /> },
     ],
+  },
+  {
+    path: `/routinedetail/:id`,
+    element: <RoutineDetail />,
+  },
+  {
+    path: `/myroutindetail/:id`,
+    element: <MyRoutineDetail />,
+  },
+  {
+    path: `/routinestart/:id`,
+    element: <RoutineStart />,
+  },
+  {
+    path: `/MakeLive`,
+    element: <MakeLive />,
   },
 ]);
 

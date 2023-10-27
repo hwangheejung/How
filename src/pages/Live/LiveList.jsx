@@ -1,19 +1,32 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "../css/LiveList.module.css";
+import styles from "../../css/LiveList.module.css";
 import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
 import { PiYoutubeLogoLight } from "react-icons/pi";
-import onPopup from "./onPopup";
+//import onPopup from "../onPopup";
+
 export default function LiveList() {
-  const [livedata, setLivedata] = useState([]);
-  const [searchArray, setSearchArray] = useState([]);
-  const [liveSearch, setliveSearch] = useState("");
+  const [livedata, setLivedata] = useState([]); //live data가져오기
+  const [searchArray, setSearchArray] = useState([]); //live 검색 배열
+  const [liveSearch, setliveSearch] = useState(""); //live 검색어
 
   const SearchValue = (event) => {
     setliveSearch(event.target.value);
     //console.log(event.target.value);
   };
 
+  const onPopup = () => {
+    //팝업 관리
+
+    const url = `/makelive`;
+    window.open(
+      url,
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+    );
+    //navigate(`/routindetail/${id}`, { state: { id } });
+    //myRoutine.document.write(id);
+  };
   const onClick = () => {
     let searchArray = [...livedata];
     console.log(searchArray);
