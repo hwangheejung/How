@@ -17,7 +17,10 @@ import MyRoutineDetail from "./pages/MyRoutine/MyRoutineDetail";
 import RoutineStart from "./pages/MyRoutine/RoutineStart";
 import MakeLive from "./pages/Live/MakeLive";
 import StartScreen from "./pages/MyRoutine/StartScreen";
-
+import RealtimeLive from "./pages/RealtimeLive";
+import { CookiesProvider } from "react-cookie";
+import { Provider } from "react-redux";
+import { store } from "./store/configureStore";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -40,6 +43,7 @@ const router = createBrowserRouter([
         path: `/start/:id`,
         element: <StartScreen />,
       },
+      { path: `/live/realtime`, element: <RealtimeLive /> },
     ],
   },
   {
@@ -63,7 +67,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </CookiesProvider>
   </React.StrictMode>
 );
 

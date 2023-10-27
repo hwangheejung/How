@@ -1,27 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const tokenSlice = createSlice({
-  name: 'authToken',
+export const userInfoSlice = createSlice({
+  name: 'userInfo',
   initialState: {
     nickname: '',
-    authenticated: false,
-    accessToken: null,
-    expireTime: null,
   },
   reducers: {
-    SET_TOKEN: (state, action) => {
-      state.nickname = action.payload.nickname;
-      state.authenticated = true;
-      state.accessToken = action.payload.token;
-      state.expireTime = new Date().getTime() + 600 * 1000;
+    SET_USERINFO: (state, action) => {
+      state.nickname = action.payload.nick;
     },
-    DELETE_TOKEN: (state) => {
-      (state.nickname = ''), (state.authenticated = false);
-      state.accessToken = null;
-      state.expireTime = null;
+    DELETE_USERINFO: (state) => {
+      state.nickname = '';
     },
   },
 });
 
-export const { SET_TOKEN, DELETE_TOKEN } = tokenSlice.actions;
-export default tokenSlice.reducer;
+export const { SET_USERINFO, DELETE_USERINFO } = userInfoSlice.actions;
+export default userInfoSlice.reducer;
