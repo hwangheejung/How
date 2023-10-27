@@ -1,24 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import NotFound from './pages/NotFound';
-import RoutineList from './pages/RoutineList';
-import MyRoutine from './pages/MyRoutine';
-import LiveList from './pages/LiveList';
-import Calendar from './pages/Calendar';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import NotFound from "./pages/NotFound";
+import RoutineList from "./pages/Routine/RoutineList";
+import MyRoutine from "./pages/MyRoutine/MyRoutine";
+import LiveList from "./pages/Live/LiveList";
+import Calendar from "./pages/Calendar/Calendar";
+import RoutineSearch from "./pages/Routine/RoutineSearch";
+import MyRoutineSearch from "./pages/MyRoutine/MyRoutineSearch";
+import RoutineDetail from "./pages/Routine/RoutineDetail";
+import MyRoutineDetail from "./pages/MyRoutine/MyRoutineDetail";
+import RoutineStart from "./pages/MyRoutine/RoutineStart";
+import MakeLive from "./pages/Live/MakeLive";
+import StartScreen from "./pages/MyRoutine/StartScreen";
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: "/login",
     element: <LoginPage />,
     errorElement: <NotFound />,
   },
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
@@ -27,11 +34,33 @@ const router = createBrowserRouter([
       { path: `/routine/list`, element: <RoutineList /> },
       { path: `/my/routine/list`, element: <MyRoutine /> },
       { path: `/live/list`, element: <LiveList /> },
+      { path: `/routineSearch`, element: <RoutineSearch /> },
+      { path: `/myroutineSearch`, element: <MyRoutineSearch /> },
+      {
+        path: `/start/:id`,
+        element: <StartScreen />,
+      },
     ],
+  },
+  {
+    path: `/routinedetail/:id`,
+    element: <RoutineDetail />,
+  },
+  {
+    path: `/myroutindetail/:id`,
+    element: <MyRoutineDetail />,
+  },
+  {
+    path: `/routinestart/:id`,
+    element: <RoutineStart />,
+  },
+  {
+    path: `/MakeLive`,
+    element: <MakeLive />,
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
