@@ -3,12 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 import styles from '../css/LoginPage.module.css';
 import axios from 'axios';
+import { setUserToken } from '../store/Cookie';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { SET_USERINFO } from '../store/loginRedux';
 
 export default function LoginPage() {
-  // const apiURL = `http://127.0.0.1:8080`;
-
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleId = (e) => {
     setId(e.target.value);
@@ -29,19 +34,25 @@ export default function LoginPage() {
       alert('비밀번호를 입력해주세요.');
       setPassword('');
       return;
+    } else {
+      axios
+        .post(`http://52.78.0.53:8080/api/users/login`, {
+          userId: id,
+          password: password,
+        })
+        .then((res) => {
+          if (res.data.code === 1000) {
+            setUserToken(res.data.result.jwt);
+            dispatch(SET_USERINFO(res.data.result));
+            alert('로그인이 완료되었습니다.');
+            navigate('/');
+          } else if (res.data.code === 3014) {
+            alert(res.data.message);
+          }
+          setId('');
+          setPassword('');
+        });
     }
-    // else {
-    //   axios
-    //     .post(`/api/users/login`, {
-    //       userId: id,
-    //       password: password,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       setId('');
-    //       setPassword('');
-    //     });
-    // }
   };
 
   return (
