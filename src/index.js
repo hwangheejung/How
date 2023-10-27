@@ -14,6 +14,8 @@ import RealtimeLive from './pages/RealtimeLive';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
+import persistStore from 'redux-persist/es/persistStore';
+import { PersistGate } from 'redux-persist/integration/react';
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -35,12 +37,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+export const persistor = persistStore(store);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </CookiesProvider>
   </React.StrictMode>
