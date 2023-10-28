@@ -42,8 +42,7 @@ export default function RoutineList() {
       "window_name",
       "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
-    //navigate(`/routindetail/${id}`, { state: { id } });
-    //myRoutine.document.write(id);
+    //navigate(`/routinedetail/${id}`, { state: { id } });
   };
 
   const fetchroutine = async () => {
@@ -65,7 +64,7 @@ export default function RoutineList() {
   }, []);
 
   if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러발생!!</div>;
+  if (error) return <div>에러발생</div>;
   if (!routinedata) return <div>null</div>;
   /*
   useEffect(() => {

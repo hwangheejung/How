@@ -13,3 +13,33 @@
   background-color: #7650e0;
   color: #d7fff1;
 }
+
+.name {
+  text-align: center;
+  font-size: 50px;
+}
+
+.layout {
+  background-color: #f3edff;
+  margin: 30px;
+  height: 500px;
+}
+
+.subject {
+  font-size: 20px;
+  display: inline-block;
+  margin: 20px;
+}
+
+.hits {
+  font-size: 20px;
+  display: inline-block;
+}
+
+span {
+  margin: 10px;
+}
+
+.timer {
+  text-align: right;
+}

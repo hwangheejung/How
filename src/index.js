@@ -21,6 +21,7 @@ import RealtimeLive from "./pages/RealtimeLive";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import { store } from "./store/configureStore";
+import DetailApi from "./pages/Routine/DetailApi";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -39,10 +40,7 @@ const router = createBrowserRouter([
       { path: `/live/list`, element: <LiveList /> },
       { path: `/routineSearch`, element: <RoutineSearch /> },
       { path: `/myroutineSearch`, element: <MyRoutineSearch /> },
-      {
-        path: `/start/:id`,
-        element: <StartScreen />,
-      },
+      { path: `/start/:id`, element: <StartScreen /> },
       { path: `/live/realtime`, element: <RealtimeLive /> },
     ],
   },
