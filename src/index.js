@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -22,14 +23,42 @@ import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import { store } from "./store/configureStore";
 import DetailApi from "./pages/Routine/DetailApi";
+=======
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
+import RoutineList from './pages/Routine/RoutineList';
+import MyRoutine from './pages/MyRoutine/MyRoutine';
+import LiveList from './pages/Live/LiveList';
+import Calendar from './pages/Calendar/Calendar';
+import RealtimeLive from './pages/RealtimeLive';
+import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import { store } from './store/configureStore';
+import persistStore from 'redux-persist/es/persistStore';
+import { PersistGate } from 'redux-persist/integration/react';
+import RoutineSearch from './pages/Routine/RoutineSearch';
+import MyRoutineSearch from './pages/MyRoutine/MyRoutineSearch';
+import RoutineDetail from './pages/Routine/RoutineDetail';
+import MyRoutineDetail from './pages/MyRoutine/MyRoutineDetail';
+import RoutineStart from './pages/MyRoutine/RoutineStart';
+import MakeLive from './pages/Live/MakeLive';
+import StartScreen from './pages/MyRoutine/StartScreen';
+
+>>>>>>> 8507880b8ac442fd2355ac0250027b487573da2b
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
     errorElement: <NotFound />,
   },
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <NotFound />,
     children: [
@@ -62,12 +91,16 @@ const router = createBrowserRouter([
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+export const persistor = persistStore(store);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </CookiesProvider>
   </React.StrictMode>

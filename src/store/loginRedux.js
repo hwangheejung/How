@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
 export const userInfoSlice = createSlice({
   name: 'userInfo',
@@ -12,6 +13,11 @@ export const userInfoSlice = createSlice({
     DELETE_USERINFO: (state) => {
       state.nickname = '';
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => ({
+      nickname: '',
+    }));
   },
 });
 
