@@ -18,7 +18,7 @@ const RoutineDetail = () => {
   const { id } = useParams();
   //const params = { id };
 
-  const routineStart = (id) => {
+  const myroutineinsert = (id) => {
     window.opener.location.href = `/my/routine/list`;
     window.close();
   };
@@ -52,28 +52,44 @@ const RoutineDetail = () => {
     <>
       <div className={styles.name}>detail</div>
       <div className={styles.layout}>
-        <div className={styles.subject}>
-          {detailRoutine.result.routineDetails.routine.subject}
+        <div className={styles.subject}>{detailRoutine.result.name}</div>
+        <div>
+          {detailRoutine.result.routineDetails.map((v) => (
+            <span>{v[8]}</span>
+          ))}
+          <span>#{detailRoutine.result.routineDetails[0].cate[0].name}</span>
         </div>
-        <div className={styles.hits}>
-          조회수 : {detailRoutine.result.routineDetails.routine.hits}
-        </div>
-        <div className={styles.timer}>
+        <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
+
+        <div className={styles.list}>
           <IoIosTimer />
-          <span>Timer</span>
+          <span>Timer/Count</span>
           <span>Rest</span>
           <span>SET</span>
         </div>
-        <div>
-          <span> {detailRoutine.result.time}</span>
-          <span> {detailRoutine.result.rest}</span>
-          <span> {detailRoutine.result.set}</span>
-        </div>
+
+        {detailRoutine.result.routineDetails.map((detail) =>
+          detail.type ? (
+            <div className={styles.timer}>
+              <span className={styles.detailname}> {detail.ex.name}</span>
+              <span> {detail.time}s</span>
+              <span> {detail.rest}</span>
+              <span> {detail.set}</span>
+            </div>
+          ) : (
+            <div className={styles.timer}>
+              <span className={styles.detailname}> {detail.ex.name}</span>
+              <span> {detail.count}개</span>
+              <span> {detail.rest}</span>
+              <span> {detail.set}</span>
+            </div>
+          )
+        )}
 
         <div>
           <button
             className={styles.backbutton}
-            onClick={() => routineStart(id)}
+            onClick={() => myroutineinsert(id)}
           >
             내 루틴 추가
           </button>

@@ -33,6 +33,19 @@ export default function RoutineList() {
     //검색관리
   };
 
+  const onPress = (e) => {
+    if (e.key === "Enter") {
+      let sArray = routinedata.result.routines.filter((search) =>
+        search.subject.includes(searchInput)
+      );
+
+      console.log(sArray);
+
+      //console.log(searchArray);
+      navigate("/routineSearch", { state: { sArray } });
+    }
+  };
+
   const onPopup = (id) => {
     //팝업 관리
 
@@ -66,30 +79,6 @@ export default function RoutineList() {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!routinedata) return <div>null</div>;
-  /*
-  useEffect(() => {
-    const routines = [
-      {
-        id: 1,
-        name: "복부 운동 할 수 있어요!",
-        hits: 50,
-        date: "2023-03-04",
-      },
-      {
-        id: 2,
-        name: "간단하게 두가지 하체운동",
-        hits: 24,
-        date: "2023-01-20",
-      },
-      {
-        id: 3,
-        name: "어깨운동 한세트씩",
-        hits: 90,
-        date: "2023-10-14",
-      },
-    ];
-    setRoutindata(routines);
-  }, []);*/
 
   return (
     <div className={styles.header}>
@@ -102,6 +91,7 @@ export default function RoutineList() {
           placeholder="Search"
           value={searchInput}
           onChange={SearchValue}
+          onKeyPress={onPress}
         />
         <button onClick={onClickSearch}>
           <AiOutlineSearch />

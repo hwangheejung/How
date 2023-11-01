@@ -2,13 +2,25 @@ import React from "react";
 import { useState } from "react";
 import styles from "../../css/MyRoutine.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import onPopup from "../onPopup";
 
 export default function MyRoutineSearch() {
   const navigate = useNavigate();
 
   const onClick = () => {
     navigate("/my/routine/list");
+  };
+
+  const onPopup = (id) => {
+    //팝업 관리
+
+    const url = `/myroutindetail/${id}`;
+    window.open(
+      url,
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+    );
+    //navigate(`/routindetail/${id}`, { state: { id } });
+    //myRoutine.document.write(id);
   };
   let location = useLocation();
   const SearchArray = location.state.sArray;

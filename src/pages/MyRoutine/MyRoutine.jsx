@@ -38,6 +38,18 @@ export default function MyRoutine() {
     navigate("/myroutineSearch", { state: { sArray } });
     //검색관리
   };
+  const onPress = (e) => {
+    if (e.key === "Enter") {
+      //검색 버튼 함수
+
+      let sArray = myroutinedata.filter((search) =>
+        search.name.includes(myroutineSearch)
+      );
+      console.log(sArray);
+      navigate("/myroutineSearch", { state: { sArray } });
+      //검색관리
+    }
+  };
 
   useEffect(() => {
     const routines = [
@@ -74,6 +86,7 @@ export default function MyRoutine() {
           placeholder="Search"
           value={myroutineSearch}
           onChange={SearchValue}
+          onKeyPress={onPress}
         />
         <button className={styles.SearchButton} onClick={onClickSearch}>
           <AiOutlineSearch />

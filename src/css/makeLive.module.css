@@ -51,6 +51,14 @@
   min-width: 850px;
 }
 
+.MyroutineClick:active {
+  background-color: #b6a3eb;
+}
+.MyroutineClick:visited {
+  background: #b6a3eb;
+  color: white;
+}
+
 .MyroutineClick:hover {
   border: 2px #7650e0 solid;
 }

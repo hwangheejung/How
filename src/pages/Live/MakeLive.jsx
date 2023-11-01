@@ -1,15 +1,28 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styles from "../../css/makeLive.module.css";
+import { useNavigate } from "react-router-dom";
 const MakeLive = () => {
-  const [liveName, setLiveName] = useState("");
+  const navigate = useNavigate();
   const [myroutinedata, setMyRoutindata] = useState([]);
+  const [routineid, setRoutineid] = useState("");
+  const [livelist, setLivelist] = useState([]);
 
   const onChangeName = (event) => {
-    setLiveName(event.target.value);
+    setLivelist({
+      subject: event.target.value,
+      id: routineid,
+      date: new Date(),
+    });
   };
   const onClick = (id) => {
-    alert(id);
+    setRoutineid(id);
+  };
+
+  const liveCreate = () => {
+    window.opener.href = "/live/list";
+    window.close();
+    //navigate("/live/list", { state: { livelist } });
   };
 
   useEffect(() => {
@@ -17,19 +30,16 @@ const MakeLive = () => {
       {
         id: 1,
         name: " 운동 할 수 있어요!",
-        hits: 50,
         date: "2022-03-04",
       },
       {
         id: 2,
         name: "간단하게 두가지 하체운동",
-        hits: 24,
         date: "2023-01-20",
       },
       {
         id: 3,
         name: "어깨운동 한세트씩",
-        hits: 90,
         date: "2023-10-14",
       },
     ];
@@ -42,7 +52,7 @@ const MakeLive = () => {
         type="text"
         className={styles.MakeLiveName}
         placeholder="이름"
-        value={liveName}
+        //  value={liveName}
         onChange={onChangeName}
       />
       <hr />
@@ -66,7 +76,9 @@ const MakeLive = () => {
           )
         )}
       </div>
-      <button className={styles.backbutton}>생성</button>
+      <button className={styles.backbutton} onClick={liveCreate}>
+        생성
+      </button>
     </>
   );
 };

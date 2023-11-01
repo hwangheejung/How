@@ -42,4 +42,11 @@ span {
 
 .timer {
   text-align: right;
+  margin: 10px;
+}
+.list {
+  text-align: right;
+}
+.detailname {
+  margin-right: 200px;
 }
