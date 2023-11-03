@@ -10,7 +10,6 @@ import RoutineList from './pages/Routine/RoutineList';
 import MyRoutine from './pages/MyRoutine/MyRoutine';
 import LiveList from './pages/Live/LiveList';
 import Calendar from './pages/Calendar/Calendar';
-import RealtimeLive from './pages/RealtimeLive';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
@@ -23,6 +22,7 @@ import MyRoutineDetail from './pages/MyRoutine/MyRoutineDetail';
 import RoutineStart from './pages/MyRoutine/RoutineStart';
 import MakeLive from './pages/Live/MakeLive';
 import StartScreen from './pages/MyRoutine/StartScreen';
+import LivePage from './pages/Live/LivePage';
 
 const router = createBrowserRouter([
   {
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
         path: `/start/:id`,
         element: <StartScreen />,
       },
-      { path: `/live/realtime`, element: <RealtimeLive /> },
     ],
   },
   {
@@ -65,6 +64,7 @@ const router = createBrowserRouter([
     path: `/MakeLive`,
     element: <MakeLive />,
   },
+  { path: '/live/realtime', element: <LivePage /> },
 ]);
 
 export const persistor = persistStore(store);
