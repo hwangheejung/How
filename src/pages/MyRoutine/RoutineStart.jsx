@@ -9,8 +9,8 @@ const RoutineStart = () => {
   const navigate = useNavigate();
 
   const Start = (id) => {
+    //window.opener.location.href = `/my/routine/list`;
     window.close();
-    navigate(`/start/${id}`, { state: { id } });
   };
 
   return (

@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import styles from "../../css/LiveList.module.css";
 import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
 import { PiYoutubeLogoLight } from "react-icons/pi";
-//import onPopup from "../onPopup";
+import axios from "axios";
 
 export default function LiveList() {
   const [livedata, setLivedata] = useState([]); //live data가져오기
+  const [loading, setLoading] = useState(false); //
+  const [error, setError] = useState(null);
   const [searchArray, setSearchArray] = useState([]); //live 검색 배열
   const [liveSearch, setliveSearch] = useState(""); //live 검색어
 
@@ -25,7 +27,7 @@ export default function LiveList() {
       "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
-    //myRoutine.document.write(id);
+    //mylive.document.write(id);
   };
   const onClick = () => {
     let searchArray = [...livedata];
@@ -36,30 +38,26 @@ export default function LiveList() {
     console.log(searcharray);
     setSearchArray(searcharray);
   };
-  useEffect(() => {
-    const routines = [
-      {
-        id: 1,
-        name: " 운동 할 수 있어요!",
-        hits: 50,
-        date: "2022-03-04",
-      },
-      {
-        id: 2,
-        name: "간단하게 두가지 하체운동",
-        hits: 24,
-        date: "2023-01-20",
-      },
-      {
-        id: 3,
-        name: "어깨운동 한세트씩",
-        hits: 90,
-        date: "2023-10-14",
-      },
-    ];
-    setLivedata(routines);
-  }, []);
 
+  const fetchLive = async () => {
+    try {
+      setLivedata(null);
+      setLoading(null);
+      setError(null);
+
+      const response = await axios.get("http://52.78.0.53/api/live");
+      setLivedata(response.data);
+    } catch (e) {
+      setError(e);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchLive();
+  }, []);
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러발생</div>;
+  if (!livedata) return <div>null</div>;
   return (
     <div className={styles.header}>
       <span className={styles.Live}>Live</span>
@@ -84,12 +82,16 @@ export default function LiveList() {
         <PiYoutubeLogoLight size="50" />
       </div>
       <div className={styles.Livearr}>
-        {livedata.map((routine) => (
-          <button type="button" className={styles.LiveClick} onClick={onPopup}>
+        {livedata.result?.liveListMappings.map((live) => (
+          <button
+            key={live.id}
+            type="button"
+            className={styles.LiveClick}
+            onClick={onPopup}
+          >
             <div className={styles.LiveListItem}>
-              <div className={styles.subject}>{routine.name}</div>
-              <div className={styles.hits}>{routine.hits}</div>
-              <div className={styles.create_date}>{routine.date}</div>
+              <div className={styles.subject}>{live.subject}</div>
+              <div className={styles.nick}>{live.nick}</div>
             </div>
           </button>
         ))}

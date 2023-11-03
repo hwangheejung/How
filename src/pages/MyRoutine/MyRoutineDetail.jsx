@@ -11,6 +11,9 @@ const MyRoutineDetail = () => {
   const { id } = useParams();
 
   const routineStart = (id) => {
+    window.opener.location.href = `/start/${id}`;
+    //window.close();
+
     const url = `/routinestart/${id}`;
     window.open(
       url,
