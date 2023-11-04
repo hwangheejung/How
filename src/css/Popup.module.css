@@ -1,52 +1,82 @@
+.buttons {
+  width: 300px;
+  margin: 0 auto;
+}
+
 .backbutton {
   border: none;
   display: inline-block;
-  margin: 15px;
+  margin: 10px 15px;
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
   transition: 0.25s;
   background-color: #7650e0;
   color: #d7fff1;
+  cursor: pointer;
 }
 
 .name {
   text-align: center;
   font-size: 50px;
+  padding: 10px 0;
 }
 
 .layout {
   background-color: #f3edff;
-  margin: 30px;
+  margin: 0 20px;
+  padding: 20px 20px;
   height: 500px;
 }
 
 .subject {
   font-size: 20px;
-  display: inline-block;
-  margin: 20px;
+  /* display: inline-block; */
+  width: 200px;
+  margin: 0 auto;
+  /* margin: 20px; */
+}
+.category {
+  text-align: center;
+  width: 100px;
+  margin: 0 auto;
+  padding: 10px 0;
 }
 
 .hits {
-  font-size: 20px;
-  display: inline-block;
+  /* font-size: 20px; */
+  /* display: inline-block; */
+  /* float: right; */
+  display: flex;
+  justify-content: end;
 }
 
-span {
+/* span {
   margin: 10px;
-}
+} */
 
 .timer {
-  text-align: right;
-  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  /* text-align: right; */
+  /* margin: 10px; */
 }
 .list {
   text-align: right;
+  padding: 10px 0;
+}
+.list span {
+  padding-left: 10px;
 }
 .detailname {
   margin-right: 200px;
+}
+
+.details span {
+  padding-right: 10px;
 }

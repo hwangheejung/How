@@ -1,3 +1,11 @@
+.header {
+  height: 100%;
+  background: #f3edff;
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+}
+
 .MyRoutineListItem {
   display: block;
   height: 80px;
@@ -12,56 +20,91 @@
   width: 30em;
   height: 30px;
 }
+.hitcreate {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
 .myhits {
-  /*background-color: blanchedalmond;*/
-  display: inline-block;
+  width: 100px;
   height: 30px;
-  margin-right: 20px;
-  width: 18em;
+  padding-left: 10px;
+  text-align: center;
 }
 .create_date {
-  display: inline;
+  width: 100px;
+  text-align: center;
 }
 .Routine {
   font-size: 50px;
+  padding-left: 30px;
+  padding-top: 10px;
 }
 
-.SearchandSort {
-  float: right;
+.MyRoutineListarr {
+  /*background-color: antiquewhite;*/
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .MyroutineClick {
-  display: block;
-  width: auto;
-  border: none;
   background-color: transparent;
-  margin: 30px;
-  min-width: 850px;
+  border: 0;
+  outline: 0;
+  display: flex;
+  padding: 20px 50px;
+  justify-content: space-between;
 }
 
 .MyroutineClick:hover {
   border: 2px #7650e0 solid;
+  cursor: pointer;
 }
+
+.searchContainer {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+
 .Sorted {
-  margin-top: 10px;
+  display: flex;
+  /* width: 100%; */
+  /* width: 300px; */
+  justify-content: end;
+  margin: 10px 30px 10px 0;
   padding: 0px;
 }
 .sort {
-  margin: 8px;
+  /* margin: 8px; */
+  padding: 8px 30px;
   border: none;
   background-color: transparent;
 }
 .sort:hover {
-  border: 2px #7650e0 solid;
+  /* border: 2px #7650e0 solid; */
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 50ms 0s ease-in-out;
 }
 .SearchandSort {
   margin-top: 5px;
   margin-right: 10px;
 }
-.MyRoutineListarr {
-  /*background-color: antiquewhite;*/
-  width: auto;
-  height: 500px;
+.routinesearch {
+  /* display: flex; */
+  /* width: 4em; */
+  padding: 4px;
+}
+.searchButton {
+  background-color: var(--main-color);
+  color: #d7fff1;
+  border: 0;
+  outline: 0;
+  padding: 5px 6px;
+  cursor: pointer;
 }
 
 .backbutton {
@@ -73,7 +116,7 @@
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;

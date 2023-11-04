@@ -2,7 +2,10 @@
   --main-color: #714fd1;
   --white: #ffffff;
   --black: #000000;
-  --point-color: #fde5d4;
+  --point-color: #f8ebe2;
+
+  --background-main: #f3edff;
+  --background-sub: #d2cece;
 }
 
 html {

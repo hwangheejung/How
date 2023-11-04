@@ -1,3 +1,11 @@
+.header {
+  height: 100%;
+  background: #f3edff;
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+}
+
 .RoutineListItem {
   display: block;
   /* border: 1px black solid;*/
@@ -21,6 +29,8 @@
 }
 .Routine {
   font-size: 50px;
+  padding-left: 30px;
+  padding-top: 10px;
 }
 
 .SearchandSort {
@@ -37,6 +47,7 @@
 
 .routineClick:hover {
   border: 2px #7650e0 solid;
+  cursor: pointer;
 }
 .hashtag {
   text-align: left;
@@ -45,11 +56,22 @@
   border: none;
   background-color: transparent;
 }
-.routineSearch {
-  display: flex;
-  width: 4em;
+.routinesearch {
+  /* display: flex; */
+  /* width: 4em; */
+  padding: 4px;
+}
+.searchButton {
+  background-color: var(--main-color);
+  color: #d7fff1;
+  border: 0;
+  outline: 0;
+  padding: 5px 6px;
+  cursor: pointer;
 }
 .SearchandSort {
+  display: flex;
+  align-items: center;
   margin-top: 5px;
   margin-right: 10px;
 }
@@ -63,13 +85,14 @@
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
   transition: 0.25s;
   background-color: #7650e0;
   color: #d7fff1;
+  cursor: pointer;
 }
 .RoutineListarr {
   /*background-color: antiquewhite;*/
