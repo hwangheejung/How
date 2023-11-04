@@ -23,6 +23,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/configureStore";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
+import Startex from "./pages/MyRoutine/Start";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: `/myroutineSearch`, element: <MyRoutineSearch /> },
       { path: `/start/:id`, element: <StartScreen /> },
       { path: `/live/realtime`, element: <RealtimeLive /> },
+      { path: `/startex/:id`, element: <Startex /> },
     ],
   },
   {

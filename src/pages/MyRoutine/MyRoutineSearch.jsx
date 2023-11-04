@@ -38,7 +38,7 @@ export default function MyRoutineSearch() {
             onClick={() => onPopup(routine.id)}
           >
             <div className={styles.MyRoutineListItem}>
-              <div className={styles.subject}>{routine.name}</div>
+              <div className={styles.subject}>{routine.subject}</div>
               <div className={styles.myhits}>{routine.hits}</div>
               <div className={styles.create_date}>{routine.date}</div>
             </div>
