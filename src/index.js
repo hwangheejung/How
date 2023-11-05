@@ -25,6 +25,8 @@ import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
 import Startex from "./pages/MyRoutine/Start";
 import ReadyTimer from "./pages/Exercise/ReadyTimer";
+import LiveSearch from "./pages/Live/LiveSearch";
+import LiveDetail from "./pages/Live/LiveDetail";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
       { path: `/live/list`, element: <LiveList /> },
       { path: `/routineSearch`, element: <RoutineSearch /> },
       { path: `/myroutineSearch`, element: <MyRoutineSearch /> },
+      { path: `/liveSearch`, element: <LiveSearch /> },
       { path: `/start/:id`, element: <StartScreen /> },
       { path: `/startex/:id`, element: <Startex /> },
       { path: `/readyTimer/:id`, element: <ReadyTimer /> },
@@ -64,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: `/MakeLive`,
     element: <MakeLive />,
+  },
+  {
+    path: `/livedetail/:id`,
+    element: <LiveDetail />,
   },
   { path: "/live/realtime", element: <LivePage /> },
 ]);

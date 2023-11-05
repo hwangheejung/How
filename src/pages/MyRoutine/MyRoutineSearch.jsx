@@ -1,23 +1,27 @@
-import React from "react";
-import { useState } from "react";
-import styles from "../../css/MyRoutine.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from 'react';
+import { useState } from 'react';
+import styles from '../../css/MyRoutine.module.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MyRoutineSearch() {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate("/my/routine/list");
+    navigate('/my/routine/list');
   };
 
   const onPopup = (id) => {
     //팝업 관리
+    const width = 500;
+    const height = 700;
+    const x = window.outerWidth / 2 - width / 2;
+    const y = window.outerHeight / 2 - height / 2;
 
     const url = `/myroutindetail/${id}`;
     window.open(
       url,
-      "window_name",
-      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+      'window_name',
+      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
     //myRoutine.document.write(id);
@@ -33,7 +37,7 @@ export default function MyRoutineSearch() {
       <div className={styles.MyRoutineListarr}>
         {SearchArray.map((routine) => (
           <button
-            type="button"
+            type='button'
             className={styles.MyroutineClick}
             onClick={() => onPopup(routine.id)}
           >

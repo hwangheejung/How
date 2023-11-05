@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
+import { IoIosTimer } from 'react-icons/io';
 
 const MyRoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -23,8 +23,8 @@ const MyRoutineDetail = () => {
     const url = `/routinestart/${id}`;
     window.open(
       url,
-      "window_name",
-      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+      'window_name',
+      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
     );
   };
 
@@ -59,10 +59,12 @@ const MyRoutineDetail = () => {
       <div className={styles.layout}>
         <div className={styles.subject}>{detailRoutine.result.name}</div>
         <div>
-          {detailRoutine.result.routineDetails.map((v) => (
+          {/* {detailRoutine.result.routineDetails.map((v) => (
             <span>{v[8]}</span>
-          ))}
-          <span>#{detailRoutine.result.routineDetails[0].cate[0].name}</span>
+          ))} */}
+          <div className={styles.category}>
+            #{detailRoutine.result.routineDetails[0].cate[0].name}
+          </div>
         </div>
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 
@@ -77,21 +79,25 @@ const MyRoutineDetail = () => {
           detail.type ? (
             <div className={styles.timer}>
               <span className={styles.detailname}> {detail.ex.name}</span>
-              <span> {detail.time}s</span>
-              <span> {detail.rest}</span>
-              <span> {detail.set}</span>
+              <div className={styles.details}>
+                <span> {detail.time}s</span>
+                <span> {detail.rest}</span>
+                <span> {detail.set}</span>
+              </div>
             </div>
           ) : (
             <div className={styles.timer}>
               <span className={styles.detailname}> {detail.ex.name}</span>
-              <span> {detail.count}개</span>
-              <span> {detail.rest}</span>
-              <span> {detail.set}</span>
+              <div className={styles.details}>
+                <span> {detail.count}개</span>
+                <span> {detail.rest}</span>
+                <span> {detail.set}</span>
+              </div>
             </div>
           )
         )}
 
-        <div>
+        <div className={styles.buttons}>
           <button
             className={styles.backbutton}
             onClick={() => routineStart(id)}

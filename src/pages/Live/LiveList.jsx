@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styles from "../../css/LiveList.module.css";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
 import { PiYoutubeLogoLight } from "react-icons/pi";
 import axios from "axios";
@@ -9,14 +10,28 @@ export default function LiveList() {
   const [livedata, setLivedata] = useState([]); //live data가져오기
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
-  const [searchArray, setSearchArray] = useState([]); //live 검색 배열
   const [liveSearch, setliveSearch] = useState(""); //live 검색어
+
+  const navigate = useNavigate();
 
   const SearchValue = (event) => {
     setliveSearch(event.target.value);
     //console.log(event.target.value);
   };
 
+  const onPopupdetail = (id) => {
+    const width = 500;
+    const height = 700;
+    const x = window.outerWidth / 2 - width / 2;
+    const y = window.outerHeight / 2 - height / 2;
+
+    const url = `/livedetail/${id}`;
+    window.open(
+      url,
+      "window_name",
+      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+    );
+  };
   const onPopup = () => {
     //팝업 관리
 
@@ -29,14 +44,27 @@ export default function LiveList() {
     //navigate(`/routindetail/${id}`, { state: { id } });
     //mylive.document.write(id);
   };
+  const onPress = (e) => {
+    if (e.key === "Enter") {
+      let sArray = livedata.result.liveListMappings.filter((search) =>
+        search.subject.includes(liveSearch)
+      );
+
+      console.log(sArray);
+
+      //console.log(searchArray);
+      navigate("/liveSearch", { state: { sArray } });
+    }
+  };
   const onClick = () => {
-    let searchArray = [...livedata];
-    console.log(searchArray);
-    let searcharray = livedata.filter((search) =>
-      search.name.includes(liveSearch)
+    let sArray = livedata.result.liveListMappings.filter((search) =>
+      search.subject.includes(liveSearch)
     );
-    console.log(searcharray);
-    setSearchArray(searcharray);
+
+    console.log(sArray);
+
+    //console.log(searchArray);
+    navigate("/liveSearch", { state: { sArray } });
   };
 
   const fetchLive = async () => {
@@ -60,18 +88,21 @@ export default function LiveList() {
   if (!livedata) return <div>null</div>;
   return (
     <div className={styles.header}>
-      <span className={styles.Live}>Live</span>
-      <button className={styles.insertLive} onClick={onPopup}>
-        <AiOutlinePlusSquare size="25" />
-      </button>
+      <div className={styles.titleplus}>
+        <div className={styles.Live}>Live</div>
+        <button className={styles.insertLive} onClick={onPopup}>
+          <AiOutlinePlusSquare size="25" />
+        </button>
+      </div>
       <hr />
       <div className={styles.SearchandSort}>
         <input
           type="text"
-          className={styles.SearchandSort2}
+          className={styles.searchInput}
           placeholder="Search"
           value={liveSearch}
           onChange={SearchValue}
+          onKeyPress={onPress}
         />
         <button className={styles.SearchButton} onClick={onClick}>
           <AiOutlineSearch />
@@ -79,7 +110,12 @@ export default function LiveList() {
       </div>
 
       <div className={styles.liveicon}>
-        <PiYoutubeLogoLight size="50" />
+        {/* <PiYoutubeLogoLight size='50' /> */}
+        <img
+          src="/live.png"
+          alt="live icon"
+          style={{ width: "50px", height: "50px" }}
+        />
       </div>
       <div className={styles.Livearr}>
         {livedata.result?.liveListMappings.map((live) => (
@@ -87,7 +123,7 @@ export default function LiveList() {
             key={live.id}
             type="button"
             className={styles.LiveClick}
-            onClick={onPopup}
+            onClick={() => onPopupdetail(live.routineId)}
           >
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>

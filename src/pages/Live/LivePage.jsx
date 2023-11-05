@@ -13,24 +13,38 @@ import Peer from 'peerjs';
 export default function LivePage() {
   const [roomId, setRoomId] = useState('');
   const [routineId, setRoutineId] = useState('');
-  const [mediaStream, setMediaStream] = useState();
+  const [myStream, setMyStream] = useState();
   const [video, setVideo] = useState();
   const [audio, setAudio] = useState();
 
   const client = useRef();
   const myMediaStream = useRef();
-  const otherMediaStream = useRef();
+  const othersMediaStream = useRef();
 
   const enterRoom = () => {
     const peer = new Peer();
-    // console.log(peer); //👍
+    // console.log(peer); // 👍
+
     client.current = Stomp.over(() => {
       return new SockJS('http://52.78.0.53:8080/live');
     });
     // console.log(client.current); //👍
 
+    let Stream;
+
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then((stream) => {
+        setMyStream(stream);
+        Stream = stream;
+        // console.log('stream', stream); // 👍
+        // console.log('Stream', Stream); // 👍
+
+        if (myMediaStream.current) myMediaStream.current.srcObject = stream;
+      });
+
     peer.on('open', (id) => {
-      console.log('peer id:', id); //👍
+      // console.log('peer id:', id); //👍
       client.current.send(
         '/app/participate/' + roomId,
         {},
@@ -41,73 +55,64 @@ export default function LivePage() {
       );
     });
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then((myStream) => {
-        setMediaStream(myStream);
+    peer.on('call', (call) => {
+      call.answer(myStream);
+      console.log('my answer complete!', myStream);
+      call.on('stream', (stream) => {
+        console.log(`other stream complete`, stream);
+        if (othersMediaStream.current)
+          othersMediaStream.current.srcObject = stream;
+      });
+    });
 
-        if (myMediaStream.current) myMediaStream.current.srcObject = myStream;
-
-        peer.on('call', (call) => {
-          call.answer(myStream);
-          console.log('answer complete!');
-          call.on('stream', (stream) => {
-            // console.log('answer & stream');
-            if (otherMediaStream.current)
-              otherMediaStream.current.srcObject = stream;
-          });
+    client.current.connect(
+      {},
+      () => {
+        // console.log('connected!'); //👍
+        client.current.subscribe('/room/routine/' + roomId, (routineDetail) => {
+          // console.log('got routineDetail!'); //👍
+          console.log(routineDetail.body);
         });
 
-        client.current.connect(
-          {},
-          () => {
-            // console.log('connected!'); //👍
-            client.current.subscribe(
-              '/room/routine/' + roomId,
-              (routineDetail) => {
-                // console.log('got routineDetail!'); //👍
-                console.log(routineDetail.body);
-              }
-            );
+        client.current.subscribe('/room/ready/' + roomId, (readyTime) => {
+          // console.log('got ready timer!'); //👍
+          console.log(readyTime.body);
+        });
 
-            client.current.subscribe('/room/ready/' + roomId, (readyTime) => {
-              // console.log('got ready timer!'); //👍
-              console.log(readyTime.body);
-            });
+        client.current.subscribe('/room/leave/' + roomId, (nick) => {
+          // console.log('got nickname'); //👍
+          console.log(nick.body);
+        });
 
-            client.current.subscribe('/room/leave/' + roomId, (nick) => {
-              // console.log('got nickname'); //👍
-              console.log(nick.body);
-            });
+        client.current.subscribe('/room/participate/' + roomId, (data) => {
+          // console.log(data.body); // 👍
+          // console.log('Stream', Stream); 👍
+          const call = peer.call(JSON.parse(data.body).sdp, Stream);
+          console.log('my call complete!', Stream);
+          call.on('stream', (stream) => {
+            // console.log('call & stream');
+            if (othersMediaStream.current)
+              othersMediaStream.current.srcObject = stream;
 
-            client.current.subscribe('/room/participate/' + roomId, (data) => {
-              // console.log('got Sdp'); //👍
-              console.log('sdp:', JSON.parse(data.body).sdp);
-              const call = peer.call(JSON.parse(data.body).sdp, myStream);
-              console.log('call:', call);
-              call.on('stream', (stream) => {
-                // console.log('call & stream');
-                if (otherMediaStream.current)
-                  otherMediaStream.current.srcObject = stream;
-              });
-            });
-          },
-          () => {
-            console.log('error occured');
-          }
-        );
-      });
+            console.log('other stream complete', stream);
+          });
+        });
+      },
+      () => {
+        console.log('error occured');
+      }
+    );
   };
 
   const handleVideo = () => {
-    mediaStream
+    myStream
       .getVideoTracks()
       .forEach((video) => (video.enabled = !video.enabled));
     video ? setVideo(false) : setVideo(true);
   };
 
   const handleAudio = () => {
-    mediaStream
+    myStream
       .getAudioTracks()
       .forEach((audio) => (audio.enabled = !audio.enabled));
     audio ? setAudio(false) : setAudio(true);
@@ -150,9 +155,6 @@ export default function LivePage() {
   const handleRoutineId = (e) => {
     setRoutineId(e.target.value);
   };
-
-  console.log(myMediaStream);
-  console.log(otherMediaStream);
 
   return (
     <>
@@ -199,7 +201,7 @@ export default function LivePage() {
       <div>
         <video
           playsInline
-          ref={otherMediaStream}
+          ref={othersMediaStream}
           autoPlay
           style={{ width: '400px', height: '400px' }}
         />
