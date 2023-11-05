@@ -6,12 +6,61 @@
   background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
 }
 
+.Routine {
+  font-size: 50px;
+  padding-left: 30px;
+  padding-top: 10px;
+}
+
+.SearchandSort {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.routinesearch {
+  padding: 4px;
+}
+
+.searchButton {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  background-color: var(--main-color);
+  color: #d7fff1;
+  border: 0;
+  outline: 0;
+  padding: 5px 6px;
+  cursor: pointer;
+}
+
+.RoutineListarr {
+  /*background-color: antiquewhite;*/
+  /* width: auto;
+  height: 500px; */
+  display: flex;
+  flex-direction: column;
+}
+
 .RoutineListItem {
   display: block;
   /* border: 1px black solid;*/
   height: 80px;
   width: 100%;
 }
+
+.routineClick {
+  width: 50%;
+  border: none;
+  background-color: transparent;
+  padding: 10px 20px;
+}
+
+.routineClick:hover {
+  border: 2px #7650e0 solid;
+  cursor: pointer;
+}
+
 .subject {
   /*background-color: aqua;*/
   display: inline-block;
@@ -21,59 +70,12 @@
   width: 30em;
   height: 30px;
 }
+
 .hits {
   /*background-color: blanchedalmond;*/
   display: inline-block;
   height: 30px;
   width: 18em;
-}
-.Routine {
-  font-size: 50px;
-  padding-left: 30px;
-  padding-top: 10px;
-}
-
-.SearchandSort {
-  float: right;
-}
-
-.routineClick {
-  display: block;
-  width: 50%;
-  border: none;
-  background-color: transparent;
-  margin: 30px;
-}
-
-.routineClick:hover {
-  border: 2px #7650e0 solid;
-  cursor: pointer;
-}
-.hashtag {
-  text-align: left;
-}
-.SearchButton {
-  border: none;
-  background-color: transparent;
-}
-.routinesearch {
-  /* display: flex; */
-  /* width: 4em; */
-  padding: 4px;
-}
-.searchButton {
-  background-color: var(--main-color);
-  color: #d7fff1;
-  border: 0;
-  outline: 0;
-  padding: 5px 6px;
-  cursor: pointer;
-}
-.SearchandSort {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-  margin-right: 10px;
 }
 
 .backbutton {
@@ -93,9 +95,4 @@
   background-color: #7650e0;
   color: #d7fff1;
   cursor: pointer;
-}
-.RoutineListarr {
-  /*background-color: antiquewhite;*/
-  width: auto;
-  height: 500px;
 }

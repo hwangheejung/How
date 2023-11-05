@@ -42,7 +42,7 @@ export default function LoginPage() {
         })
         .then((res) => {
           if (res.data.code === 1000) {
-            setUserToken(res.data.result);
+            setUserToken(res.data.result.jwt);
             dispatch(SET_USERINFO(res.data.result));
             alert('로그인이 완료되었습니다.');
             navigate('/');

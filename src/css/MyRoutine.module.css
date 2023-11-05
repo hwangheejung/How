@@ -6,61 +6,17 @@
   background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
 }
 
-.MyRoutineListItem {
-  display: block;
-  height: 80px;
-  width: auto;
-}
-.subject {
-  /* background-color: aqua;*/
-  display: inline-block;
-  text-align: left;
-  margin: 10px;
-  margin-right: 50px;
-  width: 30em;
-  height: 30px;
-}
-.hitcreate {
-  width: 200px;
-  display: flex;
-  justify-content: space-between;
-}
-.myhits {
-  width: 100px;
-  height: 30px;
-  padding-left: 10px;
-  text-align: center;
-}
-.create_date {
-  width: 100px;
-  text-align: center;
-}
 .Routine {
   font-size: 50px;
   padding-left: 30px;
   padding-top: 10px;
 }
 
-.MyRoutineListarr {
-  /*background-color: antiquewhite;*/
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.MyroutineClick {
-  background-color: transparent;
-  border: 0;
-  outline: 0;
-  display: flex;
-  padding: 20px 50px;
-  justify-content: space-between;
-}
-
-.MyroutineClick:hover {
-  border: 2px #7650e0 solid;
-  cursor: pointer;
+.SearchandSort {
+  /* display: flex;
+  align-items: center; */
+  /* margin-top: 5px;
+  margin-right: 10px; */
 }
 
 .searchContainer {
@@ -69,17 +25,30 @@
   justify-content: end;
 }
 
+.routinesearch {
+  padding: 4px;
+}
+
+.searchButton {
+  background-color: var(--main-color);
+  color: #d7fff1;
+  border: 0;
+  outline: 0;
+  padding: 5px 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
 .Sorted {
   display: flex;
-  /* width: 100%; */
-  /* width: 300px; */
   justify-content: end;
-  margin: 10px 30px 10px 0;
+  margin: 10px 50px 0 0;
   padding: 0px;
 }
 .sort {
   /* margin: 8px; */
-  padding: 8px 30px;
+  width: 150px;
+  /* padding: 8px 60px; */
   border: none;
   background-color: transparent;
 }
@@ -89,22 +58,60 @@
   transform: scale(1.1);
   transition: all 50ms 0s ease-in-out;
 }
-.SearchandSort {
-  margin-top: 5px;
-  margin-right: 10px;
+
+.MyRoutineListarr {
+  /*background-color: antiquewhite;*/
+  /* width: 100%;
+  height: 100%; */
+  display: flex;
+  flex-direction: column;
 }
-.routinesearch {
-  /* display: flex; */
-  /* width: 4em; */
-  padding: 4px;
+
+.MyRoutineListItem {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  width: 100%;
 }
-.searchButton {
-  background-color: var(--main-color);
-  color: #d7fff1;
+
+.MyroutineClick {
+  background-color: transparent;
   border: 0;
   outline: 0;
-  padding: 5px 6px;
+  /* display: flex; */
+  width: 100%;
+  padding: 20px 50px;
+  /* justify-content: space-between; */
+}
+
+.MyroutineClick:hover {
+  border: 2px #7650e0 solid;
   cursor: pointer;
+}
+
+.subject {
+  /* background-color: aqua;*/
+  /* display: inline-block; */
+  text-align: left;
+  /* margin: 10px; */
+  /* margin-right: 50px; */
+  /* width: 30em; */
+  height: 30px;
+}
+.hitscreate {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.myhits {
+  width: 150px;
+  height: 30px;
+  padding-left: 10px;
+  text-align: center;
+}
+.create_date {
+  width: 150px;
+  text-align: center;
 }
 
 .backbutton {
@@ -123,4 +130,5 @@
   transition: 0.25s;
   background-color: #7650e0;
   color: #d7fff1;
+  cursor: pointer;
 }
