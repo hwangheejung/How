@@ -1,16 +1,16 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from '../../css/RoutineList.module.css';
+import React from "react";
+import { useState, useEffect } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "../../css/RoutineList.module.css";
 
 export default function RoutineList() {
   const [routinedata, setRoutindata] = useState(null); //루틴 데이터 받아오기
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
 
-  const [searchInput, setSearchInput] = useState(''); //검색
+  const [searchInput, setSearchInput] = useState(""); //검색
 
   const navigate = useNavigate();
 
@@ -29,12 +29,12 @@ export default function RoutineList() {
     console.log(sArray);
 
     //console.log(searchArray);
-    navigate('/routineSearch', { state: { sArray } });
+    navigate("/routineSearch", { state: { sArray } });
     //검색관리
   };
 
   const onPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       let sArray = routinedata.result.routines.filter((search) =>
         search.subject.includes(searchInput)
       );
@@ -42,7 +42,7 @@ export default function RoutineList() {
       console.log(sArray);
 
       //console.log(searchArray);
-      navigate('/routineSearch', { state: { sArray } });
+      navigate("/routineSearch", { state: { sArray } });
     }
   };
 
@@ -56,7 +56,7 @@ export default function RoutineList() {
     const url = `/routinedetail/${id}`;
     window.open(
       url,
-      'window_name',
+      "window_name",
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
     //navigate(`/routinedetail/${id}`, { state: { id } });
@@ -68,7 +68,7 @@ export default function RoutineList() {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/ex-routine/all');
+      const response = await axios.get("http://52.78.0.53/api/ex-routine/all");
       setRoutindata(response.data);
     } catch (e) {
       setError(e);
@@ -88,11 +88,12 @@ export default function RoutineList() {
     <div className={styles.header}>
       <div className={styles.Routine}>Routine</div>
       <hr />
+
       <div className={styles.SearchandSort}>
         <input
-          type='text'
+          type="text"
           className={styles.routinesearch}
-          placeholder='Search'
+          placeholder="Search"
           value={searchInput}
           onChange={SearchValue}
           onKeyPress={onPress}
@@ -106,7 +107,7 @@ export default function RoutineList() {
         {routinedata.result.routines.map((routine) => (
           <button
             key={routine.id}
-            type='button'
+            type="button"
             className={styles.routineClick}
             onClick={() => onPopup(routine.id)}
           >

@@ -1,16 +1,16 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import styles from '../../css/MyRoutine.module.css';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { useState, useEffect } from "react";
+import styles from "../../css/MyRoutine.module.css";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
 
-  const [myroutineSearch, setMyroutineSearch] = useState('');
+  const [myroutineSearch, setMyroutineSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -25,8 +25,8 @@ export default function MyRoutine() {
     const url = `/myroutindetail/${id}`;
     window.open(
       url,
-      'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
     //myRoutine.document.write(id);
@@ -39,18 +39,18 @@ export default function MyRoutine() {
       search.subject.includes(myroutineSearch)
     );
     console.log(sArray);
-    navigate('/myroutineSearch', { state: { sArray } });
+    navigate("/myroutineSearch", { state: { sArray } });
     //검색관리
   };
   const onPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       //검색 버튼 함수
 
       let sArray = myroutinedata.result.routines.filter((search) =>
         search.subject.includes(myroutineSearch)
       );
       console.log(sArray);
-      navigate('/myroutineSearch', { state: { sArray } });
+      navigate("/myroutineSearch", { state: { sArray } });
       //검색관리
     }
   };
@@ -61,7 +61,7 @@ export default function MyRoutine() {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/ex-routine/all');
+      const response = await axios.get("http://52.78.0.53/api/ex-routine/all");
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
@@ -84,9 +84,9 @@ export default function MyRoutine() {
       <div className={styles.SearchandSort}>
         <div className={styles.searchContainer}>
           <input //검색어 받기
-            type='text'
+            type="text"
             className={styles.routinesearch}
-            placeholder='Search'
+            placeholder="Search"
             value={myroutineSearch}
             onChange={SearchValue}
             onKeyPress={onPress}
@@ -95,6 +95,7 @@ export default function MyRoutine() {
             <AiOutlineSearch />
           </button>
         </div>
+        np
         <div className={styles.Sorted}>
           <button
             onClick={() => {
@@ -104,7 +105,7 @@ export default function MyRoutine() {
               copy.result.routines.sort((a, b) => b.hits - a.hits);
               setMyRoutindata(copy);
             }}
-            type='button'
+            type="button"
             className={styles.sort}
           >
             조회수
@@ -120,7 +121,7 @@ export default function MyRoutine() {
               console.log(copy);
               setMyRoutindata(copy);
             }}
-            type='button'
+            type="button"
             className={styles.sort}
           >
             최신순
@@ -134,11 +135,11 @@ export default function MyRoutine() {
             myroutine //내 루틴들 보여주기
           ) => (
             <button
-              type='button' //상세정보 보여주기 버튼
+              type="button" //상세정보 보여주기 버튼
               className={styles.MyroutineClick}
               onClick={() => onPopup(myroutine.id)}
             >
-              <div className={styles.MyRoutineListItem}>
+              <div key={myroutine.id} className={styles.MyRoutineListItem}>
                 <div className={styles.subject}>{myroutine.subject}</div>
                 <div className={styles.myhits}>{myroutine.hits}</div>
                 <div className={styles.create_date}>{myroutine.createDate}</div>
