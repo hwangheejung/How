@@ -101,7 +101,6 @@ export default function RoutineList() {
           <AiOutlineSearch />
         </button>
       </div>
-
       <div className={styles.RoutineListarr}>
         {routinedata.result.routines.map((routine) => (
           <button

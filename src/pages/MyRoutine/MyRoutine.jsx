@@ -4,11 +4,14 @@ import styles from '../../css/MyRoutine.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
+
+  const [orderType, setOrderType] = useState(true);
 
   const [myroutineSearch, setMyroutineSearch] = useState('');
 
@@ -21,12 +24,16 @@ export default function MyRoutine() {
 
   const onPopup = (id) => {
     //팝업 관리
+    const width = 500;
+    const height = 700;
+    const x = window.outerWidth / 2 - width / 2;
+    const y = window.outerHeight / 2 - height / 2;
 
     const url = `/myroutindetail/${id}`;
     window.open(
       url,
       'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
     //myRoutine.document.write(id);
@@ -61,10 +68,18 @@ export default function MyRoutine() {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/ex-routine/all');
+      const response = await axios.get(
+        `http://52.78.0.53:8080/api/ex-routine/me`,
+        {
+          params: { type: orderType },
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      );
+      console.log(response);
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -140,8 +155,12 @@ export default function MyRoutine() {
             >
               <div className={styles.MyRoutineListItem}>
                 <div className={styles.subject}>{myroutine.subject}</div>
-                <div className={styles.myhits}>{myroutine.hits}</div>
-                <div className={styles.create_date}>{myroutine.createDate}</div>
+                <div className={styles.hitscreate}>
+                  <div className={styles.myhits}>{myroutine.hits}</div>
+                  <div className={styles.create_date}>
+                    {myroutine.createDate}
+                  </div>
+                </div>
               </div>
               {/* </div> */}
             </button>

@@ -10,6 +10,7 @@ import {
 } from 'date-fns';
 import { addMonths, endOfMonth, endOfWeek, startOfMonth } from 'date-fns/esm';
 import { useCallback } from 'react';
+import { getCookieToken } from '../../store/Cookie';
 const CalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const monthStart = startOfMonth(currentDate);
@@ -23,6 +24,8 @@ const CalendarPage = () => {
   const prevMonthHandler = useCallback(() => {
     setCurrentDate(addMonths(currentDate, 1));
   }, [currentDate]);
+
+  // console.log(getCookieToken());
 
   return <div className={styles.CalendarPage}></div>;
 };
