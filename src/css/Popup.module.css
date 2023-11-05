@@ -11,7 +11,7 @@
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
+  font-family: "paybooc-Light", sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
@@ -116,16 +116,53 @@
   width: 60%;
   float: left;
   box-sizing: border-box;
-  background-color: #d7fff1;
+  /* background-color: #d7fff1;*/
 }
 
 .right {
   width: 40%;
   float: right;
   box-sizing: border-box;
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue;*/
 }
 
 .details span {
   padding-right: 10px;
+}
+
+.letter {
+  font-size: 100px;
+  margin: auto;
+  height: auto;
+  text-align: center;
+  text-shadow: 0px 0px 30px #7650e0;
+  color: black;
+}
+
+.button {
+  border: none;
+  display: inline-block;
+  margin-left: 250px;
+  margin-top: 30px;
+  text-align: center;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  background-color: #7650e0;
+  color: #d7fff1;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ReadyTimer {
+  font-size: 100px;
+  margin: auto;
+  height: auto;
+  text-align: center;
+  text-shadow: 0px 0px 30px #7650e0;
+  color: black;
 }

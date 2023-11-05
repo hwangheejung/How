@@ -17,15 +17,15 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -37,11 +37,23 @@ code {
 }
 
 @font-face {
-  font-family: 'JustAnotherHand-Regular';
+  font-family: "JustAnotherHand-Regular";
   font-weight: normal;
-  src: url('./fonts/JustAnotherHand-Regular.ttf') format('truetype');
+  src: url("./fonts/JustAnotherHand-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "HakgyoansimDoldamM";
+  src: url("./fonts/HakgyoansimDoldamM.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-weight: bold;
+}
 body {
-  font-family: 'JustAnotherHand-Regular';
+  font-family: HakgyoansimDoldamM;
+  font-size: 22px;
+}
+button {
+  font-family: HakgyoansimDoldamM;
+  font-size: 22px;
 }
