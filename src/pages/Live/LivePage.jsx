@@ -1,5 +1,5 @@
 import { Stomp } from '@stomp/stompjs';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SockJS from 'sockjs-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -21,26 +21,79 @@ export default function LivePage() {
   const myMediaStream = useRef();
   const othersMediaStream = useRef();
 
-  const enterRoom = () => {
-    const peer = new Peer();
-    // console.log(peer); // 👍
-
+  useEffect(() => {
     client.current = Stomp.over(() => {
       return new SockJS('http://52.78.0.53:8080/live');
     });
     // console.log(client.current); //👍
+  }, []);
 
-    let Stream;
+  const enterRoom = () => {
+    const peer = new Peer();
+    // console.log(peer); // 👍
+
+    // let Stream;
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
         setMyStream(stream);
-        Stream = stream;
+        // Stream = stream;
         // console.log('stream', stream); // 👍
         // console.log('Stream', Stream); // 👍
 
         if (myMediaStream.current) myMediaStream.current.srcObject = stream;
+
+        peer.on('call', (call) => {
+          call.answer(stream);
+          console.log('ANSWER my answer complete!', stream);
+          call.on('stream', (stream) => {
+            console.log(`ANSWER other stream complete`, stream);
+            if (othersMediaStream.current)
+              othersMediaStream.current.srcObject = stream;
+          });
+        });
+
+        client.current.connect(
+          {},
+          () => {
+            // console.log('connected!'); //👍
+            client.current.subscribe(
+              '/room/routine/' + roomId,
+              (routineDetail) => {
+                // console.log('got routineDetail!'); //👍
+                console.log(routineDetail.body);
+              }
+            );
+
+            client.current.subscribe('/room/ready/' + roomId, (readyTime) => {
+              // console.log('got ready timer!'); //👍
+              console.log(readyTime.body);
+            });
+
+            client.current.subscribe('/room/leave/' + roomId, (nick) => {
+              // console.log('got nickname'); //👍
+              console.log(nick.body);
+            });
+
+            client.current.subscribe('/room/participate/' + roomId, (data) => {
+              // console.log(data.body); // 👍
+              // console.log('Stream', Stream); 👍
+              const call = peer.call(JSON.parse(data.body).sdp, stream);
+              console.log('SUB my call complete!', stream);
+              call.on('stream', (stream) => {
+                // console.log('call & stream');
+                if (othersMediaStream.current)
+                  othersMediaStream.current.srcObject = stream;
+
+                console.log('SUB other stream complete', stream);
+              });
+            });
+          },
+          () => {
+            console.log('error occured');
+          }
+        );
       });
 
     peer.on('open', (id) => {
@@ -54,54 +107,6 @@ export default function LivePage() {
         })
       );
     });
-
-    peer.on('call', (call) => {
-      call.answer(myStream);
-      console.log('my answer complete!', myStream);
-      call.on('stream', (stream) => {
-        console.log(`other stream complete`, stream);
-        if (othersMediaStream.current)
-          othersMediaStream.current.srcObject = stream;
-      });
-    });
-
-    client.current.connect(
-      {},
-      () => {
-        // console.log('connected!'); //👍
-        client.current.subscribe('/room/routine/' + roomId, (routineDetail) => {
-          // console.log('got routineDetail!'); //👍
-          console.log(routineDetail.body);
-        });
-
-        client.current.subscribe('/room/ready/' + roomId, (readyTime) => {
-          // console.log('got ready timer!'); //👍
-          console.log(readyTime.body);
-        });
-
-        client.current.subscribe('/room/leave/' + roomId, (nick) => {
-          // console.log('got nickname'); //👍
-          console.log(nick.body);
-        });
-
-        client.current.subscribe('/room/participate/' + roomId, (data) => {
-          // console.log(data.body); // 👍
-          // console.log('Stream', Stream); 👍
-          const call = peer.call(JSON.parse(data.body).sdp, Stream);
-          console.log('my call complete!', Stream);
-          call.on('stream', (stream) => {
-            // console.log('call & stream');
-            if (othersMediaStream.current)
-              othersMediaStream.current.srcObject = stream;
-
-            console.log('other stream complete', stream);
-          });
-        });
-      },
-      () => {
-        console.log('error occured');
-      }
-    );
   };
 
   const handleVideo = () => {

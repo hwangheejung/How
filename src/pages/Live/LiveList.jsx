@@ -19,12 +19,16 @@ export default function LiveList() {
 
   const onPopup = () => {
     //팝업 관리
+    const width = 500;
+    const height = 700;
+    const x = window.outerWidth / 2 - width / 2;
+    const y = window.outerHeight / 2 - height / 2;
 
     const url = `/makelive`;
     window.open(
       url,
       'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
     //mylive.document.write(id);
