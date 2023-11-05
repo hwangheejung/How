@@ -19,13 +19,13 @@ export default function LiveList() {
     //console.log(event.target.value);
   };
 
-  const onPopupdetail = (id) => {
+  const onPopupdetail = (routineId, liveId) => {
     const width = 500;
     const height = 700;
     const x = window.outerWidth / 2 - width / 2;
     const y = window.outerHeight / 2 - height / 2;
 
-    const url = `/livedetail/${id}`;
+    const url = `/livedetail/${routineId}/${liveId}`;
     window.open(
       url,
       'window_name',
@@ -79,6 +79,7 @@ export default function LiveList() {
 
       const response = await axios.get('http://52.78.0.53/api/live');
       setLivedata(response.data);
+      console.log(response.data.result.liveListMappings);
     } catch (e) {
       setError(e);
     }
@@ -127,7 +128,7 @@ export default function LiveList() {
             key={live.id}
             type='button'
             className={styles.LiveClick}
-            onClick={() => onPopupdetail(live.routineId)}
+            onClick={() => onPopupdetail(live.routineId, live.id)}
           >
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>

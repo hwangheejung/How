@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
+import { IoIosTimer } from 'react-icons/io';
 
 const LiveDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -14,17 +14,17 @@ const LiveDetail = () => {
     window.close();
   };
 
-  const { id } = useParams();
+  const { routineId } = useParams();
 
-  const liveStart = (id) => {
-    window.opener.location.href = `/start/${id}`;
+  const liveStart = (routineId) => {
+    // window.opener.location.href = `/start/${id}`;
     //window.close();
 
-    const url = `/liveStart/${id}`;
+    const url = `/live/setting/${routineId}`;
     window.open(
       url,
-      "window_name",
-      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+      'window_name',
+      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
     );
   };
 
@@ -35,7 +35,7 @@ const LiveDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routine?id=${routineId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -98,7 +98,10 @@ const LiveDetail = () => {
         )}
 
         <div className={styles.buttons}>
-          <button className={styles.backbutton} onClick={() => liveStart(id)}>
+          <button
+            className={styles.backbutton}
+            onClick={() => liveStart(routineId)}
+          >
             참여
           </button>
           <button className={styles.backbutton} onClick={windowClose}>
