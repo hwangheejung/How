@@ -3,8 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import styles from "../../css/readyTimer.module.css";
 
 const Timer = (props) => {
-  //const [minutes,setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [stopbutton, setStopbutton] = useState(true);
   const time = useRef(props.time);
   const countdown = useRef(null);
 
@@ -23,10 +24,31 @@ const Timer = (props) => {
     }
   }, [seconds]);
 
+  const onClickstop = () => {
+    setStopbutton(!stopbutton);
+    clearInterval(countdown.current);
+  };
+  const onClickrestart = () => {
+    setStopbutton(!stopbutton);
+    countdown.current = setInterval(() => {
+      setSeconds(time.current);
+      time.current -= 1;
+    }, 1000);
+  };
   return (
     <div className={styles.ReadyTimer}>
-      <div>TIMER</div>
-      <div>{seconds} 초</div>
+      <div>
+        {parseInt(seconds / 60)}:{seconds % 60}
+      </div>
+      {stopbutton ? (
+        <button onClick={onClickstop} className={styles.button}>
+          STOP{" "}
+        </button>
+      ) : (
+        <button onClick={onClickrestart} className={styles.button}>
+          RESTART
+        </button>
+      )}
     </div>
   );
 };

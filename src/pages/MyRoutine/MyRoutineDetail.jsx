@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
-import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
+import { React, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import styles from "../../css/Popup.module.css";
+import axios from "axios";
+import { IoIosTimer } from "react-icons/io";
 
 const MyRoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -16,15 +16,16 @@ const MyRoutineDetail = () => {
 
   const { id } = useParams();
 
+  console.log(id);
   const routineStart = (id) => {
     window.opener.location.href = `/start/${id}`;
-    //window.close();
+    window.close();
 
     const url = `/routinestart/${id}`;
     window.open(
       url,
-      'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
   };
 
@@ -35,7 +36,7 @@ const MyRoutineDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -61,10 +62,10 @@ const MyRoutineDetail = () => {
         <div>
           {/* {detailRoutine.result.routineDetails.map((v) => (
             <span>{v[8]}</span>
-          ))} */}
+          ))} 
           <div className={styles.category}>
-            #{detailRoutine.result.routineDetails[0].cate[0].name}
-          </div>
+           #{detailRoutine.result.routineDetails[0].cate[0].name}
+          </div>*/}
         </div>
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 

@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "../../css/Popup.module.css";
 import axios from "axios";
 
@@ -9,6 +9,11 @@ const ExerciseDetail = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  const onClickBack = () => {
+    navigate(`/my/routine/list`);
+  };
   const fetchroutine = async () => {
     try {
       setDetailRoutine(null);
@@ -16,7 +21,7 @@ const ExerciseDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data.result.routineDetails);
     } catch (e) {
@@ -47,7 +52,10 @@ const ExerciseDetail = () => {
                 <span> {detail.time}s</span>
                 <div>
                   <span>rest</span>
-                  <span> {detail.rest}</span>
+                  <span> {detail.rest}s</span>
+                </div>
+                <div>
+                  <span>{detail.set} set</span>
                 </div>
               </div>
             ) : (
@@ -56,11 +64,17 @@ const ExerciseDetail = () => {
                 <span>{detail.count}개</span>
                 <div>
                   <span>rest</span>
-                  <span> {detail.rest}</span>
+                  <span> {detail.rest}s</span>
+                </div>
+                <div>
+                  <span>{detail.set} set</span>
                 </div>
               </div>
             )
           )}
+          <button onClick={onClickBack} className={styles.button}>
+            뒤로가기
+          </button>
         </div>
       </div>
     </div>

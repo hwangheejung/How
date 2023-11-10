@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import styles from "../../css/readyTimer.module.css";
-
+//지우기
 const RestTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
   const time = useRef(props.restTime);
