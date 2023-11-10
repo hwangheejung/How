@@ -1,10 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 //import { useLocation } from "react-router-dom";
-import styles from '../../css/Popup.module.css';
-import { IoIosTimer } from 'react-icons/io';
+import styles from "../../css/Popup.module.css";
+import { IoIosTimer } from "react-icons/io";
+import { getCookieToken } from "../../store/Cookie";
 
 const RoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -21,6 +22,15 @@ const RoutineDetail = () => {
   const myroutineinsert = (id) => {
     window.opener.location.href = `/my/routine/list`;
     window.close();
+    axios.post(
+      `http://52.78.0.53/api/ex-routines/me`,
+      {
+        routId: id,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookieToken()}` },
+      }
+    );
   };
 
   const fetchroutine = async () => {
@@ -30,7 +40,7 @@ const RoutineDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -47,7 +57,7 @@ const RoutineDetail = () => {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
-
+  // console.log(detailRoutine.result);
   return (
     <>
       <div className={styles.name}>detail</div>
@@ -57,9 +67,9 @@ const RoutineDetail = () => {
           {detailRoutine.result.routineDetails.map((v) => (
             <span>{v[8]}</span>
           ))} */}
-        <div className={styles.category}>
+        {/*<div className={styles.category}>
           #{detailRoutine.result.routineDetails[0].cate[0].name}
-        </div>
+        </div>*/}
         {/* </div> */}
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 

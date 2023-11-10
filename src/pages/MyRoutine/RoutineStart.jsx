@@ -22,7 +22,7 @@ const RoutineStart = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {

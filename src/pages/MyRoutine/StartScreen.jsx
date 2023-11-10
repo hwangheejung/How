@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "../../css/Popup.module.css";
-import { useNavigate, useParams } from "react-router-dom";
-import Timer from "./Timer";
+import {  useParams } from "react-router-dom";
+
 const StartScreen = () => {
-  const navigate = useNavigate;
   const { id } = useParams();
   const onClickStart = () => {
     window.location.href = `/startex/${id}`;

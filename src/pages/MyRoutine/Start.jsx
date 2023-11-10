@@ -21,16 +21,24 @@ const Startex = () => {
 
   const getIndex = (num) => {
     //운동실행을 위한 index 주고받기
-    console.log(index);
-    if (index === detailRoutine.length - 1) {
-      //index가 배열 크기와 같으면 운동 실행 끝
+
+    if (num === 100) {
+      //reset버튼을 눌렀을 때 index을 초기화 하기 위해 100을 받아옴
       setIndex(0);
-      setExerciseEnd(!exerciseEnd); //운동이 끝났기 때문에 운동상태 변경
+      console.log(index);
     } else {
-      setIndex(index + num); //index를 하나씩 늘려줌. num은 1로 고정되어있음
+      if (index === detailRoutine.length - 1) {
+        //index가 배열 크기와 같으면 운동 실행 끝
+        setIndex(0);
+        setExerciseEnd(!exerciseEnd); //운동이 끝났기 때문에 운동상태 변경
+      } else {
+        setIndex(index + num); //index를 하나씩 늘려줌. num은 1로 고정되어있음
+      }
     }
   };
-  console.log(index);
+  const getReadyTimer = () => {
+    setReadyfinish(!readyfinish);
+  };
 
   const onclick = () => {
     //운동이 끝나서 홈화면으로 돌아가기 위한 함수
@@ -44,7 +52,7 @@ const Startex = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routine?id=${id}`
+        `http://52.78.0.53/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data.result.routineDetails);
     } catch (e) {
@@ -55,10 +63,6 @@ const Startex = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      //ready timer을 보여준 후 4초후에 화면에서 unmount하기
-      setReadyfinish(!readyfinish);
-    }, 4000);
     fetchroutine();
   }, []);
 
@@ -75,6 +79,8 @@ const Startex = () => {
   const currenttype = detailRoutine[index].type; //현재 하고 있는 동작의 type
 
   const currentname = detailRoutine[index].ex.name; //현재 하고 있는 동작의 type
+
+  const currentexerciseset = detailRoutine[index].set;
   return (
     <div>
       {exerciseEnd ? ( //exercise가 끝났는지를 확인 .. 끝났으면 밑에 동작 수행
@@ -94,24 +100,30 @@ const Startex = () => {
             </div>
             <div className={styles.right}>
               {readyfinish ? ( //readyTimer을 보여주기 readyTimer가 실행되고 상태가 변경되면 운동 실행
-                <ReadyTimer />
+                <ReadyTimer getReadyTimer={getReadyTimer} />
               ) : currenttype ? (
                 <div>
                   <TimerDetail
+                    routid={id}
                     name={currentname}
                     time={currenttime}
+                    set={currentexerciseset}
                     restTime={currentrest}
                     getIndex={getIndex}
+                    getReadyTimer={getReadyTimer}
                     index={index}
                   />
                 </div>
               ) : (
                 <div>
                   <CountDetail
+                    routid={id}
                     name={currentname}
                     count={currentcount}
+                    set={currentexerciseset}
                     restTime={currentrest}
                     getIndex={getIndex}
+                    getReadyTimer={getReadyTimer}
                     index={index}
                   />
                 </div>

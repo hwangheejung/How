@@ -10,8 +10,8 @@ export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
-  const [orderType, setOrderType] = useState(true);
   const [myroutineSearch, setMyroutineSearch] = useState('');
+  const [type, setType] = useState(true);
 
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function MyRoutine() {
       'window_name',
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
-    //navigate(`/routindetail/${id}`, { state: { id } });
+    // navigate(`/myroutindetail/${id}`, { state: { id } });
     //myRoutine.document.write(id);
   };
 
@@ -43,7 +43,7 @@ export default function MyRoutine() {
     let sArray = myroutinedata.result.routines.filter((search) =>
       search.subject.includes(myroutineSearch)
     );
-    console.log(sArray);
+    //console.log(sArray);
     navigate('/myroutineSearch', { state: { sArray } });
     //검색관리
   };
@@ -54,23 +54,30 @@ export default function MyRoutine() {
       let sArray = myroutinedata.result.routines.filter((search) =>
         search.subject.includes(myroutineSearch)
       );
-      console.log(sArray);
+      // console.log(sArray);
       navigate('/myroutineSearch', { state: { sArray } });
       //검색관리
     }
   };
 
+  const onhitsOrder = () => {
+    setType(false);
+  };
+  const onCreateOrder = () => {
+    setType(true);
+  };
   const fetchroutine = async () => {
     try {
       setMyRoutindata(null);
       setLoading(true);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/ex-routines/me', {
-        headers: {
-          Authorization: `Bearer ${getCookieToken()}`,
-        },
-      });
+      const response = await axios.get(
+        `http://52.78.0.53/api/ex-routines/me?type=${type}`,
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      );
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
@@ -81,12 +88,13 @@ export default function MyRoutine() {
 
   useEffect(() => {
     fetchroutine();
-  }, []);
+  }, [type]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
+  //console.log(myroutinedata.result);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>MyRoutine</div>
@@ -105,60 +113,37 @@ export default function MyRoutine() {
             <AiOutlineSearch />
           </button>
         </div>
-        np
+
         <div className={styles.Sorted}>
-          <button
-            onClick={() => {
-              //조회수 정렬
-              let copy = [...myroutinedata];
-
-              copy.result.routines.sort((a, b) => b.hits - a.hits);
-              setMyRoutindata(copy);
-            }}
-            type='button'
-            className={styles.sort}
-          >
-            조회수
+          <button onClick={onhitsOrder} type='button' className={styles.sort}>
+            운동횟수순
           </button>
-          <button
-            onClick={() => {
-              //최신순 정렬
-              let copy = [...myroutinedata];
-
-              copy.result.routines.sort(
-                (a, b) => new Date(b.createDate) - new Date(a.createDate)
-              );
-              console.log(copy);
-              setMyRoutindata(copy);
-            }}
-            type='button'
-            className={styles.sort}
-          >
+          <button onClick={onCreateOrder} type='button' className={styles.sort}>
             최신순
           </button>
         </div>
       </div>
 
       <div className={styles.MyRoutineListarr}>
-        {myroutinedata.result?.routines.map(
+        {myroutinedata.result?.map(
           (
             myroutine //내 루틴들 보여주기
           ) => (
             <button
+              key={myroutine.routineId}
               type='button' //상세정보 보여주기 버튼
               className={styles.MyroutineClick}
-              onClick={() => onPopup(myroutine.id)}
+              onClick={() => onPopup(myroutine.routineId)}
             >
-              <div key={myroutine.id} className={styles.MyRoutineListItem}>
-                <div className={styles.subject}>{myroutine.subject}</div>
+              <div className={styles.MyRoutineListItem}>
+                <div className={styles.subject}>{myroutine.routineSubject}</div>
                 <div className={styles.hitscreate}>
-                  <div className={styles.myhits}>{myroutine.hits}</div>
-                  <div className={styles.create_date}>
+                  <div className={styles.myhits}>{myroutine.count}</div>
+                  <div className={styles.createDate}>
                     {myroutine.createDate}
                   </div>
                 </div>
               </div>
-              {/* </div> */}
             </button>
           )
         )}

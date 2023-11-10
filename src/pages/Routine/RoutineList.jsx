@@ -59,6 +59,7 @@ export default function RoutineList() {
       "window_name",
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
+
     //navigate(`/routinedetail/${id}`, { state: { id } });
   };
 
@@ -68,7 +69,9 @@ export default function RoutineList() {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get("http://52.78.0.53/api/ex-routine/all");
+      const response = await axios.get(
+        "http://52.78.0.53/api/ex-routines?type=false"
+      );
       setRoutindata(response.data);
     } catch (e) {
       setError(e);

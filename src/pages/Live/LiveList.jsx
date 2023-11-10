@@ -50,8 +50,10 @@ export default function LiveList() {
   };
   const onPress = (e) => {
     if (e.key === 'Enter') {
-      let sArray = livedata.result.liveListMappings.filter((search) =>
-        search.subject.includes(liveSearch)
+      let sArray = livedata.result.liveListMappings.filter(
+        (search) =>
+          search.subject.includes(liveSearch) ||
+          search.nick.includes(liveSearch)
       );
 
       console.log(sArray);
@@ -61,8 +63,9 @@ export default function LiveList() {
     }
   };
   const onClick = () => {
-    let sArray = livedata.result.liveListMappings.filter((search) =>
-      search.subject.includes(liveSearch)
+    let sArray = livedata.result.liveListMappings.filter(
+      (search) =>
+        search.subject.includes(liveSearch) || search.nick.includes(liveSearch)
     );
 
     console.log(sArray);
@@ -77,7 +80,7 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/live');
+      const response = await axios.get('http://52.78.0.53/api/lives');
       setLivedata(response.data);
       console.log(response.data.result.liveListMappings);
     } catch (e) {

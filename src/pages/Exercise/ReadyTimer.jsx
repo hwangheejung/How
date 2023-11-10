@@ -1,15 +1,11 @@
 import { React, useState, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "../../css/readyTimer.module.css";
-import countDetail from "./CountDetail";
 
-const ReadyTimer = () => {
+const ReadyTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
   const time = useRef(3);
   const timerId = useRef(null);
-
-  const { id } = useParams();
-  //window.location.href = `/startex/${id}`;
 
   useEffect(() => {
     timerId.current = setInterval(() => {
@@ -23,6 +19,7 @@ const ReadyTimer = () => {
   useEffect(() => {
     if (time.current <= 0) {
       clearInterval(timerId.current);
+      props.getReadyTimer();
     }
   }, [seconds]);
 
