@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import styles from '../../css/Popup.module.css';
 import axios from 'axios';
@@ -14,18 +14,11 @@ const LiveDetail = () => {
     window.close();
   };
 
-  const { routineId } = useParams();
+  const { routineId, liveId } = useParams();
 
-  const liveStart = (routineId) => {
-    // window.opener.location.href = `/start/${id}`;
-    //window.close();
-
-    const url = `/live/setting/${routineId}`;
-    window.open(
-      url,
-      'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
-    );
+  const liveStart = (liveId) => {
+    window.opener.location.href = `/live/setting/${liveId}`;
+    window.close();
   };
 
   const fetchroutine = async () => {
@@ -100,7 +93,7 @@ const LiveDetail = () => {
         <div className={styles.buttons}>
           <button
             className={styles.backbutton}
-            onClick={() => liveStart(routineId)}
+            onClick={() => liveStart(liveId)}
           >
             참여
           </button>

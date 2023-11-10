@@ -1,0 +1,46 @@
+.container {
+  height: 100%;
+  background: #f3edff;
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.videoContainer,
+.audioContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-color);
+  padding: 40px 50px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.videoContainer:hover,
+.audioContainer:hover {
+  cursor: pointer;
+}
+
+.cameraIcon,
+.audioIcon {
+  padding-bottom: 10px;
+}
+
+.enterButton {
+  background-color: var(--main-color);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.enterButton:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 50ms 0s ease-in-out;
+}

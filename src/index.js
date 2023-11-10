@@ -73,8 +73,8 @@ const router = createBrowserRouter([
     path: `/livedetail/:routineId/:liveId`,
     element: <LiveDetail />,
   },
-  { path: '/live/realtime', element: <LivePage /> },
-  { path: '/live/setting', element: <LiveSetting /> },
+  { path: '/live/realtime/:liveId/:camera/:audio', element: <LivePage /> },
+  { path: '/live/setting/:liveId', element: <LiveSetting /> },
 ]);
 
 export const persistor = persistStore(store);
