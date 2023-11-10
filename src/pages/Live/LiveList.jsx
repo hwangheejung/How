@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/LiveList.module.css';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineSearch, AiOutlinePlusSquare } from 'react-icons/ai';
-import { PiYoutubeLogoLight } from 'react-icons/pi';
 import axios from 'axios';
 
 export default function LiveList() {
@@ -19,13 +18,14 @@ export default function LiveList() {
     //console.log(event.target.value);
   };
 
-  const onPopupdetail = (routineId, liveId) => {
+  const onPopupdetail = (id) => {
+    //라이브 상세페이지 이동
     const width = 500;
     const height = 700;
     const x = window.outerWidth / 2 - width / 2;
     const y = window.outerHeight / 2 - height / 2;
 
-    const url = `/livedetail/${routineId}/${liveId}`;
+    const url = `/livedetail/${id}`;
     window.open(
       url,
       'window_name',
@@ -45,8 +45,7 @@ export default function LiveList() {
       'window_name',
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
-    //navigate(`/routindetail/${id}`, { state: { id } });
-    //mylive.document.write(id);
+    //navigate(`/makelive`);
   };
   const onPress = (e) => {
     if (e.key === 'Enter') {
@@ -131,7 +130,7 @@ export default function LiveList() {
             key={live.id}
             type='button'
             className={styles.LiveClick}
-            onClick={() => onPopupdetail(live.routineId, live.id)}
+            onClick={() => onPopupdetail(live.routineId)}
           >
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>

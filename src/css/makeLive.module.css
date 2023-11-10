@@ -1,4 +1,4 @@
-.backbutton {
+.button {
   border: none;
   display: inline-block;
   margin: 15px;
@@ -8,12 +8,16 @@
   font-family: "paybooc-Light", sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   transition: 0.25s;
   background-color: #7650e0;
   color: #d7fff1;
+  margin: 10px;
+  margin-left: 130px;
 }
-
+.header {
+  overflow-y: scroll;
+}
 .MyRoutineListItem {
   display: block;
   height: 80px;
@@ -44,21 +48,23 @@
 
 .MyroutineClick {
   display: block;
-  width: auto;
+  width: 500px;
   border: none;
   background-color: transparent;
   margin: 30px;
-  min-width: 850px;
+}
+.selected {
+  background-color: #b9a4f0;
 }
 
-.MyroutineClick:active {
+/*.MyroutineClick:active {
   background-color: #b6a3eb;
 }
 .MyroutineClick:visited {
   background: #b6a3eb;
   color: white;
 }
-
+*/
 .MyroutineClick:hover {
   border: 2px #7650e0 solid;
 }
@@ -67,4 +73,14 @@
   /*background-color: antiquewhite;*/
   width: auto;
   height: 500px;
+  overflow-y: scroll;
+  background: #f3edff;
+  height: 70%;
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+}
+.MakeLiveName {
+  height: 30px;
+  margin: 10px;
 }

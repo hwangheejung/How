@@ -28,7 +28,11 @@ const LiveDetail = () => {
       setError(null);
 
       const response = await axios.get(
+<<<<<<< HEAD
         `http://52.78.0.53/api/ex-routine?id=${routineId}`
+=======
+        `http://52.78.0.53/api/ex-routines/${id}`
+>>>>>>> 495ebc52a2c3ce63da96bf4338288905838d9cec
       );
       setDetailRoutine(response.data);
     } catch (e) {

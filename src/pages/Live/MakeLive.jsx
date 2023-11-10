@@ -2,49 +2,88 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "../../css/makeLive.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getCookieToken } from "../../store/Cookie";
+
 const MakeLive = () => {
   const navigate = useNavigate();
   const [myroutinedata, setMyRoutindata] = useState([]);
-  const [routineid, setRoutineid] = useState("");
-  const [livelist, setLivelist] = useState([]);
+  const [loading, setLoading] = useState(false); //
+  const [error, setError] = useState(null);
+  const [routineid, setRoutineid] = useState(0);
+  const [livelist, setLivelist] = useState([
+    {
+      subject: "",
+      id: 0,
+    },
+  ]);
+  const [myroutineclick, setMyroutineclick] = useState("");
 
+  console.log(livelist);
+  const onClick = (id, routineid) => {
+    //루틴 선택
+    setMyroutineclick(id); //루틴 배열 중 선택한 배열 index
+    setRoutineid(routineid); // 루틴 아이디 세팅
+    // console.log(routineid); //선택한 루틴 아이디
+    livelist.id = routineid; //루틴 아이디를 배열에 넣어줌
+  };
+
+  const liveCreate = (livelist) => {
+    //라이브 생성 버튼 클릭시
+    window.opener.href = "/live/list";
+    window.close();
+    axios.post(
+      `http://52.78.0.53/api/lives`,
+      {
+        subject: livelist.subject,
+        routId: livelist.id,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookieToken()}` },
+      }
+    );
+    console.log(livelist.subject + ":" + livelist.id);
+    //navigate("/live/list", { state: { livelist } });
+  };
   const onChangeName = (event) => {
+    //라이브 생성
     setLivelist({
       subject: event.target.value,
       id: routineid,
-      date: new Date(),
     });
   };
-  const onClick = (id) => {
-    setRoutineid(id);
-  };
-
-  const liveCreate = () => {
-    window.opener.href = "/live/list";
+  const close = () => {
+    //취소버튼 클릭시
     window.close();
-    //navigate("/live/list", { state: { livelist } });
+  };
+  const fetchroutine = async () => {
+    //라이브 리스트 api 연결
+    try {
+      setMyRoutindata(null);
+      setLoading(true);
+      setError(null);
+
+      const response = await axios.get(
+        `http://52.78.0.53/api/ex-routines/me?type=false`,
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      );
+      setMyRoutindata(response.data);
+    } catch (e) {
+      setError(e);
+      console.log("에러 발생", e);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    const routines = [
-      {
-        id: 1,
-        name: " 운동 할 수 있어요!",
-        date: "2022-03-04",
-      },
-      {
-        id: 2,
-        name: "간단하게 두가지 하체운동",
-        date: "2023-01-20",
-      },
-      {
-        id: 3,
-        name: "어깨운동 한세트씩",
-        date: "2023-10-14",
-      },
-    ];
-    setMyRoutindata(routines);
+    fetchroutine();
   }, []);
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러발생</div>;
+  if (!myroutinedata) return <div>null</div>;
   return (
     <>
       <div>라이브 생성</div>
@@ -52,32 +91,45 @@ const MakeLive = () => {
         type="text"
         className={styles.MakeLiveName}
         placeholder="이름"
+        size="40"
         //  value={liveName}
         onChange={onChangeName}
       />
       <hr />
       <div>My routine</div>
       <div className={styles.MyRoutineListarr}>
-        {myroutinedata.map(
+        {myroutinedata.result?.map(
           (
-            routine //내 루틴들 보여주기
+            myroutine,
+            idx //내 루틴들 보여주기
           ) => (
-            <button
+            <div
+              key={idx}
               type="button" //상세정보 보여주기 버튼
-              className={styles.MyroutineClick}
-              onClick={() => onClick(routine.id)}
+              className={`${styles.MyroutineClick}
+                ${idx === myroutineclick && styles.selected}`}
+              onClick={() => onClick(idx, myroutine.routineId)}
             >
               <div className={styles.MyRoutineListItem}>
-                <div className={styles.subject}>{routine.name}</div>
-                <div className={styles.myhits}>{routine.hits}</div>
-                <div className={styles.create_date}>{routine.date}</div>
+                <div className={styles.subject}>{myroutine.routineSubject}</div>
+                <div className={styles.hitscreate}>
+                  {/*
+                  <div className={styles.myhits}>{myroutine.count}</div>
+                  <div className={styles.createDate}>
+                    {myroutine.createDate}
+                  </div>
+                  */}
+                </div>
               </div>
-            </button>
+            </div>
           )
         )}
       </div>
-      <button className={styles.backbutton} onClick={liveCreate}>
+      <button className={styles.button} onClick={() => liveCreate(livelist)}>
         생성
+      </button>
+      <button className={styles.button} onClick={close}>
+        취소
       </button>
     </>
   );
