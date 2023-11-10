@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import styles from "../../css/LiveList.module.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
-import { PiYoutubeLogoLight } from "react-icons/pi";
 import axios from "axios";
 
 export default function LiveList() {
@@ -20,6 +19,7 @@ export default function LiveList() {
   };
 
   const onPopupdetail = (id) => {
+    //라이브 상세페이지 이동
     const width = 500;
     const height = 700;
     const x = window.outerWidth / 2 - width / 2;
@@ -41,8 +41,7 @@ export default function LiveList() {
       "window_name",
       "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
-    //navigate(`/routindetail/${id}`, { state: { id } });
-    //mylive.document.write(id);
+    //navigate(`/makelive`);
   };
   const onPress = (e) => {
     if (e.key === "Enter") {
