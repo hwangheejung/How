@@ -14,10 +14,10 @@ const LiveDetail = () => {
     window.close();
   };
 
-  const { routineId, liveId } = useParams();
+  const { id } = useParams();
 
-  const liveStart = (liveId) => {
-    window.opener.location.href = `/live/setting/${liveId}`;
+  const liveStart = (id) => {
+    window.opener.location.href = `/live/setting/${id}`;
     window.close();
   };
 
@@ -28,11 +28,7 @@ const LiveDetail = () => {
       setError(null);
 
       const response = await axios.get(
-<<<<<<< HEAD
-        `http://52.78.0.53/api/ex-routine?id=${routineId}`
-=======
         `http://52.78.0.53/api/ex-routines/${id}`
->>>>>>> 495ebc52a2c3ce63da96bf4338288905838d9cec
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -95,10 +91,7 @@ const LiveDetail = () => {
         )}
 
         <div className={styles.buttons}>
-          <button
-            className={styles.backbutton}
-            onClick={() => liveStart(liveId)}
-          >
+          <button className={styles.backbutton} onClick={() => liveStart(id)}>
             참여
           </button>
           <button className={styles.backbutton} onClick={windowClose}>

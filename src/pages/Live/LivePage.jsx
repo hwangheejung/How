@@ -15,22 +15,23 @@ import { useParams } from 'react-router-dom';
 import Peer from 'peerjs';
 import { useSelector } from 'react-redux';
 
+// server 연결
 const client = Stomp.over(() => {
   return new SockJS('http://52.78.0.53:8080/live');
 });
 
 export default function LivePage() {
   const { liveId, camera, audio } = useParams();
-  const myInfo = useSelector((state) => state.userInfo);
+  // const myInfo = useSelector((state) => state.userInfo);
 
   const [myMediaStream, setMyMediaStream] = useState();
   const [audioOn, setAudioOn] = useState(JSON.parse(audio));
   const [cameraOn, setCameraOn] = useState(JSON.parse(camera));
-  const [peers, setPeers] = useState([]);
+  // const [peers, setPeers] = useState([]);
 
   const myMedia = useRef();
   // const othersMedia = useRef([]);
-  // const otherMedia = useRef();
+  const otherMedia = useRef();
 
   useEffect(() => {
     let myPeerId;
@@ -46,6 +47,7 @@ export default function LivePage() {
         stream.getVideoTracks().forEach((video) => (video.enabled = cameraOn));
       });
 
+    // 연결 되었을 때
     client.connect(
       {},
       () => {
@@ -60,20 +62,20 @@ export default function LivePage() {
           }
           if (call) {
             call.on('stream', (stream) => {
-              // if (otherMedia.current && othersMedia.current) {
-              // otherMedia.current.srcObject = stream;
-              // othersMedia.current.push(otherMedia);
-              // console.log(otherMedia);
-              // console.log(othersMedia.current[0]);
-              console.log(`received answer`);
-              setPeers((prev) => [
-                ...prev,
-                {
-                  peerId: call.peer,
-                  stream: stream,
-                },
-              ]);
-              // }
+              if (otherMedia.current) {
+                otherMedia.current.srcObject = stream;
+                // othersMedia.current.push(otherMedia);
+                // console.log(otherMedia);
+                // console.log(othersMedia.current[0]);
+                console.log(`received answer`);
+                // setPeers((prev) => [
+                //   ...prev,
+                //   {
+                //     peerId: call.peer,
+                //     stream: stream,
+                //   },
+                // ]);
+              }
             });
           }
         });
@@ -95,20 +97,20 @@ export default function LivePage() {
           call.answer(myMedia.current.srcObject);
           console.log('answer');
           call.on('stream', (stream) => {
-            // if (otherMedia.current && othersMedia.current) {
-            // otherMedia.current.srcObject = stream;
-            // othersMedia.current.push(othersMedia);
-            // console.log(otherMedia);
-            // console.log(othersMedia[0]);
-            console.log(`received offer`);
-            setPeers((prev) => [
-              ...prev,
-              {
-                peerId: call.peer,
-                stream: stream,
-              },
-            ]);
-            // }
+            if (otherMedia.current) {
+              otherMedia.current.srcObject = stream;
+              // othersMedia.current.push(othersMedia);
+              // console.log(otherMedia);
+              // console.log(othersMedia[0]);
+              console.log(`received offer`);
+              setPeers((prev) => [
+                ...prev,
+                {
+                  peerId: call.peer,
+                  stream: stream,
+                },
+              ]);
+            }
           });
         });
       },
@@ -118,7 +120,7 @@ export default function LivePage() {
     );
   }, []);
 
-  console.log(peers);
+  // console.log(peers);
   // console.log(othersMediaStream);
 
   const handleAudio = () => {
@@ -159,24 +161,25 @@ export default function LivePage() {
           <FontAwesomeIcon icon={faVideoSlash} />
         )}
       </button>
-      {/* <div>
+      <div>
         <video
           playsInline
           ref={otherMedia}
           autoPlay
           style={{ width: '400px', height: '400px' }}
         />
-      </div> */}
-      {peers.map((peer) => (
+        P
+      </div>
+      {/* {peers.map((peer) => (
         <div>
           <video
             playsInline
             ref={(e) => (e.srcObject = peer.stream)}
-            autoPlay
+            autolay
             style={{ width: '400px', height: '400px' }}
           />
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
