@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
+import { IoIosTimer } from 'react-icons/io';
 
 const LiveDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -17,15 +17,8 @@ const LiveDetail = () => {
   const { id } = useParams();
 
   const liveStart = (id) => {
-    window.opener.location.href = `/start/${id}`;
-    //window.close();
-
-    const url = `/liveStart/${id}`;
-    window.open(
-      url,
-      "window_name",
-      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
-    );
+    window.opener.location.href = `/live/setting/${id}`;
+    window.close();
   };
 
   const fetchroutine = async () => {

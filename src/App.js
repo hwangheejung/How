@@ -28,6 +28,8 @@ function App() {
     }
   }, [getCookieToken()]);
 
+  // console.log(window.location.pathname);
+
   useEffect(() => {
     if (!localStorage.getItem('menu')) {
       localStorage.setItem('menu', '');

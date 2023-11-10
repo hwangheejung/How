@@ -1,41 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import NotFound from "./pages/NotFound";
-import RoutineList from "./pages/Routine/RoutineList";
-import MyRoutine from "./pages/MyRoutine/MyRoutine";
-import LiveList from "./pages/Live/LiveList";
-import Calendar from "./pages/Calendar/Calendar";
-import RoutineSearch from "./pages/Routine/RoutineSearch";
-import MyRoutineSearch from "./pages/MyRoutine/MyRoutineSearch";
-import RoutineDetail from "./pages/Routine/RoutineDetail";
-import MyRoutineDetail from "./pages/MyRoutine/MyRoutineDetail";
-import RoutineStart from "./pages/MyRoutine/RoutineStart";
-import MakeLive from "./pages/Live/MakeLive";
-import StartScreen from "./pages/MyRoutine/StartScreen";
-import LivePage from "./pages/Live/LivePage";
-import { CookiesProvider } from "react-cookie";
-import { Provider } from "react-redux";
-import { store } from "./store/configureStore";
-import persistStore from "redux-persist/es/persistStore";
-import { PersistGate } from "redux-persist/integration/react";
-import Startex from "./pages/MyRoutine/Start";
-import ReadyTimer from "./pages/Exercise/ReadyTimer";
-import LiveSearch from "./pages/Live/LiveSearch";
-import LiveDetail from "./pages/Live/LiveDetail";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
+import RoutineList from './pages/Routine/RoutineList';
+import MyRoutine from './pages/MyRoutine/MyRoutine';
+import LiveList from './pages/Live/LiveList';
+import Calendar from './pages/Calendar/Calendar';
+import RoutineSearch from './pages/Routine/RoutineSearch';
+import MyRoutineSearch from './pages/MyRoutine/MyRoutineSearch';
+import RoutineDetail from './pages/Routine/RoutineDetail';
+import MyRoutineDetail from './pages/MyRoutine/MyRoutineDetail';
+import RoutineStart from './pages/MyRoutine/RoutineStart';
+import MakeLive from './pages/Live/MakeLive';
+import StartScreen from './pages/MyRoutine/StartScreen';
+import LivePage from './pages/Live/LivePage';
+import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import { store } from './store/configureStore';
+import persistStore from 'redux-persist/es/persistStore';
+import { PersistGate } from 'redux-persist/integration/react';
+import Startex from './pages/MyRoutine/Start';
+import ReadyTimer from './pages/Exercise/ReadyTimer';
+import LiveSearch from './pages/Live/LiveSearch';
+import LiveDetail from './pages/Live/LiveDetail';
+import LiveSetting from './pages/Live/LiveSetting';
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
     errorElement: <NotFound />,
   },
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <NotFound />,
     children: [
@@ -72,12 +73,13 @@ const router = createBrowserRouter([
     path: `/livedetail/:id`,
     element: <LiveDetail />,
   },
-  { path: "/live/realtime", element: <LivePage /> },
+  { path: '/live/realtime/:liveId/:camera/:audio', element: <LivePage /> },
+  { path: '/live/setting/:liveId', element: <LiveSetting /> },
 ]);
 
 export const persistor = persistStore(store);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CookiesProvider>
