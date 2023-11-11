@@ -1,23 +1,23 @@
-import React from 'react';
-import { useState } from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMicrophone,
   faVideo,
   faMicrophoneSlash,
   faVideoSlash,
-} from '@fortawesome/free-solid-svg-icons';
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
-import { useParams } from 'react-router-dom';
-import Peer from 'peerjs';
-import { useSelector } from 'react-redux';
+} from "@fortawesome/free-solid-svg-icons";
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
+import { useParams } from "react-router-dom";
+import Peer from "peerjs";
+import { useSelector } from "react-redux";
 
 // server 연결
 const client = Stomp.over(() => {
-  return new SockJS('http://52.78.0.53:8080/live');
+  return new SockJS("http://52.78.0.53:8080/live");
 });
 
 export default function LivePage() {
@@ -27,7 +27,7 @@ export default function LivePage() {
   const [myMediaStream, setMyMediaStream] = useState();
   const [audioOn, setAudioOn] = useState(JSON.parse(audio));
   const [cameraOn, setCameraOn] = useState(JSON.parse(camera));
-  // const [peers, setPeers] = useState([]);
+  const [peers, setPeers] = useState([]);
 
   const myMedia = useRef();
   // const othersMedia = useRef([]);
@@ -51,17 +51,17 @@ export default function LivePage() {
     client.connect(
       {},
       () => {
-        client.subscribe('/room/leave/' + liveId, (data) => {
+        client.subscribe("/room/participate/" + liveId, (data) => {
           let call;
           if (myPeerId !== JSON.parse(data.body).sdp) {
             call = peer.call(
               JSON.parse(data.body).sdp,
               myMedia.current.srcObject
             );
-            console.log('offer');
+            console.log("offer");
           }
           if (call) {
-            call.on('stream', (stream) => {
+            call.on("stream", (stream) => {
               if (otherMedia.current) {
                 otherMedia.current.srcObject = stream;
                 // othersMedia.current.push(otherMedia);
@@ -81,10 +81,10 @@ export default function LivePage() {
         });
 
         const peer = new Peer();
-        peer.on('open', (peerId) => {
+        peer.on("open", (peerId) => {
           myPeerId = peerId;
           client.send(
-            '/room/leave/' + liveId,
+            "/app/participate/" + liveId,
             {},
             JSON.stringify({
               sdp: peerId,
@@ -93,10 +93,10 @@ export default function LivePage() {
           );
         });
 
-        peer.on('call', (call) => {
+        peer.on("call", (call) => {
           call.answer(myMedia.current.srcObject);
-          console.log('answer');
-          call.on('stream', (stream) => {
+          console.log("answer");
+          call.on("stream", (stream) => {
             if (otherMedia.current) {
               otherMedia.current.srcObject = stream;
               // othersMedia.current.push(othersMedia);
@@ -115,7 +115,7 @@ export default function LivePage() {
         });
       },
       () => {
-        console.log('error occured');
+        console.log("error occured");
       }
     );
   }, []);
@@ -144,7 +144,7 @@ export default function LivePage() {
           playsInline
           ref={myMedia}
           autoPlay
-          style={{ width: '400px', height: '400px' }}
+          style={{ width: "400px", height: "400px" }}
         />
       </div>
       <button onClick={() => handleAudio()}>
@@ -166,7 +166,7 @@ export default function LivePage() {
           playsInline
           ref={otherMedia}
           autoPlay
-          style={{ width: '400px', height: '400px' }}
+          style={{ width: "400px", height: "400px" }}
         />
         P
       </div>

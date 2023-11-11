@@ -19,7 +19,7 @@ const MakeLive = () => {
   ]);
   const [myroutineclick, setMyroutineclick] = useState("");
 
-  console.log(livelist);
+  //console.log(livelist);
   const onClick = (id, routineid) => {
     //루틴 선택
     setMyroutineclick(id); //루틴 배열 중 선택한 배열 index
