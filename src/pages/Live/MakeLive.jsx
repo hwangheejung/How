@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styles from "../../css/makeLive.module.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../../css/makeLive.module.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 const MakeLive = () => {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ const MakeLive = () => {
   const [routineid, setRoutineid] = useState(0);
   const [livelist, setLivelist] = useState([
     {
-      subject: "",
+      subject: '',
       id: 0,
     },
   ]);
-  const [myroutineclick, setMyroutineclick] = useState("");
+  const [myroutineclick, setMyroutineclick] = useState('');
 
   //console.log(livelist);
   const onClick = (id, routineid) => {
@@ -30,7 +30,7 @@ const MakeLive = () => {
 
   const liveCreate = (livelist) => {
     //라이브 생성 버튼 클릭시
-    window.opener.href = "/live/list";
+    window.opener.href = '/live/list';
     window.close();
     axios.post(
       `http://52.78.0.53/api/lives`,
@@ -42,7 +42,7 @@ const MakeLive = () => {
         headers: { Authorization: `Bearer ${getCookieToken()}` },
       }
     );
-    console.log(livelist.subject + ":" + livelist.id);
+    console.log(livelist.subject + ':' + livelist.id);
     //navigate("/live/list", { state: { livelist } });
   };
   const onChangeName = (event) => {
@@ -72,7 +72,7 @@ const MakeLive = () => {
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -88,10 +88,10 @@ const MakeLive = () => {
     <>
       <div>라이브 생성</div>
       <input
-        type="text"
+        type='text'
         className={styles.MakeLiveName}
-        placeholder="이름"
-        size="40"
+        placeholder='이름'
+        size='40'
         //  value={liveName}
         onChange={onChangeName}
       />
@@ -105,7 +105,7 @@ const MakeLive = () => {
           ) => (
             <div
               key={idx}
-              type="button" //상세정보 보여주기 버튼
+              type='button' //상세정보 보여주기 버튼
               className={`${styles.MyroutineClick}
                 ${idx === myroutineclick && styles.selected}`}
               onClick={() => onClick(idx, myroutine.routineId)}

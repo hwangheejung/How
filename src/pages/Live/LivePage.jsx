@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Peer from "peerjs";
 import { useSelector } from "react-redux";
 
@@ -22,20 +22,24 @@ const client = Stomp.over(() => {
 
 export default function LivePage() {
   const { liveId, camera, audio } = useParams();
-  // const myInfo = useSelector((state) => state.userInfo);
+
+  const myInfo = useSelector((state) => state.userInfo);
 
   const [myMediaStream, setMyMediaStream] = useState();
   const [audioOn, setAudioOn] = useState(JSON.parse(audio));
   const [cameraOn, setCameraOn] = useState(JSON.parse(camera));
-  const [peers, setPeers] = useState([]);
+  const [myPeerId, setMyPeerId] = useState();
+  const [myPeer, setMyPeer] = useState();
+  // const [peers, setPeers] = useState([]);
+  // const [routine, setRoutine] = useState();
 
   const myMedia = useRef();
-  // const othersMedia = useRef([]);
   const otherMedia = useRef();
+  // const othersMedia = useRef([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let myPeerId;
-
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -47,48 +51,59 @@ export default function LivePage() {
         stream.getVideoTracks().forEach((video) => (video.enabled = cameraOn));
       });
 
-    // 연결 되었을 때
+    let myPeerId;
+
     client.connect(
       {},
       () => {
         client.subscribe("/room/participate/" + liveId, (data) => {
-          let call;
-          if (myPeerId !== JSON.parse(data.body).sdp) {
-            call = peer.call(
-              JSON.parse(data.body).sdp,
-              myMedia.current.srcObject
-            );
-            console.log("offer");
-          }
-          if (call) {
-            call.on("stream", (stream) => {
-              if (otherMedia.current) {
-                otherMedia.current.srcObject = stream;
-                // othersMedia.current.push(otherMedia);
-                // console.log(otherMedia);
-                // console.log(othersMedia.current[0]);
-                console.log(`received answer`);
-                // setPeers((prev) => [
-                //   ...prev,
-                //   {
-                //     peerId: call.peer,
-                //     stream: stream,
-                //   },
-                // ]);
-              }
-            });
+          let nick = JSON.parse(data.body).nick;
+          if (nick === undefined) {
+            let call;
+            if (myPeerId !== JSON.parse(data.body).sdp) {
+              call = peer.call(
+                JSON.parse(data.body).sdp,
+                myMedia.current.srcObject
+              );
+              console.log("offer");
+            }
+            if (call) {
+              call.on("stream", (stream) => {
+                if (otherMedia.current) {
+                  otherMedia.current.srcObject = stream;
+                  console.log(`received answer`);
+                  // othersMedia.current.push(otherMedia);
+                  // setPeers((prev) => [
+                  //   ...prev,
+                  //   {
+                  //     peerId: call.peer,
+                  //     stream: stream,
+                  //   },
+                  // ]);
+                }
+              });
+              call.on("close", () => {
+                otherMedia.current.remove();
+                console.log("someone leaved");
+              });
+            }
+          } else {
+            if (myPeerId !== JSON.parse(data.body).sdp) {
+              alert(`${nick}님이 퇴장하셨습니다.`);
+            }
           }
         });
 
         const peer = new Peer();
+        setMyPeer(peer);
         peer.on("open", (peerId) => {
           myPeerId = peerId;
+          setMyPeerId(peerId);
           client.send(
             "/app/participate/" + liveId,
             {},
             JSON.stringify({
               sdp: peerId,
-              // nick: myInfo.nickname,
             })
           );
         });
@@ -99,18 +114,20 @@ export default function LivePage() {
           call.on("stream", (stream) => {
             if (otherMedia.current) {
               otherMedia.current.srcObject = stream;
-              // othersMedia.current.push(othersMedia);
-              // console.log(otherMedia);
-              // console.log(othersMedia[0]);
               console.log(`received offer`);
-              setPeers((prev) => [
-                ...prev,
-                {
-                  peerId: call.peer,
-                  stream: stream,
-                },
-              ]);
+              // othersMedia.current.push(othersMedia);
+              // setPeers((prev) => [
+              //   ...prev,
+              //   {
+              //     peerId: call.peer,
+              //     stream: stream,
+              //   },
+              // ]);
             }
+          });
+          call.on("close", () => {
+            otherMedia.current.remove();
+            console.log("someone leaved");
           });
         });
       },
@@ -119,9 +136,6 @@ export default function LivePage() {
       }
     );
   }, []);
-
-  // console.log(peers);
-  // console.log(othersMediaStream);
 
   const handleAudio = () => {
     myMediaStream
@@ -137,6 +151,20 @@ export default function LivePage() {
     cameraOn ? setCameraOn(false) : setCameraOn(true);
   };
 
+  const handleExit = () => {
+    client.send(
+      "/app/participate/" + liveId,
+      {},
+      JSON.stringify({
+        sdp: myPeerId,
+        nick: myInfo.nickname,
+      })
+    );
+    myPeer.destroy();
+    client.disconnect();
+    navigate("/");
+  };
+
   return (
     <div>
       <div>
@@ -146,6 +174,7 @@ export default function LivePage() {
           autoPlay
           style={{ width: "400px", height: "400px" }}
         />
+        <div>{myInfo.nickname}</div>
       </div>
       <button onClick={() => handleAudio()}>
         {audioOn ? (
@@ -168,8 +197,8 @@ export default function LivePage() {
           autoPlay
           style={{ width: "400px", height: "400px" }}
         />
-        P
       </div>
+      <button onClick={handleExit}>나가기</button>
       {/* {peers.map((peer) => (
         <div>
           <video
