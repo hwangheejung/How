@@ -52,9 +52,6 @@ const LiveDetail = () => {
       <div className={styles.layout}>
         <div className={styles.subject}>{detailRoutine.result.name}</div>
         <div>
-          {/* {detailRoutine.result.routineDetails.map((v) => (
-            <span>{v[8]}</span>
-          ))} */}
           <div className={styles.category}>
             #{detailRoutine.result.routineDetails[0].cate[0].name}
           </div>
@@ -70,7 +67,7 @@ const LiveDetail = () => {
 
         {detailRoutine.result.routineDetails.map((detail) =>
           detail.type ? (
-            <div className={styles.timer}>
+            <div key={detail.id} className={styles.timer}>
               <span className={styles.detailname}> {detail.ex.name}</span>
               <div className={styles.details}>
                 <span> {detail.time}s</span>
@@ -79,7 +76,7 @@ const LiveDetail = () => {
               </div>
             </div>
           ) : (
-            <div className={styles.timer}>
+            <div key={detail.id} className={styles.timer}>
               <span className={styles.detailname}> {detail.ex.name}</span>
               <div className={styles.details}>
                 <span> {detail.count}개</span>
