@@ -33,6 +33,7 @@ export default function LivePage() {
   // const [peers, setPeers] = useState([]);
   // const [routine, setRoutine] = useState();
   const [otherNickname, setOtherNickname] = useState('');
+  const [routine, setRoutine] = useState();
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -141,7 +142,7 @@ export default function LivePage() {
         });
 
         client.subscribe('/room/nick/' + liveId, (data) => {
-          console.log(JSON.parse(data.body));
+          // console.log(JSON.parse(data.body));
           // setOtherNickname(JSON.parse(data.body).sdp[1]);
         });
       },
@@ -213,6 +214,7 @@ export default function LivePage() {
         />
         <div>{otherNickname}</div>
       </div>
+
       <button onClick={handleExit}>나가기</button>
       {/* {peers.map((peer) => (
         <div>
