@@ -28,6 +28,7 @@ import ReadyTimer from './pages/Exercise/ReadyTimer';
 import LiveSearch from './pages/Live/LiveSearch';
 import LiveDetail from './pages/Live/LiveDetail';
 import LiveSetting from './pages/Live/LiveSetting';
+import OwnerLiveSetting from './pages/Live/OwnerLiveSetting';
 
 const router = createBrowserRouter([
   {
@@ -70,11 +71,12 @@ const router = createBrowserRouter([
     element: <MakeLive />,
   },
   {
-    path: `/livedetail/:id`,
+    path: `/livedetail/:routineId/:liveId`,
     element: <LiveDetail />,
   },
   { path: '/live/realtime/:liveId/:camera/:audio', element: <LivePage /> },
-  { path: '/live/setting/:liveId', element: <LiveSetting /> },
+  { path: '/live/setting/perticipate/:liveId', element: <LiveSetting /> },
+  { path: '/live/setting/owner/:liveId', element: <OwnerLiveSetting /> },
 ]);
 
 export const persistor = persistStore(store);
