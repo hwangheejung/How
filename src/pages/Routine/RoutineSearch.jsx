@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "../../css/RoutineList.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from 'react';
+import styles from '../../css/RoutineList.module.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Routinedetail() {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate("/routine/list");
+    navigate('/routine/list');
   };
 
   const onPopup = (id) => {
@@ -19,7 +19,7 @@ export default function Routinedetail() {
     const url = `/routinedetail/${id}`;
     window.open(
       url,
-      "window_name",
+      'window_name',
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
     //navigate(`/routindetail/${id}`, { state: { id } });
@@ -28,6 +28,7 @@ export default function Routinedetail() {
 
   let location = useLocation();
   const SearchArray = location.state.sArray;
+  console.log('SearchArray', SearchArray);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>Search</div>
@@ -35,14 +36,25 @@ export default function Routinedetail() {
       <div className={styles.RoutineListarr}>
         {SearchArray.map((routine) => (
           <button
-            key={routine.id}
-            type="button"
+            key={routine.routine.id}
+            type='button'
             className={styles.routineClick}
-            onClick={() => onPopup(routine.id)}
+            onClick={() => onPopup(routine.routine.id)}
           >
             <div className={styles.RoutineListItem}>
-              <div className={styles.subject}>{routine.subject}</div>
-              <div className={styles.hits}>조회수 : {routine.hits}</div>
+              <div className={styles.subject}>{routine.routine.subject}</div>
+              <div className={styles.catesHits}>
+                <div className={styles.cates}>
+                  {routine.cate.map((item, index) => (
+                    <span key={index} className={styles.actionCate}>
+                      #{item}
+                    </span>
+                  ))}
+                </div>
+                <span className={styles.hits}>
+                  조회수: {routine.routine.hits}
+                </span>
+              </div>
             </div>
           </button>
         ))}
