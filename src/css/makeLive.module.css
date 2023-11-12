@@ -1,37 +1,62 @@
-.button {
-  border: none;
-  display: inline-block;
-  margin: 15px;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-weight: 500;
-  transition: 0.25s;
-  background-color: #7650e0;
-  color: #d7fff1;
+.makeLabel {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.MakeLiveName {
+  height: 30px;
   margin: 10px;
-  margin-left: 130px;
 }
-.header {
+
+.routineLabel {
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+
+.MyRoutineListarr {
+  margin: 0 10px;
+  /* height: 500px; */
   overflow-y: scroll;
+  background: #f3edff;
+  /* height: 70%; */
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
 }
-.MyRoutineListItem {
-  display: block;
-  height: 80px;
-  width: auto;
+
+.MyroutineClick {
+  width: 700px;
+  border: none;
+  background-color: transparent;
+  /* padding: 30px; */
+  margin: 30px;
+  cursor: pointer;
 }
+
+.MyroutineClick:hover {
+  border: 2px #7650e0 solid;
+}
+
 .subject {
   /* background-color: aqua;*/
-  display: inline-block;
+  /* display: inline-block; */
   text-align: left;
-  margin: 10px;
-  margin-right: 50px;
-  width: 30em;
-  height: 30px;
+  /* margin: 10px;
+  margin-right: 50px; */
+  /* width: 30em;
+  height: 30px; */
+  padding-bottom: 10px;
 }
+
+/* .header {
+  overflow-y: scroll;
+} */
+
+.hitscreate {
+  display: flex;
+  justify-content: space-between;
+}
+
 .myhits {
   /*background-color: blanchedalmond;*/
   display: inline-block;
@@ -39,48 +64,37 @@
   margin-right: 20px;
   width: 18em;
 }
-.create_date {
-  display: inline;
-}
+
 .Routine {
   font-size: 50px;
 }
 
-.MyroutineClick {
-  display: block;
-  width: 500px;
-  border: none;
-  background-color: transparent;
-  margin: 30px;
-}
 .selected {
   background-color: #b9a4f0;
 }
 
-/*.MyroutineClick:active {
-  background-color: #b6a3eb;
-}
-.MyroutineClick:visited {
-  background: #b6a3eb;
-  color: white;
-}
-*/
-.MyroutineClick:hover {
-  border: 2px #7650e0 solid;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.MyRoutineListarr {
-  /*background-color: antiquewhite;*/
-  width: auto;
-  height: 500px;
-  overflow-y: scroll;
-  background: #f3edff;
-  height: 70%;
-  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
-  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
-  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
-}
-.MakeLiveName {
-  height: 30px;
-  margin: 10px;
+.button {
+  border: none;
+  /* display: inline-block; */
+  /* margin: 15px; */
+  /* text-align: center; */
+  margin: 20px;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: 'paybooc-Light', sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.25s;
+  background-color: #7650e0;
+  color: #d7fff1;
+  /* margin: 10px; */
+  /* margin-left: 130px; */
+  cursor: pointer;
 }

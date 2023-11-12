@@ -8,6 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../css/LiveSetting.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 export default function LiveSetting() {
   const [camera, setCamera] = useState(true);
@@ -28,6 +30,15 @@ export default function LiveSetting() {
   const handleEnter = (liveId) => {
     // window.location.href = `/live/realtime/${liveId}`;
     // window.close();
+    axios.post(
+      `http://52.78.0.53/api/lives/participates`,
+      {
+        liveId: liveId,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookieToken()}` },
+      }
+    ); // ✅
     navigate(`/live/realtime/${liveId}/${camera}/${audio}`);
   };
 
