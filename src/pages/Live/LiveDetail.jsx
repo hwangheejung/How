@@ -14,10 +14,10 @@ const LiveDetail = () => {
     window.close();
   };
 
-  const { id } = useParams();
+  const { routineId, liveId } = useParams();
 
-  const liveStart = (id) => {
-    window.opener.location.href = `/live/setting/${id}`;
+  const liveStart = (liveId) => {
+    window.opener.location.href = `/live/setting/perticipate/${liveId}`;
     window.close();
   };
 
@@ -28,7 +28,7 @@ const LiveDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${id}`
+        `http://52.78.0.53/api/ex-routines/${routineId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -88,7 +88,10 @@ const LiveDetail = () => {
         )}
 
         <div className={styles.buttons}>
-          <button className={styles.backbutton} onClick={() => liveStart(id)}>
+          <button
+            className={styles.backbutton}
+            onClick={() => liveStart(liveId)}
+          >
             참여
           </button>
           <button className={styles.backbutton} onClick={windowClose}>

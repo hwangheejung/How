@@ -94,35 +94,35 @@ export default function MyRoutine() {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
-  //console.log(myroutinedata.result);
+  // console.log(myroutinedata.result);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>MyRoutine</div>
       <hr />
-      <div className={styles.SearchandSort}>
-        <div className={styles.searchContainer}>
-          <input //검색어 받기
-            type='text'
-            className={styles.routinesearch}
-            placeholder='Search'
-            value={myroutineSearch}
-            onChange={SearchValue}
-            onKeyPress={onPress}
-          />
-          <button className={styles.searchButton} onClick={onClickSearch}>
-            <AiOutlineSearch />
-          </button>
-        </div>
-
-        <div className={styles.Sorted}>
-          <button onClick={onhitsOrder} type='button' className={styles.sort}>
-            운동횟수순
-          </button>
-          <button onClick={onCreateOrder} type='button' className={styles.sort}>
-            최신순
-          </button>
-        </div>
+      {/* <div className={styles.SearchandSort}> */}
+      <div className={styles.searchContainer}>
+        <input //검색어 받기
+          type='text'
+          className={styles.routinesearch}
+          placeholder='Search'
+          value={myroutineSearch}
+          onChange={SearchValue}
+          onKeyPress={onPress}
+        />
+        <button className={styles.searchButton} onClick={onClickSearch}>
+          <AiOutlineSearch />
+        </button>
       </div>
+
+      <div className={styles.Sorted}>
+        <button onClick={onhitsOrder} type='button' className={styles.sort}>
+          운동횟수순
+        </button>
+        <button onClick={onCreateOrder} type='button' className={styles.sort}>
+          최신순
+        </button>
+      </div>
+      {/* </div> */}
 
       <div className={styles.MyRoutineListarr}>
         {myroutinedata.result?.map(
@@ -130,17 +130,28 @@ export default function MyRoutine() {
             myroutine //내 루틴들 보여주기
           ) => (
             <button
-              key={myroutine.routineId}
+              key={myroutine.routine.routineId}
               type='button' //상세정보 보여주기 버튼
               className={styles.MyroutineClick}
-              onClick={() => onPopup(myroutine.routineId)}
+              onClick={() => onPopup(myroutine.routine.routineId)}
             >
               <div className={styles.MyRoutineListItem}>
-                <div className={styles.subject}>{myroutine.routineSubject}</div>
+                <div className={styles.subjectcates}>
+                  <div className={styles.subject}>
+                    {myroutine.routine.routineSubject}
+                  </div>
+                  <div className={styles.cates}>
+                    {myroutine.cate.map((item, index) => (
+                      <span key={index} className={styles.actionCate}>
+                        #{item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
                 <div className={styles.hitscreate}>
-                  <div className={styles.myhits}>{myroutine.count}</div>
+                  <div className={styles.myhits}>{myroutine.routine.count}</div>
                   <div className={styles.createDate}>
-                    {myroutine.createDate}
+                    {myroutine.routine.createDate}
                   </div>
                 </div>
               </div>

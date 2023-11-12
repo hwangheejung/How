@@ -32,6 +32,7 @@ export default function LivePage() {
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
   // const [routine, setRoutine] = useState();
+  const [otherNickname, setOtherNickname] = useState('');
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -87,6 +88,14 @@ export default function LivePage() {
                 console.log('someone leaved');
               });
             }
+
+            client.send(
+              '/app/nick/' + liveId,
+              {},
+              JSON.stringify({
+                nickReq: 1,
+              })
+            );
           } else {
             if (myPeerId !== JSON.parse(data.body).sdp) {
               alert(`${nick}님이 퇴장하셨습니다.`);
@@ -129,6 +138,11 @@ export default function LivePage() {
             otherMedia.current.srcObject = null;
             console.log('someone leaved');
           });
+        });
+
+        client.subscribe('/room/nick/' + liveId, (data) => {
+          console.log(JSON.parse(data.body));
+          // setOtherNickname(JSON.parse(data.body).sdp[1]);
         });
       },
       () => {
@@ -197,6 +211,7 @@ export default function LivePage() {
           autoPlay
           style={{ width: '400px', height: '400px' }}
         />
+        <div>{otherNickname}</div>
       </div>
       <button onClick={handleExit}>나가기</button>
       {/* {peers.map((peer) => (
