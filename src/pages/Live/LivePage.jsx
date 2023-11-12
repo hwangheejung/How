@@ -31,7 +31,7 @@ export default function LivePage() {
   const [myPeerId, setMyPeerId] = useState();
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
-  // const [routine, setRoutine] = useState();
+  const [routine, setRoutine] = useState();
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -130,6 +130,21 @@ export default function LivePage() {
             console.log("someone leaved");
           });
         });
+
+        client.subscribe("/room/routine/" + liveId, (data) => {
+          console.log(data);
+          const obj = JSON.parse(data);
+          console.log(obj);
+          console.log(obj.name);
+        });
+
+        client.send(
+          "/app/start/" + liveId,
+          {},
+          JSON.stringify({
+            routineReq: 1,
+          })
+        );
       },
       () => {
         console.log("error occured");
@@ -198,6 +213,7 @@ export default function LivePage() {
           style={{ width: "400px", height: "400px" }}
         />
       </div>
+
       <button onClick={handleExit}>나가기</button>
       {/* {peers.map((peer) => (
         <div>
