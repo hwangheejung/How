@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getCookieToken } from './store/Cookie';
 import { useDispatch } from 'react-redux';
 import { DELETE_USERINFO } from './store/loginRedux';
@@ -28,13 +28,9 @@ function App() {
     }
   }, [getCookieToken()]);
 
-  // console.log(window.location.pathname);
-
-  useEffect(() => {
-    if (!localStorage.getItem('menu')) {
-      localStorage.setItem('menu', '');
-    }
-  }, []);
+  if (window.location.pathname === '/') {
+    localStorage.setItem('menu', '');
+  }
 
   const handleMenu = (value) => {
     localStorage.setItem('menu', value);

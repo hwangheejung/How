@@ -1,11 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 //import { useLocation } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import { IoIosTimer } from "react-icons/io";
-import { getCookieToken } from "../../store/Cookie";
+import styles from '../../css/Popup.module.css';
+import { IoIosTimer } from 'react-icons/io';
+import { getCookieToken } from '../../store/Cookie';
 
 const RoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -57,7 +57,7 @@ const RoutineDetail = () => {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
-  // console.log(detailRoutine.result);
+  console.log(detailRoutine.result);
   return (
     <>
       <div className={styles.name}>detail</div>
@@ -71,6 +71,11 @@ const RoutineDetail = () => {
           #{detailRoutine.result.routineDetails[0].cate[0].name}
         </div>*/}
         {/* </div> */}
+        {/* <div className={styles.cates}>
+          {detailRoutine.result.cate.map((item) => (
+            <span className={styles.actionCate}>#{item}</span>
+          ))}
+        </div> */}
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 
         <div className={styles.list}>
@@ -82,7 +87,7 @@ const RoutineDetail = () => {
 
         {detailRoutine.result.routineDetails.map((detail) =>
           detail.type ? (
-            <div className={styles.timer}>
+            <div className={styles.timer} key={detail.id}>
               <span className={styles.detailname}> {detail.ex.name}</span>
               <div className={styles.details}>
                 <span> {detail.time}s</span>
@@ -91,7 +96,7 @@ const RoutineDetail = () => {
               </div>
             </div>
           ) : (
-            <div className={styles.timer}>
+            <div className={styles.timer} key={detail.id}>
               <span className={styles.detailname}> {detail.ex.name}</span>
               <div className={styles.details}>
                 <span> {detail.count}개</span>
