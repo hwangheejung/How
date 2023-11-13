@@ -40,29 +40,26 @@
 }
 
 .Sorted {
+  width: 50%;
   display: flex;
   justify-content: end;
-  margin: 10px 50px 0 0;
-  padding: 0px;
+
+  margin: 20px 0 20px 0;
 }
 .sort {
-  /* margin: 8px; */
   width: 150px;
-  /* padding: 8px 60px; */
   border: none;
   background-color: transparent;
+  padding: 0;
 }
 .sort:hover {
-  /* border: 2px #7650e0 solid; */
   cursor: pointer;
   transform: scale(1.1);
   transition: all 50ms 0s ease-in-out;
 }
 
 .MyRoutineListarr {
-  /*background-color: antiquewhite;*/
-  /* width: 100%;
-  height: 100%; */
+  padding-left: 30px;
   display: flex;
   flex-direction: column;
 }
@@ -78,10 +75,8 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  /* display: flex; */
-  width: 100%;
-  padding: 20px 50px;
-  /* justify-content: space-between; */
+  width: 50%;
+  padding: 10px 10px 10px 20px;
 }
 
 .MyroutineClick:hover {
@@ -90,14 +85,27 @@
 }
 
 .subject {
-  /* background-color: aqua;*/
-  /* display: inline-block; */
   text-align: left;
-  /* margin: 10px; */
-  /* margin-right: 50px; */
-  /* width: 30em; */
+
   height: 30px;
 }
+
+.subjectcates {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cates {
+  padding-top: 20px;
+}
+
+.actionCate {
+  color: var(--main-color);
+  font-size: 18px;
+  padding-right: 5px;
+}
+
 .hitscreate {
   width: 300px;
   display: flex;
@@ -106,7 +114,7 @@
 .myhits {
   width: 150px;
   height: 30px;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   text-align: center;
 }
 .create_date {
@@ -123,7 +131,7 @@
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;

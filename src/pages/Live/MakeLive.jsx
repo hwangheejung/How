@@ -45,7 +45,7 @@ const MakeLive = () => {
       )
       .then((res) => {
         // console.log(res.data);
-        window.opener.location.href = `/live/setting/${res.data.result.roomId}`;
+        window.opener.location.href = `/live/setting/owner/${res.data.result.roomId}`;
         window.close();
       });
     // console.log(livelist.subject + ':' + livelist.id);

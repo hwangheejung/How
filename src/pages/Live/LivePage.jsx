@@ -32,6 +32,9 @@ export default function LivePage() {
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
   const [routinename, setRoutinename] = useState();
+  // const [routine, setRoutine] = useState();
+  const [otherNickname, setOtherNickname] = useState("");
+  const [routine, setRoutine] = useState();
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -87,6 +90,14 @@ export default function LivePage() {
                 console.log("someone leaved");
               });
             }
+
+            client.send(
+              "/app/nick/" + liveId,
+              {},
+              JSON.stringify({
+                nickReq: 1,
+              })
+            );
           } else {
             if (myPeerId !== JSON.parse(data.body).sdp) {
               alert(`${nick}님이 퇴장하셨습니다.`);
@@ -137,14 +148,6 @@ export default function LivePage() {
           console.log(routinename);
           //console.log(obj.name);
         });
-
-        client.send(
-          "/app/start/" + liveId,
-          {},
-          JSON.stringify({
-            routineReq: 1,
-          })
-        );
       },
       () => {
         console.log("error occured");
@@ -212,6 +215,7 @@ export default function LivePage() {
           autoPlay
           style={{ width: "400px", height: "400px" }}
         />
+        <div>{otherNickname}</div>
       </div>
 
       <button onClick={handleExit}>나가기</button>
