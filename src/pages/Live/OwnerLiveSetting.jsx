@@ -28,7 +28,7 @@ export default function OwnerLiveSetting() {
   const handleEnter = (liveId) => {
     // window.location.href = `/live/realtime/${liveId}`;
     // window.close();
-    navigate(`/live/realtime/${liveId}/${camera}/${audio}`);
+    navigate(`/live/realtime/${liveId}/${camera}/${audio}/${true}`);
   };
 
   return (

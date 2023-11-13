@@ -28,8 +28,17 @@ function App() {
     }
   }, [getCookieToken()]);
 
-  if (window.location.pathname === '/') {
+  if (
+    window.location.pathname === '/' ||
+    window.location.pathname === '/calendar'
+  ) {
     localStorage.setItem('menu', '');
+  } else if (window.location.pathname === '/routine/list') {
+    localStorage.setItem('menu', '운동 루틴');
+  } else if (window.location.pathname === '/my/routine/list') {
+    localStorage.setItem('menu', '내 루틴');
+  } else if (window.location.pathname === '/live/list') {
+    localStorage.setItem('menu', 'live');
   }
 
   const handleMenu = (value) => {

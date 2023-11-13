@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styles from "../../css/Popup.module.css";
-import ExerciseDetail from "../Exercise/ExerciseDetail";
-import CountDetail from "../Exercise/CountDetail";
-import ReadyTimer from "../Exercise/ReadyTimer";
-import TimerDetail from "../Exercise/TimerDetail";
+import { React, useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../css/Popup.module.css';
+import ExerciseDetail from '../Exercise/ExerciseDetail';
+import CountDetail from '../Exercise/CountDetail';
+import ReadyTimer from '../Exercise/ReadyTimer';
+import TimerDetail from '../Exercise/TimerDetail';
 
 const Startex = () => {
   const [detailRoutine, setDetailRoutine] = useState(null); //루틴 정보 배열
@@ -42,7 +42,7 @@ const Startex = () => {
 
   const onclick = () => {
     //운동이 끝나서 홈화면으로 돌아가기 위한 함수
-    navigate("/");
+    navigate('/');
   };
   const fetchroutine = async () => {
     //루틴 상세정보 api 연결
