@@ -14,6 +14,7 @@ import { Stomp } from "@stomp/stompjs";
 import { useNavigate, useParams } from "react-router-dom";
 import Peer from "peerjs";
 import { useSelector } from "react-redux";
+import styles from "../../css/LivePage.module.css";
 
 // server 연결
 const client = Stomp.over(() => {
@@ -31,8 +32,6 @@ export default function LivePage() {
   const [myPeerId, setMyPeerId] = useState();
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
-  const [routinename, setRoutinename] = useState();
-  // const [routine, setRoutine] = useState();
   const [otherNickname, setOtherNickname] = useState("");
   const [routine, setRoutine] = useState();
 
@@ -143,11 +142,18 @@ export default function LivePage() {
         });
 
         client.subscribe("/room/routine/" + liveId, (data) => {
-          // console.log(data);
-          setRoutinename(JSON.parse(data.body).name);
-          console.log(routinename);
+          console.log(JSON.parse(data.body));
+          setRoutine(JSON.parse(data.body));
+          //console.log(routinename);
           //console.log(obj.name);
         });
+        client.send(
+          "/app/start/" + liveId,
+          {},
+          JSON.stringify({
+            routineReq: 1,
+          })
+        );
       },
       () => {
         console.log("error occured");
@@ -185,40 +191,81 @@ export default function LivePage() {
 
   return (
     <div>
-      <div>
-        <video
-          playsInline
-          ref={myMedia}
-          autoPlay
-          style={{ width: "400px", height: "400px" }}
-        />
-        <div>{myInfo.nickname}</div>
-      </div>
-      <button onClick={() => handleAudio()}>
-        {audioOn ? (
-          <FontAwesomeIcon icon={faMicrophone} />
-        ) : (
-          <FontAwesomeIcon icon={faMicrophoneSlash} />
-        )}
-      </button>
-      <button onClick={() => handleCamera()}>
-        {cameraOn ? (
-          <FontAwesomeIcon icon={faVideo} />
-        ) : (
-          <FontAwesomeIcon icon={faVideoSlash} />
-        )}
-      </button>
-      <div>
-        <video
-          playsInline
-          ref={otherMedia}
-          autoPlay
-          style={{ width: "400px", height: "400px" }}
-        />
-        <div>{otherNickname}</div>
-      </div>
+      <div className={styles.left}>
+        <div>
+          <video
+            playsInline
+            ref={myMedia}
+            autoPlay
+            style={{ width: "400px", height: "400px" }}
+          />
+          <div>{myInfo.nickname}</div>
+        </div>
+        <button onClick={() => handleAudio()}>
+          {audioOn ? (
+            <FontAwesomeIcon icon={faMicrophone} />
+          ) : (
+            <FontAwesomeIcon icon={faMicrophoneSlash} />
+          )}
+        </button>
+        <button onClick={() => handleCamera()}>
+          {cameraOn ? (
+            <FontAwesomeIcon icon={faVideo} />
+          ) : (
+            <FontAwesomeIcon icon={faVideoSlash} />
+          )}
+        </button>
+        <div>
+          <video
+            playsInline
+            ref={otherMedia}
+            autoPlay
+            style={{ width: "400px", height: "400px" }}
+          />
+          <div>{otherNickname}</div>
+        </div>
 
-      <button onClick={handleExit}>나가기</button>
+        <button onClick={handleExit}>나가기</button>
+      </div>
+      <div className={styles.right}>
+        <div>{routine?.name}</div>
+        <div className={styles.cates}>
+          {routine?.cate.map((item, index) => (
+            <span key={index} className={styles.actionCate}>
+              #{item}
+            </span>
+          ))}
+        </div>
+        <div>
+          {routine?.routineDetails?.map((detail) =>
+            detail.type ? (
+              <div key={detail.ex.id} className={styles.timer}>
+                <span className={styles.detailname}> {detail.ex?.name}</span>
+                <span> {detail.time}s</span>
+                <div>
+                  <span>rest</span>
+                  <span> {detail.rest}s</span>
+                </div>
+                <div>
+                  <span>{detail.set} set</span>
+                </div>
+              </div>
+            ) : (
+              <div key={detail.ex.id} className={styles.timer}>
+                <span className={styles.detailname}> {detail.ex?.name}</span>
+                <span>{detail.count}개</span>
+                <div>
+                  <span>rest</span>
+                  <span> {detail.rest}s</span>
+                </div>
+                <div>
+                  <span>{detail.set} set</span>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
       {/* {peers.map((peer) => (
         <div>
           <video

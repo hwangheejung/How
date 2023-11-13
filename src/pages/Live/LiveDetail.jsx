@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
-import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
+import { React, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import styles from "../../css/Popup.module.css";
+import axios from "axios";
+import { IoIosTimer } from "react-icons/io";
 
-const LiveDetail = () => {
+const LiveDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ const LiveDetail = () => {
     window.close();
   };
 
-  const { routineId, liveId } = useParams();
+  const { routineId, liveId,livesubject,livenick } = useParams();
 
   const liveStart = (liveId) => {
     window.opener.location.href = `/live/setting/perticipate/${liveId}`;
@@ -50,7 +50,8 @@ const LiveDetail = () => {
     <>
       <div className={styles.name}>detail</div>
       <div className={styles.layout}>
-        <div className={styles.subject}>{detailRoutine.result.name}</div>
+        <div className={styles.subject}>{livesubject}</div>
+        <div className={styles.subject}>{livenick}</div>
         <div>
           <div className={styles.category}>
             #{detailRoutine.result.routineDetails[0].cate[0].name}

@@ -71,7 +71,7 @@ const router = createBrowserRouter([
     element: <MakeLive />,
   },
   {
-    path: `/livedetail/:routineId/:liveId`,
+    path: `/livedetail/:routineId/:liveId/:livesubject/:livenick`,
     element: <LiveDetail />,
   },
   { path: '/live/realtime/:liveId/:camera/:audio', element: <LivePage /> },

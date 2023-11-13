@@ -87,7 +87,7 @@
   margin: 20px;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
+  font-family: "paybooc-Light", sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 500;
@@ -97,4 +97,7 @@
   /* margin: 10px; */
   /* margin-left: 130px; */
   cursor: pointer;
+}
+.cates {
+  padding-top: 20px;
 }
