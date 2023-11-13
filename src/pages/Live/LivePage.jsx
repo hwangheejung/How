@@ -90,13 +90,14 @@ export default function LivePage() {
               });
             }
 
-            client.send(
-              '/app/nick/' + liveId,
-              {},
-              JSON.stringify({
-                nickReq: 1,
-              })
-            );
+            // 새로운 참여자가 들어올 때마다 닉네임 요청
+            // client.send(
+            //   '/app/nick/' + liveId,
+            //   {},
+            //   JSON.stringify({
+            //     nickReq: 1,
+            //   })
+            // );
           } else {
             if (myPeerId !== JSON.parse(data.body).sdp) {
               alert(`${nick}님이 퇴장하셨습니다.`);
@@ -141,10 +142,11 @@ export default function LivePage() {
           });
         });
 
-        client.subscribe('/room/nick/' + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
-          // setOtherNickname(JSON.parse(data.body).sdp[1]);
-        });
+        // 참여자들의 닉네임 받아오는 subscribe
+        // client.subscribe('/room/nick/' + liveId, (data) => {
+        //   console.log(JSON.parse(data.body));
+        //   // setOtherNickname(JSON.parse(data.body).sdp[1]);
+        // });
       },
       () => {
         console.log('error occured');

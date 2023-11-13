@@ -32,7 +32,7 @@
   background-color: #f3edff;
   margin: 0 20px;
   padding: 20px 20px;
-  height: 500px;
+  height: 80%;
 }
 
 .subject {
@@ -40,6 +40,17 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.cates {
+  text-align: center;
+  padding-top: 10px;
+  color: var(--main-color);
+  font-size: 18px;
+}
+
+.actionCate {
+  padding: 0 5px;
 }
 
 .category {

@@ -89,6 +89,8 @@ const MakeLive = () => {
     fetchroutine();
   }, []);
 
+  console.log(myroutinedata);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
@@ -116,14 +118,18 @@ const MakeLive = () => {
               //상세정보 보여주기 버튼
               className={`${styles.MyroutineClick}
                 ${idx === myroutineclick && styles.selected}`}
-              onClick={() => onClick(idx, myroutine.routineId)}
+              onClick={() => onClick(idx, myroutine.routine.routineId)}
             >
-              <div className={styles.subject}>{myroutine.routineSubject}</div>
+              <div className={styles.subject}>
+                {myroutine.routine.routineSubject}
+              </div>
               <div className={styles.hitscreate}>
                 <div className={styles.myhits}>
-                  운동 횟수: {myroutine.count}
+                  운동 횟수: {myroutine.routine.count}
                 </div>
-                <div className={styles.createDate}>{myroutine.createDate}</div>
+                <div className={styles.createDate}>
+                  {myroutine.routine.createDate}
+                </div>
               </div>
             </button>
           )

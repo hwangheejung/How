@@ -63,19 +63,13 @@ const RoutineDetail = () => {
       <div className={styles.name}>detail</div>
       <div className={styles.layout}>
         <div className={styles.subject}>{detailRoutine.result.name}</div>
-        {/* <div>
-          {detailRoutine.result.routineDetails.map((v) => (
-            <span>{v[8]}</span>
-          ))} */}
-        {/*<div className={styles.category}>
-          #{detailRoutine.result.routineDetails[0].cate[0].name}
-        </div>*/}
-        {/* </div> */}
-        {/* <div className={styles.cates}>
-          {detailRoutine.result.cate.map((item) => (
-            <span className={styles.actionCate}>#{item}</span>
+        <div className={styles.cates}>
+          {detailRoutine.result.cate.map((item, index) => (
+            <span key={index} className={styles.actionCate}>
+              #{item}
+            </span>
           ))}
-        </div> */}
+        </div>
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 
         <div className={styles.list}>

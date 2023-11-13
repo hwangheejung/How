@@ -16,7 +16,6 @@ const MyRoutineDetail = () => {
 
   const { id } = useParams();
 
-  console.log(id);
   const routineStart = (id) => {
     window.opener.location.href = `/start/${id}`;
     window.close();
@@ -50,6 +49,8 @@ const MyRoutineDetail = () => {
     fetchroutine();
   }, []);
 
+  console.log(detailRoutine);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
@@ -59,6 +60,13 @@ const MyRoutineDetail = () => {
       <div className={styles.name}>detail</div>
       <div className={styles.layout}>
         <div className={styles.subject}>{detailRoutine.result.name}</div>
+        <div className={styles.cates}>
+          {detailRoutine.result.cate.map((item, index) => (
+            <span key={index} className={styles.actionCate}>
+              #{item}
+            </span>
+          ))}
+        </div>
         <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
 
         <div className={styles.list}>

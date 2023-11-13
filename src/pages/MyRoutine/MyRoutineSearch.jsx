@@ -4,10 +4,19 @@ import styles from '../../css/MyRoutine.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MyRoutineSearch() {
+  const [type, setType] = useState(true);
+
   const navigate = useNavigate();
 
   const onClick = () => {
     navigate('/my/routine/list');
+  };
+
+  const onhitsOrder = () => {
+    setType(false);
+  };
+  const onCreateOrder = () => {
+    setType(true);
   };
 
   const onPopup = (id) => {
@@ -33,18 +42,41 @@ export default function MyRoutineSearch() {
     <div className={styles.header}>
       <span className={styles.Routine}>Search</span>
       <hr />
-
+      <div className={styles.Sorted}>
+        <button onClick={onhitsOrder} type='button' className={styles.sort}>
+          운동횟수순
+        </button>
+        <button onClick={onCreateOrder} type='button' className={styles.sort}>
+          최신순
+        </button>
+      </div>
       <div className={styles.MyRoutineListarr}>
         {SearchArray.map((routine) => (
           <button
+            key={routine.routine.routineId}
             type='button'
             className={styles.MyroutineClick}
-            onClick={() => onPopup(routine.id)}
+            onClick={() => onPopup(routine.routine.routineId)}
           >
             <div className={styles.MyRoutineListItem}>
-              <div className={styles.subject}>{routine.subject}</div>
-              <div className={styles.myhits}>{routine.hits}</div>
-              <div className={styles.create_date}>{routine.date}</div>
+              <div className={styles.subjectcates}>
+                <div className={styles.subject}>
+                  {routine.routine.routineSubject}
+                </div>
+                <div className={styles.cates}>
+                  {routine.cate.map((item, index) => (
+                    <span key={index} className={styles.actionCate}>
+                      #{item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.hitscreate}>
+                <div className={styles.myhits}>{routine.routine.count}</div>
+                <div className={styles.create_date}>
+                  {routine.routine.createDate}
+                </div>
+              </div>
             </div>
           </button>
         ))}
