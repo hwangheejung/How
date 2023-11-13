@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styles from "../../css/makeLive.module.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../../css/makeLive.module.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 const MakeLive = () => {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ const MakeLive = () => {
   const [routineid, setRoutineid] = useState(0);
   const [livelist, setLivelist] = useState([
     {
-      subject: "",
+      subject: '',
       id: 0,
     },
   ]);
-  const [myroutineclick, setMyroutineclick] = useState("");
+  const [myroutineclick, setMyroutineclick] = useState('');
 
   //console.log(livelist);
   const onClick = (id, routineid) => {
@@ -80,7 +80,7 @@ const MakeLive = () => {
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -89,6 +89,8 @@ const MakeLive = () => {
     fetchroutine();
   }, []);
 
+  console.log(myroutinedata);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
@@ -96,10 +98,10 @@ const MakeLive = () => {
     <>
       <div className={styles.makeLabel}>라이브 생성</div>
       <input
-        type="text"
+        type='text'
         className={styles.MakeLiveName}
-        placeholder="라이브 제목"
-        size="40"
+        placeholder='라이브 제목'
+        size='40'
         //  value={liveName}
         onChange={onChangeName}
       />

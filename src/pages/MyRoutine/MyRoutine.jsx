@@ -40,8 +40,10 @@ export default function MyRoutine() {
   const onClickSearch = () => {
     //검색 버튼 함수
 
-    let sArray = myroutinedata.result.routines.filter((search) =>
-      search.subject.includes(myroutineSearch)
+    let sArray = myroutinedata.result.filter(
+      (search) =>
+        search.routine.routineSubject.includes(myroutineSearch) ||
+        search.cate.includes(myroutineSearch)
     );
     //console.log(sArray);
     navigate('/myroutineSearch', { state: { sArray } });
@@ -51,8 +53,10 @@ export default function MyRoutine() {
     if (e.key === 'Enter') {
       //검색 버튼 함수
 
-      let sArray = myroutinedata.result.routines.filter((search) =>
-        search.subject.includes(myroutineSearch)
+      let sArray = myroutinedata.result.filter(
+        (search) =>
+          search.routine.routineSubject.includes(myroutineSearch) ||
+          search.cate.includes(myroutineSearch)
       );
       // console.log(sArray);
       navigate('/myroutineSearch', { state: { sArray } });
@@ -94,7 +98,7 @@ export default function MyRoutine() {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
-  // console.log(myroutinedata.result);
+  console.log(myroutinedata.result);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>MyRoutine</div>

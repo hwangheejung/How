@@ -40,11 +40,12 @@
 }
 
 .Sorted {
-  width: 50%;
+  width: 95%;
   display: flex;
   justify-content: end;
 
-  margin: 20px 0 20px 0;
+  margin: 20px 0px 20px 0;
+  padding-right: 10px;
 }
 .sort {
   width: 150px;
@@ -60,6 +61,7 @@
 
 .MyRoutineListarr {
   padding-left: 30px;
+  padding-right: 30px;
   display: flex;
   flex-direction: column;
 }
@@ -75,7 +77,7 @@
   background-color: transparent;
   border: 0;
   outline: 0;
-  width: 50%;
+  width: 100%;
   padding: 10px 10px 10px 20px;
 }
 
