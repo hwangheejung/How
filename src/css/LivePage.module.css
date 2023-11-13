@@ -1,0 +1,28 @@
+.left {
+  width: 40%;
+  float: left;
+  box-sizing: border-box;
+}
+
+.right {
+  width: 60%;
+  float: right;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.cates {
+  margin: 10px;
+}
+.timer {
+  margin-right: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  /* text-align: right; */
+  /* margin: 10px; */
+}
+
+.detailname {
+  text-align: center;
+}

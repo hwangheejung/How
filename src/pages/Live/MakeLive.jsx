@@ -106,42 +106,54 @@ const MakeLive = () => {
         onChange={onChangeName}
       />
       <hr />
-      <div className={styles.routineLabel}>My routine</div>
-      <div className={styles.MyRoutineListarr}>
-        {myroutinedata.result?.map(
-          (
-            myroutine,
-            idx //내 루틴들 보여주기
-          ) => (
-            <button
-              key={idx}
-              //상세정보 보여주기 버튼
-              className={`${styles.MyroutineClick}
+      <div className={styles.scroll}>
+        <div className={styles.routineLabel}>My routine</div>
+        <div className={styles.MyRoutineListarr}>
+          {myroutinedata.result?.map(
+            (
+              myroutine,
+              idx //내 루틴들 보여주기
+            ) => (
+              <button
+                key={idx}
+                //상세정보 보여주기 버튼
+                className={`${styles.MyroutineClick}
                 ${idx === myroutineclick && styles.selected}`}
-              onClick={() => onClick(idx, myroutine.routine.routineId)}
-            >
-              <div className={styles.subject}>
-                {myroutine.routine.routineSubject}
-              </div>
-              <div className={styles.hitscreate}>
-                <div className={styles.myhits}>
-                  운동 횟수: {myroutine.routine.count}
+                onClick={() => onClick(idx, myroutine.routine.routineId)}
+              >
+                <div className={styles.subject}>
+                  {myroutine.routine.routineSubject}
                 </div>
-                <div className={styles.createDate}>
-                  {myroutine.routine.createDate}
+                <div className={styles.cates}>
+                  {myroutine.cate.map((item, index) => (
+                    <span key={index} className={styles.actionCate}>
+                      #{item}
+                    </span>
+                  ))}
                 </div>
-              </div>
-            </button>
-          )
-        )}
-      </div>
-      <div className={styles.buttons}>
-        <button className={styles.button} onClick={() => liveCreate(livelist)}>
-          생성
-        </button>
-        <button className={styles.button} onClick={close}>
-          취소
-        </button>
+                <div className={styles.hitscreate}>
+                  <div className={styles.myhits}>
+                    운동 횟수: {myroutine.routine.count}
+                  </div>
+                  <div className={styles.createDate}>
+                    {myroutine.createDate}
+                  </div>
+                </div>
+              </button>
+            )
+          )}
+        </div>
+        <div className={styles.buttons}>
+          <button
+            className={styles.button}
+            onClick={() => liveCreate(livelist)}
+          >
+            생성
+          </button>
+          <button className={styles.button} onClick={close}>
+            취소
+          </button>
+        </div>
       </div>
     </>
   );
