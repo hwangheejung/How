@@ -1,23 +1,23 @@
-import React from 'react';
-import { useState } from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMicrophone,
   faVideo,
   faMicrophoneSlash,
   faVideoSlash,
-} from '@fortawesome/free-solid-svg-icons';
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
-import { useNavigate, useParams } from 'react-router-dom';
-import Peer from 'peerjs';
-import { useSelector } from 'react-redux';
+} from "@fortawesome/free-solid-svg-icons";
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
+import { useNavigate, useParams } from "react-router-dom";
+import Peer from "peerjs";
+import { useSelector } from "react-redux";
 
 // server 연결
 const client = Stomp.over(() => {
-  return new SockJS('http://52.78.0.53:8080/live');
+  return new SockJS("http://52.78.0.53:8080/live");
 });
 
 export default function LivePage() {
@@ -31,7 +31,7 @@ export default function LivePage() {
   const [myPeerId, setMyPeerId] = useState();
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
-  const [routine, setRoutine] = useState();
+  const [routinename, setRoutinename] = useState();
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -56,7 +56,7 @@ export default function LivePage() {
     client.connect(
       {},
       () => {
-        client.subscribe('/room/participate/' + liveId, (data) => {
+        client.subscribe("/room/participate/" + liveId, (data) => {
           let nick = JSON.parse(data.body).nick;
           if (nick === undefined) {
             let call;
@@ -65,10 +65,10 @@ export default function LivePage() {
                 JSON.parse(data.body).sdp,
                 myMedia.current.srcObject
               );
-              console.log('offer');
+              console.log("offer");
             }
             if (call) {
-              call.on('stream', (stream) => {
+              call.on("stream", (stream) => {
                 if (otherMedia.current) {
                   otherMedia.current.srcObject = stream;
                   console.log(`received answer`);
@@ -82,9 +82,9 @@ export default function LivePage() {
                   // ]);
                 }
               });
-              call.on('close', () => {
+              call.on("close", () => {
                 otherMedia.current.srcObject = null;
-                console.log('someone leaved');
+                console.log("someone leaved");
               });
             }
           } else {
@@ -96,11 +96,11 @@ export default function LivePage() {
 
         const peer = new Peer();
         setMyPeer(peer);
-        peer.on('open', (peerId) => {
+        peer.on("open", (peerId) => {
           myPeerId = peerId;
           setMyPeerId(peerId);
           client.send(
-            '/app/participate/' + liveId,
+            "/app/participate/" + liveId,
             {},
             JSON.stringify({
               sdp: peerId,
@@ -108,10 +108,10 @@ export default function LivePage() {
           );
         });
 
-        peer.on('call', (call) => {
+        peer.on("call", (call) => {
           call.answer(myMedia.current.srcObject);
-          console.log('answer');
-          call.on('stream', (stream) => {
+          console.log("answer");
+          call.on("stream", (stream) => {
             if (otherMedia.current) {
               otherMedia.current.srcObject = stream;
               console.log(`received offer`);
@@ -125,17 +125,17 @@ export default function LivePage() {
               // ]);
             }
           });
-          call.on('close', () => {
+          call.on("close", () => {
             otherMedia.current.srcObject = null;
-            console.log('someone leaved');
+            console.log("someone leaved");
           });
         });
 
         client.subscribe("/room/routine/" + liveId, (data) => {
-          console.log(data);
-          const obj = JSON.parse(data);
-          console.log(obj);
-          console.log(obj.name);
+          // console.log(data);
+          setRoutinename(JSON.parse(data.body).name);
+          console.log(routinename);
+          //console.log(obj.name);
         });
 
         client.send(
@@ -147,7 +147,7 @@ export default function LivePage() {
         );
       },
       () => {
-        console.log('error occured');
+        console.log("error occured");
       }
     );
   }, []);
@@ -168,7 +168,7 @@ export default function LivePage() {
 
   const handleExit = () => {
     client.send(
-      '/app/participate/' + liveId,
+      "/app/participate/" + liveId,
       {},
       JSON.stringify({
         sdp: myPeerId,
@@ -177,7 +177,7 @@ export default function LivePage() {
     );
     myPeer.destroy();
     client.disconnect();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -187,7 +187,7 @@ export default function LivePage() {
           playsInline
           ref={myMedia}
           autoPlay
-          style={{ width: '400px', height: '400px' }}
+          style={{ width: "400px", height: "400px" }}
         />
         <div>{myInfo.nickname}</div>
       </div>
@@ -210,7 +210,7 @@ export default function LivePage() {
           playsInline
           ref={otherMedia}
           autoPlay
-          style={{ width: '400px', height: '400px' }}
+          style={{ width: "400px", height: "400px" }}
         />
       </div>
 
