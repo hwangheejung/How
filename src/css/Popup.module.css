@@ -36,10 +36,26 @@
 }
 
 .subject {
-  font-size: 25px;
+  font-size: 30px;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.creatorBox {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.creator {
+  font-size: 18px;
+}
+
+.routineTitle {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
 }
 
 .cates {
@@ -100,6 +116,12 @@
   white-space: pre-line;
 }
 
+.startbuttonContainer {
+  display: flex;
+  align-items: center;
+  height: 85%;
+}
+
 .startbutton {
   border: none;
   display: block;
@@ -116,6 +138,7 @@
   transition: 0.25s;
   background-color: #7650e0;
   color: #d7fff1;
+  cursor: pointer;
 }
 
 .frame {

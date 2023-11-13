@@ -39,7 +39,7 @@ export default function LiveSetting() {
         headers: { Authorization: `Bearer ${getCookieToken()}` },
       }
     ); // ✅
-    navigate(`/live/realtime/${liveId}/${camera}/${audio}`);
+    navigate(`/live/realtime/${liveId}/${camera}/${audio}/${false}`);
   };
 
   return (

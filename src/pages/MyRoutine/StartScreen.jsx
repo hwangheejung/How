@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "../../css/Popup.module.css";
-import {  useParams } from "react-router-dom";
+import React from 'react';
+import styles from '../../css/Popup.module.css';
+import { useParams } from 'react-router-dom';
 
 const StartScreen = () => {
   const { id } = useParams();
@@ -10,7 +10,7 @@ const StartScreen = () => {
     //navigate(`/my/routine/list/${id}`, { state: { id } });
   };
   return (
-    <div>
+    <div className={styles.startbuttonContainer}>
       <button className={styles.startbutton} onClick={onClickStart}>
         운동 시작
       </button>
