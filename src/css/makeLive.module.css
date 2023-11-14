@@ -1,23 +1,36 @@
 .makeLabel {
-  margin-left: 10px;
-  margin-top: 20px;
+  /* margin-left: 10px;
+  margin-top: 20px; */
+  text-align: center;
+  font-size: 50px;
+  padding: 10px 0;
 }
 
+/* .container {
+  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+} */
+
 .MakeLiveName {
+  display: block;
+  margin: 10px auto;
   height: 30px;
-  margin: 10px;
 }
 
 .routineLabel {
+  font-size: 28px;
+  /* text-align: center; */
   margin-left: 10px;
   padding-bottom: 10px;
 }
 
 .MyRoutineListarr {
+  /* height: 70%; */
   margin: 0 10px;
-  /* height: 500px; */
+  height: 400px;
   overflow-y: scroll;
-  background: #f3edff;
+  /* background: #f3edff; */
   /* height: 70%; */
   background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
   background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
@@ -25,11 +38,11 @@
 }
 
 .MyroutineClick {
-  width: 700px;
+  /* width: 500px; */
   border: none;
   background-color: transparent;
-  /* padding: 30px; */
-  margin: 30px;
+  margin: 20px 15px;
+  /* margin: 30px; */
   cursor: pointer;
 }
 
@@ -38,19 +51,20 @@
 }
 
 .subject {
-  /* background-color: aqua;*/
-  /* display: inline-block; */
   text-align: left;
-  /* margin: 10px;
-  margin-right: 50px; */
-  /* width: 30em;
-  height: 30px; */
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 }
 
-/* .header {
-  overflow-y: scroll;
-} */
+.cates {
+  text-align: left;
+  padding-top: 10px;
+  color: var(--main-color);
+  font-size: 18px;
+}
+
+.actionCate {
+  padding: 0 5px;
+}
 
 .hitscreate {
   display: flex;
@@ -59,7 +73,9 @@
 
 .myhits {
   /*background-color: blanchedalmond;*/
-  display: inline-block;
+  font-size: 20px;
+  text-align: right;
+  /* display: inline-block; */
   height: 30px;
   margin-right: 20px;
   width: 18em;
@@ -87,7 +103,7 @@
   margin: 20px;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 500;
@@ -97,7 +113,4 @@
   /* margin: 10px; */
   /* margin-left: 130px; */
   cursor: pointer;
-}
-.cates {
-  padding-top: 20px;
 }

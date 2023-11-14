@@ -54,7 +54,6 @@ const router = createBrowserRouter([
       { path: `/readyTimer/:id`, element: <ReadyTimer /> },
       { path: '/live/setting/perticipate/:liveId', element: <LiveSetting /> },
       { path: '/live/setting/owner/:liveId', element: <OwnerLiveSetting /> },
-      { path: '/live/realtime/:liveId/:camera/:audio', element: <LivePage /> },
     ],
   },
   {
@@ -76,6 +75,10 @@ const router = createBrowserRouter([
   {
     path: `/livedetail/:routineId/:liveId/:livesubject/:livenick`,
     element: <LiveDetail />,
+  },
+  {
+    path: '/live/realtime/:liveId/:camera/:audio/:isOwner',
+    element: <LivePage />,
   },
 ]);
 

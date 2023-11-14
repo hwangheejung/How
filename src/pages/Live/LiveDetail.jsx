@@ -1,9 +1,10 @@
-import { React, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
+import { IoIosTimer } from 'react-icons/io';
+import { BsPerson } from 'react-icons/bs';
 
 const LiveDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -14,7 +15,7 @@ const LiveDetail = (props) => {
     window.close();
   };
 
-  const { routineId, liveId,livesubject,livenick } = useParams();
+  const { routineId, liveId, livesubject, livenick } = useParams();
 
   const liveStart = (liveId) => {
     window.opener.location.href = `/live/setting/perticipate/${liveId}`;
@@ -42,23 +43,29 @@ const LiveDetail = (props) => {
     fetchroutine();
   }, []);
 
+  console.log(detailRoutine);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
 
   return (
     <>
-      <div className={styles.name}>detail</div>
+      <div className={styles.name}>Live</div>
       <div className={styles.layout}>
         <div className={styles.subject}>{livesubject}</div>
-        <div className={styles.subject}>{livenick}</div>
-        <div>
-          <div className={styles.category}>
-            #{detailRoutine.result.routineDetails[0].cate[0].name}
-          </div>
+        <div className={styles.creatorBox}>
+          <BsPerson />
+          <span className={styles.creator}>{livenick}</span>
         </div>
-        <div className={styles.hits}>조회수 : {detailRoutine.result.hits}</div>
-
+        <span className={styles.routineTitle}>{detailRoutine.result.name}</span>
+        <div className={styles.cates}>
+          {detailRoutine.result.cate.map((cate, index) => (
+            <span key={index} className={styles.actionCate}>
+              #{cate}
+            </span>
+          ))}
+        </div>
         <div className={styles.list}>
           <IoIosTimer />
           <span>Timer/Count</span>

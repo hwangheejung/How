@@ -8,6 +8,7 @@ import {
   faVideo,
   faMicrophoneSlash,
   faVideoSlash,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
@@ -15,7 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Peer from "peerjs";
 import { useSelector } from "react-redux";
 import styles from "../../css/LivePage.module.css";
-import ReadyTimer from "../Exercise/ReadyTimer";
+import axios from "axios";
+import { getCookieToken } from "../../store/Cookie";
 
 // server 연결
 const client = Stomp.over(() => {
@@ -23,7 +25,7 @@ const client = Stomp.over(() => {
 });
 
 export default function LivePage() {
-  const { liveId, camera, audio } = useParams();
+  const { liveId, camera, audio, isOwner } = useParams();
 
   const myInfo = useSelector((state) => state.userInfo);
 
@@ -34,15 +36,17 @@ export default function LivePage() {
   const [myPeer, setMyPeer] = useState();
   // const [peers, setPeers] = useState([]);
   const [otherNickname, setOtherNickname] = useState("");
+  const [nicknames, setNicknames] = useState([]);
   const [routine, setRoutine] = useState();
+  const [participateNum, setParticipateNum] = useState(0);
 
   const myMedia = useRef();
   const otherMedia = useRef();
-  // const othersMedia = useRef([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 내 카메라, 음성 정보
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -55,13 +59,17 @@ export default function LivePage() {
       });
 
     let myPeerId;
+    let myPeer;
 
+    // 소켓 연결됐을 때
     client.connect(
       {},
       () => {
         client.subscribe("/room/participate/" + liveId, (data) => {
+          setParticipateNum(JSON.parse(data.body).participate);
           let nick = JSON.parse(data.body).nick;
           if (nick === undefined) {
+            // stream 통신
             let call;
             if (myPeerId !== JSON.parse(data.body).sdp) {
               call = peer.call(
@@ -75,38 +83,43 @@ export default function LivePage() {
                 if (otherMedia.current) {
                   otherMedia.current.srcObject = stream;
                   console.log(`received answer`);
-                  // othersMedia.current.push(otherMedia);
-                  // setPeers((prev) => [
-                  //   ...prev,
-                  //   {
-                  //     peerId: call.peer,
-                  //     stream: stream,
-                  //   },
-                  // ]);
                 }
               });
+              // 라이브 퇴장
               call.on("close", () => {
                 otherMedia.current.srcObject = null;
                 console.log("someone leaved");
               });
             }
 
-            // 새로운 참여자가 들어올 때마다 닉네임 요청
-            // client.send(
-            //   '/app/nick/' + liveId,
-            //   {},
-            //   JSON.stringify({
-            //     nickReq: 1,
-            //   })
-            // );
+            // 닉네임
+            client.send(
+              "/app/nick/" + liveId,
+              {},
+              JSON.stringify({
+                nickReq: 1,
+              })
+            );
+          } else if (nick === "end") {
+            // 라이브 종료
+            if (myPeerId !== JSON.parse(data.body).sdp) {
+              alert("라이브가 종료되었습니다!");
+              myPeer.destroy();
+              client.disconnect();
+              navigate("/live/list");
+            }
           } else {
+            // 라이브 퇴장
             if (myPeerId !== JSON.parse(data.body).sdp) {
               alert(`${nick}님이 퇴장하셨습니다.`);
+              // console.log(data.body);
             }
           }
         });
 
+        // stream 통신
         const peer = new Peer();
+        myPeer = peer;
         setMyPeer(peer);
         peer.on("open", (peerId) => {
           myPeerId = peerId;
@@ -120,6 +133,7 @@ export default function LivePage() {
           );
         });
 
+        // stream 통신
         peer.on("call", (call) => {
           call.answer(myMedia.current.srcObject);
           console.log("answer");
@@ -127,27 +141,28 @@ export default function LivePage() {
             if (otherMedia.current) {
               otherMedia.current.srcObject = stream;
               console.log(`received offer`);
-              // othersMedia.current.push(othersMedia);
-              // setPeers((prev) => [
-              //   ...prev,
-              //   {
-              //     peerId: call.peer,
-              //     stream: stream,
-              //   },
-              // ]);
             }
           });
+          // 라이브 퇴장
           call.on("close", () => {
             otherMedia.current.srcObject = null;
             console.log("someone leaved");
           });
         });
 
+        // 닉네임
+        client.subscribe("/room/nick/" + liveId, (data) => {
+          // console.log(JSON.parse(data.body));
+          setNicknames(JSON.parse(data.body));
+        });
+
+        // 전체 운동 루틴
         client.subscribe("/room/routine/" + liveId, (data) => {
           console.log(JSON.parse(data.body));
           setRoutine(JSON.parse(data.body));
+          //console.log(routinename);
+          //console.log(obj.name);
         });
-
         client.send(
           "/app/start/" + liveId,
           {},
@@ -162,13 +177,13 @@ export default function LivePage() {
     );
   }, []);
 
+  // 카메라, 음성 설정
   const handleAudio = () => {
     myMediaStream
       .getAudioTracks()
       .forEach((audio) => (audio.enabled = !audio.enabled));
     audioOn ? setAudioOn(false) : setAudioOn(true);
   };
-
   const handleCamera = () => {
     myMediaStream
       .getVideoTracks()
@@ -176,18 +191,47 @@ export default function LivePage() {
     cameraOn ? setCameraOn(false) : setCameraOn(true);
   };
 
+  console.log(isOwner);
+
   const handleExit = () => {
-    client.send(
-      "/app/participate/" + liveId,
-      {},
-      JSON.stringify({
-        sdp: myPeerId,
-        nick: myInfo.nickname,
-      })
-    );
-    myPeer.destroy();
-    client.disconnect();
-    navigate("/");
+    // 라이브 종료
+    if (JSON.parse(isOwner)) {
+      axios.delete("http://52.78.0.53/api/lives/" + liveId).catch((e) => {
+        console.log("에러", e);
+      });
+      client.send(
+        "/app/participate/" + liveId,
+        {},
+        JSON.stringify({
+          sdp: myPeerId,
+          nick: "end",
+        })
+      );
+      alert("라이브가 종료되었습니다");
+      myPeer.destroy();
+      client.disconnect();
+    } else {
+      // 라이브 퇴장
+      axios
+        .delete("http://52.78.0.53/api/lives/participates/" + liveId, {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        })
+        .catch((e) => {
+          console.log("에러", e);
+        });
+      client.send(
+        "/app/participate/" + liveId,
+        {},
+        JSON.stringify({
+          sdp: myPeerId,
+          nick: myInfo.nickname,
+        })
+      );
+      myPeer.destroy();
+      client.disconnect();
+      alert("라이브에서 퇴장하셨습니다.");
+    }
+    navigate("/live/list");
   };
 
   const handleStart = () => {
@@ -203,9 +247,19 @@ export default function LivePage() {
       })
     );
   };
+  console.log(nicknames);
 
   return (
     <div>
+      <img
+        src="/live.png"
+        alt="live icon"
+        style={{ width: "50px", height: "50px" }}
+      />
+      <div className={styles.participateNum}>
+        <FontAwesomeIcon icon={faUsers} />
+        <span>{participateNum}</span>
+      </div>
       <div className={styles.left}>
         <div>
           <video
@@ -237,7 +291,7 @@ export default function LivePage() {
             autoPlay
             style={{ width: "400px", height: "400px" }}
           />
-          <div>{otherNickname}</div>
+          {/* <div>{nicknames[1] ? nicknames[1].nick : ''}</div> */}
         </div>
 
         <button onClick={handleExit}>나가기</button>
@@ -282,16 +336,6 @@ export default function LivePage() {
         </div>
         <button onClick={handleStart}>START</button>
       </div>
-      {/* {peers.map((peer) => (
-        <div>
-          <video
-            playsInline
-            ref={(e) => (e.srcObject = peer.stream)}
-            autolay
-            style={{ width: '400px', height: '400px' }}
-          />
-        </div>
-      ))} */}
     </div>
   );
 }
