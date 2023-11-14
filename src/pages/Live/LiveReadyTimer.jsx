@@ -1,9 +1,9 @@
 import { React, useState, useRef, useEffect } from "react";
 import styles from "../../css/readyTimer.module.css";
 
-const ReadyTimer = (props) => {
+const LiveReadyTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
-  const time = useRef(3);
+  const time = useRef(5);
   const timerId = useRef(null);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const ReadyTimer = (props) => {
     </div>
   );
 };
-export default ReadyTimer;
+export default LiveReadyTimer;

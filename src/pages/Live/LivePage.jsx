@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 import styles from '../../css/LivePage.module.css';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
-
+import LiveReadyTimer from './LiveReadyTimer';
 // server 연결
 const client = Stomp.over(() => {
   return new SockJS('http://52.78.0.53:8080/live');
@@ -34,9 +34,13 @@ export default function LivePage() {
   const [cameraOn, setCameraOn] = useState(JSON.parse(camera));
   const [myPeerId, setMyPeerId] = useState();
   const [myPeer, setMyPeer] = useState();
+  // const [peers, setPeers] = useState([]);
+  const [otherNickname, setOtherNickname] = useState('');
   const [nicknames, setNicknames] = useState([]);
   const [routine, setRoutine] = useState();
   const [participateNum, setParticipateNum] = useState(0);
+  const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
+  const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -154,14 +158,19 @@ export default function LivePage() {
           // console.log(JSON.parse(data.body));
           setNicknames(JSON.parse(data.body));
         });
+        //운동 동작 받아오기
+        client.subscribe('/room/ex/' + liveId, (data) => {
+          // console.log(JSON.parse(data.body));
+          setNicknames(JSON.parse(data.body));
+        });
 
         // 전체 운동 루틴
         client.subscribe('/room/routine/' + liveId, (data) => {
-          console.log(JSON.parse(data.body));
+          // console.log(JSON.parse(data.body));
           setRoutine(JSON.parse(data.body));
-          //console.log(routinename);
           //console.log(obj.name);
         });
+
         client.send(
           '/app/start/' + liveId,
           {},
@@ -169,13 +178,25 @@ export default function LivePage() {
             routineReq: 1,
           })
         );
+        client.subscribe('/room/ready/' + liveId, (data) => {
+          // console.log(JSON.parse(data.body).time);
+          setReadyTimer(!readyTimer);
+        });
       },
       () => {
         console.log('error occured');
       }
     );
+    if (JSON.parse(isOwner)) {
+      //라이브 owner라면 start 버튼 보여주기
+      setIsownerbn(!isownerbtn);
+    }
+    // client.subscribe("/room/ex/" + liveId, (data) => {
+    //   console.log(JSON.parse(data.body));
+    // });
   }, []);
 
+  //console.log(readyTimer);
   // 카메라, 음성 설정
   const handleAudio = () => {
     myMediaStream
@@ -236,8 +257,32 @@ export default function LivePage() {
     navigate('/live/list');
   };
 
+  const handleStart = () => {
+    //운동 시작 후 ready timer 수행
+
+    client.send(
+      '/app/ready/' + liveId,
+      {},
+      JSON.stringify({
+        time: 5,
+      })
+    );
+    setIsownerbn(!isownerbtn); //start버튼 숨기기
+  };
   console.log(nicknames);
 
+  //console.log("owner" + isownerbtn);
+
+  const getReadyTimer = () => {
+    setReadyTimer(!readyTimer);
+    client.send(
+      '/app/ex/' + liveId,
+      {},
+      JSON.stringify({
+        readyEnd: 1,
+      })
+    );
+  };
   return (
     <div>
       <img
@@ -321,6 +366,21 @@ export default function LivePage() {
                 </div>
               </div>
             )
+          )}
+        </div>
+        <div>
+          {isownerbtn ? (
+            <button onClick={handleStart}>START </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
+
+        <div>
+          {readyTimer ? (
+            <LiveReadyTimer getReadyTimer={getReadyTimer} />
+          ) : (
+            <div></div>
           )}
         </div>
       </div>
