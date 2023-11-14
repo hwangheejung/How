@@ -1,5 +1,4 @@
 import { React, useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import styles from "../../css/readyTimer.module.css";
 
 const ReadyTimer = (props) => {
