@@ -65,6 +65,7 @@ export default function LivePage() {
       () => {
         client.subscribe('/room/participate/' + liveId, (data) => {
           setParticipateNum(JSON.parse(data.body).participate);
+          console.log('participate', JSON.parse(data.body).participate);
           let nick = JSON.parse(data.body).nick;
           if (nick === undefined) {
             // stream 통신
@@ -214,17 +215,20 @@ export default function LivePage() {
         .delete('http://52.78.0.53/api/lives/participates/' + liveId, {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         })
+        .then((res) => {
+          console.log('res', res);
+          client.send(
+            '/app/participate/' + liveId,
+            {},
+            JSON.stringify({
+              sdp: myPeerId,
+              nick: myInfo.nickname,
+            })
+          );
+        })
         .catch((e) => {
           console.log('에러', e);
         });
-      client.send(
-        '/app/participate/' + liveId,
-        {},
-        JSON.stringify({
-          sdp: myPeerId,
-          nick: myInfo.nickname,
-        })
-      );
       myPeer.destroy();
       client.disconnect();
       alert('라이브에서 퇴장하셨습니다.');
