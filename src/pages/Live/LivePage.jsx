@@ -162,9 +162,10 @@ export default function LivePage() {
         });
         //운동 동작 받아오기
         client.subscribe("/room/ex/" + liveId, (data) => {
+          console.log(JSON.parse(data.body));
           setCurrentEx(JSON.parse(data.body));
         });
-        console.log(currentEx);
+        // console.log(currentEx.ex);
         // 전체 운동 루틴
         client.subscribe("/room/routine/" + liveId, (data) => {
           // console.log(JSON.parse(data.body));
@@ -292,6 +293,7 @@ export default function LivePage() {
       })
     );
   };
+  console.log(currentEx);
   return (
     <div>
       <img

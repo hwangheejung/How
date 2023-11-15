@@ -17,13 +17,23 @@ const LiveExStart = (props) => {
 
   const currentexerciseset = props.currentEx.ex.set;
 
+  const getTimer = () => {
+    setFinish(!finish);
+    if (plusset === currentexerciseset) {
+      console.log("성공");
+      //props.getTimer();
+      setPlusset(1);
+    } else {
+      setPlusset(plusset + 1);
+    }
+  };
   const onClick = () => {
     //complete버튼을 누르면 수행
     //부모 컴포넌트에 index 1 증가를 위해
     setFinish(!finish);
     if (plusset === currentexerciseset) {
       console.log("성공");
-      props.getTimer();
+      //props.getTimer();
       setPlusset(1);
     } else {
       setPlusset(plusset + 1);
@@ -56,7 +66,7 @@ const LiveExStart = (props) => {
             {finish ? (
               <div className={styles.ReadyTimer}>
                 <div>Timer</div>
-                <LiveTimer time={currenttime} getTimer={onClick} />
+                <LiveTimer time={currenttime} getTimer={getTimer} />
 
                 <div>
                   {plusset}/{currentexerciseset}
@@ -65,7 +75,7 @@ const LiveExStart = (props) => {
             ) : (
               <div className={styles.ReadyTimer}>
                 Rest Timer
-                <LiveRestTimer time={currentrest} getTimer={getNextTimer} />
+                <LiveRestTimer time={currentrest} getTimer={getTimer} />
               </div>
             )}
           </div>
