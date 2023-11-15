@@ -53,7 +53,10 @@ const router = createBrowserRouter([
       { path: `/startex/:id`, element: <Startex /> },
       { path: `/readyTimer/:id`, element: <ReadyTimer /> },
       { path: '/live/setting/perticipate/:liveId', element: <LiveSetting /> },
-      { path: '/live/setting/owner/:liveId', element: <OwnerLiveSetting /> },
+      {
+        path: '/live/setting/owner/:liveId/:liveTitle',
+        element: <OwnerLiveSetting />,
+      },
     ],
   },
   {
@@ -77,7 +80,7 @@ const router = createBrowserRouter([
     element: <LiveDetail />,
   },
   {
-    path: '/live/realtime/:liveId/:camera/:audio/:isOwner',
+    path: '/live/realtime/:liveId/:liveTitle/:camera/:audio/:isOwner',
     element: <LivePage />,
   },
 ]);

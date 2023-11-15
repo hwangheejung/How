@@ -19,13 +19,15 @@ import styles from '../../css/LivePage.module.css';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
 import LiveReadyTimer from './LiveReadyTimer';
+import LiveActionDetail from './LiveActionDetail';
+import Video from './Video';
 // server 연결
 const client = Stomp.over(() => {
   return new SockJS('http://52.78.0.53:8080/live');
 });
 
 export default function LivePage() {
-  const { liveId, camera, audio, isOwner } = useParams();
+  const { liveId, liveTitle, camera, audio, isOwner } = useParams();
 
   const myInfo = useSelector((state) => state.userInfo);
 
@@ -34,16 +36,14 @@ export default function LivePage() {
   const [cameraOn, setCameraOn] = useState(JSON.parse(camera));
   const [myPeerId, setMyPeerId] = useState();
   const [myPeer, setMyPeer] = useState();
-  // const [peers, setPeers] = useState([]);
-  const [otherNickname, setOtherNickname] = useState('');
-  const [nicknames, setNicknames] = useState([]);
-  const [routine, setRoutine] = useState();
+  const [streams, setStreams] = useState([]);
   const [participateNum, setParticipateNum] = useState(0);
-  const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
-  const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
+  const [nicknames, setNicknames] = useState({});
+  // const [routine, setRoutine] = useState();
+  // const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
+  // const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
 
   const myMedia = useRef();
-  const otherMedia = useRef();
 
   const navigate = useNavigate();
 
@@ -54,6 +54,8 @@ export default function LivePage() {
       .then((stream) => {
         setMyMediaStream(stream);
         myMedia.current.srcObject = stream;
+
+        console.log('my stream', stream);
 
         stream.getAudioTracks().forEach((audio) => (audio.enabled = audioOn));
 
@@ -69,7 +71,6 @@ export default function LivePage() {
       () => {
         client.subscribe('/room/participate/' + liveId, (data) => {
           setParticipateNum(JSON.parse(data.body).participate);
-          console.log('participate', JSON.parse(data.body).participate);
           let nick = JSON.parse(data.body).nick;
           if (nick === undefined) {
             // stream 통신
@@ -82,25 +83,36 @@ export default function LivePage() {
               console.log('offer');
             }
             if (call) {
+              let id;
               call.on('stream', (stream) => {
-                if (otherMedia.current) {
-                  otherMedia.current.srcObject = stream;
+                if (id !== stream.id) {
+                  console.log('(offer)to check my peer id: ', myPeerId);
+                  id = stream.id;
+                  setStreams((prev) => [
+                    ...prev,
+                    { peerId: call.peer, stream: stream },
+                  ]);
                   console.log(`received answer`);
                 }
               });
               // 라이브 퇴장
-              call.on('close', () => {
-                otherMedia.current.srcObject = null;
-                console.log('someone leaved');
-              });
+              call.on('close', () => {});
             }
 
             // 닉네임
+            // client.send(
+            //   '/app/nick/' + liveId,
+            //   {},
+            //   JSON.stringify({
+            //     nickReq: 1,
+            //   })
+            // );
             client.send(
-              '/app/nick/' + liveId,
+              '/app/participate/' + liveId,
               {},
               JSON.stringify({
-                nickReq: 1,
+                sdp: myPeerId,
+                nick: myInfo.nickname + 'nick',
               })
             );
           } else if (nick === 'end') {
@@ -114,8 +126,27 @@ export default function LivePage() {
           } else {
             // 라이브 퇴장
             if (myPeerId !== JSON.parse(data.body).sdp) {
-              alert(`${nick}님이 퇴장하셨습니다.`);
-              // console.log(data.body);
+              if (nick.slice(-4, nick.length) === 'nick') {
+                console.log('to check nick: ', nick);
+                setNicknames((prev) => ({
+                  ...prev,
+                  [JSON.parse(data.body).sdp]: nick.slice(0, -4),
+                }));
+              } else {
+                console.log('(exit)to check nick');
+                setStreams((prev) =>
+                  prev.filter(
+                    (item) => item.peerId !== JSON.parse(data.body).sdp
+                  )
+                );
+                setNicknames((prev) => {
+                  const { [JSON.parse(data.body).sdp]: remove, ...rest } = prev;
+                  console.log(remove);
+                  console.log(rest);
+                  return rest;
+                });
+                alert(`${nick}님이 퇴장하셨습니다.`);
+              }
             }
           }
         });
@@ -140,61 +171,68 @@ export default function LivePage() {
         peer.on('call', (call) => {
           call.answer(myMedia.current.srcObject);
           console.log('answer');
+          console.log('(answer)to check my peer id: ', myPeerId);
+          let id;
           call.on('stream', (stream) => {
-            if (otherMedia.current) {
-              otherMedia.current.srcObject = stream;
+            if (id !== stream.id) {
+              id = stream.id;
+              setStreams((prev) => [
+                ...prev,
+                { peerId: call.peer, stream: stream },
+              ]);
               console.log(`received offer`);
             }
           });
           // 라이브 퇴장
-          call.on('close', () => {
-            otherMedia.current.srcObject = null;
-            console.log('someone leaved');
-          });
+          call.on('close', () => {});
         });
 
         // 닉네임
-        client.subscribe('/room/nick/' + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
-          setNicknames(JSON.parse(data.body));
-        });
+        // client.subscribe('/room/nick/' + liveId, (data) => {
+        //   // console.log('to check nickname: ', JSON.parse(data.body));
+        //   setNicknames(JSON.parse(data.body));
+        // });
         //운동 동작 받아오기
-        client.subscribe('/room/ex/' + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
-          setNicknames(JSON.parse(data.body));
-        });
+        // client.subscribe('/room/ex/' + liveId, (data) => {
+        //   // console.log(JSON.parse(data.body).ex.ex.name);
+        //   console.log(JSON.parse(data.body).ex);
+        //   setCurrentAction(JSON.parse(data.body).ex);
+        // });
 
         // 전체 운동 루틴
-        client.subscribe('/room/routine/' + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
-          setRoutine(JSON.parse(data.body));
-          //console.log(obj.name);
-        });
+        // client.subscribe('/room/routine/' + liveId, (data) => {
+        //   // console.log(JSON.parse(data.body));
+        //   setRoutine(JSON.parse(data.body));
+        //   //console.log(obj.name);
+        // });
 
-        client.send(
-          '/app/start/' + liveId,
-          {},
-          JSON.stringify({
-            routineReq: 1,
-          })
-        );
-        client.subscribe('/room/ready/' + liveId, (data) => {
-          // console.log(JSON.parse(data.body).time);
-          setReadyTimer(!readyTimer);
-        });
+        // client.send(
+        //   '/app/start/' + liveId,
+        //   {},
+        //   JSON.stringify({
+        //     routineReq: 1,
+        //   })
+        // );
+        // client.subscribe('/room/ready/' + liveId, (data) => {
+        //   // console.log(JSON.parse(data.body).time);
+        //   setReadyTimer(!readyTimer);
+        // });
       },
       () => {
         console.log('error occured');
       }
     );
-    if (JSON.parse(isOwner)) {
-      //라이브 owner라면 start 버튼 보여주기
-      setIsownerbn(!isownerbtn);
-    }
+    // if (JSON.parse(isOwner)) {
+    //   //라이브 owner라면 start 버튼 보여주기
+    //   setIsownerbn(!isownerbtn);
+    // }
     // client.subscribe("/room/ex/" + liveId, (data) => {
     //   console.log(JSON.parse(data.body));
     // });
   }, []);
+
+  console.log(myPeerId);
+  console.log('nicknames', nicknames);
 
   //console.log(readyTimer);
   // 카메라, 음성 설정
@@ -210,8 +248,6 @@ export default function LivePage() {
       .forEach((video) => (video.enabled = !video.enabled));
     cameraOn ? setCameraOn(false) : setCameraOn(true);
   };
-
-  console.log(isOwner);
 
   const handleExit = () => {
     // 라이브 종료
@@ -237,7 +273,6 @@ export default function LivePage() {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         })
         .then((res) => {
-          console.log('res', res);
           client.send(
             '/app/participate/' + liveId,
             {},
@@ -257,39 +292,39 @@ export default function LivePage() {
     navigate('/live/list');
   };
 
-  const handleStart = () => {
-    //운동 시작 후 ready timer 수행
+  // const handleStart = () => {
+  //   //운동 시작 후 ready timer 수행
 
-    client.send(
-      '/app/ready/' + liveId,
-      {},
-      JSON.stringify({
-        time: 5,
-      })
-    );
-    setIsownerbn(!isownerbtn); //start버튼 숨기기
-  };
-  console.log(nicknames);
+  //   client.send(
+  //     '/app/ready/' + liveId,
+  //     {},
+  //     JSON.stringify({
+  //       time: 5,
+  //     })
+  //   );
+  //   setIsownerbn(!isownerbtn); //start버튼 숨기기
+  // };
 
-  //console.log("owner" + isownerbtn);
-
-  const getReadyTimer = () => {
-    setReadyTimer(!readyTimer);
-    client.send(
-      '/app/ex/' + liveId,
-      {},
-      JSON.stringify({
-        readyEnd: 1,
-      })
-    );
-  };
+  // const getReadyTimer = () => {
+  //   setReadyTimer(!readyTimer);
+  //   client.send(
+  //     '/app/ex/' + liveId,
+  //     {},
+  //     JSON.stringify({
+  //       readyEnd: 1,
+  //     })
+  //   );
+  // };
   return (
     <div>
-      <img
-        src='/live.png'
-        alt='live icon'
-        style={{ width: '50px', height: '50px' }}
-      />
+      <div className={styles.liveTitle}>
+        <img
+          src='/live.png'
+          alt='live icon'
+          style={{ width: '50px', height: '50px' }}
+        />
+        <span>{liveTitle}</span>
+      </div>
       <div className={styles.participateNum}>
         <FontAwesomeIcon icon={faUsers} />
         <span>{participateNum}</span>
@@ -318,19 +353,12 @@ export default function LivePage() {
             <FontAwesomeIcon icon={faVideoSlash} />
           )}
         </button>
-        <div>
-          <video
-            playsInline
-            ref={otherMedia}
-            autoPlay
-            style={{ width: '400px', height: '400px' }}
-          />
-          {/* <div>{nicknames[1] ? nicknames[1].nick : ''}</div> */}
-        </div>
-
+        {streams.map((streamInfo, index) => (
+          <Video key={index} streamInfo={streamInfo} nicknames={nicknames} />
+        ))}
         <button onClick={handleExit}>나가기</button>
       </div>
-      <div className={styles.right}>
+      {/* <div className={styles.right}>
         <div>{routine?.name}</div>
         <div className={styles.cates}>
           {routine?.cate.map((item, index) => (
@@ -380,10 +408,16 @@ export default function LivePage() {
           {readyTimer ? (
             <LiveReadyTimer getReadyTimer={getReadyTimer} />
           ) : (
-            <div></div>
+            // <div></div>
+            currentAction && (
+              <LiveActionDetail
+                currentAction={currentAction}
+                getNextAction={getNextAction}
+              />
+            )
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
