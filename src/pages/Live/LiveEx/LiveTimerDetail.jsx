@@ -1,9 +1,9 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Timer from "./Timer";
-import styles from "../../css/readyTimer.module.css";
+import Timer from "../../Exercise/Timer";
+import styles from "../../../css/readyTimer.module.css";
 
-const TimerDetail = (props) => {
+const LiveTimerDetail = (props) => {
   const [finish, setFinish] = useState(true); //타이머  끝남을 저장하는 상태
   const [plusset, setPlusset] = useState(1); //현재 set 관리
 
@@ -32,7 +32,6 @@ const TimerDetail = (props) => {
     <div>
       {finish ? ( //countfinish가 1일 경우 운동 개수 실행
         <div className={styles.ReadyTimer}>
-          <div>{props.name}</div>
           <div>
             {plusset}/{props.set}
           </div>
@@ -56,4 +55,4 @@ const TimerDetail = (props) => {
     </div>
   );
 };
-export default TimerDetail;
+export default LiveTimerDetail;

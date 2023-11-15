@@ -18,7 +18,9 @@ import { useSelector } from "react-redux";
 import styles from "../../css/LivePage.module.css";
 import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
-import LiveReadyTimer from "./LiveReadyTimer";
+import LiveTimer from "./LiveEx/LiveTimer";
+import LiveExStart from "./LiveEx/LiveExStart";
+import LiveReadyTimer from "./LiveEx/LiveReadyTimer";
 // server 연결
 const client = Stomp.over(() => {
   return new SockJS("http://52.78.0.53:8080/live");
@@ -41,6 +43,7 @@ export default function LivePage() {
   const [participateNum, setParticipateNum] = useState(0);
   const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
   const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
+  const [currentEx, setCurrentEx] = useState();
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -159,10 +162,9 @@ export default function LivePage() {
         });
         //운동 동작 받아오기
         client.subscribe("/room/ex/" + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
-          setNicknames(JSON.parse(data.body));
+          setCurrentEx(JSON.parse(data.body));
         });
-
+        console.log(currentEx);
         // 전체 운동 루틴
         client.subscribe("/room/routine/" + liveId, (data) => {
           // console.log(JSON.parse(data.body));
@@ -210,7 +212,7 @@ export default function LivePage() {
     cameraOn ? setCameraOn(false) : setCameraOn(true);
   };
 
-  console.log(isOwner);
+  //console.log(isOwner);
 
   const handleExit = () => {
     // 라이브 종료
@@ -265,12 +267,23 @@ export default function LivePage() {
     );
     setIsownerbn(!isownerbtn); //start버튼 숨기기
   };
-  console.log(nicknames);
+  //console.log(nicknames);
 
   //console.log("owner" + isownerbtn);
 
   const getReadyTimer = () => {
-    setReadyTimer(!readyTimer);
+    setReadyTimer(!readyTimer); //ready timer 숨기기
+    client.send(
+      //첫번째 동작 보내기
+      "/app/ex/" + liveId,
+      {},
+      JSON.stringify({
+        readyEnd: 1,
+      })
+    );
+  };
+
+  const getTimer = () => {
     client.send(
       "/app/ex/" + liveId,
       {},
@@ -373,8 +386,17 @@ export default function LivePage() {
         </div>
 
         <div>
-          {readyTimer ? (
-            <LiveReadyTimer getReadyTimer={getReadyTimer} />
+          {readyTimer ? ( //준비 타이머
+            <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+          ) : (
+            <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
+          )}
+        </div>
+        <div>
+          {currentEx ? (
+            <div>
+              <LiveExStart currentEx={currentEx} getTimer={getTimer} />
+            </div>
           ) : (
             <div></div>
           )}
