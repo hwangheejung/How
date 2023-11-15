@@ -1,6 +1,5 @@
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RestTimer from './RestTimer';
 import Timer from './Timer';
 import styles from '../../css/readyTimer.module.css';
 

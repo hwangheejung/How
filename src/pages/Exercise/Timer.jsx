@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import styles from "../../css/readyTimer.module.css";
 
 const Timer = (props) => {
-  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [stopbutton, setStopbutton] = useState(true);
   const time = useRef(props.time);
@@ -42,7 +41,7 @@ const Timer = (props) => {
       </div>
       {stopbutton ? (
         <button onClick={onClickstop} className={styles.button}>
-          STOP{" "}
+          STOP
         </button>
       ) : (
         <button onClick={onClickrestart} className={styles.button}>

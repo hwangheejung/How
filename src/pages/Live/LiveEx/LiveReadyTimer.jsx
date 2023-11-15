@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect } from "react";
-import styles from "../../css/readyTimer.module.css";
+import styles from "../../../css/readyTimer.module.css";
 
 const LiveReadyTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
@@ -24,8 +24,8 @@ const LiveReadyTimer = (props) => {
 
   return (
     <div className={styles.ReadyTimer}>
-      <div>READY TIMER</div>
-      <div>{seconds} 초</div>
+      <div> ReadyTIMER</div>
+      <div> {seconds}초 </div>
     </div>
   );
 };

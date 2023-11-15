@@ -18,9 +18,11 @@ import { useSelector } from 'react-redux';
 import styles from '../../css/LivePage.module.css';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
-import LiveReadyTimer from './LiveReadyTimer';
-import LiveActionDetail from './LiveActionDetail';
 import Video from './Video';
+import LiveTimer from './LiveEx/LiveTimer';
+import LiveExStart from './LiveEx/LiveExStart';
+import LiveReadyTimer from './LiveEx/LiveReadyTimer';
+
 // server 연결
 const client = Stomp.over(() => {
   return new SockJS('http://52.78.0.53:8080/live');
@@ -39,9 +41,10 @@ export default function LivePage() {
   const [streams, setStreams] = useState([]);
   const [participateNum, setParticipateNum] = useState(0);
   const [nicknames, setNicknames] = useState({});
-  // const [routine, setRoutine] = useState();
-  // const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
-  // const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
+  const [routine, setRoutine] = useState();
+  const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
+  const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
+  const [currentEx, setCurrentEx] = useState();
 
   const myMedia = useRef();
 
@@ -187,45 +190,39 @@ export default function LivePage() {
           call.on('close', () => {});
         });
 
-        // 닉네임
-        // client.subscribe('/room/nick/' + liveId, (data) => {
-        //   // console.log('to check nickname: ', JSON.parse(data.body));
-        //   setNicknames(JSON.parse(data.body));
-        // });
         //운동 동작 받아오기
-        // client.subscribe('/room/ex/' + liveId, (data) => {
-        //   // console.log(JSON.parse(data.body).ex.ex.name);
-        //   console.log(JSON.parse(data.body).ex);
-        //   setCurrentAction(JSON.parse(data.body).ex);
-        // });
-
+        client.subscribe('/room/ex/' + liveId, (data) => {
+          console.log(JSON.parse(data.body));
+          setCurrentEx(JSON.parse(data.body));
+        });
+        // console.log(currentEx.ex);
         // 전체 운동 루틴
-        // client.subscribe('/room/routine/' + liveId, (data) => {
-        //   // console.log(JSON.parse(data.body));
-        //   setRoutine(JSON.parse(data.body));
-        //   //console.log(obj.name);
-        // });
+        client.subscribe('/room/routine/' + liveId, (data) => {
+          // console.log(JSON.parse(data.body));
+          setRoutine(JSON.parse(data.body));
+          //console.log(obj.name);
+        });
 
-        // client.send(
-        //   '/app/start/' + liveId,
-        //   {},
-        //   JSON.stringify({
-        //     routineReq: 1,
-        //   })
-        // );
-        // client.subscribe('/room/ready/' + liveId, (data) => {
-        //   // console.log(JSON.parse(data.body).time);
-        //   setReadyTimer(!readyTimer);
-        // });
+        client.send(
+          '/app/start/' + liveId,
+          {},
+          JSON.stringify({
+            routineReq: 1,
+          })
+        );
+        client.subscribe('/room/ready/' + liveId, (data) => {
+          // console.log(JSON.parse(data.body).time);
+          setReadyTimer(!readyTimer);
+        });
       },
       () => {
         console.log('error occured');
       }
     );
-    // if (JSON.parse(isOwner)) {
-    //   //라이브 owner라면 start 버튼 보여주기
-    //   setIsownerbn(!isownerbtn);
-    // }
+    if (JSON.parse(isOwner)) {
+      //라이브 owner라면 start 버튼 보여주기
+      setIsownerbn(!isownerbtn);
+    }
     // client.subscribe("/room/ex/" + liveId, (data) => {
     //   console.log(JSON.parse(data.body));
     // });
@@ -248,6 +245,8 @@ export default function LivePage() {
       .forEach((video) => (video.enabled = !video.enabled));
     cameraOn ? setCameraOn(false) : setCameraOn(true);
   };
+
+  //console.log(isOwner);
 
   const handleExit = () => {
     // 라이브 종료
@@ -292,8 +291,19 @@ export default function LivePage() {
     navigate('/live/list');
   };
 
-  // const handleStart = () => {
-  //   //운동 시작 후 ready timer 수행
+  const handleStart = () => {
+    //운동 시작 후 ready timer 수행
+
+    client.send(
+      '/app/ready/' + liveId,
+      {},
+      JSON.stringify({
+        time: 5,
+      })
+    );
+    setIsownerbn(!isownerbtn); //start버튼 숨기기
+  };
+  //console.log(nicknames);
 
   //   client.send(
   //     '/app/ready/' + liveId,
@@ -305,16 +315,28 @@ export default function LivePage() {
   //   setIsownerbn(!isownerbtn); //start버튼 숨기기
   // };
 
-  // const getReadyTimer = () => {
-  //   setReadyTimer(!readyTimer);
-  //   client.send(
-  //     '/app/ex/' + liveId,
-  //     {},
-  //     JSON.stringify({
-  //       readyEnd: 1,
-  //     })
-  //   );
-  // };
+  const getReadyTimer = () => {
+    // setReadyTimer(!readyTimer); //ready timer 숨기기
+    client.send(
+      //첫번째 동작 보내기
+      '/app/ex/' + liveId,
+      {},
+      JSON.stringify({
+        readyEnd: 1,
+      })
+    );
+  };
+
+  const getTimer = () => {
+    client.send(
+      '/app/ex/' + liveId,
+      {},
+      JSON.stringify({
+        readyEnd: 1,
+      })
+    );
+  };
+  console.log(currentEx);
   return (
     <div>
       <div className={styles.liveTitle}>
@@ -358,7 +380,7 @@ export default function LivePage() {
         ))}
         <button onClick={handleExit}>나가기</button>
       </div>
-      {/* <div className={styles.right}>
+      <div className={styles.right}>
         <div>{routine?.name}</div>
         <div className={styles.cates}>
           {routine?.cate.map((item, index) => (
@@ -405,19 +427,22 @@ export default function LivePage() {
         </div>
 
         <div>
-          {readyTimer ? (
-            <LiveReadyTimer getReadyTimer={getReadyTimer} />
+          {readyTimer ? ( //준비 타이머
+            <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
           ) : (
-            // <div></div>
-            currentAction && (
-              <LiveActionDetail
-                currentAction={currentAction}
-                getNextAction={getNextAction}
-              />
-            )
+            <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
           )}
         </div>
-      </div> */}
+        <div>
+          {currentEx ? (
+            <div>
+              <LiveExStart currentEx={currentEx} getTimer={getTimer} />
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
