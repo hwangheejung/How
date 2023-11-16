@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import styles from '../../css/MyRoutine.module.css';
+import { FaHeart } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MyRoutineSearch() {
@@ -40,45 +41,68 @@ export default function MyRoutineSearch() {
   console.log(location.state.sArray);
   return (
     <div className={styles.header}>
-      <span className={styles.Routine}>Search</span>
-      <hr />
-      <div className={styles.Sorted}>
-        <button onClick={onhitsOrder} type='button' className={styles.sort}>
+      <div className={styles.Routine}>Search</div>
+      <div className={styles.Sorted} style={{ paddingTop: '30px' }}>
+        <button
+          onClick={onhitsOrder}
+          type='button'
+          className={`${styles.sortButton} ${
+            type === false && styles.selected
+          }`}
+        >
           운동횟수순
         </button>
-        <button onClick={onCreateOrder} type='button' className={styles.sort}>
+        <button
+          onClick={onCreateOrder}
+          type='button'
+          className={`${styles.sortButton} ${type === true && styles.selected}`}
+        >
           최신순
         </button>
       </div>
-      <div className={styles.MyRoutineListarr}>
+      <div className={styles.RoutineListarr}>
         {SearchArray.map((routine) => (
-          <button
+          <div
             key={routine.routine.routineId}
             type='button'
             className={styles.MyroutineClick}
-            onClick={() => onPopup(routine.routine.routineId)}
           >
             <div className={styles.MyRoutineListItem}>
-              <div className={styles.subjectcates}>
-                <div className={styles.subject}>
+              <div className={styles.subjectHits}>
+                <span className={styles.subject}>
                   {routine.routine.routineSubject}
+                </span>
+                <div className={styles.hitBox}>
+                  <span className={styles.dot}>∙</span>
+                  <span className={styles.myhits}>
+                    조회수 {routine.routine.count}
+                  </span>
                 </div>
-                <div className={styles.cates}>
-                  {routine.cate.map((item, index) => (
-                    <span key={index} className={styles.actionCate}>
-                      #{item}
-                    </span>
-                  ))}
+                <div className={styles.createBox}>
+                  <span className={styles.dot}>∙</span>
+                  <span className={styles.createDate}>
+                    생성일 {routine.routine.createDate}
+                  </span>
+                </div>
+                <div className={styles.heartIconBox}>
+                  <FaHeart className={styles.heartIcon} />
                 </div>
               </div>
-              <div className={styles.hitscreate}>
-                <div className={styles.myhits}>{routine.routine.count}</div>
-                <div className={styles.create_date}>
-                  {routine.routine.createDate}
-                </div>
+              <div className={styles.cates}>
+                {routine.cate.map((item, index) => (
+                  <span key={index} className={styles.actionCate}>
+                    #{item}
+                  </span>
+                ))}
               </div>
             </div>
-          </button>
+            <button
+              className={styles.detailButton}
+              onClick={() => onPopup(routine.routine.routineId)}
+            >
+              더보기
+            </button>
+          </div>
         ))}
       </div>
 

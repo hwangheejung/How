@@ -1,6 +1,6 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
-import styles from "../../css/readyTimer.module.css";
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+import styles from '../../css/readyTimer.module.css';
 
 const Timer = (props) => {
   const [seconds, setSeconds] = useState(0);

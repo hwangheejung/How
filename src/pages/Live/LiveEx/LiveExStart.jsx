@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import LiveRestTimer from "./LiveRestTimer";
-import styles from "../../../css/readyTimer.module.css";
-import LiveTimer from "./LiveTimer";
+import React from 'react';
+import { useState } from 'react';
+import LiveRestTimer from './LiveRestTimer';
+import styles from '../../../css/readyTimer.module.css';
+import LiveTimer from './LiveTimer';
 const LiveExStart = (props) => {
   const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
   const [plusset, setPlusset] = useState(1); //현재 set 관리
@@ -20,7 +20,7 @@ const LiveExStart = (props) => {
   const getTimer = () => {
     setFinish(!finish);
     if (plusset === currentexerciseset) {
-      console.log("성공");
+      console.log('성공');
       //props.getTimer();
       setPlusset(1);
     } else {
@@ -32,7 +32,7 @@ const LiveExStart = (props) => {
     //부모 컴포넌트에 index 1 증가를 위해
     setFinish(!finish);
     if (plusset === currentexerciseset) {
-      console.log("성공");
+      console.log('성공');
       //props.getTimer();
       setPlusset(1);
     } else {
@@ -43,7 +43,7 @@ const LiveExStart = (props) => {
   const getrestfinish = () => {
     setFinish(!finish); //쉬는 시간이 끝나 상태 변화
     if (plusset === currentexerciseset) {
-      console.log("성공");
+      console.log('성공');
       props.getTimer();
       setPlusset(1);
     }

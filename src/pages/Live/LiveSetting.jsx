@@ -30,16 +30,24 @@ export default function LiveSetting() {
   const handleEnter = (liveId) => {
     // window.location.href = `/live/realtime/${liveId}`;
     // window.close();
-    axios.post(
-      `http://52.78.0.53/api/lives/participates`,
-      {
-        liveId: liveId,
-      },
-      {
-        headers: { Authorization: `Bearer ${getCookieToken()}` },
-      }
-    ); // ✅
-    navigate(`/live/realtime/${liveId}/${camera}/${audio}/${false}`);
+    axios
+      .post(
+        `http://52.78.0.53/api/lives/participates`,
+        {
+          liveId: liveId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      )
+      .then((res) => {
+        // console.log(res.data);
+        navigate(
+          `/live/realtime/${liveId}/${
+            res.data.result.subject
+          }/${camera}/${audio}/${false}`
+        );
+      }); // ✅
   };
 
   return (

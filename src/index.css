@@ -1,11 +1,17 @@
 :root {
   --main-color: #714fd1;
-  --white: #ffffff;
   --black: #000000;
   --point-color: #f8ebe2;
 
   --background-main: #f3edff;
   --background-sub: #d2cece;
+
+  --icon-color: #9671ff;
+  --point-colorr: #0f0046;
+  --container-color: #e6e2fd;
+  --white: #ffffff;
+  --light-grey: #999999;
+  --purple: #6941ff;
 }
 
 html {
@@ -17,15 +23,15 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -36,7 +42,7 @@ code {
   overflow: hidden;
 }
 
-@font-face {
+/* @font-face {
   font-family: "JustAnotherHand-Regular";
   font-weight: normal;
   src: url("./fonts/JustAnotherHand-Regular.ttf") format("truetype");
@@ -48,9 +54,16 @@ code {
   font-weight: normal;
   font-style: normal;
   font-weight: bold;
+} */
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
 }
 body {
-  font-family: HakgyoansimDoldamM;
+  font-family: 'Pretendard-Regular';
   font-size: 22px;
 }
 button {
