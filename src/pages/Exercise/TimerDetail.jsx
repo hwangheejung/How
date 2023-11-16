@@ -1,7 +1,7 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Timer from "./Timer";
-import styles from "../../css/readyTimer.module.css";
+import { React, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Timer from './Timer';
+import styles from '../../css/readyTimer.module.css';
 
 const TimerDetail = (props) => {
   const [finish, setFinish] = useState(true); //타이머  끝남을 저장하는 상태

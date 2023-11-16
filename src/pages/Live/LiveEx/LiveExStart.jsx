@@ -33,13 +33,12 @@ const LiveExStart = (props) => {
   const getrestfinish = () => {
     setFinish(!finish);
     if (plusset === currentexerciseset + 1) {
-      props.getTimer();
-      //console.log("성공");
+      console.log("성공");
       setPlusset(1);
+    } else {
+      setPlusset(plusset + 1);
     }
-    //쉬는 시간이 끝나 상태 변화
   };
-
   return (
     <div>
       <div>

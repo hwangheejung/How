@@ -13,7 +13,7 @@ export default function OwnerLiveSetting() {
   const [camera, setCamera] = useState(true);
   const [audio, setAudio] = useState(true);
 
-  const { liveId } = useParams();
+  const { liveId, liveTitle } = useParams();
 
   const navigate = useNavigate();
 
@@ -28,7 +28,9 @@ export default function OwnerLiveSetting() {
   const handleEnter = (liveId) => {
     // window.location.href = `/live/realtime/${liveId}`;
     // window.close();
-    navigate(`/live/realtime/${liveId}/${camera}/${audio}/${true}`);
+    navigate(
+      `/live/realtime/${liveId}/${liveTitle}/${camera}/${audio}/${true}`
+    );
   };
 
   return (
