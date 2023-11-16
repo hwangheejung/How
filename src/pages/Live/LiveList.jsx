@@ -89,6 +89,7 @@ export default function LiveList() {
     }
     setLoading(false);
   };
+
   useEffect(() => {
     fetchLive();
   }, []);
@@ -98,49 +99,45 @@ export default function LiveList() {
   return (
     <div className={styles.header}>
       <div className={styles.titleplus}>
-        <div className={styles.Live}>Live</div>
+        <div className={styles.liveTitleBox}>
+          <div className={styles.Live}>how live</div>
+          <img
+            src='/liveIcon.png'
+            alt='live icon'
+            style={{ width: '30px', height: '23px' }}
+          />
+        </div>
         <button className={styles.insertLive} onClick={onPopup}>
-          <AiOutlinePlusSquare size='25' />
+          {/* <AiOutlinePlusSquare size='25' /> */}+
         </button>
       </div>
-      <hr />
-      <div className={styles.SearchandSort}>
+      <div className={styles.searchContainer}>
         <input
           type='text'
-          className={styles.searchInput}
+          className={styles.routinesearch}
           placeholder='Search'
           value={liveSearch}
           onChange={SearchValue}
           onKeyPress={onPress}
         />
-        <button className={styles.SearchButton} onClick={onClick}>
+        <button className={styles.searchButton} onClick={onClick}>
           <AiOutlineSearch />
         </button>
       </div>
-
-      <div className={styles.liveicon}>
-        {/* <PiYoutubeLogoLight size='50' /> */}
-        <img
-          src='/live.png'
-          alt='live icon'
-          style={{ width: '50px', height: '50px' }}
-        />
-      </div>
       <div className={styles.Livearr}>
         {livedata.result?.liveListMappings.map((live) => (
-          <button
-            key={live.id}
-            type='button'
-            className={styles.LiveClick}
-            onClick={() =>
-              onPopupdetail(live.routineId, live.id, live.subject, live.nick)
-            }
-          >
+          <div key={live.id} type='button' className={styles.LiveClick}>
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>
               <div className={styles.nick}>{live.nick}</div>
             </div>
-          </button>
+            <button
+              className={styles.detailButton}
+              onClick={() => onPopup(live.routineId)}
+            >
+              참가하기
+            </button>
+          </div>
         ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../css/RoutineList.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa';
 
 export default function Routinedetail() {
   const navigate = useNavigate();
@@ -32,31 +33,43 @@ export default function Routinedetail() {
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>Search</div>
-      <hr />
       <div className={styles.RoutineListarr}>
         {SearchArray.map((routine) => (
-          <button
+          <div
             key={routine.routine.id}
             type='button'
             className={styles.routineClick}
-            onClick={() => onPopup(routine.routine.id)}
           >
             <div className={styles.RoutineListItem}>
-              <div className={styles.subject}>{routine.routine.subject}</div>
-              <div className={styles.catesHits}>
-                <div className={styles.cates}>
-                  {routine.cate.map((item, index) => (
-                    <span key={index} className={styles.actionCate}>
-                      #{item}
-                    </span>
-                  ))}
-                </div>
-                <span className={styles.hits}>
-                  조회수: {routine.routine.hits}
+              <div className={styles.subjectHits}>
+                <span className={styles.subject}>
+                  {routine.routine.subject}
                 </span>
+                <div className={styles.hitBox}>
+                  <span className={styles.dot}>∙</span>
+                  <span className={styles.hits}>
+                    조회수: {routine.routine.hits}회
+                  </span>
+                </div>
+                <div className={styles.heartIconBox}>
+                  <FaHeart className={styles.heartIcon} />
+                </div>
+              </div>
+              <div className={styles.cates}>
+                {routine.cate.map((item, index) => (
+                  <span key={index} className={styles.actionCate}>
+                    #{item}
+                  </span>
+                ))}
               </div>
             </div>
-          </button>
+            <button
+              className={styles.detailButton}
+              onClick={() => onPopup(routine.routine.id)}
+            >
+              더보기
+            </button>
+          </div>
         ))}
       </div>
       <button className={styles.backbutton} onClick={onClick}>

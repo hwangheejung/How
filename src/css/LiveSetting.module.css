@@ -1,9 +1,6 @@
 .container {
   height: 100%;
-  background: #f3edff;
-  background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
-  background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
-  background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  background: var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;

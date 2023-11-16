@@ -51,7 +51,6 @@ function App() {
       <div className='main'>
         <Outlet />
       </div>
-      <Footer />
     </div>
   );
 }
