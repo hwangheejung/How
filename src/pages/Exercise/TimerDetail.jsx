@@ -37,7 +37,7 @@ const TimerDetail = (props) => {
             {plusset}/{props.set}
           </div>
           <div>Timer</div>
-          <Timer time={props.time} getfinish={getfinish} finish={finish} />
+          <Timer time={props.time} getfinish={getfinish} />
         </div>
       ) : (
         //complete를 누르면 restTimer 수행
@@ -46,7 +46,6 @@ const TimerDetail = (props) => {
           <Timer
             time={props.restTime} //각 동작에 맞는 resttime을 보내줌
             getfinish={getrestfinish} //resttime이 끝났는지 확인
-            finish={finish}
           />
         </div>
       )}

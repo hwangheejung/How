@@ -25,7 +25,7 @@ const LiveReadyTimer = (props) => {
   return (
     <div className={styles.ReadyTimer}>
       <div> ReadyTIMER</div>
-      <div> {seconds}초 </div>
+      <div> {time.current}초 </div>
     </div>
   );
 };

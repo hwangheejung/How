@@ -19,8 +19,10 @@ import styles from "../../css/LivePage.module.css";
 import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
 import LiveTimer from "./LiveEx/LiveTimer";
-import LiveExStart from "./LiveEx/LiveExStart";
+//import LiveExStart from "./LiveEx/LiveExStart";
 import LiveReadyTimer from "./LiveEx/LiveReadyTimer";
+import LiveRestTimer from "./LiveEx/LiveRestTimer";
+
 // server 연결
 const client = Stomp.over(() => {
   return new SockJS("http://52.78.0.53:8080/live");
@@ -44,6 +46,9 @@ export default function LivePage() {
   const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
   const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
   const [currentEx, setCurrentEx] = useState();
+  const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
+  const [plusset, setPlusset] = useState(1); //현재 set 관리
+  const [countfinish, setCountfinish] = useState(true);
 
   const myMedia = useRef();
   const otherMedia = useRef();
@@ -165,12 +170,17 @@ export default function LivePage() {
           console.log(JSON.parse(data.body));
           setCurrentEx(JSON.parse(data.body));
         });
+
+        //complete버튼 타이머 수행 임시
+        client.subscribe("/room/leave/" + liveId, (data) => {
+          setFinish(!finish);
+
+          console.log("성공");
+        });
         // console.log(currentEx.ex);
         // 전체 운동 루틴
         client.subscribe("/room/routine/" + liveId, (data) => {
-          // console.log(JSON.parse(data.body));
           setRoutine(JSON.parse(data.body));
-          //console.log(obj.name);
         });
 
         client.send(
@@ -268,6 +278,19 @@ export default function LivePage() {
     );
     setIsownerbn(!isownerbtn); //start버튼 숨기기
   };
+
+  const handleTimer = () => {
+    //횟수인경우 resttimer 동시에 띄우기
+    client.send(
+      "/app/leave/" + liveId,
+      {},
+      JSON.stringify({
+        nick: "운동만 하는 사람",
+      })
+    );
+    // setFinish(!finish);
+    setPlusset(plusset + 1);
+  };
   //console.log(nicknames);
 
   //console.log("owner" + isownerbtn);
@@ -293,115 +316,208 @@ export default function LivePage() {
       })
     );
   };
-  console.log(currentEx);
+  //console.log(currentEx);
+  const currentcount = currentEx?.ex.count;
+  const currenttime = currentEx?.ex.time;
+  const currentrest = currentEx?.ex.rest;
+  const currenttype = currentEx?.ex.type;
+  const currentname = currentEx?.ex.ex.name;
+  const currentdesc = currentEx?.ex.ex.desc;
+  const currentexerciseset = currentEx?.ex.set;
+  const timerEnd = () => {
+    setFinish(!finish);
+    setPlusset(plusset + 1);
+  };
+  const onClick = () => {
+    setPlusset(plusset + 1);
+    client.send(
+      "/app/leave/" + liveId,
+      {},
+      JSON.stringify({
+        nick: "운동만 하는 사람",
+      })
+    );
+    //complete버튼을 누르면 수행
+    //부모 컴포넌트에 index 1 증가를 위해
+
+    //setFinish(!finish);
+  };
+
+  const getrestfinish = () => {
+    console.log(plusset);
+    setFinish(!finish);
+    if (plusset === currentexerciseset + 1) {
+      getTimer();
+      //console.log("성공");
+      setPlusset(1);
+    }
+    //쉬는 시간이 끝나 상태 변화
+  };
   return (
     <div>
-      <img
-        src="/live.png"
-        alt="live icon"
-        style={{ width: "50px", height: "50px" }}
-      />
-      <div className={styles.participateNum}>
-        <FontAwesomeIcon icon={faUsers} />
-        <span>{participateNum}</span>
+      <div className={styles.mainlogo}>
+        <img
+          src="/live.png"
+          alt="live icon"
+          style={{ width: "50px", height: "50px" }}
+          className={styles.liveimg}
+        />
+        <div className={styles.participateNum}>
+          <FontAwesomeIcon icon={faUsers} />
+          <span>{participateNum}</span>
+        </div>
       </div>
-      <div className={styles.left}>
-        <div>
-          <video
-            playsInline
-            ref={myMedia}
-            autoPlay
-            style={{ width: "400px", height: "400px" }}
-          />
-          <div>{myInfo.nickname}</div>
-        </div>
-        <button onClick={() => handleAudio()}>
-          {audioOn ? (
-            <FontAwesomeIcon icon={faMicrophone} />
-          ) : (
-            <FontAwesomeIcon icon={faMicrophoneSlash} />
-          )}
-        </button>
-        <button onClick={() => handleCamera()}>
-          {cameraOn ? (
-            <FontAwesomeIcon icon={faVideo} />
-          ) : (
-            <FontAwesomeIcon icon={faVideoSlash} />
-          )}
-        </button>
-        <div>
-          <video
-            playsInline
-            ref={otherMedia}
-            autoPlay
-            style={{ width: "400px", height: "400px" }}
-          />
-          {/* <div>{nicknames[1] ? nicknames[1].nick : ''}</div> */}
-        </div>
+      <div className={styles.header}>
+        <div className={styles.video}>
+          <div>
+            <video
+              playsInline
+              ref={myMedia}
+              autoPlay
+              style={{ width: "200px", height: "200px" }}
+            />
+            <div>{myInfo.nickname}</div>
+          </div>
+          <button onClick={() => handleAudio()}>
+            {audioOn ? (
+              <FontAwesomeIcon icon={faMicrophone} />
+            ) : (
+              <FontAwesomeIcon icon={faMicrophoneSlash} />
+            )}
+          </button>
+          <button onClick={() => handleCamera()}>
+            {cameraOn ? (
+              <FontAwesomeIcon icon={faVideo} />
+            ) : (
+              <FontAwesomeIcon icon={faVideoSlash} />
+            )}
+          </button>
+          <div>
+            <video
+              playsInline
+              ref={otherMedia}
+              autoPlay
+              style={{ width: "200px", height: "200px" }}
+            />
+            {/* <div>{nicknames[1] ? nicknames[1].nick : ''}</div> */}
+          </div>
 
-        <button onClick={handleExit}>나가기</button>
-      </div>
-      <div className={styles.right}>
-        <div>{routine?.name}</div>
-        <div className={styles.cates}>
-          {routine?.cate.map((item, index) => (
-            <span key={index} className={styles.actionCate}>
-              #{item}
-            </span>
-          ))}
+          <button onClick={handleExit}>나가기</button>
         </div>
-        <div>
-          {routine?.routineDetails?.map((detail) =>
-            detail.type ? (
-              <div key={detail.ex.id} className={styles.timer}>
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span> {detail.time}s</span>
+        <div className={styles.right}>
+          <div>{routine?.name}</div>
+          <div className={styles.cates}>
+            {routine?.cate.map((item, index) => (
+              <span key={index} className={styles.actionCate}>
+                #{item}
+              </span>
+            ))}
+          </div>
+          <div>
+            {routine?.routineDetails?.map((detail) =>
+              detail.type ? (
+                <div key={detail.ex.id} className={styles.timer}>
+                  <span className={styles.detailname}> {detail.ex?.name}</span>
+                  <span> {detail.time}s</span>
+                  <div>
+                    <span>rest</span>
+                    <span> {detail.rest}s</span>
+                  </div>
+                  <div>
+                    <span>{detail.set} set</span>
+                  </div>
+                </div>
+              ) : (
+                <div key={detail.ex.id} className={styles.timer}>
+                  <span className={styles.detailname}> {detail.ex?.name}</span>
+                  <span>{detail.count}개</span>
+                  <div>
+                    <span>rest</span>
+                    <span> {detail.rest}s</span>
+                  </div>
+                  <div>
+                    <span>{detail.set} set</span>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          <div>
+            {isownerbtn ? (
+              <button onClick={handleStart}>START </button>
+            ) : (
+              <div></div>
+            )}
+          </div>
+          <div>
+            {readyTimer ? ( //준비 타이머
+              <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+            ) : (
+              <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
+            )}
+          </div>
+          <div>
+            {currentEx ? (
+              <div>
                 <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
+                  <div>{currentname}</div>
+                  <div>{currentdesc}</div>
                 </div>
                 <div>
-                  <span>{detail.set} set</span>
+                  {currenttype ? (
+                    <div>
+                      {finish ? (
+                        <div className={styles.ReadyTimer}>
+                          <div>Timer</div>
+                          <LiveTimer time={currenttime} getTimer={timerEnd} />
+                          <div>
+                            {plusset}/{currentexerciseset}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={styles.ReadyTimer}>
+                          Rest Timer
+                          <LiveRestTimer
+                            time={currentrest}
+                            getTimer={getrestfinish}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      {finish ? (
+                        <div className={styles.ReadyTimer}>
+                          <div>
+                            {plusset}/{currentexerciseset}
+                          </div>
+                          <div>{currentcount}개 </div>
+                          <button className={styles.button} onClick={onClick}>
+                            complete
+                          </button>
+                        </div>
+                      ) : (
+                        <div className={styles.ReadyTimer}>
+                          Rest Timer
+                          <LiveRestTimer
+                            time={currentrest}
+                            getTimer={getrestfinish}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
+                {/* <LiveExStart
+                currentEx={currentEx}
+                getTimer={getTimer}
+                handleTimer={handleTimer}
+              /> */}
               </div>
             ) : (
-              <div key={detail.ex.id} className={styles.timer}>
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span>{detail.count}개</span>
-                <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
-                </div>
-                <div>
-                  <span>{detail.set} set</span>
-                </div>
-              </div>
-            )
-          )}
-        </div>
-        <div>
-          {isownerbtn ? (
-            <button onClick={handleStart}>START </button>
-          ) : (
-            <div></div>
-          )}
-        </div>
-
-        <div>
-          {readyTimer ? ( //준비 타이머
-            <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
-          ) : (
-            <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
-          )}
-        </div>
-        <div>
-          {currentEx ? (
-            <div>
-              <LiveExStart currentEx={currentEx} getTimer={getTimer} />
-            </div>
-          ) : (
-            <div></div>
-          )}
+              <div></div>
+            )}
+          </div>
         </div>
       </div>
     </div>
