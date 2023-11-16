@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import styles from '../../css/LivePage.module.css';
 
 export default function Video({ streamInfo, nicknames }) {
   const { peerId, stream } = streamInfo;
@@ -14,14 +15,14 @@ export default function Video({ streamInfo, nicknames }) {
   }, [stream, streamRef]);
 
   return (
-    <div>
+    <div className={styles.video}>
       <video
         playsInline
         ref={streamRef}
         autoPlay
-        style={{ width: '400px', height: '400px' }}
+        // style={{ width: '400px', height: '400px' }}
       />
-      <span>{nicknames[peerId]}</span>
+      <div className={styles.nickname}>{nicknames[peerId]}</div>
     </div>
   );
 }
