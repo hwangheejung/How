@@ -316,7 +316,7 @@ export default function LivePage() {
   // };
 
   const getReadyTimer = () => {
-    // setReadyTimer(!readyTimer); //ready timer 숨기기
+    setReadyTimer(!readyTimer); //ready timer 숨기기
     client.send(
       //첫번째 동작 보내기
       '/app/ex/' + liveId,
