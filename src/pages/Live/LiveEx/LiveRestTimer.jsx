@@ -24,7 +24,7 @@ const LiveRestTimer = (props) => {
   return (
     <div className={styles.ReadyTimer}>
       <div>
-        {parseInt(seconds / 60)}:{seconds % 60}
+        {parseInt(time.current / 60)}:{time.current % 60}
       </div>
     </div>
   );
