@@ -1,4 +1,101 @@
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainlogo {
+  height: 10%;
+}
+
+.middleContainer {
+  display: flex;
+  width: 100%;
+  padding: 40px 20px;
+  height: 80%;
+}
+
+.videoAction {
+  width: 70%;
+}
+
+.videoContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video {
+  margin: 10px 10px;
+}
+
+video {
+  width: 400px;
+  border-radius: 40px;
+}
+
+.nickname {
+  text-align: center;
+}
+
+.allRoutine {
+  width: 30%;
+  font-size: 1.5rem;
+}
+
+.routineTitle {
+  font-size: 2rem;
+}
+
+.buttons {
+  height: 10%;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  margin-left: 800px;
+  margin-bottom: 50px;
+}
+.audiobutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+.exitbutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+.camerabutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+
 .header {
+  margin-right: 20px;
+}
+.livelogo {
+  margin-left: 40px;
+}
+.liveTitle {
+  font-size: 40px;
+  font-weight: bold;
+}
+.participateNum {
+  float: right;
+  margin: 20px;
+  padding: 10px;
+}
+
+/* .header {
   margin: 50px;
   width: 80%;
   height: 70%;
@@ -30,14 +127,12 @@
 
 .cates {
   margin: 10px;
-}
-.timer {
+} */
+/* .timer {
   margin-right: 100px;
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
-  /* text-align: right; */
-  /* margin: 10px; */
 }
 
 .detailname {
@@ -68,4 +163,4 @@
   color: #d7fff1;
   cursor: pointer;
   text-align: center;
-}
+} */
