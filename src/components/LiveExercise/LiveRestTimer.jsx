@@ -11,16 +11,17 @@ const LiveRestTimer = (props) => {
       setSeconds(time.current);
       time.current -= 1;
     }, 1000);
-
     return () => clearInterval(timerId.current);
   }, []);
 
   useEffect(() => {
     if (time.current <= 0) {
+      // console.log(1);
       clearInterval(timerId.current);
       props.getTimer();
     }
   }, [seconds]);
+
   return (
     <div className={styles.ReadyTimer}>
       <div>
