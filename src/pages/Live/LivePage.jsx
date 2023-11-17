@@ -40,6 +40,8 @@ export default function LivePage() {
   const [readyTimer, setReadyTimer] = useState(false); //시작 버튼 누르면 ready timer 실행
   const [isownerbtn, setIsownerbn] = useState(false); //owner에게만 start 버튼 실행
   const [currentEx, setCurrentEx] = useState();
+  const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
+  const [plusset, setPlusset] = useState(1); //현재 set 관리
 
   const myMedia = useRef();
 
@@ -97,14 +99,6 @@ export default function LivePage() {
               call.on('close', () => {});
             }
 
-            // 닉네임
-            // client.send(
-            //   '/app/nick/' + liveId,
-            //   {},
-            //   JSON.stringify({
-            //     nickReq: 1,
-            //   })
-            // );
             client.send(
               '/app/participate/' + liveId,
               {},
@@ -187,9 +181,24 @@ export default function LivePage() {
 
         //운동 동작 받아오기
         client.subscribe('/room/ex/' + liveId, (data) => {
-          console.log(JSON.parse(data.body));
+          console.log('/room/ex', JSON.parse(data.body));
           setCurrentEx(JSON.parse(data.body));
         });
+
+        client.subscribe('/room/leave/' + liveId, (data) => {
+          if (JSON.parse(data.body).nick === 'need rest') {
+            setFinish(!finish);
+            setPlusset((prev) => prev + 1);
+            console.log('LivePage need rest');
+          } else if (JSON.parse(data.body).nick === 'no rest') {
+            setPlusset((prev) => prev + 1);
+            console.log('LivePage no rest');
+          } else if (JSON.parse(data.body).nick === 'no rest set done') {
+            getTimer();
+            setPlusset(1);
+          }
+        });
+
         // console.log(currentEx.ex);
         // 전체 운동 루틴
         client.subscribe('/room/routine/' + liveId, (data) => {
@@ -205,6 +214,7 @@ export default function LivePage() {
             routineReq: 1,
           })
         );
+
         client.subscribe('/room/ready/' + liveId, (data) => {
           // console.log(JSON.parse(data.body).time);
           setReadyTimer(!readyTimer);
@@ -218,15 +228,11 @@ export default function LivePage() {
       //라이브 owner라면 start 버튼 보여주기
       setIsownerbn(!isownerbtn);
     }
-    // client.subscribe("/room/ex/" + liveId, (data) => {
-    //   console.log(JSON.parse(data.body));
-    // });
   }, []);
 
   console.log(myPeerId);
   console.log('nicknames', nicknames);
 
-  //console.log(readyTimer);
   // 카메라, 음성 설정
   const handleAudio = () => {
     myMediaStream
@@ -288,7 +294,6 @@ export default function LivePage() {
 
   const handleStart = () => {
     //운동 시작 후 ready timer 수행
-
     client.send(
       '/app/ready/' + liveId,
       {},
@@ -298,21 +303,11 @@ export default function LivePage() {
     );
     setIsownerbn(!isownerbtn); //start버튼 숨기기
   };
-  //console.log(nicknames);
-
-  //   client.send(
-  //     '/app/ready/' + liveId,
-  //     {},
-  //     JSON.stringify({
-  //       time: 5,
-  //     })
-  //   );
-  //   setIsownerbn(!isownerbtn); //start버튼 숨기기
-  // };
 
   const getReadyTimer = () => {
     setReadyTimer(!readyTimer); //ready timer 숨기기
-    JSON.parse(isOwner) ? (
+    console.log('getReadyTimer');
+    if (JSON.parse(isOwner)) {
       client.send(
         //첫번째 동작 보내기
         '/app/ex/' + liveId,
@@ -320,26 +315,65 @@ export default function LivePage() {
         JSON.stringify({
           readyEnd: 1,
         })
-      )
-    ) : (
-      <span></span>
-    );
+      );
+    }
   };
 
   const getTimer = () => {
-    JSON.parse(isOwner) ? (
+    if (JSON.parse(isOwner)) {
       client.send(
         '/app/ex/' + liveId,
         {},
         JSON.stringify({
           readyEnd: 1,
         })
-      )
-    ) : (
-      <span></span>
-    );
+      );
+    }
   };
+
+  const onRest = () => {
+    // setPlusset(plusset + 1);
+    if (JSON.parse(isOwner)) {
+      client.send(
+        '/app/leave/' + liveId,
+        {},
+        JSON.stringify({
+          nick: 'need rest',
+        })
+      );
+    }
+    //complete버튼을 누르면 수행
+    //부모 컴포넌트에 index 1 증가를 위해
+
+    //setFinish(!finish);
+  };
+
+  const onNoRest = () => {
+    if (JSON.parse(isOwner)) {
+      client.send(
+        '/app/leave/' + liveId,
+        {},
+        JSON.stringify({
+          nick: 'no rest',
+        })
+      );
+    }
+  };
+
+  const onNoRestSetDone = () => {
+    if (JSON.parse(isOwner)) {
+      client.send(
+        '/app/leave/' + liveId,
+        {},
+        JSON.stringify({
+          nick: 'no rest set done',
+        })
+      );
+    }
+  };
+
   console.log(currentEx);
+
   return (
     <div className={styles.root}>
       {/* 라이브 기본 정보 */}
@@ -373,7 +407,17 @@ export default function LivePage() {
             <div>
               {currentEx ? (
                 <div>
-                  <LiveExStart currentEx={currentEx} getTimer={getTimer} />
+                  <LiveExStart
+                    currentEx={currentEx}
+                    getTimer={getTimer}
+                    onRest={onRest}
+                    onNoRest={onNoRest}
+                    onNoRestSetDone={onNoRestSetDone}
+                    finish={finish}
+                    setFinish={setFinish}
+                    plusset={plusset}
+                    setPlusset={setPlusset}
+                  />
                 </div>
               ) : (
                 <div></div>
