@@ -2,27 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMicrophone,
-  faVideo,
-  faMicrophoneSlash,
-  faVideoSlash,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import { IoMdExit } from 'react-icons/io';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { useNavigate, useParams } from 'react-router-dom';
 import Peer from 'peerjs';
 import { useSelector } from 'react-redux';
-import styles from '../../css/LivePage.module.css';
+import styles from '../../css/LivePage/LivePage.module.css';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
-import Video from './Video';
-import LiveTimer from './LiveEx/LiveTimer';
-import LiveExStart from './LiveEx/LiveExStart';
-import LiveReadyTimer from './LiveEx/LiveReadyTimer';
+import LiveTimer from '../../components/LiveExercise/LiveTimer';
+import LiveExStart from '../../components/LiveExercise/LiveExStart';
+import LiveReadyTimer from '../../components/LiveExercise/LiveReadyTimer';
+import LiveInfo from '../../components/LivePage/LiveInfo';
+import Videos from '../../components/LivePage/Videos';
+import AllRoutine from '../../components/LivePage/AllRoutine';
+import Bottom from '../../components/LivePage/Bottom';
 
 // server 연결
 const client = Stomp.over(() => {
@@ -318,63 +312,49 @@ export default function LivePage() {
 
   const getReadyTimer = () => {
     setReadyTimer(!readyTimer); //ready timer 숨기기
-    client.send(
-      //첫번째 동작 보내기
-      '/app/ex/' + liveId,
-      {},
-      JSON.stringify({
-        readyEnd: 1,
-      })
+    JSON.parse(isOwner) ? (
+      client.send(
+        //첫번째 동작 보내기
+        '/app/ex/' + liveId,
+        {},
+        JSON.stringify({
+          readyEnd: 1,
+        })
+      )
+    ) : (
+      <span></span>
     );
   };
 
   const getTimer = () => {
-    client.send(
-      '/app/ex/' + liveId,
-      {},
-      JSON.stringify({
-        readyEnd: 1,
-      })
+    JSON.parse(isOwner) ? (
+      client.send(
+        '/app/ex/' + liveId,
+        {},
+        JSON.stringify({
+          readyEnd: 1,
+        })
+      )
+    ) : (
+      <span></span>
     );
   };
   console.log(currentEx);
   return (
     <div className={styles.root}>
-      <div className={styles.header}>
-        <img
-          className={styles.livelogo}
-          src='/live.png'
-          alt='live icon'
-          style={{ width: '50px', height: '50px' }}
-        />
-        <span className={styles.liveTitle}> {liveTitle}</span>
-        <div className={styles.participateNum}>
-          <FontAwesomeIcon icon={faUsers} />
-          <span>{participateNum}</span>
-        </div>
-      </div>
-
-      {/* 카메라/전체 루틴 & 현재 동작 */}
+      {/* 라이브 기본 정보 */}
+      <LiveInfo liveTitle={liveTitle} participateNum={participateNum} />
+      {/* 각 운동 동작 */}
       <div className={styles.middleContainer}>
+        {/* 카메라 */}
+
         <div className={styles.videoAction}>
-          <div className={styles.videoContainer}>
-            <div className={styles.video}>
-              <video
-                playsInline
-                ref={myMedia}
-                autoPlay
-                // style={{ width: '400px', height: '400px' }}
-              />
-              <div className={styles.nickname}>{myInfo.nickname}</div>
-            </div>
-            {streams.map((streamInfo, index) => (
-              <Video
-                key={index}
-                streamInfo={streamInfo}
-                nicknames={nicknames}
-              />
-            ))}
-          </div>
+          <Videos
+            myMedia={myMedia}
+            myInfo={myInfo}
+            streams={streams}
+            nicknames={nicknames}
+          />
           <div className={styles.currentActionBox}>
             <div>
               {isownerbtn ? (
@@ -383,7 +363,6 @@ export default function LivePage() {
                 <div></div>
               )}
             </div>
-
             <div>
               {readyTimer ? ( //준비 타이머
                 <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
@@ -402,71 +381,15 @@ export default function LivePage() {
             </div>
           </div>
         </div>
-        <div className={styles.allRoutine}>
-          <div className={styles.routineTitle}>{routine?.name}</div>
-          <div className={styles.cates}>
-            {routine?.cate.map((item, index) => (
-              <span key={index} className={styles.actionCate}>
-                #{item}
-              </span>
-            ))}
-          </div>
-          <div>
-            {routine?.routineDetails?.map((detail) =>
-              detail.type ? (
-                <div key={detail.ex.id} className={styles.timer}>
-                  <span className={styles.detailname}> {detail.ex?.name}</span>
-                  <span> {detail.time}s</span>
-                  <div>
-                    <span>rest</span>
-                    <span> {detail.rest}s</span>
-                  </div>
-                  <div>
-                    <span>{detail.set} set</span>
-                  </div>
-                </div>
-              ) : (
-                <div key={detail.ex.id} className={styles.timer}>
-                  <span className={styles.detailname}> {detail.ex?.name}</span>
-                  <span>{detail.count}개</span>
-                  <div>
-                    <span>rest</span>
-                    <span> {detail.rest}s</span>
-                  </div>
-                  <div>
-                    <span>{detail.set} set</span>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </div>
+        <AllRoutine routine={routine} />
       </div>
-      <div className={styles.bottom}>
-        <div className={styles.audiobutton}>
-          <button onClick={() => handleAudio()}>
-            {audioOn ? (
-              <FontAwesomeIcon icon={faMicrophone} />
-            ) : (
-              <FontAwesomeIcon icon={faMicrophoneSlash} />
-            )}
-          </button>
-        </div>
-        <div className={styles.exitbutton}>
-          <button onClick={handleExit}>
-            <IoMdExit />
-          </button>
-        </div>
-        <div className={styles.camerabutton}>
-          <button onClick={() => handleCamera()}>
-            {cameraOn ? (
-              <FontAwesomeIcon icon={faVideo} />
-            ) : (
-              <FontAwesomeIcon icon={faVideoSlash} />
-            )}
-          </button>
-        </div>
-      </div>
+      <Bottom
+        handleAudio={handleAudio}
+        audioOn={audioOn}
+        handleExit={handleExit}
+        handleCamera={handleCamera}
+        cameraOn={cameraOn}
+      />
     </div>
   );
 }

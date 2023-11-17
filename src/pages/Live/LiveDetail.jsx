@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
+import styles from '../../css/Live/LiveDetail.module.css';
 import axios from 'axios';
 import { IoIosTimer } from 'react-icons/io';
 import { BsPerson } from 'react-icons/bs';

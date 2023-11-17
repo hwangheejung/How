@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from '../../css/RoutineList.module.css';
+import styles from '../../css/Routine/RoutineList.module.css';
 
 export default function RoutineList() {
   const [routinedata, setRoutindata] = useState(null); //루틴 데이터 받아오기

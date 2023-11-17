@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
+import styles from '../../css/MyRoutine/MyRoutineDetailPopup.module.css';
 import axios from 'axios';
 import { IoIosTimer } from 'react-icons/io';
 

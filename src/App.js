@@ -1,8 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import { useEffect, useState } from 'react';
+import Header from './components/Header/Header';
+import { useEffect } from 'react';
 import { getCookieToken } from './store/Cookie';
 import { useDispatch } from 'react-redux';
 import { DELETE_USERINFO } from './store/loginRedux';

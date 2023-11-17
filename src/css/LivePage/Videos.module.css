@@ -1,0 +1,17 @@
+.videoContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video {
+  margin: 10px 10px;
+}
+
+video {
+  width: 400px;
+  border-radius: 40px;
+}
+
+.nickname {
+  text-align: center;
+}

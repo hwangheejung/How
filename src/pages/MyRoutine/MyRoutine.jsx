@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styles from '../../css/MyRoutine.module.css';
+import styles from '../../css/MyRoutine/MyRoutine.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';

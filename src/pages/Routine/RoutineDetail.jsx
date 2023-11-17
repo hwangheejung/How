@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 //import { useLocation } from "react-router-dom";
-import styles from '../../css/Popup.module.css';
+import styles from '../../css/Routine/RoutineDetailPopup.module.css';
 import { IoIosTimer } from 'react-icons/io';
 import { getCookieToken } from '../../store/Cookie';
 
