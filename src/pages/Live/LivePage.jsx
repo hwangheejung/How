@@ -10,6 +10,7 @@ import {
   faVideoSlash,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { IoMdExit } from "react-icons/io";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { useNavigate, useParams } from "react-router-dom";
@@ -340,23 +341,31 @@ export default function LivePage() {
 
   const getReadyTimer = () => {
     setReadyTimer(!readyTimer); //ready timer 숨기기
-    client.send(
-      //첫번째 동작 보내기
-      "/app/ex/" + liveId,
-      {},
-      JSON.stringify({
-        readyEnd: 1,
-      })
+    JSON.parse(isOwner) ? (
+      client.send(
+        //첫번째 동작 보내기
+        "/app/ex/" + liveId,
+        {},
+        JSON.stringify({
+          readyEnd: 1,
+        })
+      )
+    ) : (
+      <span></span>
     );
   };
 
   const getTimer = () => {
-    client.send(
-      "/app/ex/" + liveId,
-      {},
-      JSON.stringify({
-        readyEnd: 1,
-      })
+    JSON.parse(isOwner) ? (
+      client.send(
+        "/app/ex/" + liveId,
+        {},
+        JSON.stringify({
+          readyEnd: 1,
+        })
+      )
+    ) : (
+      <span></span>
     );
   };
   //console.log(currentEx);
@@ -398,17 +407,18 @@ export default function LivePage() {
   };
   return (
     <div>
-      <div className={styles.liveTitle}>
+      <div className={styles.header}>
         <img
+          className={styles.livelogo}
           src="/live.png"
           alt="live icon"
           style={{ width: "50px", height: "50px" }}
         />
-        <span>{liveTitle}</span>
-      </div>
-      <div className={styles.participateNum}>
-        <FontAwesomeIcon icon={faUsers} />
-        <span>{participateNum}</span>
+        <span className={styles.liveTitle}> {liveTitle}</span>
+        <div className={styles.participateNum}>
+          <FontAwesomeIcon icon={faUsers} />
+          <span>{participateNum}</span>
+        </div>
       </div>
       <div className={styles.left}>
         <div>
@@ -420,24 +430,10 @@ export default function LivePage() {
           />
           <div>{myInfo.nickname}</div>
         </div>
-        <button onClick={() => handleAudio()}>
-          {audioOn ? (
-            <FontAwesomeIcon icon={faMicrophone} />
-          ) : (
-            <FontAwesomeIcon icon={faMicrophoneSlash} />
-          )}
-        </button>
-        <button onClick={() => handleCamera()}>
-          {cameraOn ? (
-            <FontAwesomeIcon icon={faVideo} />
-          ) : (
-            <FontAwesomeIcon icon={faVideoSlash} />
-          )}
-        </button>
+
         {streams.map((streamInfo, index) => (
           <Video key={index} streamInfo={streamInfo} nicknames={nicknames} />
         ))}
-        <button onClick={handleExit}>나가기</button>
       </div>
       <div className={styles.right}>
         <div>{routine?.name}</div>
@@ -552,6 +548,31 @@ export default function LivePage() {
           ) : (
             <div></div>
           )}
+        </div>
+      </div>
+      <div className={styles.bottom}>
+        <div className={styles.audiobutton}>
+          <button onClick={() => handleAudio()}>
+            {audioOn ? (
+              <FontAwesomeIcon icon={faMicrophone} />
+            ) : (
+              <FontAwesomeIcon icon={faMicrophoneSlash} />
+            )}
+          </button>
+        </div>
+        <div className={styles.exitbutton}>
+          <button onClick={handleExit}>
+            <IoMdExit />
+          </button>
+        </div>
+        <div className={styles.camerabutton}>
+          <button onClick={() => handleCamera()}>
+            {cameraOn ? (
+              <FontAwesomeIcon icon={faVideo} />
+            ) : (
+              <FontAwesomeIcon icon={faVideoSlash} />
+            )}
+          </button>
         </div>
       </div>
     </div>

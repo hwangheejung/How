@@ -1,14 +1,16 @@
 .header {
-  margin: 50px;
-  width: 80%;
-  height: 70%;
-  background-color: #0f0046;
-}
-.mainlogo {
-  float: right;
   margin-right: 20px;
 }
+.livelogo {
+  margin-left: 40px;
+}
+.liveTitle {
+  font-size: 40px;
+  font-weight: bold;
+}
 .participateNum {
+  float: right;
+  margin: 20px;
   padding: 10px;
 }
 .video {
@@ -29,15 +31,15 @@
 }
 
 .cates {
-  margin: 10px;
+  margin: 7px;
 }
 .timer {
   margin-right: 100px;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding-bottom: 7px;
   /* text-align: right; */
-  /* margin: 10px; */
+  /* margin: 7px; */
 }
 
 .detailname {
@@ -68,4 +70,32 @@
   color: #d7fff1;
   cursor: pointer;
   text-align: center;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  margin-left: 800px;
+  margin-bottom: 50px;
+}
+.audiobutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+.exitbutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+.camerabutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
 }

@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
-import 'react-calendar/dist/Calendar.css';
-import styles from '../../css/Calendar.module.css';
-import {
-  addDays,
-  getDate,
-  getDaysInMonth,
-  getMonth,
-  getWeeksInMonth,
-} from 'date-fns';
-import { addMonths, endOfMonth, endOfWeek, startOfMonth } from 'date-fns/esm';
-import { useCallback } from 'react';
-import { getCookieToken } from '../../store/Cookie';
-const CalendarPage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const monthStart = startOfMonth(currentDate);
-  const monthEnd = endOfMonth(currentDate);
-  const startDate = startOfMonth(monthStart);
-  const endDate = endOfWeek(monthEnd);
-  const weekMock = ['일', '월', '화', '수', '목', '금', '토'];
-  const nextMonthHandler = useCallback(() => {
-    setCurrentDate(addMonths(currentDate, 1));
-  }, [currentDate]);
-  const prevMonthHandler = useCallback(() => {
-    setCurrentDate(addMonths(currentDate, 1));
-  }, [currentDate]);
+import { endOfMonth, startOfMonth } from "date-fns/esm";
+import React, { useState } from "react";
+import styles from "../../css/Calendar.module.css";
 
-  // console.log(getCookieToken());
+const Calendar = () => {
+  const [today, setToday] = useState(new Date());
+  const monthStart = startOfMonth(today); //이번달 첫날 요일
+  const monthEnd = endOfMonth(today); //이번달 마지막날 요일
+  console.log(today);
+  console.log(monthStart);
+  console.log(monthEnd);
+  const [selectedDate, setSelectDate] = useState(new Date());
 
-  return <div className={styles.CalendarPage}></div>;
+  return (
+    <div className={styles.calendar}>
+      <div className={styles.header}>Header</div>
+      <div className={styles.days}>Days</div>
+      <div className={styles.body}>Cells</div>
+    </div>
+  );
 };
 
-export default CalendarPage;
+export default Calendar;
