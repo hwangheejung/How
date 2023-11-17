@@ -1,0 +1,17 @@
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.middleContainer {
+  display: flex;
+  width: 100%;
+  padding: 40px 20px;
+  height: 80%;
+}
+
+.videoAction {
+  width: 70%;
+}

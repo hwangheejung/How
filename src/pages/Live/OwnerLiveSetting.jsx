@@ -6,7 +6,7 @@ import {
   faMicrophoneLines,
   faMicrophoneLinesSlash,
 } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../css/LiveSetting.module.css';
+import styles from '../../css/Live/LiveSetting.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function OwnerLiveSetting() {

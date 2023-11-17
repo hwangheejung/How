@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styles from '../../css/makeLive.module.css';
+import styles from '../../css/Live/makeLive.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../css/RoutineList.module.css';
+import styles from '../../css/Routine/RoutineList.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 

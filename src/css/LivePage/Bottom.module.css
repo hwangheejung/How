@@ -1,0 +1,30 @@
+.bottom {
+  position: fixed;
+  bottom: 0;
+  margin-left: 800px;
+  margin-bottom: 50px;
+}
+
+.audiobutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.exitbutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
+
+.camerabutton {
+  display: inline;
+  border: 3px #7650e0 solid;
+  border-radius: 50%;
+  margin-right: 20px;
+  padding: 10px;
+}
