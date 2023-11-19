@@ -7,6 +7,11 @@ phases:
   pre_build:
     commands:
       - npm install -g npm@9.6.7 --legacy-peer-deps  # npm을 이용하여 필요한 패키지들을 설치
+      - npm i @fortawesome/fontawesome-svg-core --legacy-peer-deps
+      - npm i @fortawesome/free-solid-svg-icons --legacy-peer-deps
+      - npm i @fortawesome/react-fontawesome --legacy-peer-deps
+      - npm install @reduxjs/toolkit --legacy-peer-deps
+      - npm install @stomp/stompjs --legacy-peer-deps
       - npm install axios --legacy-peer-deps
       - npm install date-fns --legacy-peer-deps
       - npm i http-proxy-middleware --legacy-peer-deps
