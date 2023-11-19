@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -17,7 +17,7 @@ import MyRoutineDetail from './pages/MyRoutine/MyRoutineDetail';
 import RoutineStart from './pages/RoutineStart/RoutineStart';
 import MakeLive from './pages/Live/MakeLive';
 import StartScreen from './pages/RoutineStart/StartScreen';
-import LivePage from './pages/Live/LivePage';
+// import LivePageOne from './pages/Live/LivePageOne';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
@@ -29,6 +29,7 @@ import LiveSearch from './pages/Live/LiveSearch';
 import LiveDetail from './pages/Live/LiveDetail';
 import LiveSetting from './pages/Live/LiveSetting';
 import OwnerLiveSetting from './pages/Live/OwnerLiveSetting';
+import LivePage from './pages/Live/LivePage';
 
 const router = createBrowserRouter([
   {

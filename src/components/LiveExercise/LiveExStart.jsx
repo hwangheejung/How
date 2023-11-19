@@ -23,8 +23,12 @@ const LiveExStart = (props) => {
   };
 
   const onClick = () => {
+    // console.log('onClick');
     if (currentrest === 0) {
+      // console.log('currentrest === 0');
       if (props.plusset + 1 === currentexerciseset + 1) {
+        // console.log('plusset', props.plusset);
+        // console.log('currentexerciseset', currentexerciseset);
         props.onNoRestSetDone();
       } else {
         props.onNoRest();
@@ -73,7 +77,17 @@ const LiveExStart = (props) => {
             {props.finish ? (
               <div className={styles.ReadyTimer}>
                 <div>Timer</div>
-                <LiveTimer time={currenttime} getTimer={getTimer} />
+                <LiveTimer
+                  time={currenttime}
+                  getTimer={getTimer}
+                  // stopbutton={props.stopbutton}
+                  // stopTimer={props.stopTimer}
+                  // restartTimer={props.restartTimer}
+                  // forTimerOne={props.forTimerOne}
+                  // forTimerTwo={props.forTimerTwo}
+                  // forTimerThree={props.forTimerThree}
+                  // seconds={props.seconds}
+                />
                 <div>
                   {props.plusset}/{currentexerciseset}
                 </div>
