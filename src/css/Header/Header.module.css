@@ -1,3 +1,13 @@
+/* header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userIcon {
+  padding-left: 8px;
+} */
+
 li {
   list-style: none;
 }
@@ -14,8 +24,6 @@ header {
   color: var(--white);
   display: flex;
   justify-content: space-around;
-  /* height: 106px; */
-  /* height: 12rem; */
   padding: 1.3rem 0;
 }
 
@@ -24,14 +32,13 @@ header {
   color: var(--white);
   font-size: 18px;
   font-weight: 500;
-  /* 선택되면 위에 동그라미 표시 */
 }
 
 .titleBox {
   width: 23%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .icon {

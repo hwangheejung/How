@@ -112,7 +112,7 @@ export default function RoutineList() {
         </button>
       </div>
       <div className={styles.RoutineListarr}>
-        {routinedata.result.routines.map((routine) => (
+        {routinedata.result.routines.map((routine, index) => (
           <div
             key={routine.routine.id}
             type='button'

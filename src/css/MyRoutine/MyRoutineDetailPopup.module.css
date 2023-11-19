@@ -45,7 +45,7 @@
 .creatorBox {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .creator {
@@ -81,7 +81,7 @@
   /* display: inline-block; */
   /* float: right; */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 /* span {

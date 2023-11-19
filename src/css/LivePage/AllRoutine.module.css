@@ -6,3 +6,15 @@
 .routineTitle {
   font-size: 2rem;
 }
+
+.currentAction {
+  border: 1px solid var(--icon-color);
+}
+
+.timer {
+  cursor: pointer;
+}
+
+.timer:hover {
+  border: 1px solid var(--icon-color);
+}

@@ -26,6 +26,13 @@ export default function Header({ menu, onMenu }) {
 
   return (
     <>
+      {/* <header>
+        <img src='how.png' alt='Web title' />
+        <div className={styles.userBox}>
+          <img src='bellIcon.png' alt='bell icon' />
+          <img className={styles.userIcon} src='userIcon.png' alt='user icon' />
+        </div>
+      </header> */}
       <header>
         <div className={styles.titleBox}>
           <FontAwesomeIcon className={styles.icon} icon={faSeedling} />
