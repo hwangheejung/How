@@ -7,9 +7,9 @@ phases:
   pre_build:
     commands:
       - npm install -g npm@9.6.7 --legacy-peer-deps  # npm을 이용하여 필요한 패키지들을 설치
-      - npm install axios
-      - npm install date-fns
-      - npm i http-proxy-middleware
+      - npm install axios --legacy-peer-deps
+      - npm install date-fns --legacy-peer-deps
+      - npm i http-proxy-middleware --legacy-peer-deps
       - npm install jwt-decode
       - npm i moment
       - npm install peerjs
