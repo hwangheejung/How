@@ -6,7 +6,7 @@ phases:
   # 빌드 전 단계
   pre_build:
     commands:
-      - npm install  # npm을 이용하여 필요한 패키지들을 설치
+      - npm install -g npm@9.6.7  # npm을 이용하여 필요한 패키지들을 설치
   # 빌드 단계
   build:
     commands:
