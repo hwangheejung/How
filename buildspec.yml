@@ -10,19 +10,19 @@ phases:
       - npm install axios --legacy-peer-deps
       - npm install date-fns --legacy-peer-deps
       - npm i http-proxy-middleware --legacy-peer-deps
-      - npm install jwt-decode
-      - npm i moment
-      - npm install peerjs
-      - npm install react-calendar
-      - npm install react-cookie
-      - npm install react-icons
-      - npm i redux 
-      - npm i react-redux
-      - npm i redux-logger
-      - npm i react-router-dom
-      - npm install --save-dev redux-devtools
-      - npm i redux-persist
-      - npm install sockjs-client
+      - npm install jwt-decode --legacy-peer-deps
+      - npm i moment --legacy-peer-deps
+      - npm install peerjs --legacy-peer-deps
+      - npm install react-calendar --legacy-peer-deps
+      - npm install react-cookie --legacy-peer-deps
+      - npm install react-icons --legacy-peer-deps
+      - npm i redux --legacy-peer-deps
+      - npm i react-redux --legacy-peer-deps
+      - npm i redux-logger --legacy-peer-deps
+      - npm i react-router-dom --legacy-peer-deps
+      - npm install --save-dev redux-devtools --legacy-peer-deps
+      - npm i redux-persist --legacy-peer-deps
+      - npm install sockjs-client --legacy-peer-deps
   # 빌드 단계
   build:
     commands:
