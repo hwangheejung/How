@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
 
-const MakeLive = () => {
+const MakeLive = (props) => {
   const navigate = useNavigate();
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
@@ -59,9 +59,12 @@ const MakeLive = () => {
     });
   };
 
+  // const close = () => {
+  //   //취소버튼 클릭시
+  //   window.close();
+  // };
   const close = () => {
-    //취소버튼 클릭시
-    window.close();
+    props.setMakeLive((prev) => !prev);
   };
 
   const fetchroutine = async () => {
@@ -95,47 +98,58 @@ const MakeLive = () => {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
   return (
-    <>
-      <div className={styles.makeLabel}>라이브 생성</div>
+    <div className={styles.MakeLiveModal}>
       <div className={styles.container}>
-        <input
-          type='text'
-          className={styles.MakeLiveName}
-          placeholder='라이브 제목'
-          size='40'
-          //  value={liveName}
-          onChange={onChangeName}
-        />
-        <hr />
+        <div className={styles.makeLabel}>Create Live</div>
+        <div className={styles.inputName}>
+          <input
+            type='text'
+            className={styles.MakeLiveName}
+            placeholder='라이브 제목'
+            size='40'
+            //  value={liveName}
+            onChange={onChangeName}
+          />
+        </div>
+        {/* <hr /> */}
         <div className={styles.scroll}>
-          <div className={styles.routineLabel}>My routine</div>
+          <div className={styles.routineLabel}>Select Routine</div>
           <div className={styles.MyRoutineListarr}>
             {myroutinedata.result?.map(
               (
                 myroutine,
                 idx //내 루틴들 보여주기
               ) => (
-                <button
+                <div
                   key={idx}
                   //상세정보 보여주기 버튼
                   className={`${styles.MyroutineClick}
                 ${idx === myroutineclick && styles.selected}`}
-                  onClick={() => onClick(idx, myroutine.routine.routineId)}
                 >
-                  <div className={styles.subject}>
-                    {myroutine.routine.routineSubject}
+                  <div className={styles.routineDetail}>
+                    <div className={styles.subjectHits}>
+                      <div className={styles.subject}>
+                        {myroutine.routine.routineSubject}
+                      </div>
+                      <div className={styles.myhits}>
+                        ∙ 운동 횟수 {myroutine.routine.count}회
+                      </div>
+                    </div>
+                    <div className={styles.cates}>
+                      {myroutine.cate.map((item, index) => (
+                        <span key={index} className={styles.actionCate}>
+                          #{item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className={styles.cates}>
-                    {myroutine.cate.map((item, index) => (
-                      <span key={index} className={styles.actionCate}>
-                        #{item}
-                      </span>
-                    ))}
-                  </div>
-                  <div className={styles.myhits}>
-                    운동 횟수: {myroutine.routine.count}
-                  </div>
-                </button>
+                  <button
+                    className={styles.selectButton}
+                    onClick={() => onClick(idx, myroutine.routine.routineId)}
+                  >
+                    선택하기
+                  </button>
+                </div>
               )
             )}
           </div>
@@ -152,7 +166,7 @@ const MakeLive = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

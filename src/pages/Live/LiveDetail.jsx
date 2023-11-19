@@ -13,11 +13,13 @@ const LiveDetail = (props) => {
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
 
+  const { routineId, liveId, livesubject, livenick } = props.live;
+
   const windowClose = () => {
     window.close();
   };
 
-  const { routineId, liveId, livesubject, livenick } = useParams();
+  // const { routineId, liveId, livesubject, livenick } = useParams();
 
   const liveStart = (liveId) => {
     window.opener.location.href = `/live/setting/perticipate/${liveId}`;
@@ -52,7 +54,7 @@ const LiveDetail = (props) => {
   if (!detailRoutine) return <div>null</div>;
 
   return (
-    <>
+    <div className={styles.LiveDetailModal}>
       <div className={styles.layout}>
         <div className={styles.liveInfo}>
           <span className={styles.title}>{livesubject}</span>
@@ -114,7 +116,7 @@ const LiveDetail = (props) => {
           <button className={styles.button} onClick={() => liveStart(liveId)}>
             참여
           </button>
-          <button className={styles.button} onClick={windowClose}>
+          <button className={styles.button} onClick={props.onLiveDetailClose}>
             취소
           </button>
         </div>
@@ -175,7 +177,7 @@ const LiveDetail = (props) => {
           </button>
         </div>
       </div> */}
-    </>
+    </div>
   );
 };
 
