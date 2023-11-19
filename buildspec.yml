@@ -3,6 +3,13 @@ version: 0.2
 
 # 빌드 단계를 정의
 phases:
+  install:
+    runtime-versions:
+        # 런타임은 node12로 명시하면 자동으로 환경을 세팅해줍니다.
+        nodejs: 12
+    commands:
+        # yarn을 사용
+        - "npm install yarn -g"
   # 빌드 전 단계
   pre_build:
     commands:
