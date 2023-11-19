@@ -47,6 +47,7 @@ export default function LoginPage() {
             alert('로그인이 완료되었습니다.');
             navigate('/');
           } else if (res.data.code === 3014) {
+            // 로그인 정보 없어지는 코드 추가
             alert(res.data.message);
           }
           setId('');

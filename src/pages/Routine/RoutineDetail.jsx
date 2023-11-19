@@ -20,17 +20,20 @@ const RoutineDetail = () => {
   //const params = { id };
 
   const myroutineinsert = (id) => {
-    window.opener.location.href = `/my/routine/list`;
-    window.close();
-    axios.post(
-      `http://52.78.0.53/api/ex-routines/me`,
-      {
-        routId: id,
-      },
-      {
-        headers: { Authorization: `Bearer ${getCookieToken()}` },
-      }
-    );
+    axios
+      .post(
+        `http://52.78.0.53/api/ex-routines/me`,
+        {
+          routId: id,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      )
+      .then((res) => {
+        window.opener.location.href = `/my/routine/list`;
+        window.close();
+      });
   };
 
   const fetchroutine = async () => {
