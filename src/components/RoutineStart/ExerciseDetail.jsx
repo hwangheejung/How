@@ -21,7 +21,12 @@ const ExerciseDetail = () => {
       setError(null);
 
       const response = await axios.get(
+<<<<<<< HEAD
         `http://52.78.0.53.sslip.io:8080/api/ex-routines/${id}`
+=======
+        // `https://52.78.0.53.sslip.io/api/ex-routines/${id}`
+        `https://52.78.0.53.sslip.io/api/ex-routines/${id}`
+>>>>>>> af4598a8d5fba68927a1cc1a12f882e87d25e2d9
       );
       setDetailRoutine(response.data.result.routineDetails);
     } catch (e) {
