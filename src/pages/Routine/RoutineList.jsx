@@ -81,7 +81,8 @@ export default function RoutineList() {
       setError(null);
 
       const response = await axios.get(
-        'https://52.78.0.53.sslip.io/api/ex-routines?type=false'
+        // 'https://52.78.0.53.sslip.io/api/ex-routines?type=false'
+        'http://52.78.0.53.sslip.io:8080/api/ex-routines?type=false'
       );
       setRoutindata(response.data);
     } catch (e) {
