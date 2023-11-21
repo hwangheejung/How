@@ -10,7 +10,7 @@ import axios from 'axios';
 import { getCookieToken } from '../store/Cookie';
 
 const client = Stomp.over(() => {
-  return new SockJS('http://52.78.0.53:8080/live');
+  return new SockJS('http://52.78.0.53.sslip.io:8080/live');
 });
 
 export default function useSocket({ liveId, camera, audio, isOwner }) {
@@ -263,9 +263,11 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const handleExit = () => {
     // 라이브 종료
     if (JSON.parse(isOwner)) {
-      axios.delete('http://52.78.0.53/api/lives/' + liveId).catch((e) => {
-        console.log('에러', e);
-      });
+      axios
+        .delete('http://52.78.0.53.sslip.io:8080/api/lives/' + liveId)
+        .catch((e) => {
+          console.log('에러', e);
+        });
       client.send(
         '/app/participate/' + liveId,
         {},
@@ -280,9 +282,12 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     } else {
       // 라이브 퇴장
       axios
-        .delete('http://52.78.0.53/api/lives/participates/' + liveId, {
-          headers: { Authorization: `Bearer ${getCookieToken()}` },
-        })
+        .delete(
+          'http://52.78.0.53.sslip.io:8080/api/lives/participates/' + liveId,
+          {
+            headers: { Authorization: `Bearer ${getCookieToken()}` },
+          }
+        )
         .then((res) => {
           client.send(
             '/app/participate/' + liveId,

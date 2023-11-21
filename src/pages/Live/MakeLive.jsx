@@ -29,12 +29,13 @@ const MakeLive = (props) => {
   };
 
   const liveCreate = (livelist) => {
+    console.log('create button clicked');
     //라이브 생성 버튼 클릭시
     // window.opener.href = '/live/list';
     // window.close();
     axios
       .post(
-        `http://52.78.0.53/api/lives`,
+        `http://52.78.0.53.sslip.io:8080/api/lives`,
         {
           subject: livelist.subject,
           routId: livelist.id,
@@ -45,8 +46,13 @@ const MakeLive = (props) => {
       )
       .then((res) => {
         // console.log(res.data);
-        window.opener.location.href = `/live/setting/owner/${res.data.result.roomId}/${res.data.result.subject}`;
-        window.close();
+        // window.opener.location.href = `/live/setting/owner/${res.data.result.roomId}/${res.data.result.subject}`;
+        // window.close();
+        console.log('recived data: ', res.data);
+        props.setRoomId(res.data.result.roomId);
+        props.setSubject(res.data.result.subject);
+        props.setIsOwnerSetting(true);
+        props.setMakeLive(false);
       });
     // console.log(livelist.subject + ':' + livelist.id);
   };
@@ -75,7 +81,7 @@ const MakeLive = (props) => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/me?type=false`,
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=false`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -101,11 +107,12 @@ const MakeLive = (props) => {
     <div className={styles.MakeLiveModal}>
       <div className={styles.container}>
         <div className={styles.makeLabel}>Create Live</div>
+        <div className={styles.titleLabel}>Live Title</div>
         <div className={styles.inputName}>
           <input
             type='text'
             className={styles.MakeLiveName}
-            placeholder='라이브 제목'
+            placeholder='제목'
             size='40'
             //  value={liveName}
             onChange={onChangeName}

@@ -6,6 +6,9 @@ import {
   faMicrophoneSlash,
   faVideoSlash,
 } from '@fortawesome/free-solid-svg-icons';
+import { PiVideoCameraLight, PiVideoCameraSlash } from 'react-icons/pi';
+import { BiSolidMicrophoneOff, BiSolidMicrophone } from 'react-icons/bi';
+import { MdCallEnd } from 'react-icons/md';
 import { IoMdExit } from 'react-icons/io';
 import styles from '../../css/LivePage/Bottom.module.css';
 
@@ -21,23 +24,23 @@ export default function Bottom({
       <div className={styles.audiobutton}>
         <button onClick={() => handleAudio()}>
           {audioOn ? (
-            <FontAwesomeIcon icon={faMicrophone} />
+            <BiSolidMicrophone className={styles.icon} />
           ) : (
-            <FontAwesomeIcon icon={faMicrophoneSlash} />
+            <BiSolidMicrophoneOff className={styles.icon} />
           )}
         </button>
       </div>
       <div className={styles.exitbutton}>
         <button onClick={handleExit}>
-          <IoMdExit />
+          <MdCallEnd className={styles.exitIcon} />
         </button>
       </div>
       <div className={styles.camerabutton}>
         <button onClick={() => handleCamera()}>
           {cameraOn ? (
-            <FontAwesomeIcon icon={faVideo} />
+            <PiVideoCameraLight className={styles.icon} />
           ) : (
-            <FontAwesomeIcon icon={faVideoSlash} />
+            <PiVideoCameraSlash className={styles.icon} />
           )}
         </button>
       </div>

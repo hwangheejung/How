@@ -2,8 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import LiveRestTimer from './LiveRestTimer';
 import LiveReadyTimer from './LiveReadyTimer';
-import styles from '../../css/Timer/readyTimer.module.css';
+// import styles from '../../css/Timer/readyTimer.module.css';
+import styles from '../../css/Live/LiveExStart.module.css';
+
 import LiveTimer from './LiveTimer';
+
 const LiveExStart = (props) => {
   // const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
   // const [plusset, setPlusset] = useState(1); //현재 set 관리
@@ -66,17 +69,21 @@ const LiveExStart = (props) => {
   };
 
   return (
-    <div>
-      <div>
+    <div className={styles.currentActionBox}>
+      <div className={styles.actionName}>{currentname}</div>
+      {/* <div>
         <div>{currentname}</div>
         <div>{currentdesc}</div>
-      </div>
+      </div> */}
       <div>
         {currenttype ? (
           <div>
             {props.finish ? (
               <div className={styles.ReadyTimer}>
-                <div>Timer</div>
+                {/* <div>Timer</div> */}
+                <div className={styles.set}>
+                  set {props.plusset}/{currentexerciseset}
+                </div>
                 <LiveTimer
                   time={currenttime}
                   getTimer={getTimer}
@@ -88,13 +95,10 @@ const LiveExStart = (props) => {
                   // forTimerThree={props.forTimerThree}
                   // seconds={props.seconds}
                 />
-                <div>
-                  {props.plusset}/{currentexerciseset}
-                </div>
               </div>
             ) : (
               <div className={styles.ReadyTimer}>
-                Rest Timer
+                rest time
                 <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
               </div>
             )}
@@ -103,18 +107,20 @@ const LiveExStart = (props) => {
           <div>
             {props.finish ? (
               <div className={styles.ReadyTimer}>
-                <div>
-                  {props.plusset}/{currentexerciseset}
+                <div className={styles.set}>
+                  set {props.plusset}/{currentexerciseset}
                 </div>
-                <div>{currentcount}개 </div>
-                <button className={styles.button} onClick={onClick}>
-                  complete
-                </button>
+                <div className={styles.countNext}>
+                  <div className={styles.count}>{currentcount}개 </div>
+                  <button className={styles.button} onClick={onClick}>
+                    Next
+                  </button>
+                </div>
               </div>
             ) : (
               currentrest !== 0 && (
                 <div className={styles.ReadyTimer}>
-                  Rest Timer
+                  rest time
                   <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
                 </div>
               )

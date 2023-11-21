@@ -6,16 +6,10 @@ import styles from '../../css/LivePage/LiveInfo.module.css';
 export default function LiveInfo({ liveTitle, participateNum }) {
   return (
     <div className={styles.header}>
-      <img
-        className={styles.livelogo}
-        src='/live.png'
-        alt='live icon'
-        style={{ width: '50px', height: '50px' }}
-      />
-      <span className={styles.liveTitle}> {liveTitle}</span>
-      <div className={styles.participateNum}>
-        <FontAwesomeIcon icon={faUsers} />
-        <span>{participateNum}</span>
+      <div className={styles.liveTitle}> {liveTitle}</div>
+      <div className={styles.colorBox}>
+        <span className={styles.liveText}>live</span>
+        <span className={styles.participateNum}>{participateNum}/6</span>
       </div>
     </div>
   );

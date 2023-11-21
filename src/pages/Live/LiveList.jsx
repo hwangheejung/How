@@ -6,6 +6,8 @@ import { AiOutlineSearch, AiOutlinePlusSquare } from 'react-icons/ai';
 import axios from 'axios';
 import LiveDetail from './LiveDetail';
 import MakeLive from './MakeLive';
+import OwnerLiveSetting from './OwnerLiveSetting';
+import LiveSetting from './LiveSetting';
 
 export default function LiveList() {
   const [livedata, setLivedata] = useState([]); //live data가져오기
@@ -22,6 +24,10 @@ export default function LiveList() {
     livenick: '',
   });
   const [isMakeLive, setMakeLive] = useState(false);
+  const [isOwnerSetting, setIsOwnerSetting] = useState(false);
+  const [roomId, setRoomId] = useState('');
+  const [subject, setSubject] = useState('');
+  const [isParticipateSetting, setIsParticipateSetting] = useState(false);
   // const [routineId, setRoutineId] = useState();
   // const [liveId, setLiveId] = useState();
   // const [subject, setSubject] = useState();
@@ -107,7 +113,9 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
-      const response = await axios.get('http://52.78.0.53/api/lives');
+      const response = await axios.get(
+        'http://52.78.0.53.sslip.io:8080/api/lives'
+      );
       setLivedata(response.data);
       console.log(response.data.result.liveListMappings);
     } catch (e) {
@@ -169,9 +177,33 @@ export default function LiveList() {
         ))}
       </div>
       {isLiveDetail ? (
-        <LiveDetail onLiveDetailClose={onLiveDetailClose} live={live} />
+        <LiveDetail
+          onLiveDetailClose={onLiveDetailClose}
+          live={live}
+          setIsParticipateSetting={setIsParticipateSetting}
+        />
       ) : null}
-      {isMakeLive ? <MakeLive setMakeLive={setMakeLive} /> : null}
+      {isMakeLive ? (
+        <MakeLive
+          setMakeLive={setMakeLive}
+          setRoomId={setRoomId}
+          setSubject={setSubject}
+          setIsOwnerSetting={setIsOwnerSetting}
+        />
+      ) : null}
+      {isOwnerSetting ? (
+        <OwnerLiveSetting
+          roomId={roomId}
+          subject={subject}
+          setIsOwnerSetting={setIsOwnerSetting}
+        />
+      ) : null}
+      {isParticipateSetting ? (
+        <LiveSetting
+          roomId={roomId}
+          setIsParticipateSetting={setIsParticipateSetting}
+        />
+      ) : null}
     </div>
   );
 }

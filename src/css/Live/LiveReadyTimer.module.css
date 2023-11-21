@@ -1,0 +1,22 @@
+.ReadyTimer {
+  width: 160px;
+  height: 110px;
+  padding: 14px 30px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.readytimerText {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+
+.timer {
+  color: #f4f4f4;
+  font-size: 30px;
+  font-weight: 600;
+}
