@@ -81,7 +81,7 @@ const MakeLive = (props) => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=false`,
+        `https://52.78.0.53.sslip.io/api/ex-routines/me?type=false`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }

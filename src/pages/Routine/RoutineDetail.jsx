@@ -27,8 +27,8 @@ const RoutineDetail = (props) => {
   const myroutineinsert = (id) => {
     axios
       .post(
-        // `https://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
+        `https://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
+        // `http://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
         {
           routId: id,
         },
@@ -50,8 +50,8 @@ const RoutineDetail = (props) => {
       setError(null);
 
       const response = await axios.get(
-        // `https://52.78.0.53.sslip.io/api/ex-routines/${props.detailId}`
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${props.detailId}`
+        `https://52.78.0.53.sslip.io/api/ex-routines/${props.detailId}`
+        // `http://52.78.0.53.sslip.io:8080/api/ex-routines/${props.detailId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
