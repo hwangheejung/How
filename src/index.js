@@ -30,6 +30,7 @@ import LiveDetail from "./pages/Live/LiveDetail";
 import LiveSetting from "./pages/Live/LiveSetting";
 import OwnerLiveSetting from "./pages/Live/OwnerLiveSetting";
 import LivePage from "./pages/Live/LivePage";
+import AddExCalendar from "./pages/Calendar/AddExCalendar";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Calendar /> },
       { path: `/calendar`, element: <Calendar /> },
+      { path: `/calendarinsert`, element: <AddExCalendar /> },
       { path: `/routine/list`, element: <RoutineList /> },
       { path: `/routineSearch`, element: <RoutineSearch /> },
       { path: `/my/routine/list`, element: <MyRoutine /> },

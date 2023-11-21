@@ -1,4 +1,4 @@
-.header {
+/* .header {
   margin-right: 20px;
 }
 
@@ -15,4 +15,36 @@
   float: right;
   margin: 20px;
   padding: 10px;
+} */
+
+.liveTitle {
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 15px;
+}
+
+.colorBox span {
+  margin-right: 4px;
+}
+
+.liveText {
+  width: 50px;
+  height: 24px;
+  border-radius: 24px;
+  background-color: #f00;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  padding: 3px 10px;
+}
+
+.participateNum {
+  width: 50px;
+  height: 24px;
+  border-radius: 24px;
+  background-color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  padding: 3px 10px;
 }

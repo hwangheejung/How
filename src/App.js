@@ -47,9 +47,9 @@ function App() {
   return (
     <div className='container'>
       <Header menu={localStorage.getItem('menu')} onMenu={handleMenu} />
-      <div className='main'>
-        <Outlet />
-      </div>
+      {/* <div className='main'> */}
+      <Outlet />
+      {/* </div> */}
     </div>
   );
 }

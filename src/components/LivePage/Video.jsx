@@ -15,13 +15,16 @@ export default function Video({ streamInfo, nicknames }) {
   }, [stream, streamRef]);
 
   return (
-    <div className={styles.video}>
-      <video
-        playsInline
-        ref={streamRef}
-        autoPlay
-        // style={{ width: '400px', height: '400px' }}
-      />
+    <div className={styles.videoInfo}>
+      <div className={styles.video}>
+        <video
+          className={styles.v}
+          playsInline
+          ref={streamRef}
+          autoPlay
+          // style={{ width: '400px', height: '400px' }}
+        />
+      </div>
       <div className={styles.nickname}>{nicknames[peerId]}</div>
     </div>
   );

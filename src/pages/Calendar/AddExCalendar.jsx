@@ -5,7 +5,7 @@ import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
 import styles from "../../css/Calendar.module.css";
 
-const AppExCalendar = () => {
+const AddExCalendar = () => {
   const { id } = useParams();
 
   const [myroutinedata, setMyRoutindata] = useState([]);
@@ -39,7 +39,7 @@ const AppExCalendar = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines:8080/me?type=false`,
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=false`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -61,7 +61,7 @@ const AppExCalendar = () => {
   if (!myroutinedata) return <div>null</div>;
 
   return (
-    <div>
+    <div className={styles.CalendarModal}>
       <div className={styles.clickdate}>{id}</div>
       <div className={styles.scroll}>
         <div className={styles.routineLabel}>My routine</div>
@@ -108,4 +108,4 @@ const AppExCalendar = () => {
   );
 };
 
-export default AppExCalendar;
+export default AddExCalendar;

@@ -51,16 +51,18 @@ export default function Header({ menu, onMenu }) {
               >
                 <h1 className={styles.title}>how</h1>
               </Link>
-              <button
-                className={`${styles.logoutButton} ${styles.link}`}
-                onClick={handleLogout}
-              >
-                <FiLogOut className={styles.logoutIcon} />
-                logout
-              </button>
-              <div className={styles.userBox}>
-                <FaRegUser size="20" className={styles.userIcon} />
-                <div className={styles.userName}>{userInfo.nickname}</div>
+              <div className={styles.userBoxLogout}>
+                <div className={styles.userBox}>
+                  <FaRegUser size="20" className={styles.userIcon} />
+                  <span className={styles.userName}>{userInfo.nickname}</span>
+                </div>
+                <button
+                  className={`${styles.logoutButton} ${styles.link}`}
+                  onClick={handleLogout}
+                >
+                  <FiLogOut className={styles.logoutIcon} />
+                  logout
+                </button>
               </div>
             </div>
             <ul className={styles.menuBar}>

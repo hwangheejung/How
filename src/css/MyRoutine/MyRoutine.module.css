@@ -13,12 +13,12 @@
     border-bottom: 2px solid var(--black);
   }
 
-  .searchContainer {
-    padding-top: 25px;
-    display: flex;
-    width: 100%;
-    justify-content: end;
-  }
+.searchContainer {
+  padding-top: 25px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
 
   .routinesearch {
     width: 150px;

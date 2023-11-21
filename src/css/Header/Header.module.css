@@ -81,88 +81,9 @@
     font-weight: 500;
     padding: 10px;
   }
-  /* .link {
-    display: flex;
-    text-decoration: none;
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 500;
-    padding: 10px;
-  }
-  .linkTitle {
-    text-decoration: none;
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .title {
-    margin-top: 0;
-    margin-left: 0;
-    text-transform: uppercase;
-    padding-left: 10px;
-    font-size: 20px;
-    font-weight: 300;
-  } */
-
-  /* .icon {
-    color: var(--icon-color);
-    width: 23px;
-    height: 23px;
-  } */
-
-  /* .menuBar {
-    width: 50%;
-
-    align-items: center;
-    margin: 0;
-  }
-
   .selected {
     font-weight: 700;
   }
-
-  .userInfo {
-    width: 25%;
-
-    align-items: center;
-
-    padding: 0;
-    text-align: center;
-  }
-
-  .userName {
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .logoutIcon {
-    width: 20px;
-    height: 20px;
-  }
-  .userBox {
-    width: 100px;
-    display: flex;
-  }
-  .userIcon {
-    width: 20px;
-    height: 20px;
-  }
-  .userName {
-    display: flex;
-  }
-  .logoutButton {
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-  }
-  .logoutBox {
-    width: 100px;
-    align-items: center;
-    margin-right: 3px;
-    text-align: center;
-    padding: 0;
-  } */
 }
 
 @media (min-width: 575px) {
@@ -208,39 +129,52 @@
     font-size: 30px;
     font-weight: 400;
   }
-  .userBox {
-    display: inline;
-    float: right;
+
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 7px;
+  }
+
+  .userBoxLogout {
+    display: flex;
+    align-items: center;
+  }
+  .userBox {
+    /* display: inline; */
+    /* float: right; */
+    display: flex;
+    align-items: center;
+    /* margin-top: 7px; */
   }
   .userIcon {
     font-size: 20px;
     color: var(--white);
-    display: inline-flex;
-    width: 13px;
-    height: 14px;
+    /* display: inline-flex; */
+    width: 20px;
+    height: 20px;
     padding-right: 2px;
   }
   .logoutIcon {
     padding-right: 2px;
-    display: inline;
+    /* display: inline; */
     width: 20px;
     height: 20px;
     padding-top: 1px;
   }
   .userName {
     color: var(--white);
-    display: inline-flex;
+    /* display: inline-flex; */
     font-size: 20px;
     font-weight: 500;
     text-align: center;
   }
   .logoutButton {
-    display: inline;
-    float: right;
+    /* display: inline; */
+    /* float: right; */
     font-size: 21px;
-
+    display: flex;
+    align-items: center;
     font-weight: 500;
     text-align: center;
   }

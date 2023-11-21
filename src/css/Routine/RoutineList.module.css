@@ -87,6 +87,12 @@
     font-weight: 500;
     opacity: 0.3;
   }
+  .searchContainer {
+    padding-top: 25px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
 
   .heartIconBox {
     flex: 1;

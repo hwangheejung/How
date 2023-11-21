@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../css/Routine/RoutineList.module.css";
-import { getCookieToken } from "../../store/Cookie";
+import RoutineDetail from "./RoutineDetail";
 
 export default function RoutineList() {
   const [routinedata, setRoutindata] = useState(null); //루틴 데이터 받아오기
@@ -13,6 +13,9 @@ export default function RoutineList() {
   const [error, setError] = useState(null);
 
   const [searchInput, setSearchInput] = useState(""); //검색
+
+  const [detailPopup, setDetailPopup] = useState(false);
+  const [detailId, setDetailId] = useState("");
 
   const navigate = useNavigate();
 
@@ -51,34 +54,24 @@ export default function RoutineList() {
       navigate("/routineSearch", { state: { sArray } });
     }
   };
-  const myroutineinsert = (id) => {
-    //내루틴 추가
-    window.location.href = `/my/routine/list`;
-    axios.post(
-      `http://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
-      {
-        routId: id,
-      },
-      {
-        headers: { Authorization: `Bearer ${getCookieToken()}` },
-      }
-    );
-  };
+
+  // const onPopup = (id) => {
+  //   const width = 500;
+  //   const height = 700;
+  //   const x = window.outerWidth / 2 - width / 2;
+  //   const y = window.outerHeight / 2 - height / 2;
+
+  //   const url = `/routinedetail/${id}`;
+  //   window.open(
+  //     url,
+  //     'window_name',
+  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+  //   );
+  // };
+
   const onPopup = (id) => {
-    //팝업 관리
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
-
-    const url = `/routinedetail/${id}`;
-    window.open(
-      url,
-      "window_name",
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
-
-    //navigate(`/routinedetail/${id}`, { state: { id } });
+    setDetailId(id);
+    setDetailPopup(true);
   };
 
   const fetchroutine = async () => {
@@ -88,6 +81,7 @@ export default function RoutineList() {
       setError(null);
 
       const response = await axios.get(
+        // 'https://52.78.0.53.sslip.io/api/ex-routines?type=false'
         "http://52.78.0.53.sslip.io:8080/api/ex-routines?type=false"
       );
       setRoutindata(response.data);
@@ -125,7 +119,7 @@ export default function RoutineList() {
         </button>
       </div>
       <div className={styles.RoutineListarr}>
-        {routinedata.result.routines.map((routine) => (
+        {routinedata.result.routines.map((routine, index) => (
           <div
             key={routine.routine.id}
             type="button"
@@ -158,17 +152,14 @@ export default function RoutineList() {
               className={styles.detailButton}
               onClick={() => onPopup(routine.routine.id)}
             >
-              자세히 보기
-            </button>
-            <button
-              className={styles.addmyroutinebtn}
-              onClick={() => myroutineinsert(routine.routine.id)}
-            >
-              내 루틴에 추가
+              더보기
             </button>
           </div>
         ))}
       </div>
+      {detailPopup ? (
+        <RoutineDetail setDetailPopup={setDetailPopup} detailId={detailId} />
+      ) : null}
     </div>
   );
 }

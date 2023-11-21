@@ -1,8 +1,88 @@
+.allRoutinePopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
 .allRoutine {
+  overflow-y: auto;
+  box-sizing: border-box;
   width: 30%;
+  min-width: 350px;
+  height: 60%;
+  min-height: 550px;
+  opacity: 0.7;
+  background: #ffffff;
   font-size: 1.5rem;
+  border-radius: 14px;
+  padding: 30px 10px;
+}
+
+.allRoutine::-webkit-scrollbar {
+  width: 17px;
+  border-radius: 14px;
+}
+
+.allRoutine::-webkit-scrollbar-thumb {
+  border-radius: 14px;
+  background-color: #c4c4c4;
+}
+
+.allRoutine::-webkit-scrollbar-track {
+  border-radius: 14px;
+  background-color: #e5e5e5;
+}
+
+.routineDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  padding-top: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.sequence {
+  font-size: 17px;
+  font-weight: 700;
+  background-color: #00aa81;
+  color: var(--white);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
 }
 
 .routineTitle {
   font-size: 2rem;
+}
+
+.detailname {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.currentAction {
+  border: 1px solid var(--icon-color);
+}
+
+.timer {
+  cursor: pointer;
+}
+
+.timer:hover {
+  border: 1px solid var(--icon-color);
 }

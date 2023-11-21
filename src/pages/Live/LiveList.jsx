@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useTransition } from "react";
 import { useState, useEffect } from "react";
 import styles from "../../css/Live/LiveList.module.css";
 import { useNavigate } from "react-router-dom";
-import {
-  AiOutlineSearch,
-  AiOutlinePlusSquare,
-  AiOutlinePlus,
-} from "react-icons/ai";
-
+import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
 import axios from "axios";
 import LiveDetail from "./LiveDetail";
+import MakeLive from "./MakeLive";
+import OwnerLiveSetting from "./OwnerLiveSetting";
+import LiveSetting from "./LiveSetting";
 
 export default function LiveList() {
   const [livedata, setLivedata] = useState([]); //live data가져오기
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
   const [liveSearch, setliveSearch] = useState(""); //live 검색어
+
+  // 모달창
+  const [isLiveDetail, setIsLiveDetail] = useState(false);
+  const [live, setLive] = useState({
+    rotuineId: "",
+    liveId: "",
+    livesubject: "",
+    livenick: "",
+  });
+  const [isMakeLive, setMakeLive] = useState(false);
+  const [isOwnerSetting, setIsOwnerSetting] = useState(false);
+  const [roomId, setRoomId] = useState("");
+  const [subject, setSubject] = useState("");
+  const [isParticipateSetting, setIsParticipateSetting] = useState(false);
+  // const [routineId, setRoutineId] = useState();
+  // const [liveId, setLiveId] = useState();
+  // const [subject, setSubject] = useState();
+  // const [nick, setNick] = useState();
 
   const navigate = useNavigate();
 
@@ -25,35 +41,46 @@ export default function LiveList() {
   };
 
   const onPopupdetail = (routineId, liveId, livesubject, livenick) => {
-    //라이브 상세페이지 이동
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
-
-    const url = `/livedetail/${routineId}/${liveId}/${livesubject}/${livenick}`;
-    <LiveDetail livesubject={livesubject} livenick={livenick} />;
-    window.open(
-      url,
-      "window_name",
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
+    setIsLiveDetail((prev) => !prev);
+    setLive({ routineId, liveId, livesubject, livenick });
   };
-  const onPopup = () => {
-    //팝업 관리
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
-
-    const url = `/Makelive`;
-    window.open(
-      url,
-      "window_name",
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
-    //navigate(`/makelive`);
+  const onLiveDetailClose = () => {
+    setIsLiveDetail((prev) => !prev);
   };
+  // const onPopupdetail = (routineId, liveId, livesubject, livenick) => {
+  //   //라이브 상세페이지 이동
+  //   const width = 500;
+  //   const height = 700;
+  //   const x = window.outerWidth / 2 - width / 2;
+  //   const y = window.outerHeight / 2 - height / 2;
+
+  //   const url = `/livedetail/${routineId}/${liveId}/${livesubject}/${livenick}`;
+  //   <LiveDetail livesubject={livesubject} livenick={livenick} />;
+  //   window.open(
+  //     url,
+  //     'window_name',
+  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+  //   );
+  // };
+
+  const onPopupMakeLive = () => {
+    setMakeLive((prev) => !prev);
+  };
+  // const onPopup = () => {
+  //   //팝업 관리
+  //   const width = 500;
+  //   const height = 700;
+  //   const x = window.outerWidth / 2 - width / 2;
+  //   const y = window.outerHeight / 2 - height / 2;
+
+  //   const url = `/Makelive`;
+  //   window.open(
+  //     url,
+  //     'window_name',
+  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+  //   );
+  //   //navigate(`/makelive`);
+  // };
   const onPress = (e) => {
     if (e.key === "Enter") {
       let sArray = livedata.result.liveListMappings.filter(
@@ -86,6 +113,7 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
+      // const response = await axios.get('https://52.78.0.53.sslip.io/api/lives');
       const response = await axios.get(
         "http://52.78.0.53.sslip.io:8080/api/lives"
       );
@@ -114,8 +142,8 @@ export default function LiveList() {
             style={{ width: "30px", height: "23px" }}
           />
         </div>
-        <button className={styles.insertLive} onClick={onPopup}>
-          <AiOutlinePlus size="20" />
+        <button className={styles.insertLive} onClick={onPopupMakeLive}>
+          {/* <AiOutlinePlusSquare size='25' /> */}+
         </button>
       </div>
       <div className={styles.searchContainer}>
@@ -149,6 +177,35 @@ export default function LiveList() {
           </div>
         ))}
       </div>
+      {isLiveDetail ? (
+        <LiveDetail
+          onLiveDetailClose={onLiveDetailClose}
+          live={live}
+          setIsParticipateSetting={setIsParticipateSetting}
+          setRoomId={setRoomId}
+        />
+      ) : null}
+      {isMakeLive ? (
+        <MakeLive
+          setMakeLive={setMakeLive}
+          setRoomId={setRoomId}
+          setSubject={setSubject}
+          setIsOwnerSetting={setIsOwnerSetting}
+        />
+      ) : null}
+      {isOwnerSetting ? (
+        <OwnerLiveSetting
+          roomId={roomId}
+          subject={subject}
+          setIsOwnerSetting={setIsOwnerSetting}
+        />
+      ) : null}
+      {isParticipateSetting ? (
+        <LiveSetting
+          roomId={roomId}
+          setIsParticipateSetting={setIsParticipateSetting}
+        />
+      ) : null}
     </div>
   );
 }

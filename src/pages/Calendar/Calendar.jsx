@@ -3,6 +3,7 @@ import styles from "../../css/Calendar.module.css";
 import { ko } from "date-fns/locale";
 import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
+import LiveDetail from "../Live/LiveDetail";
 
 import {
   format,
@@ -53,6 +54,12 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(current.getMonth()); //오늘이 포함된 달 가져오기
   const [currentYear, setCurrentYear] = useState(current.getFullYear()); //오늘이 포함된 년 가져오기
 
+  //모달창
+  const [isCalendarInsert, setIsCalendarInsert] = useState(false);
+  const [date, setDate] = useState({
+    date: "",
+  });
+
   const onPrevMonth = () => {
     //이전달
     setCurrentMonth(currentMonth - 1);
@@ -99,14 +106,16 @@ const Calendar = () => {
     return monthArray;
   }, [startDate, endDate]);
 
-  const onClickdate = (id) => {
+  const onClickdate = (v) => {
     const width = 500;
     const height = 700;
     const x = window.outerWidth / 2 - width / 2;
     const y = window.outerHeight / 2 - height / 2;
-    if (today.getTime() <= id.getTime()) {
-      const clickdate = format(id, "yyyy년 MM월 dd일");
 
+    if (today.getTime() <= v.getTime()) {
+      // setIsCalendarInsert(!isCalendarInsert);
+      // setDate({ v });
+      const clickdate = format(v, "yyyy년 MM월 dd일");
       const url = `/datedetail/${clickdate}`;
       window.open(
         url,
@@ -220,6 +229,7 @@ const Calendar = () => {
           );
         })}
       </div>
+      <div>{isCalendarInsert ? <LiveDetail date={date} /> : null}</div>
     </div>
   );
 };

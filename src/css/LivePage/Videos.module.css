@@ -1,4 +1,4 @@
-.videoContainer {
+/* .videoContainer {
   display: flex;
   flex-wrap: wrap;
 }
@@ -14,4 +14,19 @@ video {
 
 .nickname {
   text-align: center;
+} */
+
+/* .video {
+  overflow: hidden;
+  position: relative;
+} */
+
+.v {
+  width: 100px;
+  height: 100px;
+}
+
+.nickname {
+  font-size: 12px;
+  font-weight: 500;
 }

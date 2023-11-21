@@ -5,8 +5,9 @@ import styles from '../../css/LivePage/Videos.module.css';
 export default function Videos({ myMedia, myInfo, streams, nicknames }) {
   return (
     <div className={styles.videoContainer}>
-      <div className={styles.video}>
+      <div className={styles.videoInfo}>
         <video
+          className={styles.v}
           playsInline
           ref={myMedia}
           autoPlay
