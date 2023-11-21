@@ -22,6 +22,7 @@ const LiveDetail = (props) => {
   // const { routineId, liveId, livesubject, livenick } = useParams();
 
   const liveStart = (liveId) => {
+    props.setRoomId(liveId);
     // window.opener.location.href = `/live/setting/perticipate/${liveId}`;
     // window.close();
     props.setIsParticipateSetting(true);
@@ -35,6 +36,7 @@ const LiveDetail = (props) => {
       setError(null);
 
       const response = await axios.get(
+        // `https://52.78.0.53.sslip.io/api/ex-routines/${routineId}`
         `https://52.78.0.53.sslip.io/api/ex-routines/${routineId}`
       );
       setDetailRoutine(response.data);

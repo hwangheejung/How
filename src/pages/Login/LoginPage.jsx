@@ -60,7 +60,7 @@ export default function LoginPage() {
     <div className={styles.container}>
       <div className={styles.titleBox}>
         <FontAwesomeIcon className={styles.icon} icon={faSeedling} />
-        <h1 className={styles.title}>howW</h1>
+        <h1 className={styles.title}>how</h1>
       </div>
       <form className={styles.inputForm}>
         <input

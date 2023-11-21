@@ -21,6 +21,7 @@ const ExerciseDetail = () => {
       setError(null);
 
       const response = await axios.get(
+        // `https://52.78.0.53.sslip.io/api/ex-routines/${id}`
         `https://52.78.0.53.sslip.io/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data.result.routineDetails);
