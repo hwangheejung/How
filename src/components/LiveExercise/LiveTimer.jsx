@@ -1,5 +1,5 @@
-import { React, useState, useRef, useEffect } from 'react';
-import styles from '../../css/Timer/readyTimer.module.css';
+import { React, useState, useRef, useEffect } from "react";
+import styles from "../../css/Timer/readyTimer.module.css";
 
 const LiveTimer = (props) => {
   const [seconds, setSeconds] = useState(0);

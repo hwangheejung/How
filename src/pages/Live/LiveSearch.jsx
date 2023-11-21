@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../css/Live/LiveList.module.css';
 
 const LiveSearch = () => {
+
+  
   const navigate = useNavigate();
 
   const onClick = () => {

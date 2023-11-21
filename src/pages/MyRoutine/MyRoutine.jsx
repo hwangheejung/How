@@ -83,8 +83,7 @@ export default function MyRoutine() {
       setError(null);
 
       const response = await axios.get(
-        // `https://52.78.0.53.sslip.io/api/ex-routines/me?type=${type}`,
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=${type}`,
+        `https://52.78.0.53.sslip.io/api/ex-routines/me?type=${type}`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -155,21 +154,22 @@ export default function MyRoutine() {
                   <span className={styles.subject}>
                     {myroutine.routine.routineSubject}
                   </span>
+
                   <div className={styles.hitBox}>
                     <span className={styles.dot}>∙</span>
                     <span className={styles.myhits}>
                       조회수 {myroutine.routine.count}
                     </span>
                   </div>
-                  <div className={styles.createBox}>
-                    <span className={styles.dot}>∙</span>
-                    <span className={styles.createDate}>
-                      생성일 {myroutine.routine.createDate}
-                    </span>
-                  </div>
-                  <div className={styles.heartIconBox}>
-                    <FaHeart className={styles.heartIcon} />
-                  </div>
+                </div>
+                <div className={styles.createBox}>
+                  <span className={styles.dot}>∙</span>
+                  <span className={styles.createDate}>
+                    생성일 {myroutine.routine.createDate}
+                  </span>
+                </div>
+                <div className={styles.heartIconBox}>
+                  <FaHeart className={styles.heartIcon} />
                 </div>
                 <div className={styles.cates}>
                   {myroutine.cate.map((item, index) => (
@@ -180,10 +180,10 @@ export default function MyRoutine() {
                 </div>
               </div>
               <button
-                className={styles.detailButton}
+                className={styles.addmyroutinebtn}
                 onClick={() => onPopup(myroutine.routine.routineId)}
               >
-                더보기
+                자세히 보기
               </button>
             </div>
           )

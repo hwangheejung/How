@@ -1,10 +1,265 @@
-.react-calendar {
-  width: 350px;
-  max-width: 100%;
-  background: #ffff;
-  border: 1px solid #eeeeee;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
-  border-radius: 10px;
-  box-shadow: 0px 0px 20px #e0e0e0;
+@media (max-width: 576px) {
+  .calendar {
+    padding: 30px;
+  }
+
+  /* Header */
+
+  .CalendarHeader {
+    /* background-color: beige; */
+    text-align: center;
+    background-color: #e6f7f2;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  .headername {
+    padding-top: 20px;
+  }
+  .currentYear {
+    font-weight: 600;
+    display: inline;
+  }
+  .currentMonth {
+    font-weight: 600;
+    display: inline;
+  }
+
+  /* days */
+  .dayContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .days {
+    padding: 10px;
+    /* text-align: center; */
+    font-weight: bold;
+
+    border-radius: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* main */
+  .dateContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 15px;
+  }
+
+  .topLine {
+    display: flex;
+    gap: 5px;
+    padding: 0 3px;
+    /* align-items: center; */
+    margin-bottom: 90px;
+  }
+
+  .currentMonth {
+    font-weight: bold;
+  }
+  .diffMonth {
+    color: #ffffff;
+  }
+  .todaybutton {
+    background-color: #e6f7f2;
+  }
+  .datebutton {
+  }
+  .day {
+    padding: 10px;
+    /* text-align: center; */
+    font-weight: bold;
+
+    border-radius: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (min-width: 575px) {
+  .calendar {
+    padding: 100px;
+  }
+
+  /* Header */
+
+  .CalendarHeader {
+    /* background-color: beige; */
+    text-align: center;
+    background-color: #e6f7f2;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  .headername {
+    padding-top: 20px;
+  }
+  .currentYear {
+    font-weight: 600;
+    display: inline;
+  }
+  .currentMonth {
+    font-weight: 600;
+
+    display: inline;
+  }
+
+  /* days */
+  .dayContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+  }
+  .days {
+    padding: 10px;
+    /* text-align: center; */
+    font-weight: bold;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* main */
+  .dateContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 15px;
+  }
+
+  .topLine {
+    display: flex;
+    gap: 5px;
+    padding: 0 3px;
+    /* align-items: center; */
+    margin-bottom: 150px;
+  }
+
+  .currentMonth {
+    font-weight: bold;
+  }
+  .diffMonth {
+    color: #ffffff;
+  }
+  .todaybutton {
+    background-color: #e6f7f2;
+  }
+  .datebutton {
+  }
+  .day {
+    padding: 5px;
+    /* text-align: center; */
+    font-weight: bold;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /*addcalendar*/
+
+  .clickdate {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px;
+  }
+
+  .routineLabel {
+    font-size: 28px;
+    /* text-align: center; */
+    margin-left: 10px;
+    padding-bottom: 10px;
+  }
+
+  .MyRoutineListarr {
+    /* height: 70%; */
+    margin: 0 10px;
+    height: 400px;
+    overflow-y: scroll;
+    /* background: #f3edff; */
+    /* height: 70%; */
+    background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+    background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+    background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
+  }
+
+  .MyroutineClick {
+    /* width: 500px; */
+    border: none;
+    background-color: transparent;
+    margin: 20px 15px;
+    /* margin: 30px; */
+    cursor: pointer;
+  }
+
+  .MyroutineClick:hover {
+    border: 2px #7650e0 solid;
+  }
+
+  .subject {
+    text-align: left;
+    /* padding-bottom: 10px; */
+  }
+
+  .cates {
+    text-align: left;
+    padding-top: 10px;
+    color: var(--main-color);
+    font-size: 18px;
+  }
+
+  .actionCate {
+    padding: 0 5px;
+  }
+
+  .myhits {
+    /*background-color: blanchedalmond;*/
+    font-size: 20px;
+    text-align: right;
+    /* display: inline-block; */
+    height: 30px;
+    margin-right: 20px;
+    width: 18em;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .selected {
+    background-color: #b9a4f0;
+  }
+
+  .button {
+    border: none;
+    /* display: inline-block; */
+    /* margin: 15px; */
+    /* text-align: center; */
+    margin: 20px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    background-color: #7650e0;
+    color: #d7fff1;
+    /* margin: 10px; */
+    /* margin-left: 130px; */
+    cursor: pointer;
+  }
 }

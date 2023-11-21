@@ -10,7 +10,7 @@ import axios from 'axios';
 import { getCookieToken } from '../store/Cookie';
 
 const client = Stomp.over(() => {
-  return new SockJS('http://52.78.0.53.sslip.io:8080/live');
+  return new SockJS('https://52.78.0.53.sslip.io/live');
 });
 
 export default function useSocket({ liveId, camera, audio, isOwner }) {

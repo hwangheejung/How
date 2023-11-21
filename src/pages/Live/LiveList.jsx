@@ -113,10 +113,10 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
-      // const response = await axios.get('https://52.78.0.53.sslip.io/api/lives');
-      const response = await axios.get(
-        'http://52.78.0.53.sslip.io:8080/api/lives'
-      );
+      const response = await axios.get('https://52.78.0.53.sslip.io/api/lives');
+      // const response = await axios.get(
+      //   'http://52.78.0.53.sslip.io:8080/api/lives'
+      // );
       setLivedata(response.data);
       console.log(response.data.result.liveListMappings);
     } catch (e) {
