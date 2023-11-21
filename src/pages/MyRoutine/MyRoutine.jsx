@@ -1,21 +1,21 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styles from "../../css/MyRoutine/MyRoutine.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
-import MyRoutineDetail from "./MyRoutineDetail";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../../css/MyRoutine/MyRoutine.module.css';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { FaHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
+import MyRoutineDetail from './MyRoutineDetail';
 
 export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
-  const [myroutineSearch, setMyroutineSearch] = useState("");
+  const [myroutineSearch, setMyroutineSearch] = useState('');
   const [type, setType] = useState(true);
   const [isRoutineDetailPopup, setIsRoutineDetailPopup] = useState(false);
-  const [routineId, setRoutineId] = useState("");
+  const [routineId, setRoutineId] = useState('');
 
   const navigate = useNavigate();
 
@@ -52,11 +52,11 @@ export default function MyRoutine() {
         search.cate.includes(myroutineSearch)
     );
     //console.log(sArray);
-    navigate("/myroutineSearch", { state: { sArray } });
+    navigate('/myroutineSearch', { state: { sArray } });
     //검색관리
   };
   const onPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       //검색 버튼 함수
 
       let sArray = myroutinedata.result.filter(
@@ -65,7 +65,7 @@ export default function MyRoutine() {
           search.cate.includes(myroutineSearch)
       );
       // console.log(sArray);
-      navigate("/myroutineSearch", { state: { sArray } });
+      navigate('/myroutineSearch', { state: { sArray } });
       //검색관리
     }
   };
@@ -84,7 +84,6 @@ export default function MyRoutine() {
 
       const response = await axios.get(
         `https://52.78.0.53.sslip.io/api/ex-routines/me?type=${type}`,
-        // `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=${type}`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -92,7 +91,7 @@ export default function MyRoutine() {
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -111,9 +110,9 @@ export default function MyRoutine() {
       <div className={styles.Routine}>my routine</div>
       <div className={styles.searchContainer}>
         <input //검색어 받기
-          type="text"
+          type='text'
           className={styles.routinesearch}
-          placeholder="Search"
+          placeholder='Search'
           value={myroutineSearch}
           onChange={SearchValue}
           onKeyPress={onPress}
@@ -125,7 +124,7 @@ export default function MyRoutine() {
       <div className={styles.Sorted}>
         <button
           onClick={onhitsOrder}
-          type="button"
+          type='button'
           className={`${styles.sortButton} ${
             type === false && styles.selected
           }`}
@@ -134,7 +133,7 @@ export default function MyRoutine() {
         </button>
         <button
           onClick={onCreateOrder}
-          type="button"
+          type='button'
           className={`${styles.sortButton} ${type === true && styles.selected}`}
         >
           최신순
@@ -147,7 +146,7 @@ export default function MyRoutine() {
           ) => (
             <div
               key={myroutine.routine.routineId}
-              type="button" //상세정보 보여주기 버튼
+              type='button' //상세정보 보여주기 버튼
               className={styles.MyroutineClick}
             >
               <div className={styles.MyRoutineListItem}>

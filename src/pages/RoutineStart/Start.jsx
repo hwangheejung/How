@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import styles from "../../css/RoutineStart/Start.module.css";
-import ExerciseDetail from "../../components/RoutineStart/ExerciseDetail";
-import CountDetail from "../../components/RoutineStart/CountDetail";
-import ReadyTimer from "../../components/RoutineStart/ReadyTimer";
-import TimerDetail from "../../components/RoutineStart/TimerDetail";
+import { React, useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../css/RoutineStart/Start.module.css';
+import ExerciseDetail from '../../components/RoutineStart/ExerciseDetail';
+import CountDetail from '../../components/RoutineStart/CountDetail';
+import ReadyTimer from '../../components/RoutineStart/ReadyTimer';
+import TimerDetail from '../../components/RoutineStart/TimerDetail';
 
 const Startex = () => {
   const [detailRoutine, setDetailRoutine] = useState(null); //루틴 정보 배열
@@ -42,7 +42,7 @@ const Startex = () => {
 
   const onclick = () => {
     //운동이 끝나서 홈화면으로 돌아가기 위한 함수
-    navigate("/");
+    navigate('/');
   };
   const fetchroutine = async () => {
     //루틴 상세정보 api 연결
@@ -53,7 +53,6 @@ const Startex = () => {
 
       const response = await axios.get(
         `https://52.78.0.53.sslip.io/api/ex-routines/${id}`
-        // `http://52.78.0.53.sslip.io:8080/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data.result.routineDetails);
     } catch (e) {

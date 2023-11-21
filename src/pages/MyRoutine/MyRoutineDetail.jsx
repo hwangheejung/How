@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import styles from "../../css/MyRoutine/MyRoutineDetailPopup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from '../../css/MyRoutine/MyRoutineDetailPopup.module.css';
+import axios from 'axios';
+import { IoIosTimer } from 'react-icons/io';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const MyRoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -28,8 +28,8 @@ const MyRoutineDetail = (props) => {
     const url = `/routinestart/${id}`;
     window.open(
       url,
-      "window_name",
-      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
+      'window_name',
+      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
     );
   };
 
@@ -41,7 +41,6 @@ const MyRoutineDetail = (props) => {
 
       const response = await axios.get(
         `https://52.78.0.53.sslip.io/api/ex-routines/${props.routineId}`
-        // `http://52.78.0.53.sslip.io:8080/api/ex-routines/${props.routineId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {

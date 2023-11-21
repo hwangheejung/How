@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styles from "../../css/Live/makeLive.module.css";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../../css/Live/makeLive.module.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 const MakeLive = (props) => {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ const MakeLive = (props) => {
   const [routineid, setRoutineid] = useState(0);
   const [livelist, setLivelist] = useState([
     {
-      subject: "",
+      subject: '',
       id: 0,
     },
   ]);
-  const [myroutineclick, setMyroutineclick] = useState("");
+  const [myroutineclick, setMyroutineclick] = useState('');
 
   //console.log(livelist);
   const onClick = (id, routineid) => {
@@ -29,7 +29,7 @@ const MakeLive = (props) => {
   };
 
   const liveCreate = (livelist) => {
-    console.log("create button clicked");
+    console.log('create button clicked');
     //라이브 생성 버튼 클릭시
     // window.opener.href = '/live/list';
     // window.close();
@@ -48,7 +48,7 @@ const MakeLive = (props) => {
         // console.log(res.data);
         // window.opener.location.href = `/live/setting/owner/${res.data.result.roomId}/${res.data.result.subject}`;
         // window.close();
-        console.log("recived data: ", res.data);
+        console.log('recived data: ', res.data);
         props.setRoomId(res.data.result.roomId);
         props.setSubject(res.data.result.subject);
         props.setIsOwnerSetting(true);
@@ -89,7 +89,7 @@ const MakeLive = (props) => {
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -110,10 +110,10 @@ const MakeLive = (props) => {
         <div className={styles.titleLabel}>Live Title</div>
         <div className={styles.inputName}>
           <input
-            type="text"
+            type='text'
             className={styles.MakeLiveName}
-            placeholder="제목"
-            size="40"
+            placeholder='제목'
+            size='40'
             //  value={liveName}
             onChange={onChangeName}
           />

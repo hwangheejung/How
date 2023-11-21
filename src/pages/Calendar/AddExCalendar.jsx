@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { format, getYear } from "date-fns";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
-import styles from "../../css/Calendar.module.css";
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { format, getYear } from 'date-fns';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
+import styles from '../../css/Calendar.module.css';
 
 const AddExCalendar = () => {
   const { id } = useParams();
@@ -12,7 +12,7 @@ const AddExCalendar = () => {
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
   const [routineid, setRoutineid] = useState(0);
-  const [myroutineclick, setMyroutineclick] = useState("");
+  const [myroutineclick, setMyroutineclick] = useState('');
 
   const onClick = (id, routineid) => {
     //루틴 선택
@@ -39,7 +39,7 @@ const AddExCalendar = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=false`,
+        `https://52.78.0.53.sslip.io/api/ex-routines/me?type=false`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -47,7 +47,7 @@ const AddExCalendar = () => {
       setMyRoutindata(response.data);
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
