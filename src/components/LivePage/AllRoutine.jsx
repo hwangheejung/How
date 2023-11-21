@@ -17,6 +17,7 @@ export default function AllRoutine({
   isModifySend,
   setIsModifySend,
   socketRoutineChange,
+  setOpenAllRoutine,
 }) {
   const [selectedAction, setSelectedAction] = useState();
 
@@ -51,42 +52,49 @@ export default function AllRoutine({
           </span>
         ))}
       </div> */}
-        <div>
-          {routine?.routineDetails?.map((detail) =>
+        <div onClick={() => setOpenAllRoutine((prev) => !prev)}>X</div>
+        <div className={styles.routineDetails}>
+          {routine?.routineDetails?.map((detail, index) =>
             detail.type ? (
-              <div
-                key={detail.ex.id}
-                className={`${styles.timer} ${
-                  currentActionId === detail.ex.id && styles.currentAction
-                }`}
-                onClick={() => handleActionModify(detail.id)}
-              >
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span> {detail.time}s</span>
-                <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
-                </div>
-                <div>
-                  <span>{detail.set} set</span>
+              <div>
+                <span className={styles.sequence}>{index + 1}</span>
+                <div
+                  key={detail.ex.id}
+                  className={`${styles.timer} ${
+                    currentActionId === detail.ex.id && styles.currentAction
+                  }`}
+                  onClick={() => handleActionModify(detail.id)}
+                >
+                  <div className={styles.detailname}> {detail.ex?.name}</div>
+                  <div> {detail.time}s</div>
+                  <div>
+                    <span>rest</span>
+                    <span> {detail.rest}s</span>
+                  </div>
+                  <div>
+                    <span>{detail.set} set</span>
+                  </div>
                 </div>
               </div>
             ) : (
-              <div
-                key={detail.ex.id}
-                className={`${styles.timer} ${
-                  currentActionId === detail.ex.id && styles.currentAction
-                }`}
-                onClick={() => handleActionModify(detail.id)}
-              >
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span>{detail.count}개</span>
-                <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
-                </div>
-                <div>
-                  <span>{detail.set} set</span>
+              <div>
+                <span className={styles.sequence}>{index + 1}</span>
+                <div
+                  key={detail.ex.id}
+                  className={`${styles.timer} ${
+                    currentActionId === detail.ex.id && styles.currentAction
+                  }`}
+                  onClick={() => handleActionModify(detail.id)}
+                >
+                  <div className={styles.detailname}> {detail.ex?.name}</div>
+                  <div>{detail.count}개</div>
+                  <div>
+                    <span>rest</span>
+                    <span> {detail.rest}s</span>
+                  </div>
+                  <div>
+                    <span>{detail.set} set</span>
+                  </div>
                 </div>
               </div>
             )

@@ -170,6 +170,7 @@ export default function LivePage() {
           isModifySend={isModifySend}
           setIsModifySend={setIsModifySend}
           socketRoutineChange={socketRoutineChange}
+          setOpenAllRoutine={setOpenAllRoutine}
         />
       ) : null}
     </div>
