@@ -264,7 +264,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     // 라이브 종료
     if (JSON.parse(isOwner)) {
       axios
-        .delete('http://52.78.0.53.sslip.io:8080/api/lives/' + liveId)
+        .delete('https://52.78.0.53.sslip.io/api/lives/' + liveId)
         .catch((e) => {
           console.log('에러', e);
         });
@@ -283,7 +283,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
       // 라이브 퇴장
       axios
         .delete(
-          'http://52.78.0.53.sslip.io:8080/api/lives/participates/' + liveId,
+          'https://52.78.0.53.sslip.io/api/lives/participates/' + liveId,
           {
             headers: { Authorization: `Bearer ${getCookieToken()}` },
           }
