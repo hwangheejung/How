@@ -1,0 +1,72 @@
+/* .currentActionBox {
+  padding: 14px;
+}
+
+.actionName {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.5;
+} */
+
+/* .set {
+  color: #f4f4f4;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.count {
+  color: #f4f4f4;
+  font-size: 30px;
+  font-weight: 600;
+} */
+
+.currentActionBox {
+  width: 160px;
+  height: 110px;
+  border-radius: 14px;
+  /* opacity: 0.5; */
+  /* background-color: #000000; */
+  box-sizing: border-box;
+  padding: 14px;
+}
+
+.actionName {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.5;
+  box-sizing: border-box;
+}
+
+.ReadyTimer {
+  color: #f4f4f4;
+  font-size: 30px;
+  font-weight: 600;
+  padding-top: 10px;
+}
+
+.set {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+}
+
+.countNext {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.button {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #00aa81;
+  border-radius: 30px;
+  padding: 2px 8px;
+  height: 20px;
+  /* text-transform: uppercase; */
+}

@@ -6,6 +6,7 @@ import { FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
+import MyRoutineDetail from './MyRoutineDetail';
 
 export default function MyRoutine() {
   const [myroutinedata, setMyRoutindata] = useState([]);
@@ -13,6 +14,8 @@ export default function MyRoutine() {
   const [error, setError] = useState(null);
   const [myroutineSearch, setMyroutineSearch] = useState('');
   const [type, setType] = useState(true);
+  const [isRoutineDetailPopup, setIsRoutineDetailPopup] = useState(false);
+  const [routineId, setRoutineId] = useState('');
 
   const navigate = useNavigate();
 
@@ -21,21 +24,23 @@ export default function MyRoutine() {
     setMyroutineSearch(event.target.value);
   };
 
-  const onPopup = (id) => {
-    //팝업 관리
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
+  // const onPopup = (id) => {
+  //   const width = 500;
+  //   const height = 700;
+  //   const x = window.outerWidth / 2 - width / 2;
+  //   const y = window.outerHeight / 2 - height / 2;
 
-    const url = `/myroutindetail/${id}`;
-    window.open(
-      url,
-      'window_name',
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
-    // navigate(`/myroutindetail/${id}`, { state: { id } });
-    //myRoutine.document.write(id);
+  //   const url = `/myroutindetail/${id}`;
+  //   window.open(
+  //     url,
+  //     'window_name',
+  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+  //   );
+  // };
+
+  const onPopup = (routineId) => {
+    setRoutineId(routineId);
+    setIsRoutineDetailPopup(true);
   };
 
   const onClickSearch = () => {
@@ -78,7 +83,7 @@ export default function MyRoutine() {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/me?type=${type}`,
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=${type}`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -183,6 +188,12 @@ export default function MyRoutine() {
           )
         )}
       </div>
+      {isRoutineDetailPopup ? (
+        <MyRoutineDetail
+          setIsRoutineDetailPopup={setIsRoutineDetailPopup}
+          routineId={routineId}
+        />
+      ) : null}
     </div>
   );
 }

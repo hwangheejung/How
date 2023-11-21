@@ -22,8 +22,10 @@ const LiveDetail = (props) => {
   // const { routineId, liveId, livesubject, livenick } = useParams();
 
   const liveStart = (liveId) => {
-    window.opener.location.href = `/live/setting/perticipate/${liveId}`;
-    window.close();
+    // window.opener.location.href = `/live/setting/perticipate/${liveId}`;
+    // window.close();
+    props.setIsParticipateSetting(true);
+    props.onLiveDetailClose(false);
   };
 
   const fetchroutine = async () => {
@@ -33,7 +35,7 @@ const LiveDetail = (props) => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${routineId}`
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${routineId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
@@ -75,15 +77,20 @@ const LiveDetail = (props) => {
                 <span className={styles.sequence}>{index + 1}</span>
                 <span className={styles.detailname}> {detail.ex.name}</span>
                 <div className={styles.details}>
-                  <div className={styles.exTimeCount}>
-                    <FontAwesomeIcon icon={faDumbbell} />
+                  <div className={styles.ex}>
+                    <FontAwesomeIcon
+                      icon={faDumbbell}
+                      className={styles.dumbbellIcon}
+                    />
                     <span> {detail.time}s</span>
                   </div>
-                  <div className={styles.exRest}>
-                    <span>rest</span>
+                  <div className={styles.ex}>
+                    <span className={styles.restText}>rest</span>
                     <span> {detail.rest}s</span>
                   </div>
-                  <span> {detail.set}set</span>
+                  <div className={styles.ex}>
+                    <span> {detail.set} set</span>
+                  </div>
                 </div>
                 <div className={styles.video}>동영상 들어올 자리</div>
               </div>

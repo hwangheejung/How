@@ -190,7 +190,14 @@
   .makeLabel {
     font-size: 25px;
     font-weight: 600;
-    margin-bottom: 14px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .titleLabel {
+    font-size: 23px;
+    font-weight: 600;
+    padding-bottom: 15px;
   }
 
   .inputName {
@@ -205,12 +212,12 @@
     padding: 35px 15px;
     padding-bottom: 14px;
     font-size: 22px;
-    margin-bottom: 34px;
+    margin-bottom: 30px;
     box-sizing: border-box;
   }
 
   .routineLabel {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 600;
   }
 

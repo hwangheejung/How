@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
 
 const RoutineStart = () => {
   const [detailRoutine, setDetailRoutine] = useState(null); //루틴 상세 배열
@@ -22,7 +22,7 @@ const RoutineStart = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${id}`
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {
