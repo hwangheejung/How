@@ -1,17 +1,18 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FaHeart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import styles from '../../css/RoutineList.module.css';
+import React from "react";
+import { useState, useEffect } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "../../css/Routine/RoutineList.module.css";
+import { getCookieToken } from "../../store/Cookie";
 
 export default function RoutineList() {
   const [routinedata, setRoutindata] = useState(null); //루틴 데이터 받아오기
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
 
-  const [searchInput, setSearchInput] = useState(''); //검색
+  const [searchInput, setSearchInput] = useState(""); //검색
 
   const navigate = useNavigate();
 
@@ -32,12 +33,12 @@ export default function RoutineList() {
     console.log(sArray);
 
     //console.log(searchArray);
-    navigate('/routineSearch', { state: { sArray } });
+    navigate("/routineSearch", { state: { sArray } });
     //검색관리
   };
 
   const onPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       let sArray = routinedata.result.routines.filter(
         (search) =>
           search.routine.subject.includes(searchInput) ||
@@ -47,10 +48,22 @@ export default function RoutineList() {
       console.log(sArray);
 
       //console.log(searchArray);
-      navigate('/routineSearch', { state: { sArray } });
+      navigate("/routineSearch", { state: { sArray } });
     }
   };
-
+  const myroutineinsert = (id) => {
+    //내루틴 추가
+    window.location.href = `/my/routine/list`;
+    axios.post(
+      `http://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
+      {
+        routId: id,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookieToken()}` },
+      }
+    );
+  };
   const onPopup = (id) => {
     //팝업 관리
     const width = 500;
@@ -61,7 +74,7 @@ export default function RoutineList() {
     const url = `/routinedetail/${id}`;
     window.open(
       url,
-      'window_name',
+      "window_name",
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
 
@@ -75,7 +88,7 @@ export default function RoutineList() {
       setError(null);
 
       const response = await axios.get(
-        'http://52.78.0.53/api/ex-routines?type=false'
+        "http://52.78.0.53.sslip.io:8080/api/ex-routines?type=false"
       );
       setRoutindata(response.data);
     } catch (e) {
@@ -100,9 +113,9 @@ export default function RoutineList() {
 
       <div className={styles.searchContainer}>
         <input
-          type='text'
+          type="text"
           className={styles.routinesearch}
-          placeholder='Search...'
+          placeholder="Search..."
           value={searchInput}
           onChange={SearchValue}
           onKeyPress={onPress}
@@ -115,7 +128,7 @@ export default function RoutineList() {
         {routinedata.result.routines.map((routine) => (
           <div
             key={routine.routine.id}
-            type='button'
+            type="button"
             className={styles.routineClick}
           >
             <div className={styles.RoutineListItem}>
@@ -145,7 +158,13 @@ export default function RoutineList() {
               className={styles.detailButton}
               onClick={() => onPopup(routine.routine.id)}
             >
-              더보기
+              자세히 보기
+            </button>
+            <button
+              className={styles.addmyroutinebtn}
+              onClick={() => myroutineinsert(routine.routine.id)}
+            >
+              내 루틴에 추가
             </button>
           </div>
         ))}

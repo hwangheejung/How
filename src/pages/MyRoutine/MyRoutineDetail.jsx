@@ -1,9 +1,8 @@
-import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
-import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
+import { React, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "../../css/MyRoutine/MyRoutineDetailPopup.module.css";
+import axios from "axios";
+import { IoIosTimer } from "react-icons/io";
 
 const MyRoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -23,8 +22,8 @@ const MyRoutineDetail = () => {
     const url = `/routinestart/${id}`;
     window.open(
       url,
-      'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+      "window_name",
+      "width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100"
     );
   };
 
@@ -35,7 +34,7 @@ const MyRoutineDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${id}`
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {

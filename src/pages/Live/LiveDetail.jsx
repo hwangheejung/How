@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import styles from '../../css/Popup.module.css';
-import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
-import { BsPerson } from 'react-icons/bs';
+import { React, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import styles from "../../css/Live/LiveDetail.module.css";
+import axios from "axios";
+import { IoIosTimer } from "react-icons/io";
+import { BsPerson } from "react-icons/bs";
 
 const LiveDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -29,7 +29,7 @@ const LiveDetail = (props) => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${routineId}`
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${routineId}`
       );
       setDetailRoutine(response.data);
     } catch (e) {

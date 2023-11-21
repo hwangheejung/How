@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 //import { useLocation } from "react-router-dom";
-import styles from '../../css/Popup.module.css';
-import { IoIosTimer } from 'react-icons/io';
-import { getCookieToken } from '../../store/Cookie';
+import styles from "../../css/Routine/RoutineDetailPopup.module.css";
+import { IoIosTimer } from "react-icons/io";
+import { getCookieToken } from "../../store/Cookie";
 
 const RoutineDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -23,7 +23,7 @@ const RoutineDetail = () => {
     window.opener.location.href = `/my/routine/list`;
     window.close();
     axios.post(
-      `http://52.78.0.53/api/ex-routines/me`,
+      `http://52.78.0.53.sslip.io:8080/api/ex-routines/me`,
       {
         routId: id,
       },
@@ -40,7 +40,7 @@ const RoutineDetail = () => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53/api/ex-routines/${id}`
+        `http://52.78.0.53.sslip.io:8080/api/ex-routines/${id}`
       );
       setDetailRoutine(response.data);
     } catch (e) {

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faVideo,
   faVideoSlash,
   faMicrophoneLines,
   faMicrophoneLinesSlash,
-} from '@fortawesome/free-solid-svg-icons';
-import styles from '../../css/LiveSetting.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { getCookieToken } from '../../store/Cookie';
+} from "@fortawesome/free-solid-svg-icons";
+import styles from "../../css/Live/LiveSetting.module.css";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { getCookieToken } from "../../store/Cookie";
 
 export default function LiveSetting() {
   const [camera, setCamera] = useState(true);
@@ -32,7 +32,7 @@ export default function LiveSetting() {
     // window.close();
     axios
       .post(
-        `http://52.78.0.53/api/lives/participates`,
+        `http://52.78.0.53.sslip.io:8080/api/lives/participates`,
         {
           liveId: liveId,
         },
@@ -56,13 +56,13 @@ export default function LiveSetting() {
         {camera ? (
           <FontAwesomeIcon
             icon={faVideo}
-            size='2x'
+            size="2x"
             className={styles.cameraIcon}
           />
         ) : (
           <FontAwesomeIcon
             icon={faVideoSlash}
-            size='2x'
+            size="2x"
             className={styles.cameraIcon}
           />
         )}
@@ -72,13 +72,13 @@ export default function LiveSetting() {
         {audio ? (
           <FontAwesomeIcon
             icon={faMicrophoneLines}
-            size='2x'
+            size="2x"
             className={styles.audioIcon}
           />
         ) : (
           <FontAwesomeIcon
             icon={faMicrophoneLinesSlash}
-            size='2x'
+            size="2x"
             className={styles.audioIcon}
           />
         )}

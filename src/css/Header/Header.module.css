@@ -1,0 +1,296 @@
+@media (max-width: 575px) {
+  li {
+    list-style: none;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .header {
+    background-color: #00aa81;
+    color: var(--white);
+    justify-content: space-around;
+    padding: 1.3rem 0;
+  }
+
+  .link {
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px;
+  }
+  .linkTitle {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    display: inline;
+  }
+  .title {
+    display: inline;
+    margin-top: 0;
+    margin-left: 0;
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .userBox {
+    display: inline;
+    float: right;
+    display: inline;
+  }
+  .userIcon {
+    color: var(--white);
+    display: flex;
+    width: 20px;
+    height: 20px;
+  }
+  .logoutIcon {
+    font-size: 12px;
+    display: inline;
+    width: 20px;
+    height: 20px;
+  }
+  .userName {
+    color: var(--white);
+    display: flex;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .logoutButton {
+    display: inline;
+
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .link {
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px;
+  }
+  /* .link {
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px;
+  }
+  .linkTitle {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .title {
+    margin-top: 0;
+    margin-left: 0;
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 300;
+  } */
+
+  /* .icon {
+    color: var(--icon-color);
+    width: 23px;
+    height: 23px;
+  } */
+
+  /* .menuBar {
+    width: 50%;
+
+    align-items: center;
+    margin: 0;
+  }
+
+  .selected {
+    font-weight: 700;
+  }
+
+  .userInfo {
+    width: 25%;
+
+    align-items: center;
+
+    padding: 0;
+    text-align: center;
+  }
+
+  .userName {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .logoutIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .userBox {
+    width: 100px;
+    display: flex;
+  }
+  .userIcon {
+    width: 20px;
+    height: 20px;
+  }
+  .userName {
+    display: flex;
+  }
+  .logoutButton {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .logoutBox {
+    width: 100px;
+    align-items: center;
+    margin-right: 3px;
+    text-align: center;
+    padding: 0;
+  } */
+}
+
+@media (min-width: 575px) {
+  li {
+    list-style: none;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .header {
+    background-color: #00aa81;
+    color: var(--white);
+    justify-content: space-around;
+    padding: 1.3rem 0;
+  }
+
+  .link {
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px;
+    /* 선택되면 위에 동그라미 표시 */
+  }
+
+  .linkTitle {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+    display: inline;
+  }
+  .title {
+    display: inline;
+    margin-left: 80px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    font-size: 30px;
+    font-weight: 400;
+  }
+  .userBox {
+    display: inline;
+    float: right;
+    align-items: center;
+    margin-top: 7px;
+  }
+  .userIcon {
+    font-size: 20px;
+    color: var(--white);
+    display: inline-flex;
+    width: 13px;
+    height: 14px;
+    padding-right: 2px;
+  }
+  .logoutIcon {
+    padding-right: 2px;
+    display: inline;
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+  }
+  .userName {
+    color: var(--white);
+    display: inline-flex;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .logoutButton {
+    display: inline;
+    float: right;
+    font-size: 21px;
+
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .menuBar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+
+  .menuBar li {
+    padding-left: 90px;
+    text-transform: uppercase;
+  }
+
+  .selected {
+    font-weight: 700;
+  }
+}
+
+.dropbtn {
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown {
+  display: inline-block;
+}
+
+.dropdowncontent {
+  display: none;
+  /* background-color: #98dbcb; */
+  width: 100%;
+}
+
+.dropdowncontent li a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+}
+
+.dropdowncontent li:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdowncontent {
+  display: block;
+}

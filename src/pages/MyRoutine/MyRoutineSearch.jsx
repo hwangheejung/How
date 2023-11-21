@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import styles from '../../css/MyRoutine.module.css';
+import styles from '../../css/MyRoutine/MyRoutine.module.css';
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 

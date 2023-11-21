@@ -1,8 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "../../css/LiveList.module.css";
+import styles from "../../css/Live/LiveList.module.css";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlinePlusSquare,
+  AiOutlinePlus,
+} from "react-icons/ai";
+
 import axios from "axios";
 import LiveDetail from "./LiveDetail";
 
@@ -81,7 +86,9 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
-      const response = await axios.get("http://52.78.0.53/api/lives");
+      const response = await axios.get(
+        "http://52.78.0.53.sslip.io:8080/api/lives"
+      );
       setLivedata(response.data);
       console.log(response.data.result.liveListMappings);
     } catch (e) {
@@ -108,7 +115,7 @@ export default function LiveList() {
           />
         </div>
         <button className={styles.insertLive} onClick={onPopup}>
-          {/* <AiOutlinePlusSquare size='25' /> */}+
+          <AiOutlinePlus size="20" />
         </button>
       </div>
       <div className={styles.searchContainer}>

@@ -1,12 +1,14 @@
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import styles from "../../css/LiveList.module.css";
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import styles from '../../css/Live/LiveList.module.css';
 
 const LiveSearch = () => {
+
+  
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate("/live/list");
+    navigate('/live/list');
   };
 
   const onPopupdetail = (id) => {
@@ -18,7 +20,7 @@ const LiveSearch = () => {
     const url = `/livedetail/${id}`;
     window.open(
       url,
-      "window_name",
+      'window_name',
       `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
     );
   };
@@ -35,7 +37,7 @@ const LiveSearch = () => {
         {SearchArray.map((live) => (
           <button
             key={live.id}
-            type="button"
+            type='button'
             className={styles.LiveClick}
             onClick={() => onPopupdetail(live.id)}
           >

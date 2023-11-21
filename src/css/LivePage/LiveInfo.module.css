@@ -1,0 +1,18 @@
+.header {
+  margin-right: 20px;
+}
+
+.livelogo {
+  margin-left: 40px;
+}
+
+.liveTitle {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.participateNum {
+  float: right;
+  margin: 20px;
+  padding: 10px;
+}

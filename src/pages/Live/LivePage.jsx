@@ -2,28 +2,21 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMicrophone,
-  faVideo,
-  faMicrophoneSlash,
-  faVideoSlash,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
-import { IoMdExit } from "react-icons/io";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { useNavigate, useParams } from "react-router-dom";
 import Peer from "peerjs";
 import { useSelector } from "react-redux";
-import styles from "../../css/LivePage.module.css";
+import styles from "../../css/LivePage/LivePage.module.css";
 import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
-import Video from "./Video";
-import LiveTimer from "./LiveEx/LiveTimer";
-import LiveExStart from "./LiveEx/LiveExStart";
-import LiveReadyTimer from "./LiveEx/LiveReadyTimer";
-import LiveRestTimer from "./LiveEx/LiveRestTimer";
+import LiveTimer from "../../components/LiveExercise/LiveTimer";
+import LiveExStart from "../../components/LiveExercise/LiveExStart";
+import LiveReadyTimer from "../../components/LiveExercise/LiveReadyTimer";
+import LiveInfo from "../../components/LivePage/LiveInfo";
+import Videos from "../../components/LivePage/Videos";
+import AllRoutine from "../../components/LivePage/AllRoutine";
+import Bottom from "../../components/LivePage/Bottom";
 
 // server 연결
 const client = Stomp.over(() => {
@@ -106,14 +99,6 @@ export default function LivePage() {
               call.on("close", () => {});
             }
 
-            // 닉네임
-            // client.send(
-            //   '/app/nick/' + liveId,
-            //   {},
-            //   JSON.stringify({
-            //     nickReq: 1,
-            //   })
-            // );
             client.send(
               "/app/participate/" + liveId,
               {},
@@ -196,22 +181,30 @@ export default function LivePage() {
 
         //운동 동작 받아오기
         client.subscribe("/room/ex/" + liveId, (data) => {
-          console.log(JSON.parse(data.body));
+          console.log("/room/ex", JSON.parse(data.body));
           setCurrentEx(JSON.parse(data.body));
         });
 
-        //complete버튼 타이머 수행 임시
         client.subscribe("/room/leave/" + liveId, (data) => {
-          setFinish(!finish);
-          setPlusset((prev) => prev + 1);
-
-          console.log("성공");
+          if (JSON.parse(data.body).nick === "need rest") {
+            setFinish(!finish);
+            setPlusset((prev) => prev + 1);
+            console.log("LivePage need rest");
+          } else if (JSON.parse(data.body).nick === "no rest") {
+            setPlusset((prev) => prev + 1);
+            console.log("LivePage no rest");
+          } else if (JSON.parse(data.body).nick === "no rest set done") {
+            getTimer();
+            setPlusset(1);
+          }
         });
+
         // console.log(currentEx.ex);
         // 전체 운동 루틴
         client.subscribe("/room/routine/" + liveId, (data) => {
           // console.log(JSON.parse(data.body));
           setRoutine(JSON.parse(data.body));
+          //console.log(obj.name);
         });
 
         client.send(
@@ -221,6 +214,7 @@ export default function LivePage() {
             routineReq: 1,
           })
         );
+
         client.subscribe("/room/ready/" + liveId, (data) => {
           // console.log(JSON.parse(data.body).time);
           setReadyTimer(!readyTimer);
@@ -234,15 +228,11 @@ export default function LivePage() {
       //라이브 owner라면 start 버튼 보여주기
       setIsownerbn(!isownerbtn);
     }
-    // client.subscribe("/room/ex/" + liveId, (data) => {
-    //   console.log(JSON.parse(data.body));
-    // });
   }, []);
 
   console.log(myPeerId);
   console.log("nicknames", nicknames);
 
-  //console.log(readyTimer);
   // 카메라, 음성 설정
   const handleAudio = () => {
     myMediaStream
@@ -304,7 +294,6 @@ export default function LivePage() {
 
   const handleStart = () => {
     //운동 시작 후 ready timer 수행
-
     client.send(
       "/app/ready/" + liveId,
       {},
@@ -315,33 +304,10 @@ export default function LivePage() {
     setIsownerbn(!isownerbtn); //start버튼 숨기기
   };
 
-  const handleTimer = () => {
-    //횟수인경우 resttimer 동시에 띄우기
-    client.send(
-      "/app/leave/" + liveId,
-      {},
-      JSON.stringify({
-        nick: "운동만 하는 사람",
-      })
-    );
-    // setFinish(!finish);
-    setPlusset(plusset + 1);
-  };
-  //console.log(nicknames);
-
-  //   client.send(
-  //     '/app/ready/' + liveId,
-  //     {},
-  //     JSON.stringify({
-  //       time: 5,
-  //     })
-  //   );
-  //   setIsownerbn(!isownerbtn); //start버튼 숨기기
-  // };
-
   const getReadyTimer = () => {
     setReadyTimer(!readyTimer); //ready timer 숨기기
-    JSON.parse(isOwner) ? (
+    console.log("getReadyTimer");
+    if (JSON.parse(isOwner)) {
       client.send(
         //첫번째 동작 보내기
         "/app/ex/" + liveId,
@@ -349,232 +315,125 @@ export default function LivePage() {
         JSON.stringify({
           readyEnd: 1,
         })
-      )
-    ) : (
-      <span></span>
-    );
+      );
+    }
   };
 
   const getTimer = () => {
-    JSON.parse(isOwner) ? (
+    if (JSON.parse(isOwner)) {
       client.send(
         "/app/ex/" + liveId,
         {},
         JSON.stringify({
           readyEnd: 1,
         })
-      )
-    ) : (
-      <span></span>
-    );
+      );
+    }
   };
-  //console.log(currentEx);
-  const currentcount = currentEx?.ex.count;
-  const currenttime = currentEx?.ex.time;
-  const currentrest = currentEx?.ex.rest;
-  const currenttype = currentEx?.ex.type;
-  const currentname = currentEx?.ex.ex.name;
-  const currentdesc = currentEx?.ex.ex.desc;
-  const currentexerciseset = currentEx?.ex.set;
-  const timerEnd = () => {
-    setFinish(!finish);
-    setPlusset(plusset + 1);
-  };
-  const onClick = () => {
+
+  const onRest = () => {
     // setPlusset(plusset + 1);
-    client.send(
-      "/app/leave/" + liveId,
-      {},
-      JSON.stringify({
-        nick: "운동만 하는 사람",
-      })
-    );
+    if (JSON.parse(isOwner)) {
+      client.send(
+        "/app/leave/" + liveId,
+        {},
+        JSON.stringify({
+          nick: "need rest",
+        })
+      );
+    }
     //complete버튼을 누르면 수행
     //부모 컴포넌트에 index 1 증가를 위해
 
     //setFinish(!finish);
   };
 
-  const getrestfinish = () => {
-    console.log(plusset);
-    setFinish(!finish);
-    if (plusset === currentexerciseset + 1) {
-      getTimer();
-      //console.log("성공");
-      setPlusset(1);
+  const onNoRest = () => {
+    if (JSON.parse(isOwner)) {
+      client.send(
+        "/app/leave/" + liveId,
+        {},
+        JSON.stringify({
+          nick: "no rest",
+        })
+      );
     }
-    //쉬는 시간이 끝나 상태 변화
   };
-  return (
-    <div>
-      <div className={styles.header}>
-        <img
-          className={styles.livelogo}
-          src="/live.png"
-          alt="live icon"
-          style={{ width: "50px", height: "50px" }}
-        />
-        <span className={styles.liveTitle}> {liveTitle}</span>
-        <div className={styles.participateNum}>
-          <FontAwesomeIcon icon={faUsers} />
-          <span>{participateNum}</span>
-        </div>
-      </div>
-      <div className={styles.left}>
-        <div>
-          <video
-            playsInline
-            ref={myMedia}
-            autoPlay
-            style={{ width: "400px", height: "400px" }}
-          />
-          <div>{myInfo.nickname}</div>
-        </div>
 
-        {streams.map((streamInfo, index) => (
-          <Video key={index} streamInfo={streamInfo} nicknames={nicknames} />
-        ))}
-      </div>
-      <div className={styles.right}>
-        <div>{routine?.name}</div>
-        <div className={styles.cates}>
-          {routine?.cate.map((item, index) => (
-            <span key={index} className={styles.actionCate}>
-              #{item}
-            </span>
-          ))}
-        </div>
-        <div>
-          {routine?.routineDetails?.map((detail) =>
-            detail.type ? (
-              <div key={detail.ex.id} className={styles.timer}>
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span> {detail.time}s</span>
-                <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
-                </div>
-                <div>
-                  <span>{detail.set} set</span>
-                </div>
-              </div>
-            ) : (
-              <div key={detail.ex.id} className={styles.timer}>
-                <span className={styles.detailname}> {detail.ex?.name}</span>
-                <span>{detail.count}개</span>
-                <div>
-                  <span>rest</span>
-                  <span> {detail.rest}s</span>
-                </div>
-                <div>
-                  <span>{detail.set} set</span>
-                </div>
-              </div>
-            )
-          )}
-        </div>
-        <div>
-          {isownerbtn ? (
-            <button onClick={handleStart}>START </button>
-          ) : (
-            <div></div>
-          )}
-        </div>
-        <div>
-          {readyTimer ? ( //준비 타이머
-            <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
-          ) : (
-            <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
-          )}
-        </div>
-        <div>
-          {currentEx ? (
+  const onNoRestSetDone = () => {
+    if (JSON.parse(isOwner)) {
+      client.send(
+        "/app/leave/" + liveId,
+        {},
+        JSON.stringify({
+          nick: "no rest set done",
+        })
+      );
+    }
+  };
+
+  console.log(currentEx);
+
+  return (
+    <div className={styles.root}>
+      {/* 라이브 기본 정보 */}
+      <LiveInfo liveTitle={liveTitle} participateNum={participateNum} />
+      {/* 각 운동 동작 */}
+      <div className={styles.middleContainer}>
+        {/* 카메라 */}
+
+        <div className={styles.videoAction}>
+          <Videos
+            myMedia={myMedia}
+            myInfo={myInfo}
+            streams={streams}
+            nicknames={nicknames}
+          />
+          <div className={styles.currentActionBox}>
             <div>
-              <div>
-                <div>{currentname}</div>
-                <div>{currentdesc}</div>
-              </div>
-              <div>
-                {currenttype ? (
-                  <div>
-                    {finish ? (
-                      <div className={styles.ReadyTimer}>
-                        <div>Timer</div>
-                        <LiveTimer time={currenttime} getTimer={timerEnd} />
-                        <div>
-                          {plusset}/{currentexerciseset}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={styles.ReadyTimer}>
-                        Rest Timer
-                        <LiveRestTimer
-                          time={currentrest}
-                          getTimer={getrestfinish}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div>
-                    {finish ? (
-                      <div className={styles.ReadyTimer}>
-                        <div>
-                          {plusset}/{currentexerciseset}
-                        </div>
-                        <div>{currentcount}개 </div>
-                        <button className={styles.button} onClick={onClick}>
-                          complete
-                        </button>
-                      </div>
-                    ) : (
-                      <div className={styles.ReadyTimer}>
-                        Rest Timer
-                        <LiveRestTimer
-                          time={currentrest}
-                          getTimer={getrestfinish}
-                        />
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              {/* <LiveExStart
-                currentEx={currentEx}
-                getTimer={getTimer}
-                handleTimer={handleTimer}
-              /> */}
+              {isownerbtn ? (
+                <button onClick={handleStart}>START </button>
+              ) : (
+                <div></div>
+              )}
             </div>
-          ) : (
-            <div></div>
-          )}
+            <div>
+              {readyTimer ? ( //준비 타이머
+                <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+              ) : (
+                <div></div> //준비타이머 한번 나타나면 아무것도 나타나지 않음
+              )}
+            </div>
+            <div>
+              {currentEx ? (
+                <div>
+                  <LiveExStart
+                    currentEx={currentEx}
+                    getTimer={getTimer}
+                    onRest={onRest}
+                    onNoRest={onNoRest}
+                    onNoRestSetDone={onNoRestSetDone}
+                    finish={finish}
+                    setFinish={setFinish}
+                    plusset={plusset}
+                    setPlusset={setPlusset}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
         </div>
+        <AllRoutine routine={routine} />
       </div>
-      <div className={styles.bottom}>
-        <div className={styles.audiobutton}>
-          <button onClick={() => handleAudio()}>
-            {audioOn ? (
-              <FontAwesomeIcon icon={faMicrophone} />
-            ) : (
-              <FontAwesomeIcon icon={faMicrophoneSlash} />
-            )}
-          </button>
-        </div>
-        <div className={styles.exitbutton}>
-          <button onClick={handleExit}>
-            <IoMdExit />
-          </button>
-        </div>
-        <div className={styles.camerabutton}>
-          <button onClick={() => handleCamera()}>
-            {cameraOn ? (
-              <FontAwesomeIcon icon={faVideo} />
-            ) : (
-              <FontAwesomeIcon icon={faVideoSlash} />
-            )}
-          </button>
-        </div>
-      </div>
+      <Bottom
+        handleAudio={handleAudio}
+        audioOn={audioOn}
+        handleExit={handleExit}
+        handleCamera={handleCamera}
+        cameraOn={cameraOn}
+      />
     </div>
   );
 }
