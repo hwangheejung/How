@@ -35,7 +35,7 @@ const MakeLive = (props) => {
     // window.close();
     axios
       .post(
-        `https://52.78.0.53.sslip.io/api/lives`,
+        `http://52.78.0.53.sslip.io:8080/api/lives`,
         {
           subject: livelist.subject,
           routId: livelist.id,

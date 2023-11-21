@@ -36,7 +36,7 @@ export default function LoginPage() {
       return;
     } else {
       axios
-        .post(`https://52.78.0.53.sslip.io/api/users/login`, {
+        .post(`http://52.78.0.53.sslip.io:8080/api/users/login`, {
           userId: id,
           password: password,
         })
