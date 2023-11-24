@@ -82,6 +82,8 @@
     align-items: center;
     justify-content: center;
   }
+  .comment {
+  }
 }
 @media (min-width: 575px) {
   .calendar {
@@ -142,8 +144,8 @@
     display: flex;
     gap: 5px;
     padding: 0 3px;
+    height: 100px;
     /* align-items: center; */
-    margin-bottom: 150px;
   }
 
   .currentMonth {
@@ -159,9 +161,8 @@
   }
   .day {
     padding: 5px;
-    /* text-align: center; */
     font-weight: bold;
-    height: 30px;
+    height: 10px;
     border-radius: 10px;
     font-size: 1rem;
     display: flex;
@@ -176,6 +177,15 @@
     margin: 20px;
   }
 
+  .comment {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #7650e0; */
+  }
   .routineLabel {
     font-size: 28px;
     /* text-align: center; */
