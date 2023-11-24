@@ -34,7 +34,7 @@ const AddExCalendar = (props) => {
       setError(null);
 
       const response = await axios.get(
-        `http://52.78.0.53.sslip.io:8080/api/ex-routines/me?type=false`,
+        `https://52.78.0.53.sslip.io/api/ex-routines/me?type=false`,
         {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         }
@@ -55,7 +55,6 @@ const AddExCalendar = (props) => {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
-  console.log(props.clickdate.checked);
   return (
     <div className={styles.CalendarModal}>
       <div className={styles.container}>

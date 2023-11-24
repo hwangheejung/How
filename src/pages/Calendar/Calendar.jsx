@@ -22,7 +22,6 @@ import {
 } from "date-fns";
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 import AddExCalendar from "./AddExCalendar";
-import { setMonth } from "date-fns/esm";
 
 const Calendar = () => {
   const [mycalendardata, setCalendardata] = useState();
@@ -57,7 +56,11 @@ const Calendar = () => {
 
   //모달창
   const [isCalendarInsert, setIsCalendarInsert] = useState(false);
-  const [clickdate, setClickDate] = useState();
+  const [clickdate, setClickDate] = useState({
+    monthday: "",
+    comment: "",
+    checked: "",
+  });
 
   //api로 받아온걸 띄우기 위한 변수
 
@@ -115,10 +118,19 @@ const Calendar = () => {
     setclickmonth(!clickmonth);
   }, [current]);
 
-  const onClickdate = (v) => {
-    if (today.getTime() < v.getTime() || today.getTime() === v.getTime()) {
+  const isSameDate = (target1, target2) => {
+    //오늘과 클릭한 날짜가 같은지 확인하는 함수
+    return (
+      target1.getFullYear() === target2.getFullYear() &&
+      target1.getMonth() === target2.getMonth() &&
+      target1.getDate() === target2.getDate()
+    );
+  };
+  const onClickdate = (monthday, comment, checked) => {
+    //클릭했을때 모달창 띄우기
+    if (today < monthday || isSameDate(today, monthday)) {
       setIsCalendarInsert(!isCalendarInsert);
-      setClickDate(v);
+      setClickDate({ monthday: monthday, comment: comment, checked: checked });
     }
   };
   const onCalendarDetailClose = () => {
@@ -131,7 +143,7 @@ const Calendar = () => {
       setError(null);
 
       axios
-        .get(`http://52.78.0.53.sslip.io:8080/api/calendars`, {
+        .get(`https://52.78.0.53.sslip.io/api/calendars`, {
           headers: { Authorization: `Bearer ${getCookieToken()}` },
         })
 
@@ -255,13 +267,18 @@ const Calendar = () => {
                 <div className={styles.topLine}>
                   <span className={styles.day}>{format(v.monthday, "d")}</span>
                   {v.comment ? (
-                    <div className={styles.comment}>
-                      <input
-                        type="checkbox"
-                        id={v.comment}
-                        value={v.comment}
-                        checked={v.checked}
-                      />
+                    <div
+                      className={validation ? styles.comment : styles.diffMonth}
+                    >
+                      {validation ? (
+                        <input
+                          type="checkbox"
+                          id={v.comment}
+                          value={v.comment}
+                          checked={v.checked}
+                        />
+                      ) : null}
+
                       <label htmlFor={v.comment}>{v.comment}</label>
                     </div>
                   ) : null}

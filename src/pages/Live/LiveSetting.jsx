@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faVideo,
   faVideoSlash,
   faMicrophoneLines,
   faMicrophoneLinesSlash,
-} from "@fortawesome/free-solid-svg-icons";
-import { PiVideoCameraLight, PiVideoCameraSlash } from "react-icons/pi";
-import { BiSolidMicrophoneOff, BiSolidMicrophone } from "react-icons/bi";
-import styles from "../../css/Live/LiveSetting.module.css";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
+} from '@fortawesome/free-solid-svg-icons';
+import { PiVideoCameraLight, PiVideoCameraSlash } from 'react-icons/pi';
+import { BiSolidMicrophoneOff, BiSolidMicrophone } from 'react-icons/bi';
+import styles from '../../css/Live/LiveSetting.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
 
 export default function LiveSetting(props) {
   const [camera, setCamera] = useState(true);
@@ -31,7 +31,7 @@ export default function LiveSetting(props) {
 
   const handleCancel = () => {
     props.setIsParticipateSetting(false);
-    navigate("/live/list");
+    navigate('/live/list');
   };
 
   const handleEnter = () => {
