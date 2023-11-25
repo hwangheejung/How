@@ -9,17 +9,18 @@
     /* background-color: beige; */
     text-align: center;
     background-color: #e6f7f2;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
   .headername {
-    padding-top: 20px;
+    padding-top: 10px;
   }
   .currentYear {
     font-weight: 600;
     display: inline;
   }
   .currentMonth {
+    margin-left: 2px;
     font-weight: 600;
     display: inline;
   }
@@ -33,31 +34,30 @@
   }
   .days {
     padding: 10px;
-    /* text-align: center; */
-    font-weight: bold;
 
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   /* main */
   .dateContainer {
+    max-width: 400px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-top: 10px;
-    margin-left: 10px;
-    border-radius: 15px;
+    gap: 1px;
+    /* margin-top: 10px;
+    margin-left: 10px; */
+    /* border-radius: 15px; */
   }
 
   .topLine {
-    display: flex;
-    gap: 5px;
-    padding: 0 3px;
-    /* align-items: center; */
-    margin-bottom: 90px;
+    /* display: flex; */
+    /* gap: 5px; */
+    /* padding: 0 3px; */
+    /* margin-bottom: 90px; */
+    height: 50px;
   }
 
   .currentMonth {
@@ -70,19 +70,31 @@
     background-color: #e6f7f2;
   }
   .datebutton {
+    margin: 0;
+    padding: 0;
   }
   .day {
-    padding: 10px;
-    /* text-align: center; */
+    padding: 0;
     font-weight: bold;
-
     border-radius: 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .comment {
+  .mobilecomment {
+    color: #94e6ce;
+    font-size: 2rem;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #7650e0; */
+  }
+  .clickdate {
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
   }
 }
 @media (min-width: 575px) {

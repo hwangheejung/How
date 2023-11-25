@@ -1,126 +1,172 @@
-.CalendarModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container {
-  border-radius: 14px;
-  background-color: var(--white);
-  width: 30%;
-  min-width: 350px;
-  height: 60%;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  padding: 40px 20px;
-  overflow-y: auto;
-}
+@media (max-width: 576px) {
+  .CalendarModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    border-radius: 14px;
+    background-color: var(--white);
+    width: 30%;
+    min-width: 350px;
+    height: 60%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
 
-.container::-webkit-scrollbar {
-  width: 17px;
-  border-radius: 14px;
-}
+  .container::-webkit-scrollbar {
+    width: 17px;
+    border-radius: 14px;
+  }
 
-.container::-webkit-scrollbar-thumb {
-  border-radius: 14px;
-  background-color: #c4c4c4;
-}
+  .container::-webkit-scrollbar-thumb {
+    border-radius: 14px;
+    background-color: #c4c4c4;
+  }
 
-.container::-webkit-scrollbar-track {
-  border-radius: 14px;
-  background-color: #e5e5e5;
-}
+  .container::-webkit-scrollbar-track {
+    border-radius: 14px;
+    background-color: #e5e5e5;
+  }
 
-.routineLabel {
-  font-size: 18px;
-  font-weight: 600;
-}
+  .routineLabel {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+  }
 
-.MyRoutineListarr {
-  display: flex;
-  flex-direction: column;
-}
+  .MyRoutineListarr {
+    display: flex;
+    flex-direction: column;
+  }
 
-.MyroutineClick {
-  width: 100%;
-  /* width: 350px; */
-  height: 170px;
-  border-radius: 24px;
-  background-color: #cceede;
-  margin: 14px 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+  .MyroutineClick {
+    width: 100%;
+    /* width: 350px; */
+    height: 170px;
+    border-radius: 24px;
+    background-color: #cceede;
+    margin: 14px 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
 
-.selected {
-  /* background-color: #b9a4f0; */
-  border: 3px solid #00aa81;
-}
+  .selected {
+    /* background-color: #b9a4f0; */
+    border: 3px solid #00aa81;
+  }
 
-.routineDetail {
-  flex: 1;
-}
+  .routineDetail {
+    flex: 1;
+  }
 
-.subjectHits {
-  display: flex;
-  align-items: center;
-}
+  .subjectHits {
+    display: flex;
+    align-items: center;
+  }
 
-.subject {
-  font-size: 16px;
-  font-weight: 600;
-}
+  .subject {
+    font-size: 16px;
+    font-weight: 600;
+  }
 
-.myhits {
-  color: var(--light-grey);
-  font-size: 13px;
-  font-weight: 500;
-  padding-left: 6px;
-}
+  .myhits {
+    color: var(--light-grey);
+    font-size: 13px;
+    font-weight: 500;
+    padding-left: 6px;
+  }
 
-.cates {
-  font-size: 13px;
-  color: var(--light-grey);
-  font-weight: 500;
-  text-align: left;
-  padding-top: 13px;
-}
+  .cates {
+    font-size: 13px;
+    color: var(--light-grey);
+    font-weight: 500;
+    text-align: left;
+    padding-top: 13px;
+  }
 
-.selectButton {
-  border-radius: 28px;
-  background-color: #00aa81;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--white);
-  margin: 0 auto;
-  padding: 10px 35px;
-}
-.buttons {
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-}
+  .selectButton {
+    border-radius: 28px;
+    background-color: #00aa81;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0 auto;
+    padding: 10px 35px;
+  }
+  .buttons {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
 
-.button {
-  font-size: 13px;
-  background-color: #00aa81;
-  color: var(--white);
-  padding: 8px 25px;
-  border-radius: 30px;
-  margin: 5px;
+  .button {
+    font-size: 13px;
+    background-color: #00aa81;
+    color: var(--white);
+    padding: 8px 25px;
+    border-radius: 30px;
+    margin: 5px;
+  }
+  .beforedatebutton {
+    font-size: 13px;
+    background-color: #00aa81;
+    color: var(--white);
+    padding: 8px 25px;
+    border-radius: 30px;
+    margin: 5px;
+  }
+  .date {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .mylist {
+    margin: 10px;
+    font-size: 19px;
+    font-weight: 400;
+    text-align: center;
+  }
+  .list {
+    border: 2px solid #00aa81;
+    border-radius: 20px;
+    height: 200px;
+    padding: 10px;
+    margin: 10px;
+  }
+  .inputlabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bcbcbc;
+    cursor: pointer;
+  }
+  label {
+    width: 300px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 2px;
+  }
 }
-@media (min-width: 576px) {
+@media (min-width: 575px) {
   .CalendarModal {
     position: fixed;
     top: 0;

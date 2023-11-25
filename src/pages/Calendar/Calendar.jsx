@@ -74,6 +74,16 @@ const Calendar = () => {
     },
   ]);
 
+  const [website, setWebsite] = useState(true); //앱 화면일때 달력을 다르게 표현하기 위한 변수
+  const [beforetoday, setBeforeToday] = useState(false); //오늘 보다 이전은 루틴 실행 x
+
+  useEffect(() => {
+    if (window.outerWidth < 576) {
+      //width가 576보다 작으면 앱 화면 적용
+      setWebsite(!website);
+    }
+  }, [window.outerWidth]);
+
   const onPrevMonth = () => {
     //이전달
     setCurrentMonth(currentMonth - 1);
@@ -130,7 +140,18 @@ const Calendar = () => {
     //클릭했을때 모달창 띄우기
     if (today < monthday || isSameDate(today, monthday)) {
       setIsCalendarInsert(!isCalendarInsert);
+      setBeforeToday(true);
       setClickDate({ monthday: monthday, comment: comment, checked: checked });
+    }
+  };
+
+  const mobileonClickdate = (monthday, comment, checked) => {
+    setIsCalendarInsert(!isCalendarInsert);
+    setClickDate({ monthday: monthday, comment: comment, checked: checked });
+    if (today > monthday) {
+      setBeforeToday(false);
+    } else {
+      setBeforeToday(true);
     }
   };
   const onCalendarDetailClose = () => {
@@ -159,7 +180,7 @@ const Calendar = () => {
 
   useEffect(() => {
     fetchroutine();
-  }, []);
+  }, [isCalendarInsert]);
 
   useEffect(() => {
     for (let i = 0; i < monthCalendar.length; i++) {
@@ -195,7 +216,7 @@ const Calendar = () => {
   if (error) return <div>에러발생</div>;
   if (!mycalendardata) return <div>null</div>;
 
-  // console.log(monthCalendar);
+  console.log(mycalendardata);
   return (
     <div className={styles.calendar}>
       <div className={styles.CalendarHeader}>
@@ -258,7 +279,11 @@ const Calendar = () => {
             <button
               key={format(v.monthday, "yyyyMMdd")}
               className={todayvalid ? styles.todaybutton : styles.datebutton}
-              onClick={() => onClickdate(v.monthday)}
+              onClick={
+                website
+                  ? () => onClickdate(v.monthday, v.comment, v.isCheck)
+                  : () => mobileonClickdate(v.monthday, v.comment, v.isCheck)
+              }
             >
               <div
                 className={validation ? styles.currentMonth : styles.diffMonth}
@@ -266,22 +291,41 @@ const Calendar = () => {
               >
                 <div className={styles.topLine}>
                   <span className={styles.day}>{format(v.monthday, "d")}</span>
-                  {v.comment ? (
-                    <div
-                      className={validation ? styles.comment : styles.diffMonth}
-                    >
-                      {validation ? (
-                        <input
-                          type="checkbox"
-                          id={v.comment}
-                          value={v.comment}
-                          checked={v.checked}
-                        />
-                      ) : null}
 
-                      <label htmlFor={v.comment}>{v.comment}</label>
-                    </div>
-                  ) : null}
+                  <div>
+                    {v.comment ? (
+                      <div>
+                        {website ? (
+                          <div
+                            className={
+                              validation ? styles.comment : styles.diffMonth
+                            }
+                          >
+                            {validation ? (
+                              <input
+                                type="checkbox"
+                                id={v.comment}
+                                value={v.comment}
+                                checked={v.checked}
+                              />
+                            ) : null}
+
+                            <label htmlFor={v.comment}>{v.comment}</label>
+                          </div>
+                        ) : (
+                          <div
+                            className={
+                              validation
+                                ? styles.mobilecomment
+                                : styles.diffMonth
+                            }
+                          >
+                            *
+                          </div>
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </button>
@@ -293,6 +337,8 @@ const Calendar = () => {
           <AddExCalendar
             clickdate={clickdate}
             onCalendarDetailClose={onCalendarDetailClose}
+            website={website}
+            beforetoday={beforetoday}
           />
         ) : null}
       </div>
