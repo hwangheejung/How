@@ -1,38 +1,16 @@
-/* .currentActionBox {
-  padding: 14px;
-}
-
-.actionName {
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  opacity: 0.5;
-} */
-
-/* .set {
-  color: #f4f4f4;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.count {
-  color: #f4f4f4;
-  font-size: 30px;
-  font-weight: 600;
-} */
-
 .currentActionBox {
-  width: 160px;
-  height: 110px;
+  width: 100%;
+  /* height: 110px; */
   border-radius: 14px;
   /* opacity: 0.5; */
   /* background-color: #000000; */
   box-sizing: border-box;
-  padding: 14px;
+  /* padding: 14px; */
 }
 
 .actionName {
-  color: #fff;
+  /* color: #fff; */
+  color: #000000;
   font-size: 12px;
   font-weight: 500;
   opacity: 0.5;
@@ -40,33 +18,49 @@
 }
 
 .ReadyTimer {
-  color: #f4f4f4;
+  /* color: #f4f4f4; */
+  text-align: center;
+  color: #000000;
   font-size: 30px;
   font-weight: 600;
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .set {
-  color: #fff;
-  font-size: 18px;
+  /* color: #fff; */
+  color: #000000;
+  font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
   padding-bottom: 3px;
 }
 
-.countNext {
+/* .countNext {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+} */
+
+.count {
+  font-size: 60px;
+  font-weight: 600;
 }
 
 .button {
-  color: #fff;
-  font-size: 12px;
+  color: #000000;
+  font-size: 20px;
   font-weight: 600;
-  background-color: #00aa81;
-  border-radius: 30px;
-  padding: 2px 8px;
-  height: 20px;
+  padding: 8px 25px;
+  /* background-color: #00aa81; */
+  border: 1px solid #000000;
+  /* height: 20px; */
+  border-radius: 58px;
   /* text-transform: uppercase; */
+}
+
+@media (min-width: 650px) {
+  .currentActionBox {
+    display: flex;
+    padding: 10px 30px;
+  }
 }

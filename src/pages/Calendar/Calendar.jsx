@@ -99,6 +99,7 @@ const Calendar = () => {
       setCurrentYear(currentYear - 1);
       setCurrentMonth(11);
     }
+    setclickmonth(!clickmonth);
   };
   const onNextMonth = () => {
     //다음달
@@ -115,11 +116,13 @@ const Calendar = () => {
       setCurrentYear(currentYear + 1);
       setCurrentMonth(0);
     }
+    setclickmonth(!clickmonth);
   };
 
   useEffect(() => {
     const monthArray = [];
     let day = startDate;
+    // console.log(monthStart);
     while (differenceInCalendarDays(endDate, day) >= 0) {
       monthArray.push({ monthday: day, comment: null, checked: false });
       day = addDays(day, 1);
@@ -169,6 +172,7 @@ const Calendar = () => {
         })
 
         .then((res) => {
+          // console.log('res', res);
           setCalendardata(res.data.result);
         });
     } catch (e) {

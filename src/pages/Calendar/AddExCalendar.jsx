@@ -4,7 +4,6 @@ import { format, getYear } from "date-fns";
 import axios from "axios";
 import { getCookieToken } from "../../store/Cookie";
 import styles from "../../css/Calendar/CalendarModal.module.css";
-import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 
 const AddExCalendar = (props) => {
   const { id } = useParams();

@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../css/Routine/RoutineList.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
+import RoutineDetail from './RoutineDetail';
 
 export default function Routinedetail() {
+  const [detailPopup, setDetailPopup] = useState(false);
+  const [detailId, setDetailId] = useState('');
+
   const navigate = useNavigate();
 
   const onClick = () => {
     navigate('/routine/list');
   };
 
-  const onPopup = (id) => {
-    //팝업 관리
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
+  // const onPopup = (id) => {
+  //   //팝업 관리
+  //   const width = 500;
+  //   const height = 700;
+  //   const x = window.outerWidth / 2 - width / 2;
+  //   const y = window.outerHeight / 2 - height / 2;
 
-    const url = `/routinedetail/${id}`;
-    window.open(
-      url,
-      'window_name',
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
-    //navigate(`/routindetail/${id}`, { state: { id } });
-    //myRoutine.document.write(id);
+  //   const url = `/routinedetail/${id}`;
+  //   window.open(
+  //     url,
+  //     'window_name',
+  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
+  //   );
+  //   //navigate(`/routindetail/${id}`, { state: { id } });
+  //   //myRoutine.document.write(id);
+  // };
+  const onPopup = (id) => {
+    setDetailId(id);
+    setDetailPopup(true);
+  };
+
+  const windowReload = () => {
+    window.location.reload();
   };
 
   let location = useLocation();
@@ -75,6 +87,13 @@ export default function Routinedetail() {
       <button className={styles.backbutton} onClick={onClick}>
         뒤로가기
       </button>
+      {detailPopup ? (
+        <RoutineDetail
+          setDetailPopup={setDetailPopup}
+          detailId={detailId}
+          windowReload={windowReload}
+        />
+      ) : null}
     </div>
   );
 }

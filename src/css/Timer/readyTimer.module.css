@@ -41,7 +41,8 @@
 }
 
 .timer {
-  color: #f4f4f4;
-  font-size: 30px;
+  /* color: #f4f4f4; */
+  color: #000000;
+  font-size: 60px;
   font-weight: 600;
 }

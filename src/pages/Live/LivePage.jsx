@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import styles from "../../css/LivePage/LivePage.module.css";
-import LiveExStart from "../../components/LiveExercise/LiveExStart";
-import LiveReadyTimer from "../../components/LiveExercise/LiveReadyTimer";
-import LiveInfo from "../../components/LivePage/LiveInfo";
-import Videos from "../../components/LivePage/Videos";
-import AllRoutine from "../../components/LivePage/AllRoutine";
-import Bottom from "../../components/LivePage/Bottom";
-import useSocket from "../../hooks/useSocket";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from '../../css/LivePage/LivePage.module.css';
+import LiveExStart from '../../components/LiveExercise/LiveExStart';
+import LiveReadyTimer from '../../components/LiveExercise/LiveReadyTimer';
+import LiveInfo from '../../components/LivePage/LiveInfo';
+import Videos from '../../components/LivePage/Videos';
+import AllRoutine from '../../components/LivePage/AllRoutine';
+import Bottom from '../../components/LivePage/Bottom';
+import useSocket from '../../hooks/useSocket';
+import AllRoutineWide from '../../components/LivePage/AllRoutineWide';
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -49,130 +50,164 @@ export default function LivePage() {
     isModifySend,
     setIsModifySend,
     socketRoutineChange,
+    exFinish,
+    setIsParticipate,
+    isParticipate,
   ] = useSocket({ liveId, camera, audio, isOwner });
 
   const sequenceRef = useRef(null);
   const [openAllRoutine, setOpenAllRoutine] = useState(false);
 
-  useEffect(() => {
-    if (sequenceRef.current)
-      sequenceRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [currentEx]);
+  console.log('currentEx', currentEx);
+  console.log('routineDetail', routine);
 
   return (
     <div className={styles.root}>
-      {/* <video controls muted autoPlay loop width='250'>
-        <source src='demo-video.mp4' type='video/mp4' />
-      </video> */}
-      {/* 라이브 기본 정보 */}
-      <LiveInfo liveTitle={liveTitle} participateNum={participateNum} />
-      <button onClick={() => setOpenAllRoutine((prev) => !prev)}>메뉴바</button>
-      {/* 각 운동 동작 */}
-      {/* <div className={styles.middleContainer}> */}
-      {/* 카메라 */}
-
-      {/* <div className={styles.videoAction}> */}
-
-      <div className={styles.currentActionBox}>
-        <div className={styles.sequenceBox}>
-          {routine?.routineDetails?.map((detail, index) => (
-            <div
-              key={index}
-              className={`${styles.sequence} ${
-                currentEx &&
-                currentEx.ex.routinneDetailResult.order === index + 1 &&
-                styles.nowSequence
-              }`}
-              ref={
-                currentEx &&
-                currentEx.ex.routinneDetailResult.order === index + 1
-                  ? sequenceRef
-                  : undefined
-              }
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-        <div className={styles.currentActionDetailBox}>
-          {isownerbtn ? (
-            <button className={styles.startButton} onClick={handleStart}>
-              START
-            </button>
-          ) : null}
-          {readyTimer ? ( //준비 타이머
-            <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
-          ) : null}
-          {currentEx ? (
-            <LiveExStart
-              currentEx={currentEx}
-              getTimer={getTimer}
-              onRest={onRest}
-              onNoRest={onNoRest}
-              onNoRestSetDone={onNoRestSetDone}
-              finish={finish}
-              setFinish={setFinish}
-              plusset={plusset}
-              setPlusset={setPlusset}
-              // stopbutton={stopbutton}
-              // stopTimer={stopTimer}
-              // restartTimer={restartTimer}
-            />
-          ) : null}
-        </div>
-      </div>
-      {/* </div> */}
-      {/* <AllRoutine
-          routine={routine}
-          currentEx={currentEx}
-          isModify={isModify}
-          setIsModify={setIsModify}
-          socketSetModify={socketSetModify}
-          modifyActionId={modifyActionId}
-          socketModifyComplete={socketModifyComplete}
-          socketDecrease={socketDecrease}
-          isDecrease={isDecrease}
-          socketIncrease={socketIncrease}
-          isIncrease={isIncrease}
-          isModifySend={isModifySend}
-          setIsModifySend={setIsModifySend}
-          socketRoutineChange={socketRoutineChange}
-        /> */}
-      {/* </div> */}
-      <div className={styles.bottomVideo}>
-        <Videos
-          myMedia={myMedia}
-          myInfo={myInfo}
-          streams={streams}
-          nicknames={nicknames}
-        />
-        <Bottom
-          handleAudio={handleAudio}
-          audioOn={audioOn}
-          handleExit={handleExit}
-          handleCamera={handleCamera}
-          cameraOn={cameraOn}
-        />
-      </div>
-      {openAllRoutine ? (
-        <AllRoutine
-          routine={routine}
-          currentEx={currentEx}
-          isModify={isModify}
-          setIsModify={setIsModify}
-          socketSetModify={socketSetModify}
-          modifyActionId={modifyActionId}
-          socketModifyComplete={socketModifyComplete}
-          socketDecrease={socketDecrease}
-          isDecrease={isDecrease}
-          socketIncrease={socketIncrease}
-          isIncrease={isIncrease}
-          isModifySend={isModifySend}
-          setIsModifySend={setIsModifySend}
-          socketRoutineChange={socketRoutineChange}
+      <div className={styles.cover}>
+        <LiveInfo
+          liveTitle={liveTitle}
+          participateNum={participateNum}
           setOpenAllRoutine={setOpenAllRoutine}
         />
-      ) : null}
+        <div className={styles.middle}>
+          <div className={styles.actionVideo}>
+            <div className={styles.currentActionBox}>
+              {routine?.routineDetails?.map(
+                (detail, index) =>
+                  currentEx &&
+                  !exFinish &&
+                  detail.id === currentEx.ex.routinneDetailResult.id && (
+                    <div className={styles.sequenceBox}>
+                      <div
+                        key={detail.order}
+                        className={`${styles.sequence} ${
+                          currentEx &&
+                          currentEx.ex.routinneDetailResult.order ===
+                            index + 1 &&
+                          styles.nowSequence
+                        }`}
+                        // ref={
+                        //   currentEx &&
+                        //   currentEx.ex.routinneDetailResult.order === index + 1
+                        //     ? sequenceRef
+                        //     : undefined
+                        // }
+                      >
+                        {detail.order}
+                      </div>
+                      <div className={styles.actionName}>{detail.ex.name}</div>
+                    </div>
+                  )
+              )}
+
+              <div className={styles.currentActionDetailBox}>
+                {isownerbtn ? (
+                  <div className={styles.startButtonBox}>
+                    <button
+                      className={styles.startButton}
+                      onClick={handleStart}
+                    >
+                      START
+                    </button>
+                  </div>
+                ) : null}
+                {isParticipate ? (
+                  <div className={styles.startButtonBox}>
+                    <div className={styles.endMassage}>{`Ready`}</div>
+                  </div>
+                ) : null}
+                {readyTimer ? ( //준비 타이머
+                  <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+                ) : null}
+                {currentEx && !exFinish ? (
+                  <LiveExStart
+                    currentEx={currentEx}
+                    getTimer={getTimer}
+                    onRest={onRest}
+                    onNoRest={onNoRest}
+                    onNoRestSetDone={onNoRestSetDone}
+                    finish={finish}
+                    setFinish={setFinish}
+                    plusset={plusset}
+                    setPlusset={setPlusset}
+                    // exFinish={exFinish}
+                    // stopbutton={stopbutton}
+                    // stopTimer={stopTimer}
+                    // restartTimer={restartTimer}
+                  />
+                ) : null}
+                {exFinish && (
+                  <div className={styles.startButtonBox}>
+                    <div
+                      className={styles.endMassage}
+                    >{`${myInfo.nickname}님, 수고하셨어요!`}</div>
+                    <div className={styles.completeText}>완료</div>
+                  </div>
+                )}
+              </div>
+              {/* {currentEx && (
+            <img
+              className={styles.actionImage}
+              src={currentEx.ex.routinneDetailResult.img[0].img}
+              alt='current action image'
+            />
+          )} */}
+            </div>
+            <div className={styles.bottomVideo}>
+              <Bottom
+                handleAudio={handleAudio}
+                audioOn={audioOn}
+                handleExit={handleExit}
+                handleCamera={handleCamera}
+                cameraOn={cameraOn}
+              />
+              <Videos
+                myMedia={myMedia}
+                myInfo={myInfo}
+                streams={streams}
+                nicknames={nicknames}
+              />
+            </div>
+          </div>
+          <AllRoutineWide
+            routine={routine}
+            currentEx={currentEx}
+            isModify={isModify}
+            setIsModify={setIsModify}
+            socketSetModify={socketSetModify}
+            modifyActionId={modifyActionId}
+            socketModifyComplete={socketModifyComplete}
+            socketDecrease={socketDecrease}
+            isDecrease={isDecrease}
+            socketIncrease={socketIncrease}
+            isIncrease={isIncrease}
+            isModifySend={isModifySend}
+            setIsModifySend={setIsModifySend}
+            socketRoutineChange={socketRoutineChange}
+            setOpenAllRoutine={setOpenAllRoutine}
+            openAllRoutine={openAllRoutine}
+          />
+        </div>
+        {openAllRoutine ? (
+          <AllRoutine
+            routine={routine}
+            currentEx={currentEx}
+            isModify={isModify}
+            setIsModify={setIsModify}
+            socketSetModify={socketSetModify}
+            modifyActionId={modifyActionId}
+            socketModifyComplete={socketModifyComplete}
+            socketDecrease={socketDecrease}
+            isDecrease={isDecrease}
+            socketIncrease={socketIncrease}
+            isIncrease={isIncrease}
+            isModifySend={isModifySend}
+            setIsModifySend={setIsModifySend}
+            socketRoutineChange={socketRoutineChange}
+            setOpenAllRoutine={setOpenAllRoutine}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }
