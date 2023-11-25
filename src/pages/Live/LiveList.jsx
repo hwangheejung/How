@@ -28,10 +28,6 @@ export default function LiveList() {
   const [roomId, setRoomId] = useState('');
   const [subject, setSubject] = useState('');
   const [isParticipateSetting, setIsParticipateSetting] = useState(false);
-  // const [routineId, setRoutineId] = useState();
-  // const [liveId, setLiveId] = useState();
-  // const [subject, setSubject] = useState();
-  // const [nick, setNick] = useState();
 
   const navigate = useNavigate();
 
@@ -47,40 +43,11 @@ export default function LiveList() {
   const onLiveDetailClose = () => {
     setIsLiveDetail((prev) => !prev);
   };
-  // const onPopupdetail = (routineId, liveId, livesubject, livenick) => {
-  //   //라이브 상세페이지 이동
-  //   const width = 500;
-  //   const height = 700;
-  //   const x = window.outerWidth / 2 - width / 2;
-  //   const y = window.outerHeight / 2 - height / 2;
-
-  //   const url = `/livedetail/${routineId}/${liveId}/${livesubject}/${livenick}`;
-  //   <LiveDetail livesubject={livesubject} livenick={livenick} />;
-  //   window.open(
-  //     url,
-  //     'window_name',
-  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-  //   );
-  // };
 
   const onPopupMakeLive = () => {
     setMakeLive((prev) => !prev);
   };
-  // const onPopup = () => {
-  //   //팝업 관리
-  //   const width = 500;
-  //   const height = 700;
-  //   const x = window.outerWidth / 2 - width / 2;
-  //   const y = window.outerHeight / 2 - height / 2;
 
-  //   const url = `/Makelive`;
-  //   window.open(
-  //     url,
-  //     'window_name',
-  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-  //   );
-  //   //navigate(`/makelive`);
-  // };
   const onPress = (e) => {
     if (e.key === 'Enter') {
       let sArray = livedata.result.liveListMappings.filter(

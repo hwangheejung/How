@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
-import LiveRestTimer from "./LiveRestTimer";
-import LiveReadyTimer from "./LiveReadyTimer";
+import React from 'react';
+import { useState } from 'react';
+import LiveRestTimer from './LiveRestTimer';
+import LiveReadyTimer from './LiveReadyTimer';
 // import styles from '../../css/Timer/readyTimer.module.css';
-import styles from "../../css/Live/LiveExStart.module.css";
+import styles from '../../css/Live/LiveExStart.module.css';
 
-import LiveTimer from "./LiveTimer";
+import LiveTimer from './LiveTimer';
 
 const LiveExStart = (props) => {
   // const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
@@ -36,10 +36,10 @@ const LiveExStart = (props) => {
       } else {
         props.onNoRest();
       }
-      console.log("LiveExStart onClick onNoRest");
+      console.log('LiveExStart onClick onNoRest');
     } else if (currentrest > 0) {
       props.onRest();
-      console.log("LiveExStart onClick onRest");
+      console.log('LiveExStart onClick onRest');
     }
 
     // if (currentrest === 0) {
@@ -56,9 +56,14 @@ const LiveExStart = (props) => {
   const getrestfinish = () => {
     props.setFinish(!props.finish);
     if (props.plusset === currentexerciseset + 1) {
-      props.getTimer();
-      //console.log("성공");
-      props.setPlusset(1);
+      if (
+        props.currentEx.ex.routinneDetailResult.order !==
+        props.currentEx.ex.actionCnt
+      ) {
+        props.getTimer();
+        //console.log("성공");
+        props.setPlusset(1);
+      }
     }
     // if (plusset === currentexerciseset + 1) {
     //   console.log('성공');
@@ -70,7 +75,7 @@ const LiveExStart = (props) => {
 
   return (
     <div className={styles.currentActionBox}>
-      <div className={styles.actionName}>{currentname}</div>
+      {/* <div className={styles.actionName}>{currentname}</div> */}
       {/* <div>
         <div>{currentname}</div>
         <div>{currentdesc}</div>
@@ -110,12 +115,12 @@ const LiveExStart = (props) => {
                 <div className={styles.set}>
                   set {props.plusset}/{currentexerciseset}
                 </div>
-                <div className={styles.countNext}>
-                  <div className={styles.count}>{currentcount}개 </div>
-                  <button className={styles.button} onClick={onClick}>
-                    Next
-                  </button>
-                </div>
+                {/* <div className={styles.countNext}> */}
+                <div className={styles.count}>{currentcount}개 </div>
+                {/* </div> */}
+                <button className={styles.button} onClick={onClick}>
+                  Next
+                </button>
               </div>
             ) : (
               currentrest !== 0 && (

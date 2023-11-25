@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { format, getYear } from 'date-fns';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
-import styles from '../../css/Calendar.module.css';
+import styles from '../../css/Calendar/Calendar.module.css';
 
 const AddExCalendar = () => {
   const { id } = useParams();

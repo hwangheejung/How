@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../css/Login/LoginPage.module.css';
 import axios from 'axios';
-import { setUserToken } from '../../store/Cookie';
+import { removeCookieToken, setUserToken } from '../../store/Cookie';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { SET_USERINFO } from '../../store/loginRedux';
+import { DELETE_USERINFO, SET_USERINFO } from '../../store/loginRedux';
+import { persistor } from '../..';
 
 export default function LoginPage() {
   const [id, setId] = useState('');
@@ -48,6 +49,10 @@ export default function LoginPage() {
             navigate('/');
           } else if (res.data.code === 3014) {
             // 로그인 정보 없어지는 코드 추가
+            dispatch(DELETE_USERINFO());
+            persistor.purge();
+            removeCookieToken();
+            localStorage.removeItem('menu');
             alert(res.data.message);
           }
           setId('');

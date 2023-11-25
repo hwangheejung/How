@@ -7,7 +7,6 @@
   .Routine {
     padding: 10px;
     font-size: 20px;
-    font-style: normal;
     font-weight: 700;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--black);
@@ -16,7 +15,7 @@
     padding-top: 25px;
     display: flex;
     width: 100%;
-    justify-content: end;
+    justify-content: flex-end;
   }
   .routinesearch {
     width: 150px;
@@ -207,7 +206,8 @@
   }
 
   .routineClick {
-    width: 530px;
+    /* width: 530px; */
+    width: 37%;
     height: 130px;
     border: none;
     background-color: var(--container-color);
@@ -294,4 +294,16 @@
     border-radius: 20px;
     float: inline-end;
   }
+}
+
+.routineClick:nth-child(3n + 1) {
+  background-color: rgba(0, 170, 88, 0.19);
+}
+
+.routineClick:nth-child(3n + 2) {
+  background-color: rgba(0, 170, 88, 0.15);
+}
+
+.routineClick:nth-child(3n + 3) {
+  background-color: rgba(0, 170, 88, 0.24);
 }

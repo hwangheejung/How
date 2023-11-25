@@ -13,12 +13,12 @@
     border-bottom: 2px solid var(--black);
   }
 
-.searchContainer {
-  padding-top: 25px;
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-}
+  .searchContainer {
+    padding-top: 25px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
 
   .routinesearch {
     width: 150px;
@@ -248,14 +248,13 @@
   }
 
   .MyroutineClick {
-    width: 530px;
+    /* width: 530px; */
+    width: 37%;
     height: 130px;
     border: none;
     background-color: var(--container-color);
     border-radius: 25px;
     padding: 35px 55px;
-    /* display: flex; */
-    /* flex-direction: column; */
   }
 
   .MyRoutineListItem {
@@ -339,4 +338,16 @@
     border-radius: 20px;
     float: inline-end;
   }
+}
+
+.MyroutineClick:nth-child(3n + 1) {
+  background-color: rgba(0, 170, 88, 0.19);
+}
+
+.MyroutineClick:nth-child(3n + 2) {
+  background-color: rgba(0, 170, 88, 0.15);
+}
+
+.MyroutineClick:nth-child(3n + 3) {
+  background-color: rgba(0, 170, 88, 0.24);
 }

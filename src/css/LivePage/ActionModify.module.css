@@ -1,0 +1,35 @@
+.modifyContainer {
+  padding: 0 20px;
+  margin-top: 8px;
+}
+
+.modifyBox {
+  background-color: #cceede;
+  padding: 0 10px;
+  border-radius: 14px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modifyBox span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.button {
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #00aa81;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 14px;
+  margin-top: 10px;
+}
+
+.topic {
+  font-size: 18px;
+  font-weight: 600;
+  padding-top: 10px;
+}
