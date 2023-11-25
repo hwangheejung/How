@@ -8,12 +8,10 @@ import styles from '../../css/Routine/RoutineList.module.css';
 import RoutineDetail from './RoutineDetail';
 
 export default function RoutineList() {
-  const [routinedata, setRoutindata] = useState(null); //루틴 데이터 받아오기
-  const [loading, setLoading] = useState(false); //
+  const [routinedata, setRoutindata] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const [searchInput, setSearchInput] = useState(''); //검색
-
+  const [searchInput, setSearchInput] = useState('');
   const [detailPopup, setDetailPopup] = useState(false);
   const [detailId, setDetailId] = useState('');
 
@@ -21,10 +19,7 @@ export default function RoutineList() {
 
   const SearchValue = (event) => {
     setSearchInput(event.target.value);
-    //console.log(event.target.value);
   };
-
-  //const [showPopup, setShowPopup] = useState(false); //루틴 선택시 팝업창
 
   const onClickSearch = () => {
     let sArray = routinedata.result.routines.filter(
@@ -32,12 +27,7 @@ export default function RoutineList() {
         search.routine.subject.includes(searchInput) ||
         search.cate.includes(searchInput)
     );
-
-    console.log(sArray);
-
-    //console.log(searchArray);
     navigate('/routineSearch', { state: { sArray } });
-    //검색관리
   };
 
   const onPress = (e) => {
@@ -47,27 +37,9 @@ export default function RoutineList() {
           search.routine.subject.includes(searchInput) ||
           search.cate.includes(searchInput)
       );
-
-      console.log(sArray);
-
-      //console.log(searchArray);
       navigate('/routineSearch', { state: { sArray } });
     }
   };
-
-  // const onPopup = (id) => {
-  //   const width = 500;
-  //   const height = 700;
-  //   const x = window.outerWidth / 2 - width / 2;
-  //   const y = window.outerHeight / 2 - height / 2;
-
-  //   const url = `/routinedetail/${id}`;
-  //   window.open(
-  //     url,
-  //     'window_name',
-  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-  //   );
-  // };
 
   const onPopup = (id) => {
     setDetailId(id);
@@ -93,6 +65,10 @@ export default function RoutineList() {
   useEffect(() => {
     fetchroutine();
   }, []);
+
+  const windowReload = () => {
+    window.location.reload();
+  };
 
   console.log(routinedata);
 
@@ -122,7 +98,7 @@ export default function RoutineList() {
           <div
             key={routine.routine.id}
             type='button'
-            className={styles.routineClick}
+            className={`${styles.routineClick}`}
           >
             <div className={styles.RoutineListItem}>
               <div className={styles.subjectHits}>
@@ -157,7 +133,11 @@ export default function RoutineList() {
         ))}
       </div>
       {detailPopup ? (
-        <RoutineDetail setDetailPopup={setDetailPopup} detailId={detailId} />
+        <RoutineDetail
+          setDetailPopup={setDetailPopup}
+          detailId={detailId}
+          windowReload={windowReload}
+        />
       ) : null}
     </div>
   );

@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from "react";
-import styles from "../../css/Calendar/Calendar.module.css";
-import { ko } from "date-fns/locale";
-import axios from "axios";
-import { getCookieToken } from "../../store/Cookie";
-import LiveDetail from "../Live/LiveDetail";
+import React, { useState, useMemo, useEffect } from 'react';
+import styles from '../../css/Calendar/Calendar.module.css';
+import { ko } from 'date-fns/locale';
+import axios from 'axios';
+import { getCookieToken } from '../../store/Cookie';
+import LiveDetail from '../Live/LiveDetail';
 
 import {
   format,
@@ -19,9 +19,9 @@ import {
   subDays,
   getDate,
   getYear,
-} from "date-fns";
-import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
-import AddExCalendar from "./AddExCalendar";
+} from 'date-fns';
+import { CiCircleChevLeft, CiCircleChevRight } from 'react-icons/ci';
+import AddExCalendar from './AddExCalendar';
 
 const Calendar = () => {
   const [mycalendardata, setCalendardata] = useState();
@@ -36,20 +36,20 @@ const Calendar = () => {
   const endDate = useMemo(() => endOfWeek(monthEnd), [current]);
   const months = [
     //달 표시
-    "1월",
-    "2월",
-    "3월",
-    "4월",
-    "5월",
-    "6월",
-    "7월",
-    "8월",
-    "9월",
-    "10월",
-    "11월",
-    "12월",
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월',
   ];
-  const days = ["일", "월", "화", "수", "목", "금", "토"];
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   const [currentMonth, setCurrentMonth] = useState(current.getMonth()); //오늘이 포함된 달 가져오기
   const [currentYear, setCurrentYear] = useState(current.getFullYear()); //오늘이 포함된 년 가져오기
@@ -57,9 +57,9 @@ const Calendar = () => {
   //모달창
   const [isCalendarInsert, setIsCalendarInsert] = useState(false);
   const [clickdate, setClickDate] = useState({
-    monthday: "",
-    comment: "",
-    checked: "",
+    monthday: '',
+    comment: '',
+    checked: '',
   });
 
   //api로 받아온걸 띄우기 위한 변수
@@ -68,16 +68,16 @@ const Calendar = () => {
 
   const [monthCalendar, setMonthCalendar] = useState([
     {
-      monthday: "",
-      comment: "",
-      checked: "",
+      monthday: '',
+      comment: '',
+      checked: '',
     },
   ]);
 
   const onPrevMonth = () => {
     //이전달
     setCurrentMonth(currentMonth - 1);
-    if (format(startDate, "d") === "1") {
+    if (format(startDate, 'd') === '1') {
       //1일이 일요일일때 전달을 표현하기 위해
       setCurrent(subDays(startDate, 1));
     } else {
@@ -89,11 +89,12 @@ const Calendar = () => {
       setCurrentYear(currentYear - 1);
       setCurrentMonth(11);
     }
+    setclickmonth(!clickmonth);
   };
   const onNextMonth = () => {
     //다음달
     setCurrentMonth(currentMonth + 1);
-    if (format(endDate, "E") === "Sat") {
+    if (format(endDate, 'E') === 'Sat') {
       //마지막날이 토요일일때 다음달을 표현하기 위해
       setCurrent(addDays(endDate, 1));
     } else {
@@ -105,11 +106,13 @@ const Calendar = () => {
       setCurrentYear(currentYear + 1);
       setCurrentMonth(0);
     }
+    setclickmonth(!clickmonth);
   };
 
   useEffect(() => {
     const monthArray = [];
     let day = startDate;
+    // console.log(monthStart);
     while (differenceInCalendarDays(endDate, day) >= 0) {
       monthArray.push({ monthday: day, comment: null, checked: false });
       day = addDays(day, 1);
@@ -148,11 +151,12 @@ const Calendar = () => {
         })
 
         .then((res) => {
+          // console.log('res', res);
           setCalendardata(res.data.result);
         });
     } catch (e) {
       setError(e);
-      console.log("에러 발생", e);
+      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -217,12 +221,12 @@ const Calendar = () => {
             if (i === 0) {
               // 일요일부터 시작했기 때문에 0번 째는 빨간색 글씨
               style = {
-                color: "#b57070",
+                color: '#b57070',
               };
             } else if (i === 6) {
               // 토요일은 파란색 글씨
               style = {
-                color: "#7070c3",
+                color: '#7070c3',
               };
             }
 
@@ -246,17 +250,17 @@ const Calendar = () => {
 
           if (validation && isSaturday(v.monthday)) {
             style = {
-              color: "#7070c3",
+              color: '#7070c3',
             };
           } else if (validation && isSunday(v.monthday)) {
             style = {
-              color: "#b57070",
+              color: '#b57070',
             };
           }
 
           return (
             <button
-              key={format(v.monthday, "yyyyMMdd")}
+              key={format(v.monthday, 'yyyyMMdd')}
               className={todayvalid ? styles.todaybutton : styles.datebutton}
               onClick={() => onClickdate(v.monthday)}
             >
@@ -265,14 +269,14 @@ const Calendar = () => {
                 style={style}
               >
                 <div className={styles.topLine}>
-                  <span className={styles.day}>{format(v.monthday, "d")}</span>
+                  <span className={styles.day}>{format(v.monthday, 'd')}</span>
                   {v.comment ? (
                     <div
                       className={validation ? styles.comment : styles.diffMonth}
                     >
                       {validation ? (
                         <input
-                          type="checkbox"
+                          type='checkbox'
                           id={v.comment}
                           value={v.comment}
                           checked={v.checked}

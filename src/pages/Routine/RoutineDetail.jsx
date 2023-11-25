@@ -19,6 +19,8 @@ const RoutineDetail = (props) => {
   const windowClose = () => {
     // window.close();
     props.setDetailPopup(false);
+    props.windowReload();
+    console.log('window close');
   };
 
   // const { id } = useParams();

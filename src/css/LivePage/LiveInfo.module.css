@@ -1,26 +1,24 @@
-/* .header {
-  margin-right: 20px;
+.header {
+  display: flex;
 }
-
-.livelogo {
-  margin-left: 40px;
-}
-
-.liveTitle {
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.participateNum {
-  float: right;
-  margin: 20px;
-  padding: 10px;
-} */
 
 .liveTitle {
   font-size: 20px;
   font-weight: 600;
-  padding-bottom: 15px;
+}
+
+.menuButton {
+  padding: 0;
+}
+
+.menuIcon {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.colorBox {
+  padding-left: 7px;
+  flex: 1;
 }
 
 .colorBox span {
@@ -48,3 +46,9 @@
   color: var(--white);
   padding: 3px 10px;
 }
+
+/* @media (min-width: 650px) {
+  .menuButton {
+    display: none;
+  }
+} */

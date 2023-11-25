@@ -24,20 +24,6 @@ export default function MyRoutine() {
     setMyroutineSearch(event.target.value);
   };
 
-  // const onPopup = (id) => {
-  //   const width = 500;
-  //   const height = 700;
-  //   const x = window.outerWidth / 2 - width / 2;
-  //   const y = window.outerHeight / 2 - height / 2;
-
-  //   const url = `/myroutindetail/${id}`;
-  //   window.open(
-  //     url,
-  //     'window_name',
-  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-  //   );
-  // };
-
   const onPopup = (routineId) => {
     setRoutineId(routineId);
     setIsRoutineDetailPopup(true);
@@ -104,7 +90,7 @@ export default function MyRoutine() {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
-  console.log(myroutinedata.result);
+  console.log('myroutine data: ', myroutinedata.result);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>my routine</div>
@@ -158,7 +144,7 @@ export default function MyRoutine() {
                   <div className={styles.hitBox}>
                     <span className={styles.dot}>∙</span>
                     <span className={styles.myhits}>
-                      조회수 {myroutine.routine.count}
+                      운동 횟수 {myroutine.routine.count}회
                     </span>
                   </div>
                 </div>

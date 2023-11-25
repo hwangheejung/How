@@ -3,9 +3,12 @@ import { useState } from 'react';
 import styles from '../../css/MyRoutine/MyRoutine.module.css';
 import { FaHeart } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
+import MyRoutineDetail from './MyRoutineDetail';
 
 export default function MyRoutineSearch() {
   const [type, setType] = useState(true);
+  const [isRoutineDetailPopup, setIsRoutineDetailPopup] = useState(false);
+  const [routineId, setRoutineId] = useState('');
 
   const navigate = useNavigate();
 
@@ -20,22 +23,11 @@ export default function MyRoutineSearch() {
     setType(true);
   };
 
-  const onPopup = (id) => {
-    //팝업 관리
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
-
-    const url = `/myroutindetail/${id}`;
-    window.open(
-      url,
-      'window_name',
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
-    //navigate(`/routindetail/${id}`, { state: { id } });
-    //myRoutine.document.write(id);
+  const onPopup = (routineId) => {
+    setRoutineId(routineId);
+    setIsRoutineDetailPopup(true);
   };
+
   let location = useLocation();
   const SearchArray = location.state.sArray;
   console.log(location.state.sArray);
@@ -75,7 +67,7 @@ export default function MyRoutineSearch() {
                 <div className={styles.hitBox}>
                   <span className={styles.dot}>∙</span>
                   <span className={styles.myhits}>
-                    조회수 {routine.routine.count}
+                    운동 횟수 {routine.routine.count}회
                   </span>
                 </div>
                 <div className={styles.createBox}>
@@ -109,6 +101,12 @@ export default function MyRoutineSearch() {
       <button className={styles.backbutton} onClick={onClick}>
         뒤로가기
       </button>
+      {isRoutineDetailPopup ? (
+        <MyRoutineDetail
+          setIsRoutineDetailPopup={setIsRoutineDetailPopup}
+          routineId={routineId}
+        />
+      ) : null}
     </div>
   );
 }

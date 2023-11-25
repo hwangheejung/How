@@ -19,68 +19,95 @@
 
 .root {
   box-sizing: border-box;
+  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   padding: 50px 20px;
 }
 
-.currentActionBox {
+.cover {
   width: 100%;
-  flex: 1;
-  box-sizing: border-box;
-  padding: 20px 0;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.currentActionBox {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  flex: 1;
 }
 
 .currentActionDetailBox {
-  /* border: 1px solid black; */
-  border-radius: 14px;
-  width: 160px;
-  height: 110px;
-  background-color: rgb(0, 0, 0, 0.5);
-  margin-left: 9px;
+  height: 100%;
+  width: 100%;
+}
+
+.startButtonBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .startButton {
-  width: 160px;
-  height: 110px;
-  font-size: 16px;
+  width: 140px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 30px;
   font-weight: 600;
-  color: #f4f4f4;
+  color: #000000;
   opacity: 0.8;
+  background-color: #00aa81;
 }
 
-/* 운동 순서 */
+.completeText {
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .sequenceBox {
   background-color: #000000;
-  width: 50px;
-  height: 210px;
+  height: 42px;
+  width: 50%;
+  max-width: 260px;
+  min-width: 210px;
   border-radius: 30px;
   opacity: 0.5;
-  padding-top: 5px;
-  /* padding: 0 10px; */
+  padding: 5px 10px;
   box-sizing: border-box;
-  overflow-y: auto;
-}
-
-.sequenceBox::-webkit-scrollbar {
-  width: 0px;
-  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  box-sizing: border-box;
 }
 
 .sequence {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: #666;
   border-radius: 100%;
   display: flex;
+  box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
   color: #999999;
-  margin: 0 auto;
   margin-bottom: 5px;
   cursor: pointer;
 }
@@ -89,4 +116,39 @@
   color: #ffffff;
   background-color: #00aa81;
   opacity: 1;
+  margin: 0;
+}
+
+.actionName {
+  font-size: 15px;
+  font-weight: 500;
+  padding-left: 10px;
+  color: #ffffff;
+}
+
+.actionImage {
+  width: 100%;
+}
+
+.actionVideo {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100%;
+}
+
+.endMassage {
+  padding-bottom: 10px;
+}
+
+@media (min-width: 650px) {
+  .middle {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+
+  .actionVideo {
+    flex: 1;
+  }
 }

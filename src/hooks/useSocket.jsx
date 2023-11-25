@@ -27,6 +27,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [routine, setRoutine] = useState();
   const [readyTimer, setReadyTimer] = useState(false);
   const [isownerbtn, setIsownerbn] = useState(false);
+  const [isParticipate, setIsParticipate] = useState(false);
   const [currentEx, setCurrentEx] = useState();
   const [finish, setFinish] = useState(true);
   const [plusset, setPlusset] = useState(1);
@@ -36,6 +37,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [isDecrease, setIsDecrease] = useState(false);
   const [isIncrease, setIsIncrease] = useState(false);
   const [isModifySend, setIsModifySend] = useState(false);
+
+  const [exFinish, setExFinish] = useState(false);
 
   const myMedia = useRef();
 
@@ -172,8 +175,20 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
         //운동 동작 받아오기
         client.subscribe('/room/ex/' + liveId, (data) => {
-          console.log('/room/ex', JSON.parse(data.body));
+          // console.log('/room/ex', JSON.parse(data.body));
+          // console.log(
+          //   'order',
+          //   JSON.parse(data.body).ex.routinneDetailResult.order
+          // );
+          if (
+            JSON.parse(data.body).ex.routinneDetailResult.order ===
+            JSON.parse(data.body).ex.actionCnt
+          ) {
+            setExFinish(true);
+          }
+          // if (!exFinish) {
           setCurrentEx(JSON.parse(data.body));
+          // }
         });
 
         client.subscribe('/room/leave/' + liveId, (data) => {
@@ -218,6 +233,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           let massage = JSON.parse(data.body).time;
           if (massage === 5) {
             setReadyTimer(!readyTimer);
+            setIsParticipate(false);
           } else if (massage.slice(0, 10) === 'set modify') {
             setIsModifySend(false);
             setIsModify(true);
@@ -242,6 +258,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     if (JSON.parse(isOwner)) {
       //라이브 owner라면 start 버튼 보여주기
       setIsownerbn(!isownerbtn);
+    } else {
+      setIsParticipate(true);
     }
   }, []);
 
@@ -433,42 +451,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     );
   };
 
-  // const socketRoutineChange = (liveRoutine) => {
-  //   client.send(
-  //     '/app/routine/' + liveId,
-  //     {},
-  //     JSON.stringify({
-  //       routId: 1,
-  //       name: '임시 루틴1',
-  //       hits: 0,
-  //       acionCnt: 7,
-  //       cate: ['전신', '상체'],
-  //       routineDetails: [
-  //         {
-  //           id: 1,
-  //           type: 0,
-  //           count: 3,
-  //           time: null,
-  //           order: 1,
-  //           set: 2,
-  //           rest: 10,
-  //           exName: 'push up(푸시업)',
-  //         },
-  //         {
-  //           id: 2,
-  //           type: 1,
-  //           count: null,
-  //           time: 20,
-  //           order: 2,
-  //           set: 1,
-  //           rest: 20,
-  //           exName: '점핑 잭 (팔 벌려 뛰기)',
-  //         },
-  //       ],
-  //     })
-  //   );
-  // };
-
   return [
     participateNum,
     myMedia,
@@ -506,5 +488,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     isModifySend,
     setIsModifySend,
     socketRoutineChange,
+    exFinish,
+    setIsParticipate,
+    isParticipate,
   ];
 }

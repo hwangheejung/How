@@ -1,16 +1,28 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../css/LivePage/LiveInfo.module.css';
+import { BiMenuAltRight } from 'react-icons/bi';
 
-export default function LiveInfo({ liveTitle, participateNum }) {
+export default function LiveInfo({
+  liveTitle,
+  participateNum,
+  setOpenAllRoutine,
+}) {
   return (
     <div className={styles.header}>
+      {/* <div className={styles.titleMenuBar}> */}
       <div className={styles.liveTitle}> {liveTitle}</div>
       <div className={styles.colorBox}>
         <span className={styles.liveText}>live</span>
         <span className={styles.participateNum}>{participateNum}/6</span>
       </div>
+      <button
+        className={styles.menuButton}
+        onClick={() => setOpenAllRoutine((prev) => !prev)}
+      >
+        <BiMenuAltRight className={styles.menuIcon} />
+      </button>
+
+      {/* </div> */}
     </div>
   );
 }

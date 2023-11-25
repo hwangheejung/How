@@ -5,7 +5,7 @@ import styles from '../../css/LivePage/Videos.module.css';
 export default function Videos({ myMedia, myInfo, streams, nicknames }) {
   return (
     <div className={styles.videoContainer}>
-      <div className={styles.videoInfo}>
+      <div className={styles.video}>
         <video
           className={styles.v}
           playsInline
@@ -13,7 +13,7 @@ export default function Videos({ myMedia, myInfo, streams, nicknames }) {
           autoPlay
           // style={{ width: '400px', height: '400px' }}
         />
-        <div className={styles.nickname}>{myInfo.nickname}</div>
+        {/* <div className={styles.nickname}>{myInfo.nickname}</div> */}
       </div>
       {streams.map((streamInfo, index) => (
         <Video key={index} streamInfo={streamInfo} nicknames={nicknames} />

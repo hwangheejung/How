@@ -1,29 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../css/Live/LiveList.module.css';
+import LiveDetail from './LiveDetail';
 
 const LiveSearch = () => {
+  const [isLiveDetail, setIsLiveDetail] = useState(false);
+  const [live, setLive] = useState({
+    rotuineId: '',
+    liveId: '',
+    livesubject: '',
+    livenick: '',
+  });
+  const [roomId, setRoomId] = useState('');
+  const [isParticipateSetting, setIsParticipateSetting] = useState(false);
 
-  
   const navigate = useNavigate();
 
   const onClick = () => {
     navigate('/live/list');
   };
 
-  const onPopupdetail = (id) => {
-    const width = 500;
-    const height = 700;
-    const x = window.outerWidth / 2 - width / 2;
-    const y = window.outerHeight / 2 - height / 2;
-
-    const url = `/livedetail/${id}`;
-    window.open(
-      url,
-      'window_name',
-      `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-    );
+  const onPopupdetail = (routineId, liveId, livesubject, livenick) => {
+    setIsLiveDetail((prev) => !prev);
+    setLive({ routineId, liveId, livesubject, livenick });
   };
+
+  const onLiveDetailClose = () => {
+    setIsLiveDetail((prev) => !prev);
+  };
+
   let location = useLocation();
   const SearchArray = location.state.sArray;
   return (
@@ -39,7 +44,9 @@ const LiveSearch = () => {
             key={live.id}
             type='button'
             className={styles.LiveClick}
-            onClick={() => onPopupdetail(live.id)}
+            onClick={() =>
+              onPopupdetail(live.routineId, live.id, live.subject, live.nick)
+            }
           >
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>
@@ -51,6 +58,14 @@ const LiveSearch = () => {
       <button className={styles.backbutton} onClick={onClick}>
         뒤로가기
       </button>
+      {isLiveDetail ? (
+        <LiveDetail
+          onLiveDetailClose={onLiveDetailClose}
+          live={live}
+          setIsParticipateSetting={setIsParticipateSetting}
+          setRoomId={setRoomId}
+        />
+      ) : null}
     </div>
   );
 };
