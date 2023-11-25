@@ -1,4 +1,4 @@
-@media (max-width: 576px) {
+@media (max-width: 650px) {
   .header {
     width: 400px;
     height: 840px;
@@ -130,7 +130,7 @@
     margin-right: 10px;
   }
 }
-@media (min-width: 575px) {
+@media (min-width: 649px) {
   .header {
     height: 100%;
     background: var(--white);

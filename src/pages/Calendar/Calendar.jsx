@@ -22,7 +22,6 @@ import {
 } from 'date-fns';
 import { CiCircleChevLeft, CiCircleChevRight } from 'react-icons/ci';
 import AddExCalendar from './AddExCalendar';
-import { setMonth } from 'date-fns/esm';
 
 const Calendar = () => {
   const [mycalendardata, setCalendardata] = useState();
@@ -31,10 +30,10 @@ const Calendar = () => {
 
   const today = new Date();
   const [current, setCurrent] = useState(new Date());
-  const monthStart = startOfMonth(current); //이번달 첫날 요일
-  const monthEnd = endOfMonth(current); //이번달 마지막날 요일
-  const startDate = startOfWeek(monthStart);
-  const endDate = endOfWeek(monthEnd);
+  const monthStart = useMemo(() => startOfMonth(current), [current]); //이번달 첫날 요일
+  const monthEnd = useMemo(() => endOfMonth(current), [current]); //이번달 마지막날 요일
+  const startDate = useMemo(() => startOfWeek(monthStart), [current]);
+  const endDate = useMemo(() => endOfWeek(monthEnd), [current]);
   const months = [
     //달 표시
     '1월',
@@ -57,13 +56,23 @@ const Calendar = () => {
 
   //모달창
   const [isCalendarInsert, setIsCalendarInsert] = useState(false);
-  const [clickdate, setClickDate] = useState();
+  const [clickdate, setClickDate] = useState({
+    monthday: '',
+    comment: '',
+    checked: '',
+  });
 
   //api로 받아온걸 띄우기 위한 변수
 
   const [clickmonth, setclickmonth] = useState(false);
 
-  const [monthCalendar, setMonthCalendar] = useState([]);
+  const [monthCalendar, setMonthCalendar] = useState([
+    {
+      monthday: '',
+      comment: '',
+      checked: '',
+    },
+  ]);
 
   const onPrevMonth = () => {
     //이전달
@@ -99,21 +108,32 @@ const Calendar = () => {
     }
     setclickmonth(!clickmonth);
   };
-  const createMonth = useMemo(() => {
+
+  useEffect(() => {
     const monthArray = [];
     let day = startDate;
     // console.log(monthStart);
     while (differenceInCalendarDays(endDate, day) >= 0) {
-      monthArray.push({ monthday: day, comment: null });
+      monthArray.push({ monthday: day, comment: null, checked: false });
       day = addDays(day, 1);
     }
+    setMonthCalendar(monthArray);
+    setclickmonth(!clickmonth);
+  }, [current]);
 
-    return monthArray;
-  }, [startDate, endDate]);
-  const onClickdate = (v) => {
-    if (today.getTime() < v.getTime() || today.getTime() === v.getTime()) {
+  const isSameDate = (target1, target2) => {
+    //오늘과 클릭한 날짜가 같은지 확인하는 함수
+    return (
+      target1.getFullYear() === target2.getFullYear() &&
+      target1.getMonth() === target2.getMonth() &&
+      target1.getDate() === target2.getDate()
+    );
+  };
+  const onClickdate = (monthday, comment, checked) => {
+    //클릭했을때 모달창 띄우기
+    if (today < monthday || isSameDate(today, monthday)) {
       setIsCalendarInsert(!isCalendarInsert);
-      setClickDate(v);
+      setClickDate({ monthday: monthday, comment: comment, checked: checked });
     }
   };
   const onCalendarDetailClose = () => {
@@ -146,13 +166,6 @@ const Calendar = () => {
   }, []);
 
   useEffect(() => {
-    setMonthCalendar(createMonth);
-    // console.log("렌더링");
-  }, [current]);
-  // console.log(createMonth);
-  console.log('cal', monthCalendar);
-
-  useEffect(() => {
     for (let i = 0; i < monthCalendar.length; i++) {
       // console.log(createMonth[i].monthday);
       for (let j = 0; j < mycalendardata?.length; j++) {
@@ -163,16 +176,14 @@ const Calendar = () => {
           getMonth(monthCalendar[i].monthday) === getMonth(xx) &&
           getDate(monthCalendar[i].monthday) === getDate(xx)
         ) {
-          console.log('성공');
-          // monthCalendar[i] = {
-          //   ...monthCalendar[i],
-          //   comment: mycalendardata[j].name,
-          // };
-          // setMonthCalendar(monthCalendar);
           setMonthCalendar((prev) =>
             prev.map((item, index) => {
               if (index === i) {
-                return { ...item, comment: mycalendardata[j].name };
+                return {
+                  ...item,
+                  comment: mycalendardata[j].name,
+                  checked: mycalendardata[j].isCheck,
+                };
               } else {
                 return item;
               }
@@ -182,8 +193,7 @@ const Calendar = () => {
         }
       }
     }
-    console.log('렌더링');
-  }, [current, mycalendardata]);
+  }, [clickmonth, mycalendardata]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
@@ -230,7 +240,7 @@ const Calendar = () => {
       </div>
       <div className={styles.dateContainer}>
         {monthCalendar.map((v, i) => {
-          console.log(v.comment);
+          // console.log(v.comment);
           let style;
           const validation = getMonth(current) === getMonth(v.monthday);
           const todayvalid =
@@ -260,7 +270,22 @@ const Calendar = () => {
               >
                 <div className={styles.topLine}>
                   <span className={styles.day}>{format(v.monthday, 'd')}</span>
-                  <span>{v.comment}</span>
+                  {v.comment ? (
+                    <div
+                      className={validation ? styles.comment : styles.diffMonth}
+                    >
+                      {validation ? (
+                        <input
+                          type='checkbox'
+                          id={v.comment}
+                          value={v.comment}
+                          checked={v.checked}
+                        />
+                      ) : null}
+
+                      <label htmlFor={v.comment}>{v.comment}</label>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </button>

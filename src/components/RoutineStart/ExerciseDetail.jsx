@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import styles from '../../css/RoutineStart/ExerciseDetail.module.css';
-import axios from 'axios';
+import { React, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import styles from "../../css/RoutineStart/ExerciseDetail.module.css";
+import axios from "axios";
 
 const ExerciseDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
