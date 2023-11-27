@@ -19,6 +19,8 @@ const LiveExStart = (props) => {
   const currentname = props.currentEx.ex.routinneDetailResult.ex.name;
   const currentdesc = props.currentEx.ex.routinneDetailResult.ex.desc;
   const currentexerciseset = props.currentEx.ex.routinneDetailResult.set;
+  const currentExOrder = props.currentEx.ex.routinneDetailResult.order;
+  const currentExAcriontCnt = props.currentEx.ex.actionCnt;
 
   const getTimer = () => {
     props.setFinish(!props.finish);
@@ -30,9 +32,13 @@ const LiveExStart = (props) => {
     if (currentrest === 0) {
       // console.log('currentrest === 0');
       if (props.plusset + 1 === currentexerciseset + 1) {
+        if (currentExOrder === currentExAcriontCnt) {
+          props.socketRoutineFinish();
+        } else {
+          props.onNoRestSetDone();
+        }
         // console.log('plusset', props.plusset);
         // console.log('currentexerciseset', currentexerciseset);
-        props.onNoRestSetDone();
       } else {
         props.onNoRest();
       }
@@ -54,16 +60,18 @@ const LiveExStart = (props) => {
   };
 
   const getrestfinish = () => {
+    console.log('after rest plusset: ', props.plusset);
+    console.log('after rest totalSet+1: ', currentexerciseset + 1);
     props.setFinish(!props.finish);
     if (props.plusset === currentexerciseset + 1) {
-      if (
-        props.currentEx.ex.routinneDetailResult.order !==
-        props.currentEx.ex.actionCnt
-      ) {
+      if (currentExOrder === currentExAcriontCnt) {
+        props.socketRoutineFinish();
+      } else {
         props.getTimer();
-        //console.log("성공");
         props.setPlusset(1);
       }
+      // props.setPlusset((plusset) => plusset + 1);
+      //console.log("성공");
     }
     // if (plusset === currentexerciseset + 1) {
     //   console.log('성공');
@@ -92,6 +100,10 @@ const LiveExStart = (props) => {
                 <LiveTimer
                   time={currenttime}
                   getTimer={getTimer}
+                  showBtn={props.showBtn}
+                  stopbutton={props.stopbutton}
+                  socketTimerStop={props.socketTimerStop}
+                  socketTimerReset={props.socketTimerReset}
                   // stopbutton={props.stopbutton}
                   // stopTimer={props.stopTimer}
                   // restartTimer={props.restartTimer}
@@ -118,9 +130,11 @@ const LiveExStart = (props) => {
                 {/* <div className={styles.countNext}> */}
                 <div className={styles.count}>{currentcount}개 </div>
                 {/* </div> */}
-                <button className={styles.button} onClick={onClick}>
-                  Next
-                </button>
+                {props.showBtn ? (
+                  <button className={styles.button} onClick={onClick}>
+                    Next
+                  </button>
+                ) : null}
               </div>
             ) : (
               currentrest !== 0 && (

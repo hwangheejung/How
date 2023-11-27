@@ -20,6 +20,7 @@ export default function AllRoutine({
   setIsModifySend,
   socketRoutineChange,
   setOpenAllRoutine,
+  showBtn,
 }) {
   const [selectedAction, setSelectedAction] = useState();
 
@@ -38,7 +39,7 @@ export default function AllRoutine({
   }, [isModify, modifyActionId]);
 
   const handleActionModify = (routineActionId) => {
-    socketSetModify(routineActionId);
+    if (showBtn) socketSetModify(routineActionId);
   };
 
   // console.log('routine: ', routine);
@@ -66,7 +67,9 @@ export default function AllRoutine({
               <div className={styles.detailModify}>
                 <div
                   key={detail.id}
-                  className={styles.routineDetail}
+                  className={`${styles.routineDetail} ${
+                    !showBtn && styles.noModify
+                  }`}
                   onClick={() => handleActionModify(detail.id)}
                 >
                   <span className={styles.sequence}>{index + 1}</span>
@@ -91,7 +94,8 @@ export default function AllRoutine({
                 </div>
                 {isModify &&
                   selectedAction &&
-                  selectedAction.id === detail.id && (
+                  selectedAction.id === detail.id &&
+                  showBtn && (
                     <ActionModify
                       // setIsModify={setIsModify}
                       routine={routine}
@@ -112,7 +116,9 @@ export default function AllRoutine({
               <div className={styles.detailModify}>
                 <div
                   key={detail.id}
-                  className={styles.routineDetail}
+                  className={`${styles.routineDetail} ${
+                    !showBtn && styles.noModify
+                  }`}
                   onClick={() => handleActionModify(detail.id)}
                 >
                   <span className={styles.sequence}>{index + 1}</span>
@@ -137,7 +143,8 @@ export default function AllRoutine({
                 </div>
                 {isModify &&
                   selectedAction &&
-                  selectedAction.id === detail.id && (
+                  selectedAction.id === detail.id &&
+                  showBtn && (
                     <ActionModify
                       // setIsModify={setIsModify}
                       routine={routine}
