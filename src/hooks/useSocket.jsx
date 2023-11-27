@@ -39,6 +39,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [isModifySend, setIsModifySend] = useState(false);
 
   const [exFinish, setExFinish] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
+  const [stopbutton, setStopbutton] = useState(true);
 
   const myMedia = useRef();
 
@@ -108,7 +110,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
               alert('라이브가 종료되었습니다!');
               myPeer.destroy();
               client.disconnect();
-              navigate('/live/list');
+              // navigate('/live/list');
+              window.location.replace('/live/list');
             }
           } else {
             if (myPeerId !== JSON.parse(data.body).sdp) {
@@ -180,14 +183,9 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           //   'order',
           //   JSON.parse(data.body).ex.routinneDetailResult.order
           // );
-          if (
-            JSON.parse(data.body).ex.routinneDetailResult.order ===
-            JSON.parse(data.body).ex.actionCnt
-          ) {
-            setExFinish(true);
-          }
-          // if (!exFinish) {
+          console.log('current ex');
           setCurrentEx(JSON.parse(data.body));
+          // if (!exFinish) {
           // }
         });
 
@@ -246,10 +244,31 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
             setIsDecrease((prev) => !prev);
           } else if (massage === 'modify increase') {
             setIsIncrease((prev) => !prev);
+          } else if (massage === 'stop timer') {
+            setStopbutton(false);
+          } else if (massage === 'reset timer') {
+            setStopbutton(true);
+          } else if (massage === 'routine finish') {
+            setExFinish(true);
+            // console.log('routine finish isOwner: ', isOwner);
+            // console.log('routine finish routine: ', routine);
+            // if (isOwner) {
+            //   axios
+            //     .get(
+            //       `https://52.78.0.53.sslip.io/api/ex-routines/${routine.routId}/me`,
+            //       {},
+            //       {
+            //         headers: { Authorization: `Bearer ${getCookieToken()}` },
+            //       }
+            //     )
+            //     .then((res) => {
+
+            //     });
+            // }
           }
         });
 
-        client.subscribe('/room/ready/' + liveId, (data) => {});
+        // client.subscribe('/room/ready/' + liveId, (data) => {});
       },
       () => {
         console.log('error occured');
@@ -258,8 +277,10 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     if (JSON.parse(isOwner)) {
       //라이브 owner라면 start 버튼 보여주기
       setIsownerbn(!isownerbtn);
+      setShowBtn(true);
     } else {
       setIsParticipate(true);
+      setShowBtn(false);
     }
   }, []);
 
@@ -298,7 +319,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
       myPeer.destroy();
       client.disconnect();
     } else {
-      // 라이브 퇴장
+      // 라이브 퇴장e
       axios
         .delete(
           'https://52.78.0.53.sslip.io/api/lives/participates/' + liveId,
@@ -323,7 +344,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
       client.disconnect();
       alert('라이브에서 퇴장하셨습니다.');
     }
-    navigate('/live/list');
+    // navigate('/live/list');
+    window.location.replace('/live/list');
   };
 
   const handleStart = () => {
@@ -340,7 +362,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const getReadyTimer = () => {
     setReadyTimer(!readyTimer); //ready timer 숨기기
-    console.log('getReadyTimer');
     if (JSON.parse(isOwner)) {
       client.send(
         //첫번째 동작 보내기
@@ -451,6 +472,36 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     );
   };
 
+  const socketTimerStop = () => {
+    client.send(
+      '/app/ready/' + liveId,
+      {},
+      JSON.stringify({
+        time: `stop timer`,
+      })
+    );
+  };
+
+  const socketTimerReset = () => {
+    client.send(
+      '/app/ready/' + liveId,
+      {},
+      JSON.stringify({
+        time: `reset timer`,
+      })
+    );
+  };
+
+  const socketRoutineFinish = () => {
+    client.send(
+      '/app/ready/' + liveId,
+      {},
+      JSON.stringify({
+        time: `routine finish`,
+      })
+    );
+  };
+
   return [
     participateNum,
     myMedia,
@@ -489,7 +540,11 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     setIsModifySend,
     socketRoutineChange,
     exFinish,
-    setIsParticipate,
     isParticipate,
+    showBtn,
+    stopbutton,
+    socketTimerStop,
+    socketTimerReset,
+    socketRoutineFinish,
   ];
 }

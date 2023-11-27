@@ -80,6 +80,11 @@
   cursor: pointer;
 }
 
+.noModify:hover {
+  border: none;
+  cursor: default;
+}
+
 .sequence {
   font-size: 17px;
   font-weight: 700;

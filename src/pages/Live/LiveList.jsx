@@ -1,32 +1,32 @@
-import React, { useTransition } from "react";
-import { useState, useEffect } from "react";
-import styles from "../../css/Live/LiveList.module.css";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineSearch, AiOutlinePlusSquare } from "react-icons/ai";
-import axios from "axios";
-import LiveDetail from "./LiveDetail";
-import MakeLive from "./MakeLive";
-import OwnerLiveSetting from "./OwnerLiveSetting";
-import LiveSetting from "./LiveSetting";
+import React, { useTransition } from 'react';
+import { useState, useEffect } from 'react';
+import styles from '../../css/Live/LiveList.module.css';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineSearch, AiOutlinePlusSquare } from 'react-icons/ai';
+import axios from 'axios';
+import LiveDetail from './LiveDetail';
+import MakeLive from './MakeLive';
+import OwnerLiveSetting from './OwnerLiveSetting';
+import LiveSetting from './LiveSetting';
 
 export default function LiveList() {
   const [livedata, setLivedata] = useState([]); //live data가져오기
   const [loading, setLoading] = useState(false); //
   const [error, setError] = useState(null);
-  const [liveSearch, setliveSearch] = useState(""); //live 검색어
+  const [liveSearch, setliveSearch] = useState(''); //live 검색어
 
   // 모달창
   const [isLiveDetail, setIsLiveDetail] = useState(false);
   const [live, setLive] = useState({
-    rotuineId: "",
-    liveId: "",
-    livesubject: "",
-    livenick: "",
+    rotuineId: '',
+    liveId: '',
+    livesubject: '',
+    livenick: '',
   });
   const [isMakeLive, setMakeLive] = useState(false);
   const [isOwnerSetting, setIsOwnerSetting] = useState(false);
-  const [roomId, setRoomId] = useState("");
-  const [subject, setSubject] = useState("");
+  const [roomId, setRoomId] = useState('');
+  const [subject, setSubject] = useState('');
   const [isParticipateSetting, setIsParticipateSetting] = useState(false);
 
   const [searchbool, setSearchbool] = useState(false); //검색 여부
@@ -52,7 +52,7 @@ export default function LiveList() {
   };
 
   const onPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       let sArray = livedata.filter(
         (search) =>
           search.subject.includes(liveSearch) ||
@@ -89,7 +89,7 @@ export default function LiveList() {
       setLoading(null);
       setError(null);
 
-      const response = await axios.get("https://52.78.0.53.sslip.io/api/lives");
+      const response = await axios.get('https://52.78.0.53.sslip.io/api/lives');
       // const response = await axios.get(
       //   'http://52.78.0.53.sslip.io:8080/api/lives'
       // );
@@ -104,6 +104,7 @@ export default function LiveList() {
   useEffect(() => {
     fetchLive();
   }, [reloading]);
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!livedata) return <div>null</div>;
@@ -113,9 +114,9 @@ export default function LiveList() {
         <div className={styles.liveTitleBox}>
           <div className={styles.Live}>how live</div>
           <img
-            src="/liveIcon.png"
-            alt="live icon"
-            style={{ width: "30px", height: "23px" }}
+            src='/liveIcon.png'
+            alt='live icon'
+            style={{ width: '30px', height: '23px' }}
           />
         </div>
         <button className={styles.insertLive} onClick={onPopupMakeLive}>
@@ -124,9 +125,9 @@ export default function LiveList() {
       </div>
       <div className={styles.searchContainer}>
         <input
-          type="text"
+          type='text'
           className={styles.routinesearch}
-          placeholder="Search"
+          placeholder='Search'
           value={liveSearch}
           onChange={SearchValue}
           onKeyPress={onPress}
@@ -137,7 +138,7 @@ export default function LiveList() {
       </div>
       <div className={styles.Livearr}>
         {livedata?.map((live) => (
-          <div key={live.id} type="button" className={styles.LiveClick}>
+          <div key={live.id} type='button' className={styles.LiveClick}>
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>
               <div className={styles.nick}>{live.nick}</div>
