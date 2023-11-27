@@ -173,24 +173,17 @@ const Calendar = () => {
     setIsCalendarInsert((prev) => !prev);
   };
   const onHandleCheck = (checked, id) => {
-    console.log(typeof checked);
-    console.log(id);
     axios
-      .patch(
-        `https://52.78.0.53.sslip.io/api/calendars/${id} `,
-        {
-          chk: checked,
-        },
-        {
-          headers: { Authorization: `Bearer ${getCookieToken()}` },
-        }
-      )
+      .patch(`https://52.78.0.53.sslip.io/api/calendars/${id} `, {
+        chk: checked,
+      })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
       })
       .catch((error) => {
         console.error(error);
       });
+    window.location.reload();
   };
   const fetchroutine = async () => {
     try {
@@ -347,7 +340,7 @@ const Calendar = () => {
                             {validation ? (
                               <input
                                 type="checkbox"
-                                id={v.comment}
+                                id={i}
                                 value={v.comment}
                                 checked={v.checked}
                                 onChange={(e) => {
