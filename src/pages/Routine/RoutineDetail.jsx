@@ -1,13 +1,13 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 //import { useLocation } from "react-router-dom";
-import styles from '../../css/Routine/RoutineDetailPopup.module.css';
-import { IoIosTimer } from 'react-icons/io';
-import { getCookieToken } from '../../store/Cookie';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import styles from "../../css/Routine/RoutineDetailPopup.module.css";
+import { IoIosTimer } from "react-icons/io";
+import { getCookieToken } from "../../store/Cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 
 const RoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -20,7 +20,7 @@ const RoutineDetail = (props) => {
     // window.close();
     props.setDetailPopup(false);
     props.windowReload();
-    console.log('window close');
+    console.log("window close");
   };
 
   // const { id } = useParams();

@@ -42,6 +42,24 @@ const AddExCalendar = (props) => {
     // console.log(routineid); //선택한 루틴 아이디
   };
 
+  const onHandleCheck = (checked, id) => {
+    console.log(checked);
+    console.log(id);
+    axios
+      .patch(
+        `https://52.78.0.53.sslip.io/api/calendars/${id} `,
+        {
+          chk: checked,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
   // const CalendarCreate = (date, routineid) => {
   //   props.onCalendarDetailClose(false);
   // };
@@ -96,9 +114,15 @@ const AddExCalendar = (props) => {
                         className={styles.input}
                         id={props.clickdate.comment}
                         value={props.clickdate.comment}
+                        onChange={(e) => {
+                          onHandleCheck(
+                            e.currentTarget.checked,
+                            props.clickdate.id
+                          );
+                        }}
                         checked={props.clickdate.checked}
                       />
-                      <label for={props.clickdate.comment}>
+                      <label htmlFor={props.clickdate.comment}>
                         {props.clickdate.comment}
                       </label>
                     </div>

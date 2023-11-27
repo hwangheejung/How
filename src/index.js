@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <OwnerLiveSetting />,
       },
       { path: `/start/:id`, element: <StartScreen /> },
-      { path: `/startex/:id`, element: <Startex /> },
+      { path: `/startex/:routid/:id`, element: <Startex /> },
       { path: `/readyTimer/:id`, element: <ReadyTimer /> },
     ],
   },

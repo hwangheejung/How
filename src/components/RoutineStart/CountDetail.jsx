@@ -1,7 +1,8 @@
-import { React, useState, useEffect } from 'react';
-import styles from '../../css/Timer/readyTimer.module.css';
-import { useNavigate } from 'react-router-dom';
-import Timer from './Timer';
+import { React, useState, useEffect } from "react";
+import styles from "../../css/Timer/readyTimer.module.css";
+import { useNavigate } from "react-router-dom";
+import Timer from "./Timer";
+import { GrPowerReset } from "react-icons/gr";
 
 const CountDetail = (props) => {
   const [finish, setfinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
@@ -19,7 +20,7 @@ const CountDetail = (props) => {
     //운동 reset
     setPlusset(1); //set를 1로 초기화
     props.getIndex(100); //없는 index를 넘겨 index 초기화
-    navigate(`/startex/${props.routid}`);
+    navigate(`/startex/${props.routid}/${props.id}`);
     props.getReadyTimer();
   };
   const getrestfinish = () => {
@@ -34,27 +35,33 @@ const CountDetail = (props) => {
     <div>
       {finish ? ( //countfinish가 1일 경우 운동 개수 실행
         <div className={styles.ReadyTimer}>
-          <div>{props.name}</div>
-          <div>
-            {plusset}/{props.set}
+          <div className={styles.set}>
+            set {plusset}/{props.set}
           </div>
 
-          <div>{props.count}</div>
-          <button className={styles.button} onClick={onClick}>
-            complete
-          </button>
+          <div className={styles.count}>{props.count}</div>
+          <div className={styles.ButtonBox}>
+            <button className={styles.button} onClick={onClick}>
+              Next
+            </button>
+          </div>
         </div>
       ) : (
         //complete를 누르면 restTimer 수행
-        <Timer
-          time={props.restTime}
-          getfinish={getrestfinish}
-          finish={finish}
-        />
+        <div className={styles.ReadyTimer}>
+          rest time
+          <Timer
+            time={props.restTime}
+            getfinish={getrestfinish}
+            finish={finish}
+          />
+        </div>
       )}
-      <button onClick={onClickreset} className={styles.button}>
-        reset
-      </button>
+      <div className={styles.ButtonBox}>
+        <button onClick={onClickreset} className={styles.resetbutton}>
+          <GrPowerReset />
+        </button>
+      </div>
     </div>
   );
 };

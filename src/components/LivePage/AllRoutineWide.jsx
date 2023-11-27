@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../../css/LivePage/AllRoutineWide.module.css';
-import ActionModify from '../LiveExercise/ActionModify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
+import styles from "../../css/LivePage/AllRoutineWide.module.css";
+import ActionModify from "../LiveExercise/ActionModify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllRoutineWide({
   routine,
@@ -26,7 +26,7 @@ export default function AllRoutineWide({
 
   const currentActionId = currentEx
     ? currentEx.ex.routinneDetailResult.ex.id
-    : '';
+    : "";
 
   useEffect(() => {
     if (isModify) {
