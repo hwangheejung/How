@@ -9,6 +9,8 @@ import AllRoutine from '../../components/LivePage/AllRoutine';
 import Bottom from '../../components/LivePage/Bottom';
 import useSocket from '../../hooks/useSocket';
 import AllRoutineWide from '../../components/LivePage/AllRoutineWide';
+import { getCookieToken } from '../../store/Cookie';
+import axios from 'axios';
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -51,13 +53,39 @@ export default function LivePage() {
     setIsModifySend,
     socketRoutineChange,
     exFinish,
-    setIsParticipate,
     isParticipate,
+    showBtn,
+    stopbutton,
+    socketTimerStop,
+    socketTimerReset,
+    socketRoutineFinish,
   ] = useSocket({ liveId, camera, audio, isOwner });
 
   const sequenceRef = useRef(null);
   const [openAllRoutine, setOpenAllRoutine] = useState(false);
 
+  const exUpdate = (routineId) => {
+    console.log('axios routine: ', routine);
+    console.log('axios isOwner: ', isOwner);
+    console.log('axios exfinish: ', exFinish);
+
+    console.log('exUpdate');
+    axios
+      .get(`https://52.78.0.53.sslip.io/api/ex-routines/${routineId}/me`, {
+        headers: { Authorization: `Bearer ${getCookieToken()}` },
+      })
+      .then((res) => {
+        console.log('routine finish response: ', res);
+      });
+  };
+
+  useEffect(() => {
+    if (exFinish && isOwner) {
+      exUpdate(routine.routId);
+    }
+  }, [exFinish]);
+
+  // console.log('isOwner: ', isOwner);
   console.log('currentEx', currentEx);
   console.log('routineDetail', routine);
 
@@ -130,6 +158,11 @@ export default function LivePage() {
                     setFinish={setFinish}
                     plusset={plusset}
                     setPlusset={setPlusset}
+                    showBtn={showBtn}
+                    stopbutton={stopbutton}
+                    socketTimerStop={socketTimerStop}
+                    socketTimerReset={socketTimerReset}
+                    socketRoutineFinish={socketRoutineFinish}
                     // exFinish={exFinish}
                     // stopbutton={stopbutton}
                     // stopTimer={stopTimer}
@@ -186,6 +219,7 @@ export default function LivePage() {
             socketRoutineChange={socketRoutineChange}
             setOpenAllRoutine={setOpenAllRoutine}
             openAllRoutine={openAllRoutine}
+            showBtn={showBtn}
           />
         </div>
         {openAllRoutine ? (
@@ -205,6 +239,7 @@ export default function LivePage() {
             setIsModifySend={setIsModifySend}
             socketRoutineChange={socketRoutineChange}
             setOpenAllRoutine={setOpenAllRoutine}
+            showBtn={showBtn}
           />
         ) : null}
       </div>

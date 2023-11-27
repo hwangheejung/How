@@ -21,6 +21,7 @@ export default function AllRoutineWide({
   socketRoutineChange,
   setOpenAllRoutine,
   openAllRoutine,
+  showBtn,
 }) {
   const [selectedAction, setSelectedAction] = useState();
 
@@ -38,7 +39,7 @@ export default function AllRoutineWide({
   }, [isModify, modifyActionId]);
 
   const handleActionModify = (routineActionId) => {
-    socketSetModify(routineActionId);
+    if (showBtn) socketSetModify(routineActionId);
   };
 
   return (
@@ -46,13 +47,21 @@ export default function AllRoutineWide({
       className={`${styles.allRoutinePopup} ${openAllRoutine && styles.show}`}
     >
       <div className={styles.allRoutine}>
+        <div
+          className={styles.closeButton}
+          onClick={() => setOpenAllRoutine((prev) => !prev)}
+        >
+          X
+        </div>
         <div className={styles.routineDetails}>
           {routine?.routineDetails?.map((detail, index) =>
             detail.type ? (
               <div className={styles.detailModify}>
                 <div
                   key={detail.id}
-                  className={styles.routineDetail}
+                  className={`${styles.routineDetail} ${
+                    !showBtn && styles.noModify
+                  }`}
                   onClick={() => handleActionModify(detail.id)}
                 >
                   <span className={styles.sequence}>{index + 1}</span>
@@ -77,7 +86,8 @@ export default function AllRoutineWide({
                 </div>
                 {isModify &&
                   selectedAction &&
-                  selectedAction.id === detail.id && (
+                  selectedAction.id === detail.id &&
+                  showBtn && (
                     <ActionModify
                       // setIsModify={setIsModify}
                       routine={routine}
@@ -98,7 +108,9 @@ export default function AllRoutineWide({
               <div className={styles.detailModify}>
                 <div
                   key={detail.id}
-                  className={styles.routineDetail}
+                  className={`${styles.routineDetail} ${
+                    !showBtn && styles.noModify
+                  }`}
                   onClick={() => handleActionModify(detail.id)}
                 >
                   <span className={styles.sequence}>{index + 1}</span>
@@ -123,7 +135,8 @@ export default function AllRoutineWide({
                 </div>
                 {isModify &&
                   selectedAction &&
-                  selectedAction.id === detail.id && (
+                  selectedAction.id === detail.id &&
+                  showBtn && (
                     <ActionModify
                       // setIsModify={setIsModify}
                       routine={routine}
