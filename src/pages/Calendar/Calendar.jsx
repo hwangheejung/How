@@ -57,6 +57,7 @@ const Calendar = () => {
   //모달창
   const [isCalendarInsert, setIsCalendarInsert] = useState(false);
   const [clickdate, setClickDate] = useState({
+    id: "",
     monthday: "",
     comment: "",
     checked: "",
@@ -68,6 +69,7 @@ const Calendar = () => {
 
   const [monthCalendar, setMonthCalendar] = useState([
     {
+      id: "",
       monthday: "",
       comment: "",
       checked: "",
@@ -139,18 +141,28 @@ const Calendar = () => {
       target1.getDate() === target2.getDate()
     );
   };
-  const onClickdate = (monthday, comment, checked) => {
+  const onClickdate = (id, monthday, comment, checked) => {
     //클릭했을때 모달창 띄우기
     if (today < monthday || isSameDate(today, monthday)) {
       setIsCalendarInsert(!isCalendarInsert);
       setBeforeToday(true);
-      setClickDate({ monthday: monthday, comment: comment, checked: checked });
+      setClickDate({
+        id: id,
+        monthday: monthday,
+        comment: comment,
+        checked: checked,
+      });
     }
   };
 
-  const mobileonClickdate = (monthday, comment, checked) => {
+  const mobileonClickdate = (id, monthday, comment, checked) => {
     setIsCalendarInsert(!isCalendarInsert);
-    setClickDate({ monthday: monthday, comment: comment, checked: checked });
+    setClickDate({
+      id: id,
+      monthday: monthday,
+      comment: comment,
+      checked: checked,
+    });
     if (today > monthday) {
       setBeforeToday(false);
     } else {
@@ -159,6 +171,26 @@ const Calendar = () => {
   };
   const onCalendarDetailClose = () => {
     setIsCalendarInsert((prev) => !prev);
+  };
+  const onHandleCheck = (checked, id) => {
+    console.log(typeof checked);
+    console.log(id);
+    axios
+      .patch(
+        `https://52.78.0.53.sslip.io/api/calendars/${id} `,
+        {
+          chk: checked,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const fetchroutine = async () => {
     try {
@@ -202,6 +234,7 @@ const Calendar = () => {
               if (index === i) {
                 return {
                   ...item,
+                  id: mycalendardata[j].id,
                   comment: mycalendardata[j].name,
                   checked: mycalendardata[j].isCheck,
                 };
@@ -278,15 +311,21 @@ const Calendar = () => {
               color: "#b57070",
             };
           }
+          if (todayvalid && validation) {
+            style = {
+              color: "#5dffce",
+            };
+          }
 
           return (
             <button
               key={format(v.monthday, "yyyyMMdd")}
-              className={todayvalid ? styles.todaybutton : styles.datebutton}
+              className={styles.datebutton}
               onClick={
                 website
-                  ? () => onClickdate(v.monthday, v.comment, v.isCheck)
-                  : () => mobileonClickdate(v.monthday, v.comment, v.isCheck)
+                  ? () => onClickdate(v.id, v.monthday, v.comment, v.isCheck)
+                  : () =>
+                      mobileonClickdate(v.id, v.monthday, v.comment, v.isCheck)
               }
             >
               <div
@@ -311,6 +350,9 @@ const Calendar = () => {
                                 id={v.comment}
                                 value={v.comment}
                                 checked={v.checked}
+                                onChange={(e) => {
+                                  onHandleCheck(e.currentTarget.checked, v.id);
+                                }}
                               />
                             ) : null}
 

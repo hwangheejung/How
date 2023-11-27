@@ -29,6 +29,9 @@ export default function LiveList() {
   const [subject, setSubject] = useState('');
   const [isParticipateSetting, setIsParticipateSetting] = useState(false);
 
+  const [searchbool, setSearchbool] = useState(false); //검색 여부
+  const [reloading, setReLoading] = useState(false); //검색이 끝나고 데이터 다시 받아오기 위해
+
   const navigate = useNavigate();
 
   const SearchValue = (event) => {
@@ -50,30 +53,36 @@ export default function LiveList() {
 
   const onPress = (e) => {
     if (e.key === 'Enter') {
-      let sArray = livedata.result.liveListMappings.filter(
+      let sArray = livedata.filter(
         (search) =>
           search.subject.includes(liveSearch) ||
           search.nick.includes(liveSearch)
       );
 
-      console.log(sArray);
+      setLivedata(sArray);
+      setSearchbool(true);
+      // console.log(sArray);
 
       //console.log(searchArray);
-      navigate('/liveSearch', { state: { sArray } });
+      // navigate('/liveSearch', { state: { sArray } });
     }
   };
   const onClick = () => {
-    let sArray = livedata.result.liveListMappings.filter(
+    let sArray = livedata.filter(
       (search) =>
         search.subject.includes(liveSearch) || search.nick.includes(liveSearch)
     );
 
-    console.log(sArray);
+    setLivedata(sArray);
+    setSearchbool(true);
 
     //console.log(searchArray);
-    navigate('/liveSearch', { state: { sArray } });
+    // navigate('/liveSearch', { state: { sArray } });
   };
-
+  const backscreen = () => {
+    setSearchbool(false);
+    setReLoading(!reloading);
+  };
   const fetchLive = async () => {
     try {
       setLivedata(null);
@@ -84,8 +93,8 @@ export default function LiveList() {
       // const response = await axios.get(
       //   'http://52.78.0.53.sslip.io:8080/api/lives'
       // );
-      setLivedata(response.data);
-      console.log(response.data.result.liveListMappings);
+      setLivedata(response.data.result.liveListMappings);
+      // console.log(response.data.result.liveListMappings);
     } catch (e) {
       setError(e);
     }
@@ -94,7 +103,7 @@ export default function LiveList() {
 
   useEffect(() => {
     fetchLive();
-  }, []);
+  }, [reloading]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
@@ -128,7 +137,7 @@ export default function LiveList() {
         </button>
       </div>
       <div className={styles.Livearr}>
-        {livedata.result?.liveListMappings.map((live) => (
+        {livedata?.map((live) => (
           <div key={live.id} type='button' className={styles.LiveClick}>
             <div className={styles.LiveListItem}>
               <div className={styles.subject}>{live.subject}</div>
@@ -145,6 +154,11 @@ export default function LiveList() {
           </div>
         ))}
       </div>
+      {searchbool ? (
+        <button className={styles.backbutton} onClick={backscreen}>
+          뒤로가기
+        </button>
+      ) : null}
       {isLiveDetail ? (
         <LiveDetail
           onLiveDetailClose={onLiveDetailClose}

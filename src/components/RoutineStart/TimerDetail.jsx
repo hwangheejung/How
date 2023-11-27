@@ -24,7 +24,7 @@ const TimerDetail = (props) => {
     //운동 reset
     setPlusset(1); //set를 1로 초기화
     props.getIndex(100); //없는 index를 넘겨 index 초기화
-    navigate(`/startex/${props.routid}`);
+    navigate(`/startex/${props.routid}/${props.id}`);
     props.getReadyTimer();
   };
   const onClickStop = () => {};
@@ -32,26 +32,28 @@ const TimerDetail = (props) => {
     <div>
       {finish ? ( //countfinish가 1일 경우 운동 개수 실행
         <div className={styles.ReadyTimer}>
-          <div>{props.name}</div>
-          <div>
-            {plusset}/{props.set}
+          <div className={styles.set}>
+            set {plusset}/{props.set}
           </div>
+
           <div>Timer</div>
           <Timer time={props.time} getfinish={getfinish} />
         </div>
       ) : (
         //complete를 누르면 restTimer 수행
         <div className={styles.ReadyTimer}>
-          Rest Timer
+          rest time
           <Timer
             time={props.restTime} //각 동작에 맞는 resttime을 보내줌
             getfinish={getrestfinish} //resttime이 끝났는지 확인
           />
         </div>
       )}
-      <button onClick={onClickreset} className={styles.button}>
-        reset
-      </button>
+      <div className={styles.ButtonBox}>
+        <button onClick={onClickreset} className={styles.resetbutton}>
+          reset
+        </button>
+      </div>
     </div>
   );
 };

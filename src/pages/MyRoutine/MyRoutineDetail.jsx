@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styles from '../../css/MyRoutine/MyRoutineDetailPopup.module.css';
-import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { React, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "../../css/MyRoutine/MyRoutineDetailPopup.module.css";
+import axios from "axios";
+import { IoIosTimer } from "react-icons/io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 
 const MyRoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -20,17 +20,17 @@ const MyRoutineDetail = (props) => {
 
   // const { id } = useParams();
 
-  const routineStart = (id) => {
+  const routineStart = (routid,id) => {
     // window.opener.location.href = `/start/${id}`;
     // window.close();
-    navigate(`/start/${id}`);
+    navigate(`/startex/${routid}/${id}`);
 
-    const url = `/routinestart/${id}`;
-    window.open(
-      url,
-      'window_name',
-      'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
-    );
+    // const url = `/routinestart/${id}`;
+    // window.open(
+    //   url,
+    //   'window_name',
+    //   'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
+    // );
   };
 
   const fetchroutine = async () => {
@@ -129,7 +129,7 @@ const MyRoutineDetail = (props) => {
         <div className={styles.buttons}>
           <button
             className={styles.button}
-            onClick={() => routineStart(props.routineId)}
+            onClick={() => routineStart(props.routineId,props.myroutid)}
           >
             START
           </button>

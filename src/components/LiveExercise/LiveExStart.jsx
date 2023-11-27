@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState } from 'react';
-import LiveRestTimer from './LiveRestTimer';
-import LiveReadyTimer from './LiveReadyTimer';
+import React from "react";
+import { useState } from "react";
+import LiveRestTimer from "./LiveRestTimer";
+import LiveReadyTimer from "./LiveReadyTimer";
 // import styles from '../../css/Timer/readyTimer.module.css';
-import styles from '../../css/Live/LiveExStart.module.css';
+import styles from "../../css/Live/LiveExStart.module.css";
 
-import LiveTimer from './LiveTimer';
+import LiveTimer from "./LiveTimer";
 
 const LiveExStart = (props) => {
   // const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
@@ -42,10 +42,10 @@ const LiveExStart = (props) => {
       } else {
         props.onNoRest();
       }
-      console.log('LiveExStart onClick onNoRest');
+      console.log("LiveExStart onClick onNoRest");
     } else if (currentrest > 0) {
       props.onRest();
-      console.log('LiveExStart onClick onRest');
+      console.log("LiveExStart onClick onRest");
     }
 
     // if (currentrest === 0) {

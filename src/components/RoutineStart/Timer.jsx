@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState, useEffect, useRef } from 'react';
-import styles from '../../css/Timer/readyTimer.module.css';
+import React from "react";
+import { useState, useEffect, useRef } from "react";
+import styles from "../../css/Timer/readyTimer.module.css";
 
 const Timer = (props) => {
   const [seconds, setSeconds] = useState(0);
@@ -36,18 +36,20 @@ const Timer = (props) => {
   };
   return (
     <div className={styles.ReadyTimer}>
-      <div>
-        {parseInt(seconds / 60)}:{seconds % 60}
+      <div className={styles.timer}>
+        {parseInt(time.current / 60)}:{time.current % 60}
       </div>
-      {stopbutton ? (
-        <button onClick={onClickstop} className={styles.button}>
-          STOP
-        </button>
-      ) : (
-        <button onClick={onClickrestart} className={styles.button}>
-          RESTART
-        </button>
-      )}
+      <div className={styles.ButtonBox}>
+        {stopbutton ? (
+          <button onClick={onClickstop} className={styles.button}>
+            STOP
+          </button>
+        ) : (
+          <button onClick={onClickrestart} className={styles.button}>
+            RESTART
+          </button>
+        )}
+      </div>
     </div>
   );
 };
