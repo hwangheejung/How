@@ -40,10 +40,18 @@
   background-color: #e5e5e5;
 }
 
+.topNav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.routineText {
+  padding-left: 20px;
+}
+
 .closeButton {
-  text-align: end;
   padding-right: 20px;
-  padding-bottom: 5px;
   cursor: pointer;
 }
 
@@ -54,11 +62,11 @@
   align-items: center;
   padding: 0 20px;
   padding-top: 20px;
+  padding-bottom: 20px;
   border-radius: 20px;
   box-sizing: border-box;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding-bottom: 5px;
+  margin-bottom: 10px;
+  margin-top: 15px;
 }
 
 .routineDetail:hover {
@@ -67,6 +75,16 @@
 }
 
 .noModify:hover {
+  border: none;
+  cursor: default;
+}
+
+.doneAction {
+  color: var(--light-grey);
+  opacity: 0.5;
+}
+
+.doneAction:hover {
   border: none;
   cursor: default;
 }
@@ -121,51 +139,21 @@
   padding-right: 3px;
 }
 
-.video {
+.actionVideo {
   background-color: var(--light-grey);
-  padding: 110px 55px;
+  width: 100%;
+  height: 300px;
+  /* padding: 110px 55px; */
   border-radius: 14px;
   margin-top: 14px;
 }
 
-/* .routineDetails {
+.video {
+  /* width: 100px; */
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 20px;
-  padding-top: 20px;
-  border-radius: 20px;
-  box-sizing: border-box;
-} */
-
-/* .sequence {
-  font-size: 17px;
-  font-weight: 700;
-  background-color: #00aa81;
-  color: var(--white);
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 14px;
-} */
-
-/* .routineTitle {
-  font-size: 2rem;
+  border-radius: 14px;
+  margin-top: 14px;
 }
-
-.detailname {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 14px;
-} */
-
-/* .currentAction {
-  border: 1px solid var(--icon-color);
-} */
 
 .timer {
   cursor: pointer;

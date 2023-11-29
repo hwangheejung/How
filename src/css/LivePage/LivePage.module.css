@@ -46,7 +46,12 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  flex: 1;
+  /* flex: 1; */
+  height: 70%;
+}
+
+.bottomVideo {
+  height: 30%;
 }
 
 .currentActionDetailBox {

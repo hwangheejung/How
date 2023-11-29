@@ -1,5 +1,6 @@
 import { React, useState, useRef, useEffect } from 'react';
-import styles from '../../css/Timer/readyTimer.module.css';
+// import styles from '../../css/Timer/readyTimer.module.css';
+import styles from '../../css/Live/LiveExStart.module.css';
 
 const LiveTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
@@ -9,15 +10,6 @@ const LiveTimer = (props) => {
   useEffect(() => {
     time.current = props.time;
   }, [props.time]);
-
-  // useEffect(() => {
-  //   timerId.current = setInterval(() => {
-  //     setSeconds(time.current);
-  //     time.current -= 1;
-  //   }, 1000);
-
-  //   return () => clearInterval(timerId.current);
-  // }, []);
 
   useEffect(() => {
     if (props.stopbutton) {
@@ -42,12 +34,6 @@ const LiveTimer = (props) => {
     if (!props.stopbutton) {
       clearInterval(timerId.current);
     }
-    // else {
-    //   timerId.current = setInterval(() => {
-    //     setSeconds(time.current);
-    //     time.current -= 1;
-    //   }, 1000);
-    // }
   }, [props.stopbutton]);
 
   const onClickstop = () => {
@@ -59,7 +45,7 @@ const LiveTimer = (props) => {
   };
 
   return (
-    <div className={styles.ReadyTimer}>
+    <div className={styles.liveTimer}>
       <div className={styles.timer}>
         {parseInt(time.current / 60)}:{time.current % 60}
       </div>
@@ -70,10 +56,10 @@ const LiveTimer = (props) => {
           </button>
         ) : (
           <button onClick={onClickrestart} className={styles.button}>
-            RESTART
+            START
           </button>
         ))}
-      {!props.stopbutton && <div>stop</div>}
+      {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
     </div>
   );
 };

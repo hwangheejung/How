@@ -40,7 +40,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const [exFinish, setExFinish] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
-  const [stopbutton, setStopbutton] = useState(true);
+  const [stopbutton, setStopbutton] = useState(false);
 
   const myMedia = useRef();
 
