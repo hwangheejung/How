@@ -13,7 +13,7 @@ export default function Videos({ myMedia, myInfo, streams, nicknames }) {
           autoPlay
           // style={{ width: '400px', height: '400px' }}
         />
-        {/* <div className={styles.nickname}>{myInfo.nickname}</div> */}
+        <div className={styles.nickname}>{myInfo.nickname}</div>
       </div>
       {streams.map((streamInfo, index) => (
         <Video key={index} streamInfo={streamInfo} nicknames={nicknames} />

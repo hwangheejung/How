@@ -1,29 +1,6 @@
-/* .videoContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.video {
-  margin: 10px 10px;
-}
-
-video {
-  width: 400px;
-  border-radius: 40px;
-}
-
-.nickname {
-  text-align: center;
-} */
-
-/* .video {
-  overflow: hidden;
-  position: relative;
-} */
-
 .videoContainer {
   width: 100%;
-  height: 150px;
+  height: 170px;
   display: flex;
   overflow-x: auto;
   box-sizing: border-box;
@@ -40,7 +17,7 @@ video {
 .video {
   margin: 0 5px;
   width: 180px;
-  height: 140px;
+  height: 160px;
   box-sizing: border-box;
 }
 
@@ -53,8 +30,9 @@ video {
 }
 
 .nickname {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 500;
+  text-align: center;
 }
 
 @media (min-width: 650px) {
