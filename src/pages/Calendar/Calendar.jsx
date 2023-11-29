@@ -306,7 +306,8 @@ const Calendar = () => {
           }
           if (todayvalid && validation) {
             style = {
-              color: "#5dffce",
+              backgroundColor: "#e6f7f2",
+              // opacity: 0.5,
             };
           }
 
@@ -323,9 +324,8 @@ const Calendar = () => {
             >
               <div
                 className={validation ? styles.currentMonth : styles.diffMonth}
-                style={style}
               >
-                <div className={styles.topLine}>
+                <div className={styles.topLine} style={style}>
                   <span className={styles.day}>{format(v.monthday, "d")}</span>
 
                   <div>

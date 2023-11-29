@@ -16,7 +16,7 @@ export default function MyRoutine() {
   const [type, setType] = useState(true);
   const [isRoutineDetailPopup, setIsRoutineDetailPopup] = useState(false);
   const [routineId, setRoutineId] = useState("");
-  const [myroutid,setMyroutid]=useState("");
+  const [myroutid, setMyroutid] = useState("");
 
   const [searchbool, setSearchbool] = useState(false); //검색 여부
   const [reloading, setReLoading] = useState(false); //검색이 끝나고 데이터 다시 받아오기 위해
@@ -28,7 +28,7 @@ export default function MyRoutine() {
     setMyroutineSearch(event.target.value);
   };
 
-  const onPopup = (routineId,id) => {
+  const onPopup = (routineId, id) => {
     setRoutineId(routineId);
     setIsRoutineDetailPopup(true);
     setMyroutid(id);
@@ -180,7 +180,9 @@ export default function MyRoutine() {
               </div>
               <button
                 className={styles.addmyroutinebtn}
-                onClick={() => onPopup(myroutine.routine.routineId,myroutine.routine.id)}
+                onClick={() =>
+                  onPopup(myroutine.routine.routineId, myroutine.routine.id)
+                }
               >
                 자세히 보기
               </button>

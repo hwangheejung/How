@@ -60,6 +60,28 @@ const LiveTimer = (props) => {
           </button>
         ))}
       {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
+      {/* <div>
+      <div className={styles.ReadyTimer}>
+        <div className={styles.timer}>
+          {parseInt(time.current / 60)}:{time.current % 60}
+        </div>
+        <div className={styles.btnblock}>
+          {props.showBtn &&
+            (props.stopbutton ? (
+              <button onClick={onClickstop} className={styles.button}>
+                STOP
+              </button>
+            ) : (
+              <button onClick={onClickrestart} className={styles.button}>
+                RESTART
+              </button>
+            ))}
+        </div>
+      </div>
+
+      {!props.stopbutton && (
+        <div className={styles.stopbtn}>stop버튼이 눌렸습니다!</div>
+      )} */}
     </div>
   );
 };
