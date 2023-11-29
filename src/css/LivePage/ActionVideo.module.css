@@ -14,7 +14,7 @@
   .actionVideo {
     width: 100%;
     box-sizing: border-box;
-    padding-top: 60px;
+    padding-top: 30px;
     flex: 1;
     /* object-fit: cover; */
   }

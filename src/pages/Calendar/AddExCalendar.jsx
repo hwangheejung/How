@@ -43,18 +43,10 @@ const AddExCalendar = (props) => {
   };
 
   const onHandleCheck = (checked, id) => {
-    console.log(checked);
-    console.log(id);
     axios
-      .patch(
-        `https://52.78.0.53.sslip.io/api/calendars/${id} `,
-        {
-          chk: checked,
-        },
-        {
-          headers: { Authorization: `Bearer ${getCookieToken()}` },
-        }
-      )
+      .patch(`https://52.78.0.53.sslip.io/api/calendars/${id} `, {
+        chk: checked,
+      })
       .then((res) => {
         console.log(res.data);
       });

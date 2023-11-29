@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faVideo,
   faVideoSlash,
   faMicrophoneLines,
   faMicrophoneLinesSlash,
-} from '@fortawesome/free-solid-svg-icons';
-import { PiVideoCameraLight, PiVideoCameraSlash } from 'react-icons/pi';
-import { BiSolidMicrophoneOff, BiSolidMicrophone } from 'react-icons/bi';
-import styles from '../../css/Live/LiveSetting.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "@fortawesome/free-solid-svg-icons";
+import { PiVideoCameraLight, PiVideoCameraSlash } from "react-icons/pi";
+import { BiSolidMicrophoneOff, BiSolidMicrophone } from "react-icons/bi";
+import styles from "../../css/Live/LiveSetting.module.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function OwnerLiveSetting(props) {
   const [camera, setCamera] = useState(true);
@@ -77,9 +77,11 @@ export default function OwnerLiveSetting(props) {
           )}
           <span>마이크 on/off</span>
         </div>
-        <button className={styles.enterButton} onClick={handleEnter}>
-          참여
-        </button>
+        <div className={styles.buttonblock}>
+          <button className={styles.enterButton} onClick={handleEnter}>
+            참여
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -273,7 +273,7 @@
     margin: 20px;
     padding: 15px 30px;
     border-radius: 15px;
-    font-family: 'paybooc-Light', sans-serif;
+    font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 500;
@@ -284,4 +284,20 @@
     /* margin-left: 130px; */
     cursor: pointer;
   }
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff;
+  border: 2px solid #94e6ce;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 16px;
+  outline: 0;
+  width: 16px;
+}
+input[type="checkbox"]:checked {
+  background-color: #94e6ce;
 }
