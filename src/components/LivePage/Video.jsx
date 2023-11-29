@@ -24,7 +24,7 @@ export default function Video({ streamInfo, nicknames }) {
         autoPlay
         // style={{ width: '400px', height: '400px' }}
       />
-      {/* <div className={styles.nickname}>{nicknames[peerId]}</div> */}
+      <div className={styles.nickname}>{nicknames[peerId]}</div>
     </div>
     /* <div className={styles.nickname}>{nicknames[peerId]}</div> */
     // </div>
