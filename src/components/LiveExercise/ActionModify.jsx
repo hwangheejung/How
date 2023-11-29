@@ -89,22 +89,9 @@ export default function ActionModify({
     socketIncrease();
   };
 
-  // console.log('selected action: ', selectedAction);
-
   return (
     <div className={styles.modifyContainer}>
       <div className={styles.modifyBox}>
-        {/* <h1>수정 컴포넌트</h1> */}
-        {/* <div>
-          <h2 className={styles.topic}>수정 전 동작 정보</h2>
-          <div className={styles.littleText}>동작 이름 : {ex.name}</div>
-          {type ? (
-            <div className={styles.littleText}>타임 : {time}s</div>
-          ) : (
-            <div className={styles.littleText}>횟수 : {count}개</div>
-          )}
-        </div> */}
-
         {type ? (
           <div>
             <h2 className={styles.topic}>타임 수정</h2>

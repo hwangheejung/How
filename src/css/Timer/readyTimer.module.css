@@ -53,8 +53,17 @@
   font-size: 25px;
   text-align: center;
 }
-.stopbtn {
+
+.liveTimerbutton {
+  color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px 25px;
+  border: 1px solid #000000;
+  border-radius: 58px;
+}
+/* .stopbtn {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */

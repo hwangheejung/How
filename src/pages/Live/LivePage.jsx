@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import styles from "../../css/LivePage/LivePage.module.css";
-import LiveExStart from "../../components/LiveExercise/LiveExStart";
-import LiveReadyTimer from "../../components/LiveExercise/LiveReadyTimer";
-import LiveInfo from "../../components/LivePage/LiveInfo";
-import Videos from "../../components/LivePage/Videos";
-import AllRoutine from "../../components/LivePage/AllRoutine";
-import Bottom from "../../components/LivePage/Bottom";
-import useSocket from "../../hooks/useSocket";
-import AllRoutineWide from "../../components/LivePage/AllRoutineWide";
-import { getCookieToken } from "../../store/Cookie";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from '../../css/LivePage/LivePage.module.css';
+import LiveExStart from '../../components/LiveExercise/LiveExStart';
+import LiveReadyTimer from '../../components/LiveExercise/LiveReadyTimer';
+import LiveInfo from '../../components/LivePage/LiveInfo';
+import Videos from '../../components/LivePage/Videos';
+import AllRoutine from '../../components/LivePage/AllRoutine';
+import Bottom from '../../components/LivePage/Bottom';
+import useSocket from '../../hooks/useSocket';
+import AllRoutineWide from '../../components/LivePage/AllRoutineWide';
+import { getCookieToken } from '../../store/Cookie';
+import axios from 'axios';
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -61,33 +61,9 @@ export default function LivePage() {
     socketRoutineFinish,
   ] = useSocket({ liveId, camera, audio, isOwner });
 
-  const sequenceRef = useRef(null);
   const [openAllRoutine, setOpenAllRoutine] = useState(false);
 
-  const exUpdate = (routineId) => {
-    console.log("axios routine: ", routine);
-    console.log("axios isOwner: ", isOwner);
-    console.log("axios exfinish: ", exFinish);
-
-    console.log("exUpdate");
-    axios
-      .get(`https://52.78.0.53.sslip.io/api/ex-routines/${routineId}/me`, {
-        headers: { Authorization: `Bearer ${getCookieToken()}` },
-      })
-      .then((res) => {
-        console.log("routine finish response: ", res);
-      });
-  };
-
-  useEffect(() => {
-    if (exFinish && isOwner) {
-      exUpdate(routine.routId);
-    }
-  }, [exFinish]);
-
-  // console.log('isOwner: ', isOwner);
-  console.log("currentEx", currentEx);
-  console.log("routineDetail", routine);
+  console.log('currentEx from LivePage: ', currentEx);
 
   return (
     <div className={styles.root}>
@@ -114,12 +90,6 @@ export default function LivePage() {
                             index + 1 &&
                           styles.nowSequence
                         }`}
-                        // ref={
-                        //   currentEx &&
-                        //   currentEx.ex.routinneDetailResult.order === index + 1
-                        //     ? sequenceRef
-                        //     : undefined
-                        // }
                       >
                         {detail.order}
                       </div>
@@ -163,10 +133,6 @@ export default function LivePage() {
                     socketTimerStop={socketTimerStop}
                     socketTimerReset={socketTimerReset}
                     socketRoutineFinish={socketRoutineFinish}
-                    // exFinish={exFinish}
-                    // stopbutton={stopbutton}
-                    // stopTimer={stopTimer}
-                    // restartTimer={restartTimer}
                   />
                 ) : null}
                 {exFinish && (
@@ -178,13 +144,6 @@ export default function LivePage() {
                   </div>
                 )}
               </div>
-              {/* {currentEx && (
-            <img
-              className={styles.actionImage}
-              src={currentEx.ex.routinneDetailResult.img[0].img}
-              alt='current action image'
-            />
-          )} */}
             </div>
             <div className={styles.bottomVideo}>
               <Bottom

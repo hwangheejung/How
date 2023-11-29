@@ -1,5 +1,6 @@
-import { React, useState, useRef, useEffect } from "react";
-import styles from "../../css/Timer/readyTimer.module.css";
+import { React, useState, useRef, useEffect } from 'react';
+// import styles from '../../css/Timer/readyTimer.module.css';
+import styles from '../../css/Live/LiveExStart.module.css';
 
 const LiveTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
@@ -9,15 +10,6 @@ const LiveTimer = (props) => {
   useEffect(() => {
     time.current = props.time;
   }, [props.time]);
-
-  // useEffect(() => {
-  //   timerId.current = setInterval(() => {
-  //     setSeconds(time.current);
-  //     time.current -= 1;
-  //   }, 1000);
-
-  //   return () => clearInterval(timerId.current);
-  // }, []);
 
   useEffect(() => {
     if (props.stopbutton) {
@@ -38,16 +30,10 @@ const LiveTimer = (props) => {
   }, [seconds]);
 
   useEffect(() => {
-    console.log("timer test");
+    console.log('timer test');
     if (!props.stopbutton) {
       clearInterval(timerId.current);
     }
-    // else {
-    //   timerId.current = setInterval(() => {
-    //     setSeconds(time.current);
-    //     time.current -= 1;
-    //   }, 1000);
-    // }
   }, [props.stopbutton]);
 
   const onClickstop = () => {
@@ -59,7 +45,22 @@ const LiveTimer = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.liveTimer}>
+      <div className={styles.timer}>
+        {parseInt(time.current / 60)}:{time.current % 60}
+      </div>
+      {props.showBtn &&
+        (props.stopbutton ? (
+          <button onClick={onClickstop} className={styles.button}>
+            STOP
+          </button>
+        ) : (
+          <button onClick={onClickrestart} className={styles.button}>
+            START
+          </button>
+        ))}
+      {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
+      {/* <div>
       <div className={styles.ReadyTimer}>
         <div className={styles.timer}>
           {parseInt(time.current / 60)}:{time.current % 60}
@@ -80,7 +81,7 @@ const LiveTimer = (props) => {
 
       {!props.stopbutton && (
         <div className={styles.stopbtn}>stop버튼이 눌렸습니다!</div>
-      )}
+      )} */}
     </div>
   );
 };

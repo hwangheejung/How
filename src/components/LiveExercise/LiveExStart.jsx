@@ -1,17 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import LiveRestTimer from "./LiveRestTimer";
-import LiveReadyTimer from "./LiveReadyTimer";
-// import styles from '../../css/Timer/readyTimer.module.css';
-import styles from "../../css/Live/LiveExStart.module.css";
-
-import LiveTimer from "./LiveTimer";
+import React from 'react';
+import LiveRestTimer from './LiveRestTimer';
+import styles from '../../css/Live/LiveExStart.module.css';
+import LiveTimer from './LiveTimer';
+import ActionVideo from './ActionVideo';
 
 const LiveExStart = (props) => {
-  // const [finish, setFinish] = useState(true); //쉬는시간이 끝남을 저장하는 상태
-  // const [plusset, setPlusset] = useState(1); //현재 set 관리
-
-  //const currentid = props.currentEx.ex.order;
   const currentcount = props.currentEx.ex.routinneDetailResult.count;
   const currenttime = props.currentEx.ex.routinneDetailResult.time;
   const currentrest = props.currentEx.ex.routinneDetailResult.rest;
@@ -28,40 +21,22 @@ const LiveExStart = (props) => {
   };
 
   const onClick = () => {
-    // console.log('onClick');
     if (currentrest === 0) {
-      // console.log('currentrest === 0');
       if (props.plusset + 1 === currentexerciseset + 1) {
         if (currentExOrder === currentExAcriontCnt) {
           props.socketRoutineFinish();
         } else {
           props.onNoRestSetDone();
         }
-        // console.log('plusset', props.plusset);
-        // console.log('currentexerciseset', currentexerciseset);
       } else {
         props.onNoRest();
       }
-      console.log("LiveExStart onClick onNoRest");
     } else if (currentrest > 0) {
       props.onRest();
-      console.log("LiveExStart onClick onRest");
     }
-
-    // if (currentrest === 0) {
-    //   getrestfinish();
-    //   //console.log("성공");
-    // }
-    //complete버튼을 누르면 수행
-    //부모 컴포넌트에 index 1 증가를 위해
-
-    // setFinish(!finish);
-    // setPlusset((plusset) => plusset + 1);
   };
 
   const getrestfinish = () => {
-    console.log("after rest plusset: ", props.plusset);
-    console.log("after rest totalSet+1: ", currentexerciseset + 1);
     props.setFinish(!props.finish);
     if (props.plusset === currentexerciseset + 1) {
       if (currentExOrder === currentExAcriontCnt) {
@@ -70,83 +45,65 @@ const LiveExStart = (props) => {
         props.getTimer();
         props.setPlusset(1);
       }
-      // props.setPlusset((plusset) => plusset + 1);
-      //console.log("성공");
     }
-    // if (plusset === currentexerciseset + 1) {
-    //   console.log('성공');
-    //   setPlusset(1);
-    // } else {
-    //   setPlusset((plusset) => plusset + 1);
-    // }
   };
+
+  console.log('currentEx from LiveExStart: ', props.currentEx);
 
   return (
     <div className={styles.currentActionBox}>
-      {/* <div className={styles.actionName}>{currentname}</div> */}
-      {/* <div>
-        <div>{currentname}</div>
-        <div>{currentdesc}</div>
-      </div> */}
-      <div>
-        {currenttype ? (
-          <div>
-            {props.finish ? (
-              <div className={styles.ReadyTimer}>
-                {/* <div>Timer</div> */}
-                <div className={styles.set}>
-                  set {props.plusset}/{currentexerciseset}
-                </div>
-                <LiveTimer
-                  time={currenttime}
-                  getTimer={getTimer}
-                  showBtn={props.showBtn}
-                  stopbutton={props.stopbutton}
-                  socketTimerStop={props.socketTimerStop}
-                  socketTimerReset={props.socketTimerReset}
-                  // stopbutton={props.stopbutton}
-                  // stopTimer={props.stopTimer}
-                  // restartTimer={props.restartTimer}
-                  // forTimerOne={props.forTimerOne}
-                  // forTimerTwo={props.forTimerTwo}
-                  // forTimerThree={props.forTimerThree}
-                  // seconds={props.seconds}
-                />
+      {currenttype ? (
+        props.finish ? (
+          <div className={styles.ReadyTimer}>
+            <div className={styles.actionInfo}>
+              <div className={styles.set}>
+                set {props.plusset}/{currentexerciseset}
               </div>
-            ) : (
-              <div className={styles.ReadyTimer}>
-                rest time
-                <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
-              </div>
-            )}
+              <LiveTimer
+                time={currenttime}
+                getTimer={getTimer}
+                showBtn={props.showBtn}
+                stopbutton={props.stopbutton}
+                socketTimerStop={props.socketTimerStop}
+                socketTimerReset={props.socketTimerReset}
+              />
+            </div>
+            <ActionVideo currentEx={props.currentEx} />
+            {/* <div className={styles.stopBox}> */}
+            {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
+            {/* </div> */}
           </div>
         ) : (
-          <div>
-            {props.finish ? (
-              <div className={styles.ReadyTimer}>
-                <div className={styles.set}>
-                  set {props.plusset}/{currentexerciseset}
-                </div>
-                {/* <div className={styles.countNext}> */}
-                <div className={styles.count}>{currentcount}개 </div>
-                {/* </div> */}
-                {props.showBtn ? (
-                  <button className={styles.button} onClick={onClick}>
-                    Next
-                  </button>
-                ) : null}
-              </div>
-            ) : (
-              currentrest !== 0 && (
-                <div className={styles.ReadyTimer}>
-                  rest time
-                  <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
-                </div>
-              )
-            )}
+          <div className={styles.ReadyTimer}>
+            Rest Time
+            <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
           </div>
-        )}
-      </div>
+        )
+      ) : props.finish ? (
+        <div className={styles.ReadyTimer}>
+          <div className={styles.actionInfo}>
+            <div className={styles.set}>
+              set {props.plusset}/{currentexerciseset}
+            </div>
+            <div className={styles.count}>{currentcount}개 </div>
+            {props.showBtn ? (
+              <button className={styles.button} onClick={onClick}>
+                Next
+              </button>
+            ) : null}
+          </div>
+          <div className={styles.actionVideo}>
+            <ActionVideo currentEx={props.currentEx} />
+          </div>
+        </div>
+      ) : (
+        currentrest !== 0 && (
+          <div className={styles.ReadyTimer}>
+            Rest Time
+            <LiveRestTimer time={currentrest} getTimer={getrestfinish} />
+          </div>
+        )
+      )}
     </div>
   );
 };
