@@ -60,8 +60,8 @@ const LiveExStart = (props) => {
   };
 
   const getrestfinish = () => {
-    console.log('after rest plusset: ', props.plusset);
-    console.log('after rest totalSet+1: ', currentexerciseset + 1);
+    console.log("after rest plusset: ", props.plusset);
+    console.log("after rest totalSet+1: ", currentexerciseset + 1);
     props.setFinish(!props.finish);
     if (props.plusset === currentexerciseset + 1) {
       if (currentExOrder === currentExAcriontCnt) {

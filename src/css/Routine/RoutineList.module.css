@@ -221,10 +221,12 @@
   .RoutineListarr {
     padding-top: 60px;
     padding-bottom: 30px;
+
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     row-gap: 20px;
+    column-gap: 40px;
   }
 
   .routineClick {

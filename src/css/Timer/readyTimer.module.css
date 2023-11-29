@@ -53,3 +53,8 @@
   font-size: 25px;
   text-align: center;
 }
+.stopbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

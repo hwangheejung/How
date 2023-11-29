@@ -184,7 +184,9 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           //   JSON.parse(data.body).ex.routinneDetailResult.order
           // );
           console.log("current ex");
+
           setCurrentEx(JSON.parse(data.body));
+          setIsParticipate(false);
           // if (!exFinish) {
           // }
         });

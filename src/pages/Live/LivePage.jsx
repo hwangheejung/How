@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styles from '../../css/LivePage/LivePage.module.css';
-import LiveExStart from '../../components/LiveExercise/LiveExStart';
-import LiveReadyTimer from '../../components/LiveExercise/LiveReadyTimer';
-import LiveInfo from '../../components/LivePage/LiveInfo';
-import Videos from '../../components/LivePage/Videos';
-import AllRoutine from '../../components/LivePage/AllRoutine';
-import Bottom from '../../components/LivePage/Bottom';
-import useSocket from '../../hooks/useSocket';
-import AllRoutineWide from '../../components/LivePage/AllRoutineWide';
-import { getCookieToken } from '../../store/Cookie';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import styles from "../../css/LivePage/LivePage.module.css";
+import LiveExStart from "../../components/LiveExercise/LiveExStart";
+import LiveReadyTimer from "../../components/LiveExercise/LiveReadyTimer";
+import LiveInfo from "../../components/LivePage/LiveInfo";
+import Videos from "../../components/LivePage/Videos";
+import AllRoutine from "../../components/LivePage/AllRoutine";
+import Bottom from "../../components/LivePage/Bottom";
+import useSocket from "../../hooks/useSocket";
+import AllRoutineWide from "../../components/LivePage/AllRoutineWide";
+import { getCookieToken } from "../../store/Cookie";
+import axios from "axios";
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -65,17 +65,17 @@ export default function LivePage() {
   const [openAllRoutine, setOpenAllRoutine] = useState(false);
 
   const exUpdate = (routineId) => {
-    console.log('axios routine: ', routine);
-    console.log('axios isOwner: ', isOwner);
-    console.log('axios exfinish: ', exFinish);
+    console.log("axios routine: ", routine);
+    console.log("axios isOwner: ", isOwner);
+    console.log("axios exfinish: ", exFinish);
 
-    console.log('exUpdate');
+    console.log("exUpdate");
     axios
       .get(`https://52.78.0.53.sslip.io/api/ex-routines/${routineId}/me`, {
         headers: { Authorization: `Bearer ${getCookieToken()}` },
       })
       .then((res) => {
-        console.log('routine finish response: ', res);
+        console.log("routine finish response: ", res);
       });
   };
 
@@ -86,8 +86,8 @@ export default function LivePage() {
   }, [exFinish]);
 
   // console.log('isOwner: ', isOwner);
-  console.log('currentEx', currentEx);
-  console.log('routineDetail', routine);
+  console.log("currentEx", currentEx);
+  console.log("routineDetail", routine);
 
   return (
     <div className={styles.root}>
