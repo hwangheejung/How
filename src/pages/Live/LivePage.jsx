@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import styles from "../../css/LivePage/LivePage.module.css";
-import LiveExStart from "../../components/LiveExercise/LiveExStart";
-import LiveReadyTimer from "../../components/LiveExercise/LiveReadyTimer";
-import LiveInfo from "../../components/LivePage/LiveInfo";
-import Videos from "../../components/LivePage/Videos";
-import AllRoutine from "../../components/LivePage/AllRoutine";
-import Bottom from "../../components/LivePage/Bottom";
-import useSocket from "../../hooks/useSocket";
-import AllRoutineWide from "../../components/LivePage/AllRoutineWide";
-import { getCookieToken } from "../../store/Cookie";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from '../../css/LivePage/LivePage.module.css';
+import LiveExStart from '../../components/LiveExercise/LiveExStart';
+import LiveReadyTimer from '../../components/LiveExercise/LiveReadyTimer';
+import LiveInfo from '../../components/LivePage/LiveInfo';
+import Videos from '../../components/LivePage/Videos';
+import AllRoutine from '../../components/LivePage/AllRoutine';
+import Bottom from '../../components/LivePage/Bottom';
+import useSocket from '../../hooks/useSocket';
+import AllRoutineWide from '../../components/LivePage/AllRoutineWide';
+import { getCookieToken } from '../../store/Cookie';
+import axios from 'axios';
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -68,11 +68,9 @@ export default function LivePage() {
   const [partialert, setPartialert] = useState(true);
   const [leavealert, setLeavealert] = useState(true);
 
-  console.log("currentEx from LivePage: ", currentEx);
-
   useEffect(() => {
     setPartialert(true);
-    console.log("성공");
+    console.log('성공');
     console.log(participateNickname);
     let timer = setTimeout(() => {
       setPartialert(false);
@@ -81,12 +79,13 @@ export default function LivePage() {
 
   useEffect(() => {
     setLeavealert(true);
-    console.log("leave 성공");
+    console.log('leave 성공');
     console.log(leaveNickname);
     let timer = setTimeout(() => {
       setLeavealert(false);
     }, 3000);
   }, [leaveNickname]);
+
   return (
     <div className={styles.root}>
       <div className={styles.cover}>
