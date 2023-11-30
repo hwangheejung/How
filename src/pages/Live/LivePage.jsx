@@ -11,7 +11,6 @@ import useSocket from "../../hooks/useSocket";
 import AllRoutineWide from "../../components/LivePage/AllRoutineWide";
 import { getCookieToken } from "../../store/Cookie";
 import axios from "axios";
-import { PiCloudSnowLight } from "react-icons/pi";
 
 export default function LivePage() {
   const { liveId, liveTitle, camera, audio, isOwner } = useParams();
@@ -69,8 +68,6 @@ export default function LivePage() {
   const [partialert, setPartialert] = useState(true);
   const [leavealert, setLeavealert] = useState(true);
 
-  console.log("currentEx from LivePage: ", currentEx);
-
   useEffect(() => {
     setPartialert(true);
     console.log("성공");
@@ -88,7 +85,6 @@ export default function LivePage() {
       setLeavealert(false);
     }, 3000);
   }, [leaveNickname]);
-  console.log("isModify", isModify);
   return (
     <div className={styles.root}>
       <div className={styles.cover}>
@@ -113,7 +109,8 @@ export default function LivePage() {
                 (detail, index) =>
                   currentEx &&
                   !exFinish &&
-                  detail.id === currentEx.ex.routinneDetailResult.id && (
+                  detail.id === currentEx.ex.routinneDetailResult.id &&
+                  !readyTimer && (
                     <div className={styles.sequenceBox}>
                       <div
                         key={detail.order}
@@ -150,28 +147,30 @@ export default function LivePage() {
                     <div className={styles.endMassage}>{`Ready`}</div>
                   </div>
                 ) : null}
-                {readyTimer ? ( //준비 타이머
-                  <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+                {readyTimer && currentEx ? ( //준비 타이머
+                  <LiveReadyTimer
+                    getReadyTimer={getReadyTimer}
+                    time={10}
+                    currentEx={currentEx}
+                  />
                 ) : null}
-                {currentEx && !exFinish ? (
-                  <div className={styles.liveexstart}>
-                    <LiveExStart
-                      currentEx={currentEx}
-                      getTimer={getTimer}
-                      onRest={onRest}
-                      onNoRest={onNoRest}
-                      onNoRestSetDone={onNoRestSetDone}
-                      finish={finish}
-                      setFinish={setFinish}
-                      plusset={plusset}
-                      setPlusset={setPlusset}
-                      showBtn={showBtn}
-                      stopbutton={stopbutton}
-                      socketTimerStop={socketTimerStop}
-                      socketTimerReset={socketTimerReset}
-                      socketRoutineFinish={socketRoutineFinish}
-                    />
-                  </div>
+                {currentEx && !readyTimer && !exFinish ? (
+                  <LiveExStart
+                    currentEx={currentEx}
+                    getTimer={getTimer}
+                    onRest={onRest}
+                    onNoRest={onNoRest}
+                    onNoRestSetDone={onNoRestSetDone}
+                    finish={finish}
+                    setFinish={setFinish}
+                    plusset={plusset}
+                    setPlusset={setPlusset}
+                    showBtn={showBtn}
+                    stopbutton={stopbutton}
+                    socketTimerStop={socketTimerStop}
+                    socketTimerReset={socketTimerReset}
+                    socketRoutineFinish={socketRoutineFinish}
+                  />
                 ) : null}
                 {exFinish && (
                   <div className={styles.startButtonBox}>

@@ -93,7 +93,9 @@ const LiveDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             ) : (
               <div key={detail.id} className={styles.routineDetail}>
@@ -115,7 +117,9 @@ const LiveDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             )
           )}
@@ -129,62 +133,6 @@ const LiveDetail = (props) => {
           </button>
         </div>
       </div>
-      {/* <div className={styles.name}>Live</div>
-      <div className={styles.layout}>
-        <div className={styles.subject}>{livesubject}</div>
-        <div className={styles.creatorBox}>
-          <BsPerson />
-          <span className={styles.creator}>{livenick}</span>
-        </div>
-        <span className={styles.routineTitle}>{detailRoutine.result.name}</span>
-        <div className={styles.cates}>
-          {detailRoutine.result.cate.map((cate, index) => (
-            <span key={index} className={styles.actionCate}>
-              #{cate}
-            </span>
-          ))}
-        </div>
-        <div className={styles.list}>
-          <IoIosTimer />
-          <span>Timer/Count</span>
-          <span>Rest</span>
-          <span>SET</span>
-        </div>
-
-        {detailRoutine.result.routineDetails.map((detail) =>
-          detail.type ? (
-            <div key={detail.id} className={styles.timer}>
-              <span className={styles.detailname}> {detail.ex.name}</span>
-              <div className={styles.details}>
-                <span> {detail.time}s</span>
-                <span> {detail.rest}</span>
-                <span> {detail.set}</span>
-              </div>
-            </div>
-          ) : (
-            <div key={detail.id} className={styles.timer}>
-              <span className={styles.detailname}> {detail.ex.name}</span>
-              <div className={styles.details}>
-                <span> {detail.count}개</span>
-                <span> {detail.rest}</span>
-                <span> {detail.set}</span>
-              </div>
-            </div>
-          )
-        )}
-
-        <div className={styles.buttons}>
-          <button
-            className={styles.backbutton}
-            onClick={() => liveStart(liveId)}
-          >
-            참여
-          </button>
-          <button className={styles.backbutton} onClick={windowClose}>
-            취소
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 };
