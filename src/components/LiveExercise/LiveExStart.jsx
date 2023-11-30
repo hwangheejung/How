@@ -1,8 +1,8 @@
-import React from "react";
-import LiveRestTimer from "./LiveRestTimer";
-import styles from "../../css/Live/LiveExStart.module.css";
-import LiveTimer from "./LiveTimer";
-import ActionVideo from "./ActionVideo";
+import React from 'react';
+import LiveRestTimer from './LiveRestTimer';
+import styles from '../../css/Live/LiveExStart.module.css';
+import LiveTimer from './LiveTimer';
+import ActionVideo from './ActionVideo';
 
 const LiveExStart = (props) => {
   const currentcount = props.currentEx.ex.routinneDetailResult.count;
@@ -81,7 +81,7 @@ const LiveExStart = (props) => {
     // }
   };
 
-  console.log("currentEx from LiveExStart: ", props.currentEx);
+  console.log('currentEx from LiveExStart: ', props.currentEx);
 
   return (
     <div className={styles.currentActionBox}>
@@ -109,14 +109,11 @@ const LiveExStart = (props) => {
             {/* </div> */}
           </div>
         ) : (
-          <div className={styles.ReadyTimer}>
-            Rest Time
-            <LiveRestTimer
-              time={currentrest}
-              getTimer={getrestfinish}
-              currentEx={props.currentEx}
-            />
-          </div>
+          <LiveRestTimer
+            time={currentrest}
+            getTimer={getrestfinish}
+            currentEx={props.currentEx}
+          />
         )
       ) : props.finish ? (
         <div className={styles.ReadyTimer}>
@@ -137,14 +134,11 @@ const LiveExStart = (props) => {
         </div>
       ) : (
         currentrest !== 0 && (
-          <div className={styles.ReadyTimer}>
-            Rest Time
-            <LiveRestTimer
-              time={currentrest}
-              getTimer={getrestfinish}
-              currentEx={props.currentEx}
-            />
-          </div>
+          <LiveRestTimer
+            time={currentrest}
+            getTimer={getrestfinish}
+            currentEx={props.currentEx}
+          />
         )
       )}
     </div>

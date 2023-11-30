@@ -35,7 +35,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   //참가 퇴장 띄우기
 
   const [participateNickname, setParticipateNickname] = useState();
-  const [leaveNickname, setLeaveNickname] = useState("");
+  const [leaveNickname, setLeaveNickname] = useState('');
   // 라이브 루틴 수정 시 필요한 상태값들
   const [isModify, setIsModify] = useState(false);
   const [modifyActionId, setModifyActionId] = useState();
@@ -194,6 +194,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           //   JSON.parse(data.body).ex.routinneDetailResult.order
           // );
           console.log('current ex');
+          setReadyTimer(false);
           if (JSON.parse(data.body).ex.routinneDetailResult.order !== 1) {
             setFinish(false);
           }
@@ -273,7 +274,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         });
 
         client.send(
-          "/app/leave/" + liveId,
+          '/app/leave/' + liveId,
           {},
           JSON.stringify({
             nick: myInfo.nickname,

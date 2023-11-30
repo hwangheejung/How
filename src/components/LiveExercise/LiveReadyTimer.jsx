@@ -24,7 +24,7 @@ const LiveReadyTimer = (props) => {
 
   return (
     <div className={styles.ReadyTimer}>
-      <div className={styles.readytimerText}> ready timer</div>
+      <div className={styles.readytimerText}>ready time</div>
       <div className={styles.timer}>
         {parseInt(time.current / 60)}:{time.current % 60}
       </div>

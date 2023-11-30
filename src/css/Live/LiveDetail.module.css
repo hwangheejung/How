@@ -150,12 +150,12 @@ h2 {
   padding-right: 3px;
 }
 
-.video {
+/* .video {
   background-color: var(--light-grey);
   padding: 110px 55px;
   border-radius: 14px;
   margin-top: 14px;
-}
+} */
 
 .buttons {
   padding-top: 20px;
@@ -170,6 +170,15 @@ h2 {
   padding: 8px 25px;
   border-radius: 30px;
   margin: 5px;
+}
+
+@media (max-width: 649px) {
+  .video {
+    /* width: 100px; */
+    width: 100%;
+    border-radius: 14px;
+    margin-top: 14px;
+  }
 }
 
 @media (min-width: 650px) {
