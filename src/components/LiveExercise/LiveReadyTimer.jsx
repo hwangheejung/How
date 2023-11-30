@@ -3,7 +3,7 @@ import styles from '../../css/Live/LiveReadyTimer.module.css';
 
 const LiveReadyTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
-  const time = useRef(5);
+  const time = useRef(props.time);
   const timerId = useRef(null);
 
   useEffect(() => {
@@ -25,7 +25,18 @@ const LiveReadyTimer = (props) => {
   return (
     <div className={styles.ReadyTimer}>
       <div className={styles.readytimerText}> ready timer</div>
-      <div className={styles.timer}> 00:0{time.current} </div>
+      <div className={styles.timer}>
+        {parseInt(time.current / 60)}:{time.current % 60}
+      </div>
+      <div>Up Next</div>
+      <div className={styles.actionVideo}>
+        <video className={styles.video} width='250' muted autoPlay loop>
+          <source
+            src={props.currentEx.ex.routinneDetailResult.img[0].img}
+            type='video/mp4'
+          />
+        </video>
+      </div>
     </div>
   );
 };

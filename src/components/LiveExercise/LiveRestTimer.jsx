@@ -28,6 +28,15 @@ const LiveRestTimer = (props) => {
       <div className={styles.timer}>
         {parseInt(time.current / 60)}:{time.current % 60}
       </div>
+      <div>Up Next</div>
+      <div className={styles.actionVideo}>
+        <video className={styles.video} width='250' muted autoPlay loop>
+          <source
+            src={props.currentEx.ex.routinneDetailResult.img[0].img}
+            type='video/mp4'
+          />
+        </video>
+      </div>
     </div>
   );
 };
