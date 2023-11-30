@@ -25,25 +25,28 @@
 
 .set {
   color: #000000;
-  font-size: 30px;
+  /* font-size: 30px; */
+  font-size: 1em;
   font-weight: 600;
   text-transform: uppercase;
   padding-bottom: 3px;
 }
 
 .timer {
-  font-size: 60px;
+  /* font-size: 60px; */
+  font-size: 2em;
   font-weight: 600;
 }
 
 .count {
-  font-size: 60px;
+  font-size: 2em;
   font-weight: 600;
 }
 
 .button {
   color: #000000;
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 0.8em;
   font-weight: 600;
   padding: 8px 25px;
   margin-top: 3px;
