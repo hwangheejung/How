@@ -1,6 +1,7 @@
 import { React, useState, useRef, useEffect } from 'react';
 // import styles from "../../css/Timer/readyTimer.module.css";
-import styles from '../../css/Live/LiveExStart.module.css';
+// import styles from '../../css/Live/LiveExStart.module.css';
+import styles from '../../css/Live/LiveRestTimer.module.css';
 
 const LiveRestTimer = (props) => {
   const [seconds, setSeconds] = useState(0);
@@ -25,8 +26,18 @@ const LiveRestTimer = (props) => {
 
   return (
     <div className={styles.ReadyTimer}>
+      <div className={styles.restTimeText}>Rest Time</div>
       <div className={styles.timer}>
         {parseInt(time.current / 60)}:{time.current % 60}
+      </div>
+      <div>Up Next</div>
+      <div className={styles.actionVideo}>
+        <video className={styles.video} width='250' muted autoPlay loop>
+          <source
+            src={props.currentEx.ex.routinneDetailResult.img[0].img}
+            type='video/mp4'
+          />
+        </video>
       </div>
     </div>
   );

@@ -108,7 +108,8 @@ export default function LivePage() {
                 (detail, index) =>
                   currentEx &&
                   !exFinish &&
-                  detail.id === currentEx.ex.routinneDetailResult.id && (
+                  detail.id === currentEx.ex.routinneDetailResult.id &&
+                  !readyTimer && (
                     <div className={styles.sequenceBox}>
                       <div
                         key={detail.order}
@@ -142,10 +143,14 @@ export default function LivePage() {
                     <div className={styles.endMassage}>{`Ready`}</div>
                   </div>
                 ) : null}
-                {readyTimer ? ( //준비 타이머
-                  <LiveReadyTimer getReadyTimer={getReadyTimer} time={5} />
+                {readyTimer && currentEx ? ( //준비 타이머
+                  <LiveReadyTimer
+                    getReadyTimer={getReadyTimer}
+                    time={10}
+                    currentEx={currentEx}
+                  />
                 ) : null}
-                {currentEx && !exFinish ? (
+                {currentEx && !readyTimer && !exFinish ? (
                   <LiveExStart
                     currentEx={currentEx}
                     getTimer={getTimer}

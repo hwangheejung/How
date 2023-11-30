@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
-import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
-import { useNavigate } from "react-router-dom";
-import Peer from "peerjs";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { getCookieToken } from "../store/Cookie";
+import { useState } from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import { useNavigate } from 'react-router-dom';
+import Peer from 'peerjs';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { getCookieToken } from '../store/Cookie';
 
 const client = Stomp.over(() => {
-  return new SockJS("https://52.78.0.53.sslip.io/live");
+  return new SockJS('https://52.78.0.53.sslip.io/live');
 });
 
 export default function useSocket({ liveId, camera, audio, isOwner }) {
@@ -35,7 +35,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   //참가 퇴장 띄우기
 
   const [participateNickname, setParticipateNickname] = useState();
-  const [leaveNickname, setLeaveNickname] = useState("");
+  const [leaveNickname, setLeaveNickname] = useState('');
   // 라이브 루틴 수정 시 필요한 상태값들
   const [isModify, setIsModify] = useState(false);
   const [modifyActionId, setModifyActionId] = useState();
@@ -58,7 +58,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         setMyMediaStream(stream);
         myMedia.current.srcObject = stream;
 
-        console.log("my stream", stream);
+        console.log('my stream', stream);
 
         stream.getAudioTracks().forEach((audio) => (audio.enabled = audioOn));
 
@@ -71,7 +71,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     client.connect(
       {},
       () => {
-        client.subscribe("/room/participate/" + liveId, (data) => {
+        client.subscribe('/room/participate/' + liveId, (data) => {
           setParticipateNum(JSON.parse(data.body).participate);
           let nick = JSON.parse(data.body).nick;
           if (nick === undefined) {
@@ -82,14 +82,14 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                 JSON.parse(data.body).sdp,
                 myMedia.current.srcObject
               );
-              console.log("offer");
+              console.log('offer');
             }
             if (call) {
               let id;
 
-              call.on("stream", (stream) => {
+              call.on('stream', (stream) => {
                 if (id !== stream.id) {
-                  console.log("(offer)to check my peer id: ", myPeerId);
+                  console.log('(offer)to check my peer id: ', myPeerId);
                   id = stream.id;
                   setStreams((prev) => [
                     ...prev,
@@ -99,29 +99,29 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                 }
               });
 
-              call.on("close", () => {});
+              call.on('close', () => {});
             }
 
             client.send(
-              "/app/participate/" + liveId,
+              '/app/participate/' + liveId,
               {},
               JSON.stringify({
                 sdp: myPeerId,
-                nick: myInfo.nickname + "nick",
+                nick: myInfo.nickname + 'nick',
               })
             );
-          } else if (nick === "end") {
+          } else if (nick === 'end') {
             if (myPeerId !== JSON.parse(data.body).sdp) {
-              alert("라이브가 종료되었습니다!");
+              alert('라이브가 종료되었습니다!');
               myPeer.destroy();
               client.disconnect();
               // navigate('/live/list');
-              window.location.replace("/live/list");
+              window.location.replace('/live/list');
             }
           } else {
             if (myPeerId !== JSON.parse(data.body).sdp) {
-              if (nick.slice(-4, nick.length) === "nick") {
-                console.log("to check nick: ", nick);
+              if (nick.slice(-4, nick.length) === 'nick') {
+                console.log('to check nick: ', nick);
                 setNicknames((prev) => ({
                   ...prev,
                   [JSON.parse(data.body).sdp]: nick.slice(0, -4),
@@ -130,7 +130,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
                 // setParticipateNickname(nick.slice(0, -4));
               } else {
-                console.log("(exit)to check nick");
+                console.log('(exit)to check nick');
                 setStreams((prev) =>
                   prev.filter(
                     (item) => item.peerId !== JSON.parse(data.body).sdp
@@ -154,11 +154,11 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         const peer = new Peer();
         myPeer = peer;
         setMyPeer(peer);
-        peer.on("open", (peerId) => {
+        peer.on('open', (peerId) => {
           myPeerId = peerId;
           setMyPeerId(peerId);
           client.send(
-            "/app/participate/" + liveId,
+            '/app/participate/' + liveId,
             {},
             JSON.stringify({
               sdp: peerId,
@@ -167,12 +167,12 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         });
 
         // stream 통신
-        peer.on("call", (call) => {
+        peer.on('call', (call) => {
           call.answer(myMedia.current.srcObject);
-          console.log("answer");
-          console.log("(answer)to check my peer id: ", myPeerId);
+          console.log('answer');
+          console.log('(answer)to check my peer id: ', myPeerId);
           let id;
-          call.on("stream", (stream) => {
+          call.on('stream', (stream) => {
             if (id !== stream.id) {
               id = stream.id;
               setStreams((prev) => [
@@ -183,17 +183,21 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
             }
           });
           // 라이브 퇴장
-          call.on("close", () => {});
+          call.on('close', () => {});
         });
 
         //운동 동작 받아오기
-        client.subscribe("/room/ex/" + liveId, (data) => {
+        client.subscribe('/room/ex/' + liveId, (data) => {
           // console.log('/room/ex', JSON.parse(data.body));
           // console.log(
           //   'order',
           //   JSON.parse(data.body).ex.routinneDetailResult.order
           // );
-          console.log("current ex");
+          console.log('current ex');
+          setReadyTimer(false);
+          if (JSON.parse(data.body).ex.routinneDetailResult.order !== 1) {
+            setFinish(false);
+          }
 
           setCurrentEx(JSON.parse(data.body));
           setIsParticipate(false);
@@ -201,15 +205,16 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           // }
         });
 
-        client.subscribe("/room/leave/" + liveId, (data) => {
-          if (JSON.parse(data.body).nick === "need rest") {
-            setFinish(!finish);
+        client.subscribe('/room/leave/' + liveId, (data) => {
+          if (JSON.parse(data.body).nick === 'need rest') {
+            // setFinish(!finish);
+            setFinish(false);
             setPlusset((prev) => prev + 1);
-            console.log("LivePage need rest");
-          } else if (JSON.parse(data.body).nick === "no rest") {
+            console.log('LivePage need rest');
+          } else if (JSON.parse(data.body).nick === 'no rest') {
             setPlusset((prev) => prev + 1);
-            console.log("LivePage no rest");
-          } else if (JSON.parse(data.body).nick === "no rest set done") {
+            console.log('LivePage no rest');
+          } else if (JSON.parse(data.body).nick === 'no rest set done') {
             getTimer();
             setPlusset(1);
           } else {
@@ -228,62 +233,48 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         });
 
         // 전체 운동 루틴
-        client.subscribe("/room/routine/" + liveId, (data) => {
-          console.log("새로운 루틴: ", JSON.parse(data.body));
+        client.subscribe('/room/routine/' + liveId, (data) => {
+          console.log('새로운 루틴: ', JSON.parse(data.body));
           setRoutine(JSON.parse(data.body));
         });
 
         client.send(
-          "/app/start/" + liveId,
+          '/app/start/' + liveId,
           {},
           JSON.stringify({
             routineReq: 1,
           })
         );
 
-        client.subscribe("/room/ready/" + liveId, (data) => {
+        client.subscribe('/room/ready/' + liveId, (data) => {
           let massage = JSON.parse(data.body).time;
           if (massage === 5) {
-            setReadyTimer(!readyTimer);
-            setIsParticipate(false);
-          } else if (massage.slice(0, 10) === "set modify") {
+            // setReadyTimer(!readyTimer);
+            setReadyTimer(true); // ready 타이머 숨기기
+            setIsParticipate(false); // 참여지 Ready 텍스트 숨기기
+          } else if (massage.slice(0, 10) === 'set modify') {
             setIsModifySend(false);
             setIsModify(true);
             setModifyActionId(parseInt(massage.slice(11, massage.length)));
-          } else if (massage === "modify complete") {
+          } else if (massage === 'modify complete') {
             // console.log('modify complete');
             // setIsModify(false);
             setIsModifySend(true);
-          } else if (massage === "modify decrease") {
+          } else if (massage === 'modify decrease') {
             setIsDecrease((prev) => !prev);
-          } else if (massage === "modify increase") {
+          } else if (massage === 'modify increase') {
             setIsIncrease((prev) => !prev);
-          } else if (massage === "stop timer") {
+          } else if (massage === 'stop timer') {
             setStopbutton(false);
-          } else if (massage === "reset timer") {
+          } else if (massage === 'reset timer') {
             setStopbutton(true);
-          } else if (massage === "routine finish") {
+          } else if (massage === 'routine finish') {
             setExFinish(true);
-            // console.log('routine finish isOwner: ', isOwner);
-            // console.log('routine finish routine: ', routine);
-            // if (isOwner) {
-            //   axios
-            //     .get(
-            //       `https://52.78.0.53.sslip.io/api/ex-routines/${routine.routId}/me`,
-            //       {},
-            //       {
-            //         headers: { Authorization: `Bearer ${getCookieToken()}` },
-            //       }
-            //     )
-            //     .then((res) => {
-
-            //     });
-            // }
           }
         });
 
         client.send(
-          "/app/leave/" + liveId,
+          '/app/leave/' + liveId,
           {},
           JSON.stringify({
             nick: myInfo.nickname,
@@ -293,7 +284,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         // client.subscribe('/room/ready/' + liveId, (data) => {});
       },
       () => {
-        console.log("error occured");
+        console.log('error occured');
       }
     );
     if (JSON.parse(isOwner)) {
@@ -325,33 +316,33 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     // 라이브 종료
     if (JSON.parse(isOwner)) {
       axios
-        .delete("https://52.78.0.53.sslip.io/api/lives/" + liveId)
+        .delete('https://52.78.0.53.sslip.io/api/lives/' + liveId)
         .catch((e) => {
-          console.log("에러", e);
+          console.log('에러', e);
         });
       client.send(
-        "/app/participate/" + liveId,
+        '/app/participate/' + liveId,
         {},
         JSON.stringify({
           sdp: myPeerId,
-          nick: "end",
+          nick: 'end',
         })
       );
-      alert("라이브가 종료되었습니다");
+      alert('라이브가 종료되었습니다');
       myPeer.destroy();
       client.disconnect();
     } else {
       // 라이브 퇴장e
       axios
         .delete(
-          "https://52.78.0.53.sslip.io/api/lives/participates/" + liveId,
+          'https://52.78.0.53.sslip.io/api/lives/participates/' + liveId,
           {
             headers: { Authorization: `Bearer ${getCookieToken()}` },
           }
         )
         .then((res) => {
           client.send(
-            "/app/participate/" + liveId,
+            '/app/participate/' + liveId,
             {},
             JSON.stringify({
               sdp: myPeerId,
@@ -360,34 +351,30 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           );
         })
         .catch((e) => {
-          console.log("에러", e);
+          console.log('에러', e);
         });
       myPeer.destroy();
       client.disconnect();
-      alert("라이브에서 퇴장하셨습니다.");
+      alert('라이브에서 퇴장하셨습니다.');
     }
 
-    window.location.replace("/live/list");
+    window.location.replace('/live/list');
   };
 
   const handleStart = () => {
     //운동 시작 후 ready timer 수행
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: 5,
       })
     );
     setIsownerbn(!isownerbtn); //start버튼 숨기기
-  };
-
-  const getReadyTimer = () => {
-    setReadyTimer(!readyTimer); //ready timer 숨기기
     if (JSON.parse(isOwner)) {
       client.send(
         //첫번째 동작 보내기
-        "/app/ex/" + liveId,
+        '/app/ex/' + liveId,
         {},
         JSON.stringify({
           readyEnd: 1,
@@ -396,10 +383,25 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     }
   };
 
+  const getReadyTimer = () => {
+    setReadyTimer(false); //ready timer 숨기기
+    // if (JSON.parse(isOwner)) {
+    //   client.send(
+    //     //첫번째 동작 보내기
+    //     '/app/ex/' + liveId,
+    //     {},
+    //     JSON.stringify({
+    //       readyEnd: 1,
+    //     })
+    //   );
+    // }
+  };
+
   const getTimer = () => {
+    // 다음 동작 호출
     if (JSON.parse(isOwner)) {
       client.send(
-        "/app/ex/" + liveId,
+        '/app/ex/' + liveId,
         {},
         JSON.stringify({
           readyEnd: 1,
@@ -411,30 +413,30 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const onRest = () => {
     client.send(
-      "/app/leave/" + liveId,
+      '/app/leave/' + liveId,
       {},
       JSON.stringify({
-        nick: "need rest",
+        nick: 'need rest',
       })
     );
   };
 
   const onNoRest = () => {
     client.send(
-      "/app/leave/" + liveId,
+      '/app/leave/' + liveId,
       {},
       JSON.stringify({
-        nick: "no rest",
+        nick: 'no rest',
       })
     );
   };
 
   const onNoRestSetDone = () => {
     client.send(
-      "/app/leave/" + liveId,
+      '/app/leave/' + liveId,
       {},
       JSON.stringify({
-        nick: "no rest set done",
+        nick: 'no rest set done',
       })
     );
   };
@@ -442,7 +444,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   // 라이브 루틴 수정 시 필요한 소켓 통신 함수
   const socketSetModify = (RoutineActionId) => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `set modify ${RoutineActionId}`,
@@ -452,7 +454,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketModifyComplete = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `modify complete`,
@@ -462,7 +464,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketDecrease = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `modify decrease`,
@@ -472,7 +474,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketIncrease = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `modify increase`,
@@ -482,7 +484,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketRoutineChange = (liveRoutine) => {
     client.send(
-      "/app/routine/" + liveId,
+      '/app/routine/' + liveId,
       {},
       JSON.stringify({
         actionCnt: liveRoutine.actionCnt,
@@ -497,7 +499,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketTimerStop = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `stop timer`,
@@ -507,7 +509,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketTimerReset = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `reset timer`,
@@ -517,7 +519,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
 
   const socketRoutineFinish = () => {
     client.send(
-      "/app/ready/" + liveId,
+      '/app/ready/' + liveId,
       {},
       JSON.stringify({
         time: `routine finish`,
