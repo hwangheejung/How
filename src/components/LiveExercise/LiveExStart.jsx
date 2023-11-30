@@ -56,9 +56,9 @@ const LiveExStart = (props) => {
         props.finish ? (
           <div className={styles.ReadyTimer}>
             <div className={styles.actionInfo}>
-              <div className={styles.set}>
+              {/* <div className={styles.set}>
                 set {props.plusset}/{currentexerciseset}
-              </div>
+              </div> */}
               <LiveTimer
                 time={currenttime}
                 getTimer={getTimer}
@@ -84,9 +84,9 @@ const LiveExStart = (props) => {
       ) : props.finish ? (
         <div className={styles.ReadyTimer}>
           <div className={styles.actionInfo}>
-            <div className={styles.set}>
+            {/* <div className={styles.set}>
               set {props.plusset}/{currentexerciseset}
-            </div>
+            </div> */}
             <div className={styles.count}>{currentcount}개 </div>
             {props.showBtn ? (
               <button className={styles.button} onClick={onClick}>
