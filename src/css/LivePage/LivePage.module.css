@@ -52,6 +52,10 @@
 
 .bottomVideo {
   height: 30%;
+  /* position: fixed;
+  bottom: 10px;
+  left: 30%; */
+  /* display: flex; */
 }
 
 .currentActionDetailBox {
@@ -97,8 +101,10 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  /* margin-top: 30px;
+  margin-bottom: 40px; */
+  margin-top: 1em;
+  margin-bottom: 1em;
   box-sizing: border-box;
 }
 
@@ -146,6 +152,11 @@
 .endMassage {
   padding-bottom: 10px;
 }
+.blink {
+  color: rgb(212, 90, 90);
+  font-size: 1rem;
+  opacity: 0.8;
+}
 
 @media (min-width: 650px) {
   .middle {
@@ -156,5 +167,10 @@
 
   .actionVideo {
     flex: 1;
+  }
+  .blink {
+    color: rgb(212, 90, 90);
+    font-size: 0.8rem;
+    opacity: 0.8;
   }
 }

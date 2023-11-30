@@ -1,8 +1,8 @@
-import React from 'react';
-import LiveRestTimer from './LiveRestTimer';
-import styles from '../../css/Live/LiveExStart.module.css';
-import LiveTimer from './LiveTimer';
-import ActionVideo from './ActionVideo';
+import React from "react";
+import LiveRestTimer from "./LiveRestTimer";
+import styles from "../../css/Live/LiveExStart.module.css";
+import LiveTimer from "./LiveTimer";
+import ActionVideo from "./ActionVideo";
 
 const LiveExStart = (props) => {
   const currentcount = props.currentEx.ex.routinneDetailResult.count;
@@ -48,7 +48,7 @@ const LiveExStart = (props) => {
     }
   };
 
-  console.log('currentEx from LiveExStart: ', props.currentEx);
+  console.log("currentEx from LiveExStart: ", props.currentEx);
 
   return (
     <div className={styles.currentActionBox}>
@@ -68,7 +68,9 @@ const LiveExStart = (props) => {
                 socketTimerReset={props.socketTimerReset}
               />
             </div>
-            <ActionVideo currentEx={props.currentEx} />
+            <div className={styles.actionVideo}>
+              <ActionVideo currentEx={props.currentEx} />
+            </div>
             {/* <div className={styles.stopBox}> */}
             {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
             {/* </div> */}

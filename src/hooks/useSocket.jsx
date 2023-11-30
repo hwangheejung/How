@@ -31,6 +31,11 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [currentEx, setCurrentEx] = useState();
   const [finish, setFinish] = useState(true);
   const [plusset, setPlusset] = useState(1);
+
+  //참가 퇴장 띄우기
+
+  const [participateNickname, setParticipateNickname] = useState();
+  const [leaveNickname, setLeaveNickname] = useState("");
   // 라이브 루틴 수정 시 필요한 상태값들
   const [isModify, setIsModify] = useState(false);
   const [modifyActionId, setModifyActionId] = useState();
@@ -121,6 +126,9 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                   ...prev,
                   [JSON.parse(data.body).sdp]: nick.slice(0, -4),
                 }));
+                // console.log(nick.slice(0, -4));
+
+                // setParticipateNickname(nick.slice(0, -4));
               } else {
                 console.log("(exit)to check nick");
                 setStreams((prev) =>
@@ -130,10 +138,12 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                 );
                 setNicknames((prev) => {
                   const { [JSON.parse(data.body).sdp]: remove, ...rest } = prev;
-                  console.log(remove);
                   console.log(rest);
                   return rest;
                 });
+
+                setLeaveNickname(nick);
+
                 // alert(`${nick}님이 퇴장하셨습니다.`);
               }
             }
@@ -202,6 +212,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           } else if (JSON.parse(data.body).nick === "no rest set done") {
             getTimer();
             setPlusset(1);
+          } else {
+            setParticipateNickname(JSON.parse(data.body).nick);
           }
           // else if (JSON.parse(data.body).nick === 'stop timer') {
           //   setStopbutton(false);
@@ -269,6 +281,14 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
             // }
           }
         });
+
+        client.send(
+          "/app/leave/" + liveId,
+          {},
+          JSON.stringify({
+            nick: myInfo.nickname,
+          })
+        );
 
         // client.subscribe('/room/ready/' + liveId, (data) => {});
       },
@@ -386,6 +406,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         })
       );
     }
+    setStopbutton(false);
   };
 
   const onRest = () => {
@@ -548,5 +569,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     socketTimerStop,
     socketTimerReset,
     socketRoutineFinish,
+    participateNickname,
+    leaveNickname,
   ];
 }

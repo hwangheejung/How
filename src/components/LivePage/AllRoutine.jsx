@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../../css/LivePage/AllRoutine.module.css';
-import ActionModify from '../LiveExercise/ActionModify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
+import styles from "../../css/LivePage/AllRoutine.module.css";
+import ActionModify from "../LiveExercise/ActionModify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 
 export default function AllRoutine({
   routine,
@@ -37,8 +37,8 @@ export default function AllRoutine({
     if (showBtn) socketSetModify(routineActionId);
   };
 
-  console.log('routine from AllRoutine: ', routine);
-  console.log('currentEx from AllRoutine: ', currentEx);
+  console.log("routine from AllRoutine: ", routine);
+  console.log("currentEx from AllRoutine: ", currentEx);
 
   return (
     <div className={styles.allRoutinePopup}>
@@ -91,7 +91,7 @@ export default function AllRoutine({
                     </div>
                   </div>
                   <video className={styles.video} controls muted>
-                    <source src={detail.img[0].img} type='video/mp4' />
+                    <source src={detail.img[0]?.img} type="video/mp4" />
                   </video>
                 </div>
                 {isModify &&
@@ -150,7 +150,7 @@ export default function AllRoutine({
                     </div>
                   </div>
                   <video className={styles.video} controls muted>
-                    <source src={detail.img[0].img} type='video/mp4' />
+                    <source src={detail.img[0]?.img} type="video/mp4" />
                   </video>
                 </div>
                 {isModify &&
