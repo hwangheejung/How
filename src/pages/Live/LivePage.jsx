@@ -85,6 +85,44 @@ export default function LivePage() {
       setLeavealert(false);
     }, 3000);
   }, [leaveNickname]);
+  useEffect(() => {
+    if (exFinish === true) {
+      axios
+        .post(
+          `https://52.78.0.53.sslip.io/api/calendars `,
+          {
+            localDate: new Date(),
+            routId: routine.routId,
+            check: true,
+          },
+          {
+            headers: { Authorization: `Bearer ${getCookieToken()}` },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+  }, [exFinish]);
+
+  const CalendarCreate = (date, routineid) => {
+    console.log(date);
+    axios
+      .post(
+        `https://52.78.0.53.sslip.io/api/calendars `,
+        {
+          localDate: date,
+          routId: routineid,
+          check: true,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookieToken()}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
   return (
     <div className={styles.root}>
       <div className={styles.cover}>
@@ -177,7 +215,12 @@ export default function LivePage() {
                     <div
                       className={styles.endMassage}
                     >{`${myInfo.nickname}님, 수고하셨어요!`}</div>
-                    <div className={styles.completeText}>완료</div>
+                    <div
+                      className={styles.completeText}
+                      // onClick={CalendarCreate(new Date(), routine.routId)}
+                    >
+                      운동 끝
+                    </div>
                   </div>
                 )}
               </div>

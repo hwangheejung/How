@@ -8,6 +8,7 @@ import styles from "../../css/Calendar/CalendarModal.module.css";
 const AddExCalendar = (props) => {
   const { id } = useParams();
 
+  // console.log(props.clickdate);
   const today = new Date();
   const [myroutinedata, setMyRoutindata] = useState([]);
   const [loading, setLoading] = useState(false); //
@@ -32,6 +33,7 @@ const AddExCalendar = (props) => {
       .then((res) => {
         console.log(res.data);
       });
+    window.location.reload();
 
     props.onCalendarDetailClose(false);
   };
@@ -50,6 +52,7 @@ const AddExCalendar = (props) => {
       .then((res) => {
         console.log(res.data);
       });
+    window.location.reload();
   };
 
   // const CalendarCreate = (date, routineid) => {
@@ -104,15 +107,14 @@ const AddExCalendar = (props) => {
                       <input
                         type="checkbox"
                         className={styles.input}
-                        id={props.clickdate.comment}
                         value={props.clickdate.comment}
+                        checked={props.clickdate.checked}
                         onChange={(e) => {
                           onHandleCheck(
                             e.currentTarget.checked,
                             props.clickdate.id
                           );
                         }}
-                        checked={props.clickdate.checked}
                       />
                       <label htmlFor={props.clickdate.comment}>
                         {props.clickdate.comment}
