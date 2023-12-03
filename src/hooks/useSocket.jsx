@@ -31,11 +31,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [currentEx, setCurrentEx] = useState();
   const [finish, setFinish] = useState(true);
   const [plusset, setPlusset] = useState(1);
-
-  //참가 퇴장 띄우기
-
-  const [participateNickname, setParticipateNickname] = useState();
-  const [leaveNickname, setLeaveNickname] = useState('');
   // 라이브 루틴 수정 시 필요한 상태값들
   const [isModify, setIsModify] = useState(false);
   const [modifyActionId, setModifyActionId] = useState();
@@ -126,9 +121,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                   ...prev,
                   [JSON.parse(data.body).sdp]: nick.slice(0, -4),
                 }));
-                // console.log(nick.slice(0, -4));
-
-                // setParticipateNickname(nick.slice(0, -4));
               } else {
                 console.log('(exit)to check nick');
                 setStreams((prev) =>
@@ -138,12 +130,10 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
                 );
                 setNicknames((prev) => {
                   const { [JSON.parse(data.body).sdp]: remove, ...rest } = prev;
+                  console.log(remove);
                   console.log(rest);
                   return rest;
                 });
-
-                setLeaveNickname(nick);
-
                 // alert(`${nick}님이 퇴장하셨습니다.`);
               }
             }
@@ -194,7 +184,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           //   JSON.parse(data.body).ex.routinneDetailResult.order
           // );
           console.log('current ex');
-          // setReadyTimer(false);
           if (JSON.parse(data.body).ex.routinneDetailResult.order !== 1) {
             setFinish(false);
           }
@@ -217,8 +206,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
           } else if (JSON.parse(data.body).nick === 'no rest set done') {
             getTimer();
             setPlusset(1);
-          } else {
-            setParticipateNickname(JSON.parse(data.body).nick);
           }
           // else if (JSON.parse(data.body).nick === 'stop timer') {
           //   setStopbutton(false);
@@ -249,9 +236,8 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         client.subscribe('/room/ready/' + liveId, (data) => {
           let massage = JSON.parse(data.body).time;
           if (massage === 5) {
-            // setReadyTimer(!readyTimer);
-            setReadyTimer(true); // ready 타이머 숨기기
-            setIsParticipate(false); // 참여지 Ready 텍스트 숨기기
+            setReadyTimer(!readyTimer);
+            setIsParticipate(false);
           } else if (massage.slice(0, 10) === 'set modify') {
             setIsModifySend(false);
             setIsModify(true);
@@ -272,14 +258,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
             setExFinish(true);
           }
         });
-
-        client.send(
-          '/app/leave/' + liveId,
-          {},
-          JSON.stringify({
-            nick: myInfo.nickname,
-          })
-        );
 
         // client.subscribe('/room/ready/' + liveId, (data) => {});
       },
@@ -384,7 +362,7 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   };
 
   const getReadyTimer = () => {
-    setReadyTimer(false); //ready timer 숨기기
+    setReadyTimer(!readyTimer); //ready timer 숨기기
     // if (JSON.parse(isOwner)) {
     //   client.send(
     //     //첫번째 동작 보내기
@@ -398,7 +376,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   };
 
   const getTimer = () => {
-    // 다음 동작 호출
     if (JSON.parse(isOwner)) {
       client.send(
         '/app/ex/' + liveId,
@@ -408,7 +385,6 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         })
       );
     }
-    setStopbutton(false);
   };
 
   const onRest = () => {
@@ -571,7 +547,5 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
     socketTimerStop,
     socketTimerReset,
     socketRoutineFinish,
-    participateNickname,
-    leaveNickname,
   ];
 }

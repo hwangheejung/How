@@ -4,7 +4,7 @@
   text-align: center;
   padding: 15px 30px;
   border-radius: 15px;
-  font-family: "paybooc-Light", sans-serif;
+  font-family: 'paybooc-Light', sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
@@ -93,6 +93,7 @@
   flex-direction: column;
   box-sizing: border-box;
   flex: 1;
+  /* height: 100%; */
 }
 .actionName {
   font-size: 15px;
@@ -103,6 +104,15 @@
 .endMassage {
   padding-bottom: 10px;
 }
+
+.bigBox {
+  height: 100%;
+}
+
+.frame {
+  height: 100%;
+}
+
 @media (min-width: 650px) {
   .middle {
     display: flex;

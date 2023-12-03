@@ -78,9 +78,15 @@
     text-align: center;
     margin-bottom: 14px;
   }
-  .video {
+  /* .video {
     background-color: var(--light-grey);
     padding: 120px 120px;
+    border-radius: 14px;
+    margin-top: 14px;
+  } */
+
+  .video {
+    width: 100%;
     border-radius: 14px;
     margin-top: 14px;
   }

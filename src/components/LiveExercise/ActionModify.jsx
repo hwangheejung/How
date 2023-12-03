@@ -21,6 +21,7 @@ export default function ActionModify({
   const [liveRoutine, setLiveRoutine] = useState(routine);
 
   useEffect(() => {
+    console.log('type: ', type);
     if (type) {
       setTimeCount(time);
     } else {
@@ -29,17 +30,19 @@ export default function ActionModify({
   }, [selectedAction]);
 
   useEffect(() => {
-    console.log('is decrease: ', isDecrease);
-    setTimeCount((prev) => prev - 1);
-  }, [isDecrease]);
+    console.log('timecount: ', timecount);
+    // console.log('is decrease: ', isDecrease);
+    // setTimeCount((prev) => prev - 1);
+  }, [timecount]);
 
-  useEffect(() => {
-    console.log('is increase: ', isIncrease);
-    setTimeCount((prev) => prev + 1);
-  }, [isIncrease]);
+  // useEffect(() => {
+  // console.log('is increase: ', isIncrease);
+  // setTimeCount((prev) => prev + 1);
+  // }, [isIncrease]);
 
   useEffect(() => {
     if (isModifySend) {
+      console.log('isModifySend useEffect');
       console.log(routine);
       console.log(liveRoutine);
       socketRoutineChange(liveRoutine);
@@ -82,11 +85,13 @@ export default function ActionModify({
   };
 
   const handleDecrease = () => {
-    socketDecrease();
+    setTimeCount((prev) => prev - 1);
+    // socketDecrease();
   };
 
   const handleIncrease = () => {
-    socketIncrease();
+    setTimeCount((prev) => prev + 1);
+    // socketIncrease();
   };
 
   return (

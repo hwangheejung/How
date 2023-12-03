@@ -1,10 +1,9 @@
-import { React, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import styles from "../../css/MyRoutine/MyRoutineDetailPopup.module.css";
-import axios from "axios";
-import { IoIosTimer } from "react-icons/io";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import { React, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from '../../css/MyRoutine/MyRoutineDetailPopup.module.css';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const MyRoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -14,23 +13,11 @@ const MyRoutineDetail = (props) => {
   const navigate = useNavigate();
 
   const windowClose = () => {
-    // window.close();
     props.setIsRoutineDetailPopup(false);
   };
 
-  // const { id } = useParams();
-
-  const routineStart = (routid,id) => {
-    // window.opener.location.href = `/start/${id}`;
-    // window.close();
+  const routineStart = (routid, id) => {
     navigate(`/startex/${routid}/${id}`);
-
-    // const url = `/routinestart/${id}`;
-    // window.open(
-    //   url,
-    //   'window_name',
-    //   'width=430,height=500,location=no,status=no,scrollbars=yes,top=200,left=100'
-    // );
   };
 
   const fetchroutine = async () => {
@@ -53,8 +40,6 @@ const MyRoutineDetail = (props) => {
   useEffect(() => {
     fetchroutine();
   }, []);
-
-  console.log(detailRoutine);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
@@ -98,7 +83,9 @@ const MyRoutineDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             ) : (
               <div key={detail.id} className={styles.routineDetail}>
@@ -120,7 +107,9 @@ const MyRoutineDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             )
           )}
@@ -129,7 +118,7 @@ const MyRoutineDetail = (props) => {
         <div className={styles.buttons}>
           <button
             className={styles.button}
-            onClick={() => routineStart(props.routineId,props.myroutid)}
+            onClick={() => routineStart(props.routineId, props.myroutid)}
           >
             START
           </button>

@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import styles from "../../css/Popup.module.css";
-import axios from "axios";
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from '../../css/Popup.module.css';
+import axios from 'axios';
 
 const RoutineStart = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null); //루틴 상세 배열
@@ -55,7 +55,9 @@ const RoutineStart = (props) => {
                 <span className={styles.detailname}> {detail.ex.name}</span>
                 <span className={styles.detaildesc}> {detail.ex.desc}</span>
                 <div className={styles.details}>
-                  <div className={styles.video}>동영상 들어올 자리</div>
+                  <video className={styles.video} controls muted>
+                    <source src={detail.img[0]?.img} type='video/mp4' />
+                  </video>
                 </div>
               </div>
             )

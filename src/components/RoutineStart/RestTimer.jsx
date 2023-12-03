@@ -1,9 +1,9 @@
-import { React, useState, useRef, useEffect } from 'react';
-import styles from '../../css/Timer/readyTimer.module.css';
+import React, { useEffect, useRef, useState } from 'react';
+import styles from '../../css/Live/LiveReadyTimer.module.css';
 
-const ReadyTimer = (props) => {
+export default function RestTimer(props) {
   const [seconds, setSeconds] = useState(0);
-  const time = useRef(10);
+  const time = useRef(props.time);
   const timerId = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const ReadyTimer = (props) => {
   useEffect(() => {
     if (time.current <= 0) {
       clearInterval(timerId.current);
-      props.getReadyTimer();
+      props.getfinish();
     }
   }, [seconds]);
 
@@ -36,5 +36,4 @@ const ReadyTimer = (props) => {
       </div>
     </div>
   );
-};
-export default ReadyTimer;
+}

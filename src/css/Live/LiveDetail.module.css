@@ -150,13 +150,6 @@ h2 {
   padding-right: 3px;
 }
 
-/* .video {
-  background-color: var(--light-grey);
-  padding: 110px 55px;
-  border-radius: 14px;
-  margin-top: 14px;
-} */
-
 .buttons {
   padding-top: 20px;
   display: flex;
@@ -174,7 +167,6 @@ h2 {
 
 @media (max-width: 649px) {
   .video {
-    /* width: 100px; */
     width: 100%;
     border-radius: 14px;
     margin-top: 14px;
@@ -335,105 +327,10 @@ h2 {
   .button {
     font-size: 18px;
     padding: 15px 45px;
-    /* font-size: 17px; */
     font-weight: 700;
     background-color: #00aa81;
     color: var(--white);
-    /* padding: 15px 35px; */
     border-radius: 30px;
     margin: 5px;
   }
 }
-/* .name {
-  text-align: center;
-  font-size: 50px;
-  padding: 10px 0;
-}
-
-.layout {
-  overflow-y: scroll;
-  background-color: #f3edff;
-  margin: 0 20px;
-  padding: 20px 20px;
-  height: 80%;
-}
-
-.subject {
-  font-size: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.creatorBox {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.creator {
-  font-size: 18px;
-}
-
-.routineTitle {
-  display: flex;
-  justify-content: center;
-  padding-top: 30px;
-}
-
-.cates {
-  text-align: center;
-  padding-top: 10px;
-  color: var(--main-color);
-  font-size: 18px;
-}
-
-.actionCate {
-  padding: 0 5px;
-}
-
-.list {
-  text-align: right;
-  padding: 10px 0;
-}
-
-.list span {
-  padding-left: 10px;
-}
-
-.timer {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}
-
-.detailname {
-  text-align: center;
-}
-
-.details span {
-  padding-right: 10px;
-}
-
-.buttons {
-  text-align: center;
-  width: 300px;
-  margin: 0 auto;
-}
-
-.backbutton {
-  border: none;
-  display: inline-block;
-  margin: 10px 15px;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s;
-  background-color: #7650e0;
-  color: #d7fff1;
-  cursor: pointer;
-} */
