@@ -79,6 +79,7 @@ const Calendar = () => {
   const [website, setWebsite] = useState(true); //앱 화면일때 달력을 다르게 표현하기 위한 변수
   const [beforetoday, setBeforeToday] = useState(false); //오늘 보다 이전은 루틴 실행 x
 
+  // const [count, setCount] = useState(0);
   useEffect(() => {
     if (window.outerWidth < 576) {
       //width가 576보다 작으면 앱 화면 적용
@@ -95,7 +96,6 @@ const Calendar = () => {
     } else {
       setCurrent(startDate);
     }
-
     if (currentMonth === 0) {
       //1월이면 전달에 전년도와 마지막달 전달
       setCurrentYear(currentYear - 1);
@@ -112,7 +112,6 @@ const Calendar = () => {
     } else {
       setCurrent(endDate);
     }
-
     if (currentMonth === 11) {
       //12월이면 다음달에 다음년도와 첫달 전달
       setCurrentYear(currentYear + 1);
@@ -236,17 +235,24 @@ const Calendar = () => {
               }
             })
           );
-          // console.log(monthCalendar);
         }
       }
     }
   }, [clickmonth, mycalendardata]);
+  // useEffect(() => {
+  //   for (let i = 0; i < monthCalendar.length; i++) {
+  //     if (getMonth(today) === getMonth(monthCalendar[i].monthday))
+  //       if (monthCalendar[i].comment !== null) {
+  //         setCount((prev) => prev + 1);
+  //       }
+  //   }
+  // }, []);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!mycalendardata) return <div>null</div>;
 
-  console.log(mycalendardata);
+  // console.log(myca/lendardata);
   return (
     <div className={styles.calendar}>
       <div className={styles.CalendarHeader}>
@@ -317,9 +323,9 @@ const Calendar = () => {
               className={styles.datebutton}
               onClick={
                 website
-                  ? () => onClickdate(v.id, v.monthday, v.comment, v.isCheck)
+                  ? () => onClickdate(v.id, v.monthday, v.comment, v.checked)
                   : () =>
-                      mobileonClickdate(v.id, v.monthday, v.comment, v.isCheck)
+                      mobileonClickdate(v.id, v.monthday, v.comment, v.checked)
               }
             >
               <div

@@ -31,6 +31,11 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
   const [currentEx, setCurrentEx] = useState();
   const [finish, setFinish] = useState(true);
   const [plusset, setPlusset] = useState(1);
+
+  //참가 퇴장 띄우기
+
+  const [participateNickname, setParticipateNickname] = useState();
+  const [leaveNickname, setLeaveNickname] = useState('');
   // 라이브 루틴 수정 시 필요한 상태값들
   const [isModify, setIsModify] = useState(false);
   const [modifyActionId, setModifyActionId] = useState();
@@ -236,8 +241,9 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
         client.subscribe('/room/ready/' + liveId, (data) => {
           let massage = JSON.parse(data.body).time;
           if (massage === 5) {
-            setReadyTimer(!readyTimer);
-            setIsParticipate(false);
+            // setReadyTimer(!readyTimer);
+            setReadyTimer(true); // ready 타이머 숨기기
+            setIsParticipate(false); // 참여지 Ready 텍스트 숨기기
           } else if (massage.slice(0, 10) === 'set modify') {
             setIsModifySend(false);
             setIsModify(true);
@@ -258,6 +264,14 @@ export default function useSocket({ liveId, camera, audio, isOwner }) {
             setExFinish(true);
           }
         });
+
+        client.send(
+          '/app/leave/' + liveId,
+          {},
+          JSON.stringify({
+            nick: myInfo.nickname,
+          })
+        );
 
         // client.subscribe('/room/ready/' + liveId, (data) => {});
       },

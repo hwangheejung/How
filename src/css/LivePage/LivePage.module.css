@@ -182,6 +182,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.lightly {
+  opacity: 0.5;
+}
 @media (min-width: 650px) {
   .middle {
     display: flex;

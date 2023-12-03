@@ -45,6 +45,25 @@ const Startex = (props) => {
       }
     }
   };
+  useEffect(() => {
+    if (exerciseEnd === true) {
+      axios
+        .post(
+          `https://52.78.0.53.sslip.io/api/calendars `,
+          {
+            localDate: new Date(),
+            routId: routid,
+            check: true,
+          },
+          {
+            headers: { Authorization: `Bearer ${getCookieToken()}` },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+  }, [exerciseEnd]);
   const getReadyTimer = () => {
     setReadyfinish(!readyfinish);
   };
@@ -54,15 +73,9 @@ const Startex = (props) => {
   };
   const onclick = () => {
     //운동이 끝나서 홈화면으로 돌아가기 위한 함수
-    navigate('/my/routine/list');
-    axios
-      .get(`https://52.78.0.53.sslip.io/api/ex-routines/${id}/me `, {
-        headers: { Authorization: `Bearer ${getCookieToken()}` },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    navigate('/');
   };
+
   const fetchroutine = async () => {
     //루틴 상세정보 api 연결
     try {
@@ -116,7 +129,7 @@ const Startex = (props) => {
               <div className={styles.endMessage}>운동이 끝났습니다.</div>
 
               <button className={styles.button} onClick={onclick}>
-                뒤로가기
+                홈화면으로 가기
               </button>
             </div>
           ) : (
