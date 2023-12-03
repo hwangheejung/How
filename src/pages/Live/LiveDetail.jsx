@@ -3,8 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import styles from '../../css/Live/LiveDetail.module.css';
 import axios from 'axios';
-import { IoIosTimer } from 'react-icons/io';
-import { BsPerson } from 'react-icons/bs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,12 +17,8 @@ const LiveDetail = (props) => {
     window.close();
   };
 
-  // const { routineId, liveId, livesubject, livenick } = useParams();
-
   const liveStart = () => {
     props.setRoomId(liveId);
-    // window.opener.location.href = `/live/setting/perticipate/${liveId}`;
-    // window.close();
     props.setIsParticipateSetting(true);
     props.onLiveDetailClose(false);
   };

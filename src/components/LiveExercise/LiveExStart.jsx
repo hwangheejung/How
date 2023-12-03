@@ -9,8 +9,6 @@ const LiveExStart = (props) => {
   const currenttime = props.currentEx.ex.routinneDetailResult.time;
   const currentrest = props.currentEx.ex.routinneDetailResult.rest;
   const currenttype = props.currentEx.ex.routinneDetailResult.type;
-  const currentname = props.currentEx.ex.routinneDetailResult.ex.name;
-  const currentdesc = props.currentEx.ex.routinneDetailResult.ex.desc;
   const currentexerciseset = props.currentEx.ex.routinneDetailResult.set;
   const currentExOrder = props.currentEx.ex.routinneDetailResult.order;
   const currentExAcriontCnt = props.currentEx.ex.actionCnt;
@@ -81,8 +79,6 @@ const LiveExStart = (props) => {
     // }
   };
 
-  console.log('currentEx from LiveExStart: ', props.currentEx);
-
   return (
     <div className={styles.currentActionBox}>
       {currenttype ? (
@@ -104,9 +100,6 @@ const LiveExStart = (props) => {
             <div className={styles.actionVideo}>
               <ActionVideo currentEx={props.currentEx} />
             </div>
-            {/* <div className={styles.stopBox}> */}
-            {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
-            {/* </div> */}
           </div>
         ) : (
           <LiveRestTimer

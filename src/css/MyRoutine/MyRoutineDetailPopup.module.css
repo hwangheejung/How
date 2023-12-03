@@ -1,193 +1,3 @@
-/* .buttons {
-  text-align: center;
-  width: 300px;
-  margin: 0 auto;
-}
-
-.backbutton {
-  border: none;
-  display: inline-block;
-  margin: 10px 15px;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s;
-  background-color: #7650e0;
-  color: #d7fff1;
-  cursor: pointer;
-}
-
-.name {
-  text-align: center;
-  font-size: 50px;
-  padding: 10px 0;
-}
-
-.layout {
-  overflow-y: scroll;
-  background-color: #f3edff;
-  margin: 0 20px;
-  padding: 20px 20px;
-  height: 80%;
-}
-
-.subject {
-  font-size: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.creatorBox {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.creator {
-  font-size: 18px;
-}
-
-.routineTitle {
-  display: flex;
-  justify-content: center;
-  padding-top: 30px;
-}
-
-.cates {
-  text-align: center;
-  padding-top: 10px;
-  color: var(--main-color);
-  font-size: 18px;
-}
-
-.actionCate {
-  padding: 0 5px;
-}
-
-.category {
-  text-align: center;
-  width: 100px;
-  margin: 0 auto;
-  padding: 10px 0;
-}
-
-.hits {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.timer {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-}
-.timerlayout {
-  background-color: bisque;
-  text-align: right;
-  margin: 10px;
-}
-.list {
-  text-align: right;
-  padding: 10px 0;
-}
-.list span {
-  padding-left: 10px;
-}
-.detailname {
-  text-align: center;
-}
-.detaildesc {
-  margin-top: 30px;
-  text-align: center;
-  white-space: pre-line;
-}
-
-.startbuttonContainer {
-  display: flex;
-  align-items: center;
-  height: 85%;
-}
-
-.startbutton {
-  border: none;
-  display: block;
-  margin: auto;
-  width: 500px;
-  height: 500px;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s;
-  background-color: #7650e0;
-  color: #d7fff1;
-  cursor: pointer;
-}
-
-.frame {
-  width: 100%;
-  height: 700px;
-}
-.left {
-  width: 60%;
-  float: left;
-  box-sizing: border-box;
-}
-
-.right {
-  width: 40%;
-  float: right;
-  box-sizing: border-box;
-}
-
-.details span {
-  padding-right: 10px;
-}
-
-.letter {
-  font-size: 100px;
-  margin: auto;
-  height: auto;
-  text-align: center;
-  text-shadow: 0px 0px 30px #7650e0;
-  color: black;
-}
-
-.button {
-  border: none;
-  display: inline-block;
-  margin-left: 250px;
-  margin-top: 30px;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 15px;
-  font-family: 'paybooc-Light', sans-serif;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s;
-  background-color: #7650e0;
-  color: #d7fff1;
-  cursor: pointer;
-  text-align: center;
-}
-
-.ReadyTimer {
-  font-size: 100px;
-  margin: auto;
-  height: auto;
-  text-align: center;
-  text-shadow: 0px 0px 30px #7650e0;
-  color: black;
-} */
 .MyRoutineDetailPopup {
   position: fixed;
   top: 0;
@@ -322,9 +132,15 @@ button {
   padding-right: 3px;
 }
 
-.video {
+/* .video {
   background-color: var(--light-grey);
   padding: 110px 55px;
+  border-radius: 14px;
+  margin-top: 14px;
+} */
+
+.video {
+  width: 100%;
   border-radius: 14px;
   margin-top: 14px;
 }
@@ -464,13 +280,13 @@ button {
     padding-right: 3px;
   }
 
-  .video {
+  /* .video {
     background-color: var(--light-grey);
     padding: 200px 140px;
     margin-top: 18px;
     margin-bottom: 18px;
     border-radius: 20px;
-  }
+  } */
 
   button {
     font-size: 12px;

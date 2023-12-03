@@ -1,13 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-//import { useLocation } from "react-router-dom";
-import styles from "../../css/Routine/RoutineDetailPopup.module.css";
-import { IoIosTimer } from "react-icons/io";
-import { getCookieToken } from "../../store/Cookie";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../css/Routine/RoutineDetailPopup.module.css';
+import { getCookieToken } from '../../store/Cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const RoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -17,14 +15,10 @@ const RoutineDetail = (props) => {
   const navigate = useNavigate();
 
   const windowClose = () => {
-    // window.close();
     props.setDetailPopup(false);
     props.windowReload();
-    console.log("window close");
+    console.log('window close');
   };
-
-  // const { id } = useParams();
-  //const params = { id };
 
   const myroutineinsert = (id) => {
     axios
@@ -38,8 +32,6 @@ const RoutineDetail = (props) => {
         }
       )
       .then((res) => {
-        // window.opener.location.href = `/my/routine/list`;
-        // window.close();
         navigate(`/my/routine/list`);
       });
   };
@@ -107,7 +99,9 @@ const RoutineDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             ) : (
               <div key={detail.id} className={styles.routineDetail}>
@@ -129,7 +123,9 @@ const RoutineDetail = (props) => {
                     <span> {detail.set} set</span>
                   </div>
                 </div>
-                <div className={styles.video}>동영상 들어올 자리</div>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
             )
           )}
