@@ -1,29 +1,7 @@
-/* .root {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.middleContainer {
-  display: flex;
-  width: 100%;
-  padding: 40px 20px;
-  height: 80%;
-}
-
-.videoAction {
-  width: 70%;
-} */
-
 .root {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* padding: 50px 20px; */
   padding: 5% 2%;
 }
 
@@ -52,17 +30,12 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  /* flex: 1; */
   height: 70%;
   align-items: center;
 }
 
 .bottomVideo {
   height: 30%;
-  /* position: fixed;
-  bottom: 10px;
-  left: 30%; */
-  /* display: flex; */
 }
 
 .currentActionDetailBox {
@@ -71,7 +44,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 100%; */
 }
 
 .startButtonBox {
@@ -104,16 +76,12 @@
   background-color: #000000;
   height: 42px;
   width: 100%;
-  /* max-width: 260px;
-  min-width: 210px; */
   border-radius: 30px;
   opacity: 0.5;
   padding: 5px 10px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  /* margin-top: 30px;
-  margin-bottom: 40px; */
   margin-top: 0.6em;
   margin-bottom: 0.6em;
   box-sizing: border-box;
@@ -154,7 +122,6 @@
   position: fixed;
   right: 10px;
   padding-right: 10px;
-  /* padding-left: 10px; */
   color: #ffffff;
 }
 .actionImage {

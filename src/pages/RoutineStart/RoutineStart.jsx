@@ -4,18 +4,17 @@ import styles from '../../css/Popup.module.css';
 import axios from 'axios';
 
 const RoutineStart = (props) => {
-  const [detailRoutine, setDetailRoutine] = useState(null); //루틴 상세 배열
-  const [loading, setLoading] = useState(false); //
+  const [detailRoutine, setDetailRoutine] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { routid, id } = useParams(); //루틴 아이디를 받아옴
+  const { routid } = useParams();
 
   const Start = () => {
     props.setIsRoutineDetailPopup(false);
   };
 
   const fetchroutine = async () => {
-    //routine 상세정보 api 받아옴
     try {
       setDetailRoutine(null);
       setLoading(true);
@@ -26,7 +25,6 @@ const RoutineStart = (props) => {
       );
       setDetailRoutine(response.data);
     } catch (e) {
-      console.log(e);
       setError(e);
     }
     setLoading(false);
@@ -45,23 +43,18 @@ const RoutineStart = (props) => {
       <div className={styles.layout}>
         <div className={styles.name}>detail</div>
         <div className={styles.routineInfo}>
-          {detailRoutine.result.routineDetails.map(
-            (
-              detail,
-              index //운동 동작 정보 (이름,설명) 띄우기
-            ) => (
-              <div key={detail.id} className={styles.routineDetail}>
-                <span className={styles.sequence}>{index + 1}</span>
-                <span className={styles.detailname}> {detail.ex.name}</span>
-                <span className={styles.detaildesc}> {detail.ex.desc}</span>
-                <div className={styles.details}>
-                  <video className={styles.video} controls muted>
-                    <source src={detail.img[0]?.img} type='video/mp4' />
-                  </video>
-                </div>
+          {detailRoutine.result.routineDetails.map((detail, index) => (
+            <div key={detail.id} className={styles.routineDetail}>
+              <span className={styles.sequence}>{index + 1}</span>
+              <span className={styles.detailname}> {detail.ex.name}</span>
+              <span className={styles.detaildesc}> {detail.ex.desc}</span>
+              <div className={styles.details}>
+                <video className={styles.video} controls muted>
+                  <source src={detail.img[0]?.img} type='video/mp4' />
+                </video>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
 
         <div className={styles.button}>

@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import styles from '../../css/Live/LiveDetail.module.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,14 +6,10 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const LiveDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
-  const [loading, setLoading] = useState(false); //
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const { routineId, liveId, livesubject, livenick } = props.live;
-
-  const windowClose = () => {
-    window.close();
-  };
 
   const liveStart = () => {
     props.setRoomId(liveId);
@@ -34,7 +28,6 @@ const LiveDetail = (props) => {
       );
       setDetailRoutine(response.data);
     } catch (e) {
-      console.log(e);
       setError(e);
     }
     setLoading(false);
@@ -43,8 +36,6 @@ const LiveDetail = (props) => {
   useEffect(() => {
     fetchroutine();
   }, []);
-
-  console.log(detailRoutine);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;

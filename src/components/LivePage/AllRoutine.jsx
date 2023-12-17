@@ -37,9 +37,6 @@ export default function AllRoutine({
     if (showBtn) socketSetModify(routineActionId);
   };
 
-  console.log('routine from AllRoutine: ', routine);
-  console.log('currentEx from AllRoutine: ', currentEx);
-
   return (
     <div className={styles.allRoutinePopup}>
       <div className={styles.allRoutine}>
@@ -55,9 +52,8 @@ export default function AllRoutine({
         <div className={styles.routineDetails}>
           {routine?.routineDetails?.map((detail, index) =>
             detail.type ? (
-              <div className={styles.detailModify}>
+              <div className={styles.detailModify} key={detail.id}>
                 <div
-                  key={detail.id}
                   className={`${styles.routineDetail} ${
                     !showBtn && styles.noModify
                   } ${
@@ -114,9 +110,8 @@ export default function AllRoutine({
                   )}
               </div>
             ) : (
-              <div className={styles.detailModify}>
+              <div className={styles.detailModify} key={detail.id}>
                 <div
-                  key={detail.id}
                   className={`${styles.routineDetail} ${
                     !showBtn && styles.noModify
                   } ${

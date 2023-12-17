@@ -3,10 +3,7 @@
     padding: 30px;
   }
 
-  /* Header */
-
   .CalendarHeader {
-    /* background-color: beige; */
     text-align: center;
     background-color: #e6f7f2;
     border-top-left-radius: 25px;
@@ -25,7 +22,6 @@
     display: inline;
   }
 
-  /* days */
   .dayContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -41,22 +37,14 @@
     align-items: center;
     justify-content: center;
   }
-  /* main */
   .dateContainer {
     max-width: 400px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1px;
-    /* margin-top: 10px;
-    margin-left: 10px; */
-    /* border-radius: 15px; */
   }
 
   .topLine {
-    /* display: flex; */
-    /* gap: 5px; */
-    /* padding: 0 3px; */
-    /* margin-bottom: 90px; */
     height: 50px;
   }
 
@@ -85,11 +73,9 @@
   .mobilecomment {
     color: #94e6ce;
     font-size: 2rem;
-    /* text-align: center; */
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: #7650e0; */
   }
   .clickdate {
     text-align: center;
@@ -102,10 +88,7 @@
     padding: 100px;
   }
 
-  /* Header */
-
   .CalendarHeader {
-    /* background-color: beige; */
     text-align: center;
     background-color: #e6f7f2;
     border-top-left-radius: 30px;
@@ -124,7 +107,6 @@
     display: inline;
   }
 
-  /* days */
   .dayContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -133,7 +115,6 @@
   }
   .days {
     padding: 10px;
-    /* text-align: center; */
     font-weight: bold;
     height: 30px;
     border-radius: 10px;
@@ -142,7 +123,6 @@
     align-items: center;
     justify-content: center;
   }
-  /* main */
   .dateContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -157,7 +137,6 @@
     gap: 5px;
     padding: 0 3px;
     height: 100px;
-    /* align-items: center; */
   }
 
   .currentMonth {
@@ -167,8 +146,6 @@
     color: #ffffff;
   }
 
-  .datebutton {
-  }
   .day {
     padding: 5px;
     font-weight: bold;
@@ -179,7 +156,6 @@
     align-items: center;
     justify-content: center;
   }
-  /*addcalendar*/
 
   .clickdate {
     text-align: center;
@@ -194,33 +170,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: #7650e0; */
   }
   .routineLabel {
     font-size: 28px;
-    /* text-align: center; */
     margin-left: 10px;
     padding-bottom: 10px;
   }
 
   .MyRoutineListarr {
-    /* height: 70%; */
     margin: 0 10px;
     height: 400px;
     overflow-y: scroll;
-    /* background: #f3edff; */
-    /* height: 70%; */
     background: linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
     background: -webkit-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
     background: -moz-linear-gradient(112deg, #f3edff 0%, #d2cece 130%);
   }
 
   .MyroutineClick {
-    /* width: 500px; */
     border: none;
     background-color: transparent;
     margin: 20px 15px;
-    /* margin: 30px; */
     cursor: pointer;
   }
 
@@ -230,7 +199,6 @@
 
   .subject {
     text-align: left;
-    /* padding-bottom: 10px; */
   }
 
   .cates {
@@ -245,10 +213,8 @@
   }
 
   .myhits {
-    /*background-color: blanchedalmond;*/
     font-size: 20px;
     text-align: right;
-    /* display: inline-block; */
     height: 30px;
     margin-right: 20px;
     width: 18em;
@@ -265,26 +231,21 @@
 
   .button {
     border: none;
-    /* display: inline-block; */
-    /* margin: 15px; */
-    /* text-align: center; */
     margin: 20px;
     padding: 15px 30px;
     border-radius: 15px;
-    font-family: "paybooc-Light", sans-serif;
+    font-family: 'paybooc-Light', sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 500;
     transition: 0.25s;
     background-color: #7650e0;
     color: #d7fff1;
-    /* margin: 10px; */
-    /* margin-left: 130px; */
     cursor: pointer;
   }
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -296,6 +257,6 @@ input[type="checkbox"] {
   outline: 0;
   width: 16px;
 }
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
   background-color: #94e6ce;
 }

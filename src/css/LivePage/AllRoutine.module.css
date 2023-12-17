@@ -143,13 +143,11 @@
   background-color: var(--light-grey);
   width: 100%;
   height: 300px;
-  /* padding: 110px 55px; */
   border-radius: 14px;
   margin-top: 14px;
 }
 
 .video {
-  /* width: 100px; */
   width: 100%;
   border-radius: 14px;
   margin-top: 14px;

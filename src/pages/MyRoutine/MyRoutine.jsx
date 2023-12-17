@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/MyRoutine/MyRoutine.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaHeart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getCookieToken } from '../../store/Cookie';
 import MyRoutineDetail from './MyRoutineDetail';
@@ -17,13 +16,10 @@ export default function MyRoutine() {
   const [isRoutineDetailPopup, setIsRoutineDetailPopup] = useState(false);
   const [routineId, setRoutineId] = useState('');
   const [myroutid, setMyroutid] = useState('');
-  const [searchbool, setSearchbool] = useState(false); //검색 여부
-  const [reloading, setReLoading] = useState(false); //검색이 끝나고 데이터 다시 받아오기 위해
-
-  const navigate = useNavigate();
+  const [searchbool, setSearchbool] = useState(false);
+  const [reloading, setReLoading] = useState(false);
 
   const SearchValue = (event) => {
-    //검색 값
     setMyroutineSearch(event.target.value);
   };
 
@@ -34,8 +30,6 @@ export default function MyRoutine() {
   };
 
   const onClickSearch = () => {
-    //검색 버튼 함수
-
     let sArray = myroutinedata.filter(
       (search) =>
         search.routine.routineSubject.includes(myroutineSearch) ||
@@ -43,12 +37,9 @@ export default function MyRoutine() {
     );
     setMyRoutindata(sArray);
     setSearchbool(true);
-    //검색관리
   };
   const onPress = (e) => {
     if (e.key === 'Enter') {
-      //검색 버튼 함수
-
       let sArray = myroutinedata.filter(
         (search) =>
           search.routine.routineSubject.includes(myroutineSearch) ||
@@ -84,7 +75,6 @@ export default function MyRoutine() {
       setMyRoutindata(response.data.result);
     } catch (e) {
       setError(e);
-      console.log('에러 발생', e);
     }
     setLoading(false);
   };
@@ -97,12 +87,11 @@ export default function MyRoutine() {
   if (error) return <div>에러발생</div>;
   if (!myroutinedata) return <div>null</div>;
 
-  console.log('myroutine data: ', myroutinedata);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>my routine</div>
       <div className={styles.searchContainer}>
-        <input //검색어 받기
+        <input
           type='text'
           className={styles.routinesearch}
           placeholder='Search'
@@ -133,56 +122,52 @@ export default function MyRoutine() {
         </button>
       </div>
       <div className={styles.RoutineListarr}>
-        {myroutinedata?.map(
-          (
-            myroutine //내 루틴들 보여주기
-          ) => (
-            <div
-              key={myroutine.routineId}
-              type='button' //상세정보 보여주기 버튼
-              className={styles.MyroutineClick}
-            >
-              <div className={styles.MyRoutineListItem}>
-                <div className={styles.subjectHits}>
-                  <span className={styles.subject}>
-                    {myroutine.routine.routineSubject}
-                  </span>
+        {myroutinedata?.map((myroutine) => (
+          <div
+            key={myroutine.routineId}
+            type='button'
+            className={styles.MyroutineClick}
+          >
+            <div className={styles.MyRoutineListItem}>
+              <div className={styles.subjectHits}>
+                <span className={styles.subject}>
+                  {myroutine.routine.routineSubject}
+                </span>
 
-                  <div className={styles.hitBox}>
-                    <span className={styles.dot}>∙</span>
-                    <span className={styles.myhits}>
-                      운동 횟수 {myroutine.routine.count}회
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.createBox}>
+                <div className={styles.hitBox}>
                   <span className={styles.dot}>∙</span>
-                  <span className={styles.createDate}>
-                    생성일 {myroutine.routine.createDate}
+                  <span className={styles.myhits}>
+                    운동 횟수 {myroutine.routine.count}회
                   </span>
-                </div>
-                <div className={styles.heartIconBox}>
-                  <FaHeart className={styles.heartIcon} />
-                </div>
-                <div className={styles.cates}>
-                  {myroutine.cate.map((item, index) => (
-                    <span key={index} className={styles.actionCate}>
-                      #{item}
-                    </span>
-                  ))}
                 </div>
               </div>
-              <button
-                className={styles.addmyroutinebtn}
-                onClick={() =>
-                  onPopup(myroutine.routine.routineId, myroutine.routine.id)
-                }
-              >
-                자세히 보기
-              </button>
+              <div className={styles.createBox}>
+                <span className={styles.dot}>∙</span>
+                <span className={styles.createDate}>
+                  생성일 {myroutine.routine.createDate}
+                </span>
+              </div>
+              <div className={styles.heartIconBox}>
+                <FaHeart className={styles.heartIcon} />
+              </div>
+              <div className={styles.cates}>
+                {myroutine.cate.map((item, index) => (
+                  <span key={index} className={styles.actionCate}>
+                    #{item}
+                  </span>
+                ))}
+              </div>
             </div>
-          )
-        )}
+            <button
+              className={styles.addmyroutinebtn}
+              onClick={() =>
+                onPopup(myroutine.routine.routineId, myroutine.routine.id)
+              }
+            >
+              자세히 보기
+            </button>
+          </div>
+        ))}
         <div>
           {searchbool ? (
             <button className={styles.backbutton} onClick={backscreen}>

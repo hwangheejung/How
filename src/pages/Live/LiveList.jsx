@@ -1,8 +1,7 @@
-import React, { useTransition } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from '../../css/Live/LiveList.module.css';
-import { useNavigate } from 'react-router-dom';
-import { AiOutlineSearch, AiOutlinePlusSquare } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import axios from 'axios';
 import LiveDetail from './LiveDetail';
 import MakeLive from './MakeLive';
@@ -10,12 +9,11 @@ import OwnerLiveSetting from './OwnerLiveSetting';
 import LiveSetting from './LiveSetting';
 
 export default function LiveList() {
-  const [livedata, setLivedata] = useState([]); //live data가져오기
-  const [loading, setLoading] = useState(false); //
+  const [livedata, setLivedata] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [liveSearch, setliveSearch] = useState(''); //live 검색어
+  const [liveSearch, setliveSearch] = useState('');
 
-  // 모달창
   const [isLiveDetail, setIsLiveDetail] = useState(false);
   const [live, setLive] = useState({
     rotuineId: '',
@@ -29,14 +27,11 @@ export default function LiveList() {
   const [subject, setSubject] = useState('');
   const [isParticipateSetting, setIsParticipateSetting] = useState(false);
 
-  const [searchbool, setSearchbool] = useState(false); //검색 여부
-  const [reloading, setReLoading] = useState(false); //검색이 끝나고 데이터 다시 받아오기 위해
-
-  const navigate = useNavigate();
+  const [searchbool, setSearchbool] = useState(false);
+  const [reloading, setReLoading] = useState(false);
 
   const SearchValue = (event) => {
     setliveSearch(event.target.value);
-    //console.log(event.target.value);
   };
 
   const onPopupdetail = (routineId, liveId, livesubject, livenick) => {
@@ -61,10 +56,6 @@ export default function LiveList() {
 
       setLivedata(sArray);
       setSearchbool(true);
-      // console.log(sArray);
-
-      //console.log(searchArray);
-      // navigate('/liveSearch', { state: { sArray } });
     }
   };
   const onClick = () => {
@@ -75,9 +66,6 @@ export default function LiveList() {
 
     setLivedata(sArray);
     setSearchbool(true);
-
-    //console.log(searchArray);
-    // navigate('/liveSearch', { state: { sArray } });
   };
   const backscreen = () => {
     setSearchbool(false);
@@ -90,11 +78,8 @@ export default function LiveList() {
       setError(null);
 
       const response = await axios.get('https://52.78.0.53.sslip.io/api/lives');
-      // const response = await axios.get(
-      //   'http://52.78.0.53.sslip.io:8080/api/lives'
-      // );
+
       setLivedata(response.data.result.liveListMappings);
-      // console.log(response.data.result.liveListMappings);
     } catch (e) {
       setError(e);
     }
@@ -120,7 +105,7 @@ export default function LiveList() {
           />
         </div>
         <button className={styles.insertLive} onClick={onPopupMakeLive}>
-          {/* <AiOutlinePlusSquare size='25' /> */}+
+          +
         </button>
       </div>
       <div className={styles.searchContainer}>

@@ -14,22 +14,6 @@ export default function Routinedetail() {
     navigate('/routine/list');
   };
 
-  // const onPopup = (id) => {
-  //   //팝업 관리
-  //   const width = 500;
-  //   const height = 700;
-  //   const x = window.outerWidth / 2 - width / 2;
-  //   const y = window.outerHeight / 2 - height / 2;
-
-  //   const url = `/routinedetail/${id}`;
-  //   window.open(
-  //     url,
-  //     'window_name',
-  //     `width=${width},height=${height},location=no,status=no,scrollbars=yes,top=${y},left=${x}`
-  //   );
-  //   //navigate(`/routindetail/${id}`, { state: { id } });
-  //   //myRoutine.document.write(id);
-  // };
   const onPopup = (id) => {
     setDetailId(id);
     setDetailPopup(true);
@@ -41,7 +25,6 @@ export default function Routinedetail() {
 
   let location = useLocation();
   const SearchArray = location.state.sArray;
-  console.log('SearchArray', SearchArray);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>Search</div>

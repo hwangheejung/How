@@ -7,15 +7,12 @@
   width: 60%;
   float: left;
   box-sizing: border-box;
-  /* background-color: #d7fff1;*/
 }
 
 .timer {
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
-  /* text-align: right; */
-  /* margin: 10px; */
 }
 
 .detailname {

@@ -73,7 +73,6 @@
 
 .MyroutineClick {
   width: 100%;
-  /* width: 350px; */
   height: 170px;
   border-radius: 24px;
   background-color: #cceede;
@@ -87,7 +86,6 @@
 }
 
 .selected {
-  /* background-color: #b9a4f0; */
   border: 3px solid #00aa81;
 }
 
@@ -229,7 +227,6 @@
 
   .MyroutineClick {
     width: 100%;
-    /* width: 350px; */
     height: 228px;
     border-radius: 24px;
     background-color: #cceede;
@@ -243,7 +240,6 @@
   }
 
   .selected {
-    /* background-color: #b9a4f0; */
     border: 3px solid #00aa81;
   }
 

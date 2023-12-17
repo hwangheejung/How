@@ -30,7 +30,6 @@ export default function MyRoutineSearch() {
 
   let location = useLocation();
   const SearchArray = location.state.sArray;
-  console.log(location.state.sArray);
   return (
     <div className={styles.header}>
       <div className={styles.Routine}>Search</div>

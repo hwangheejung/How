@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styles from "../../css/RoutineStart/RoutineAllDetail.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from 'react';
+import styles from '../../css/RoutineStart/RoutineAllDetail.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 export default function RoutineAllDetail(props) {
   return (
@@ -10,8 +10,8 @@ export default function RoutineAllDetail(props) {
         <div className={styles.routineDetails}>
           {props.detailRoutine?.map((detail, index) =>
             detail.type ? (
-              <div className={styles.detailModify}>
-                <div key={detail.id} className={styles.routineDetail}>
+              <div className={styles.detailModify} key={detail.id}>
+                <div className={styles.routineDetail}>
                   <span className={styles.sequence}>{index + 1}</span>
                   <span className={styles.detailname}> {detail.ex.name}</span>
                   <div className={styles.details}>
@@ -34,8 +34,8 @@ export default function RoutineAllDetail(props) {
                 </div>
               </div>
             ) : (
-              <div className={styles.detailModify}>
-                <div key={detail.id} className={styles.routineDetail}>
+              <div className={styles.detailModify} key={detail.id}>
+                <div className={styles.routineDetail}>
                   <span className={styles.sequence}>{index + 1}</span>
                   <span className={styles.detailname}> {detail.ex.name}</span>
                   <div className={styles.details}>

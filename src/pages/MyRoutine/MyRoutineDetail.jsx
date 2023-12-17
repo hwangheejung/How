@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../css/MyRoutine/MyRoutineDetailPopup.module.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +7,7 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const MyRoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
-  const [loading, setLoading] = useState(false); //
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ const MyRoutineDetail = (props) => {
       );
       setDetailRoutine(response.data);
     } catch (e) {
-      console.log(e);
       setError(e);
     }
     setLoading(false);

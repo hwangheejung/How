@@ -6,13 +6,7 @@ export default function Videos({ myMedia, myInfo, streams, nicknames }) {
   return (
     <div className={styles.videoContainer}>
       <div className={styles.video}>
-        <video
-          className={styles.v}
-          playsInline
-          ref={myMedia}
-          autoPlay
-          // style={{ width: '400px', height: '400px' }}
-        />
+        <video className={styles.v} playsInline ref={myMedia} autoPlay />
         <div className={styles.nickname}>{myInfo.nickname}</div>
       </div>
       {streams.map((streamInfo, index) => (

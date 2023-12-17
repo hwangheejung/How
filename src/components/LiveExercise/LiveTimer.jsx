@@ -1,5 +1,4 @@
 import { React, useState, useRef, useEffect } from 'react';
-// import styles from '../../css/Timer/readyTimer.module.css';
 import styles from '../../css/Live/LiveExStart.module.css';
 
 const LiveTimer = (props) => {
@@ -30,7 +29,6 @@ const LiveTimer = (props) => {
   }, [seconds]);
 
   useEffect(() => {
-    console.log('timer test');
     if (!props.stopbutton) {
       clearInterval(timerId.current);
     }
@@ -59,29 +57,6 @@ const LiveTimer = (props) => {
             START
           </button>
         ))}
-      {/* {!props.stopbutton && <div className={styles.stopText}>stop</div>} */}
-      {/* <div>
-      <div className={styles.ReadyTimer}>
-        <div className={styles.timer}>
-          {parseInt(time.current / 60)}:{time.current % 60}
-        </div>
-        <div className={styles.btnblock}>
-          {props.showBtn &&
-            (props.stopbutton ? (
-              <button onClick={onClickstop} className={styles.button}>
-                STOP
-              </button>
-            ) : (
-              <button onClick={onClickrestart} className={styles.button}>
-                RESTART
-              </button>
-            ))}
-        </div>
-      </div>
-
-      {!props.stopbutton && (
-        <div className={styles.stopbtn}>stop버튼이 눌렸습니다!</div>
-      )} */}
     </div>
   );
 };
