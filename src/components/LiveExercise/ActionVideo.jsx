@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styles from '../../css/LivePage/ActionVideo.module.css';
 
 export default function ActionVideo(props) {
-  const videoRef = useRef(null);
-
   return (
     <div className={styles.actionVideo}>
       <video className={styles.video} width='250' controls muted autoPlay>

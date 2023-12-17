@@ -9,7 +9,6 @@ export default function LiveInfo({
 }) {
   return (
     <div className={styles.header}>
-      {/* <div className={styles.titleMenuBar}> */}
       <div className={styles.liveTitle}> {liveTitle}</div>
       <div className={styles.colorBox}>
         <span className={styles.liveText}>live</span>
@@ -21,8 +20,6 @@ export default function LiveInfo({
       >
         <BiMenuAltRight className={styles.menuIcon} />
       </button>
-
-      {/* </div> */}
     </div>
   );
 }

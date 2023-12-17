@@ -6,8 +6,6 @@ const StartScreen = () => {
   const { id } = useParams();
   const onClickStart = () => {
     window.location.href = `/startex/${id}`;
-
-    //navigate(`/my/routine/list/${id}`, { state: { id } });
   };
   return (
     <div className={styles.startbuttonContainer}>

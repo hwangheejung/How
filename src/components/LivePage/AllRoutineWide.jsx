@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styles from "../../css/LivePage/AllRoutineWide.module.css";
-import ActionModify from "../LiveExercise/ActionModify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from 'react';
+import styles from '../../css/LivePage/AllRoutineWide.module.css';
+import ActionModify from '../LiveExercise/ActionModify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 export default function AllRoutineWide({
   routine,
@@ -27,7 +27,7 @@ export default function AllRoutineWide({
 
   const currentActionId = currentEx
     ? currentEx.ex.routinneDetailResult.ex.id
-    : "";
+    : '';
 
   useEffect(() => {
     if (isModify) {
@@ -56,9 +56,8 @@ export default function AllRoutineWide({
         <div className={styles.routineDetails}>
           {routine?.routineDetails?.map((detail, index) =>
             detail.type ? (
-              <div className={styles.detailModify}>
+              <div className={styles.detailModify} key={detail.id}>
                 <div
-                  key={detail.id}
                   className={`${styles.routineDetail} ${
                     !showBtn && styles.noModify
                   }`}
@@ -89,7 +88,6 @@ export default function AllRoutineWide({
                   selectedAction.id === detail.id &&
                   showBtn && (
                     <ActionModify
-                      // setIsModify={setIsModify}
                       routine={routine}
                       selectedAction={selectedAction}
                       socketModifyComplete={socketModifyComplete}
@@ -105,9 +103,8 @@ export default function AllRoutineWide({
                   )}
               </div>
             ) : (
-              <div className={styles.detailModify}>
+              <div className={styles.detailModify} key={detail.id}>
                 <div
-                  key={detail.id}
                   className={`${styles.routineDetail} ${
                     !showBtn && styles.noModify
                   }`}
@@ -138,7 +135,6 @@ export default function AllRoutineWide({
                   selectedAction.id === detail.id &&
                   showBtn && (
                     <ActionModify
-                      // setIsModify={setIsModify}
                       routine={routine}
                       selectedAction={selectedAction}
                       socketModifyComplete={socketModifyComplete}

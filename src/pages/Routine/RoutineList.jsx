@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaHeart } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../css/Routine/RoutineList.module.css';
 import RoutineDetail from './RoutineDetail';

@@ -1,9 +1,4 @@
 @media (max-width: 650px) {
-  .header {
-    /* width: 400px;
-    height: 840px; */
-  }
-
   .titleplus {
     padding-top: 7.5px;
     padding-bottom: 7.5px;
@@ -21,7 +16,6 @@
   }
 
   .Live {
-    /* width: 100px; */
     padding: 10px;
     font-size: 20px;
     font-weight: 700;
@@ -162,7 +156,6 @@
   }
 
   .Live {
-    /* width: 100px; */
     font-size: 30px;
     font-weight: 700;
     padding-right: 10px;
@@ -224,7 +217,6 @@
   }
 
   .LiveClick {
-    /* width: 530px; */
     width: 37%;
     height: 130px;
     border: none;

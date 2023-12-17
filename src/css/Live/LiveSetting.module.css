@@ -25,7 +25,6 @@
   .audioContainer {
     display: flex;
     flex-direction: column;
-    /* background-color: var(--main-color); */
     padding: 40px 50px;
     border-radius: 20px;
     margin-bottom: 10px;
@@ -38,7 +37,6 @@
 
   .cameraIcon,
   .audioIcon {
-    /* padding-bottom: 10px; */
     border: 1px solid rgb(0, 0, 0, 0.5);
     border-radius: 100%;
     padding: 14px;
@@ -78,7 +76,6 @@
   .audioContainer {
     display: flex;
     flex-direction: column;
-    /* background-color: var(--main-color); */
     padding: 40px 50px;
     border-radius: 20px;
     margin-bottom: 30px;
@@ -91,7 +88,6 @@
 
   .cameraIcon,
   .audioIcon {
-    /* padding-bottom: 10px; */
     border: 1px solid rgb(0, 0, 0, 0.5);
     border-radius: 100%;
     padding: 14px;

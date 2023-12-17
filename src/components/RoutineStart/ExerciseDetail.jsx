@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import styles from "../../css/RoutineStart/ExerciseDetail.module.css";
-import axios from "axios";
+import { React, useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import styles from '../../css/RoutineStart/ExerciseDetail.module.css';
+import axios from 'axios';
 
 const ExerciseDetail = () => {
   const [detailRoutine, setDetailRoutine] = useState(null);
@@ -25,7 +25,6 @@ const ExerciseDetail = () => {
       );
       setDetailRoutine(response.data.result.routineDetails);
     } catch (e) {
-      console.log(e);
       setError(e);
     }
     setLoading(false);
@@ -38,8 +37,6 @@ const ExerciseDetail = () => {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
-
-  //console.log(detailRoutine);
 
   return (
     <div>

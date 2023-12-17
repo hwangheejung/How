@@ -1,9 +1,4 @@
-/*앱 버전*/
 @media (max-width: 576px) {
-  .header {
-    /* width: 400px;
-    height: 840px; */
-  }
   .Routine {
     padding: 10px;
     font-size: 20px;
@@ -63,11 +58,6 @@
     border-radius: 25px;
     padding: 30px;
     margin: 10px;
-    /* width: 270px;
-    height: 180px;
-    
-    
-   */
   }
   .RoutineListItem {
     width: 100%;
@@ -113,10 +103,6 @@
     flex: 1;
     text-align: end;
     padding-right: 10px;
-
-    /* flex: 2; */
-    /* text-align: end; */
-    /* padding-right: 10px; */
   }
 
   .heartIcon {
@@ -164,7 +150,6 @@
     text-align: center;
   }
 }
-/*웹 버전 */
 @media (min-width: 575px) {
   .header {
     height: 100%;
@@ -230,7 +215,6 @@
   }
 
   .routineClick {
-    /* width: 530px; */
     width: 37%;
     height: 130px;
     border: none;

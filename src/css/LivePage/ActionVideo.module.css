@@ -16,7 +16,6 @@
     box-sizing: border-box;
     padding-top: 30px;
     flex: 1;
-    /* object-fit: cover; */
   }
 
   .video {

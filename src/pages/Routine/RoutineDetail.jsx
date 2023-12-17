@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../css/Routine/RoutineDetailPopup.module.css';
 import { getCookieToken } from '../../store/Cookie';
@@ -9,7 +9,7 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const RoutineDetail = (props) => {
   const [detailRoutine, setDetailRoutine] = useState(null);
-  const [loading, setLoading] = useState(false); //
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ const RoutineDetail = (props) => {
   const windowClose = () => {
     props.setDetailPopup(false);
     props.windowReload();
-    console.log('window close');
   };
 
   const myroutineinsert = (id) => {
@@ -47,7 +46,6 @@ const RoutineDetail = (props) => {
       );
       setDetailRoutine(response.data);
     } catch (e) {
-      console.log(e);
       setError(e);
     }
     setLoading(false);
@@ -60,7 +58,6 @@ const RoutineDetail = (props) => {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러발생</div>;
   if (!detailRoutine) return <div>null</div>;
-  console.log(detailRoutine.result);
   return (
     <div className={styles.routineDetailPopup}>
       <div className={styles.layout}>

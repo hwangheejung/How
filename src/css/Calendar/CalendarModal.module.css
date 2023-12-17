@@ -53,7 +53,6 @@
 
   .MyroutineClick {
     width: 100%;
-    /* width: 350px; */
     height: 170px;
     border-radius: 24px;
     background-color: #cceede;
@@ -65,7 +64,6 @@
   }
 
   .selected {
-    /* background-color: #b9a4f0; */
     border: 3px solid #00aa81;
   }
 
@@ -230,7 +228,6 @@
 
   .MyroutineClick {
     width: 100%;
-    /* width: 350px; */
     height: 228px;
     border-radius: 24px;
     background-color: #cceede;
@@ -244,7 +241,6 @@
   }
 
   .selected {
-    /* background-color: #b9a4f0; */
     border: 3px solid #00aa81;
   }
 
@@ -304,7 +300,7 @@
     background-color: #e5e5e5;
   }
 }
-input[type="checkbox"] {
+input[type='checkbox'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -316,6 +312,6 @@ input[type="checkbox"] {
   outline: 0;
   width: 16px;
 }
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
   background-color: #94e6ce;
 }

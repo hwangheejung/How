@@ -132,13 +132,6 @@ button {
   padding-right: 3px;
 }
 
-/* .video {
-  background-color: var(--light-grey);
-  padding: 110px 55px;
-  border-radius: 14px;
-  margin-top: 14px;
-} */
-
 .video {
   width: 100%;
   border-radius: 14px;
@@ -279,14 +272,6 @@ button {
     opacity: 0.5;
     padding-right: 3px;
   }
-
-  /* .video {
-    background-color: var(--light-grey);
-    padding: 200px 140px;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    border-radius: 20px;
-  } */
 
   button {
     font-size: 12px;

@@ -1,15 +1,7 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMicrophone,
-  faVideo,
-  faMicrophoneSlash,
-  faVideoSlash,
-} from '@fortawesome/free-solid-svg-icons';
 import { PiVideoCameraLight, PiVideoCameraSlash } from 'react-icons/pi';
 import { BiSolidMicrophoneOff, BiSolidMicrophone } from 'react-icons/bi';
 import { MdCallEnd } from 'react-icons/md';
-import { IoMdExit } from 'react-icons/io';
 import styles from '../../css/LivePage/Bottom.module.css';
 
 export default function Bottom({

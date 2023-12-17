@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { FaRegUser } from 'react-icons/fa';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../css/Header/Header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeCookieToken } from '../../store/Cookie';
@@ -11,8 +11,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { CiMenuBurger } from 'react-icons/ci';
 
-let currentPath = '';
-
 export default function Header({ menu, onMenu }) {
   const userInfo = useSelector((state) => state.userInfo);
   const [website, setWebsite] = useState(true);
@@ -20,18 +18,12 @@ export default function Header({ menu, onMenu }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
 
   useEffect(() => {
     if (window.outerWidth < 576) {
       setWebsite(!website);
     }
   }, [window.outerWidth]);
-
-  // useEffect(() => {
-  //   if (currentPath === location.pathname) window.location.reload();
-  //   currentPath = location.pathname;
-  // }, [location]);
 
   const handleLogout = () => {
     dispatch(DELETE_USERINFO());
@@ -120,7 +112,7 @@ export default function Header({ menu, onMenu }) {
               </Link>
               <div className={styles.userBoxLogout}>
                 <div className={styles.userBox}>
-                  <FaRegUser size="20" className={styles.userIcon} />
+                  <FaRegUser size='20' className={styles.userIcon} />
                   <span className={styles.userName}>{userInfo.nickname}</span>
                 </div>
                 <button

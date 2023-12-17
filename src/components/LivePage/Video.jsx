@@ -6,8 +6,6 @@ export default function Video({ streamInfo, nicknames }) {
 
   const streamRef = useRef();
 
-  // console.log('nicknames peerId check: ', nicknames);
-
   useEffect(() => {
     if (streamRef.current) {
       streamRef.current.srcObject = stream;
@@ -15,18 +13,9 @@ export default function Video({ streamInfo, nicknames }) {
   }, [stream, streamRef]);
 
   return (
-    // <div className={styles.videoInfo}>
     <div className={styles.video}>
-      <video
-        className={styles.v}
-        playsInline
-        ref={streamRef}
-        autoPlay
-        // style={{ width: '400px', height: '400px' }}
-      />
+      <video className={styles.v} playsInline ref={streamRef} autoPlay />
       <div className={styles.nickname}>{nicknames[peerId]}</div>
     </div>
-    /* <div className={styles.nickname}>{nicknames[peerId]}</div> */
-    // </div>
   );
 }
